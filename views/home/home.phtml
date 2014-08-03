@@ -1,0 +1,101 @@
+<div cass="home-page-banner">
+    <div class="home-page-text">
+        <p>Himalayan Dog Chew comes from an ancient recipe of the people of the Himalayas. In the mountains at more than 15,000 feet, it is made using traditional methods with Yak and Cow Milk and all natural products and no chemicals or preservatives. 
+
+Now, this piece of Himalayan culture is available to you and your Dog.</p>
+    </div>
+    <div class="home-page-slider">
+        <?php 
+            $slider_images = array();
+            foreach (glob("assets/uploads/slider_images/*.jpg") as $images)
+            {
+                array_push($slider_images, URL.$images);
+            }
+        ?>
+
+        <!-- SLIDER HERE ____ REPLACE THIS WITH DYNAMIC CONTENT -->
+
+        <ul class="slides">
+            <?php foreach($slider_images as $slider):?>
+                <li>
+                    <img src="<?php echo $slider?>"/>
+                    <!-- SLIDING TEXT HERE _____ REPLACE THIS WITH DYNAMIC CONTENT -->
+                    <p>Sliding Text</p>
+                </li>
+            <?php endforeach;?>
+        </ul>
+    </div>
+</div>
+<div class="what-others-say">
+
+    <!-- BLOGS -->
+    <div class="blogs">
+        <p>Blogs</p>
+        <ul>
+        <?php foreach($view_blogs as $blog):?>
+            <li><a href="<?php echo $blog['link']?>" target="_blank"><?php echo $blog['title']?></a></li>
+        <?php endforeach;?>
+        </ul>
+    </div>
+
+    <!-- Online Discussions -->
+    <div class="discussions">
+        <p>Online Discussions</p>
+        <ul>
+        <?php foreach($view_discussions as $discussion):?>
+            <li><a href="<?php echo $discussion['link']?>" target="_blank"><?php echo $discussion['title']?></a></li>
+        <?php endforeach;?>
+        </ul>
+    </div>
+
+    <!-- Videos -->
+    <div class="videos">
+        <p>Videos</p>
+        <ul>
+        <?php foreach($view_videos as $video):?>
+            <li><a href="<?php echo $video['link']?>" target="_blank"><?php echo $video['title']?></a></li>
+        <?php endforeach;?>
+        </ul>
+    </div>
+</div>
+
+<!-- ANNOUNCEMENTS__REPLACE THIS WITH DYNAMIC CONTENT -->
+<div class="announcements-events">
+    <div class="announcement">
+        <h3><small>Announcements &amp; Events</small></h3>
+
+        <p>Dear Dog Lovers:
+
+        We are devastated to learn the losses of so many dogs from taking the treats from China in the recent years. Our heart, prayers and solidarity are with the families who lost their dogs, the families who have dogs as their pets, and families who have pets.
+
+        Product of highest quality and confidence should be the most essential priority of any product manufacturer. We, at Himalayan, strive to bring such products in the market, and put all efforts to ensure that none of the ingredients and packaging materials is from China. We continue to procure our products from the USA and Nepal only, as we have in the past.
+
+        Please contact <a href="mailto:info@himalayandogchew.com">info@himalayandogchew.com</a> if you have any questions, concerns or suggestions.
+
+        Sujan Kumar Shrestha
+        Chairman & CEO</p>
+    </div>
+    <div class="events">
+        <h3>Please visit us at the following events for special discounts and offerings.</h3>
+        <ul>
+        <?php foreach($view_events as $event):?>
+            <li><a href='<?php echo $event["eventUrl"]?>' target="_blank"><strong><?php echo $event["eventName"]?></strong></a>;
+            <?php if($event['eventDesc']) echo $event['eventDesc'];?>
+            
+            <?php if($event['eventDateBegin']) echo date("F j, Y", strtotime($event['eventDateBegin'])) . " - ";
+            echo date("F j, Y", strtotime($event['eventDateEnd']));
+        ?>
+        </li>
+    <?php endforeach;?>
+        </ul>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('.home-page-slider').flexslider({
+    animation: "fade",
+    controlNav:false,
+    directionNav:true,
+  });
+    })
+</script>

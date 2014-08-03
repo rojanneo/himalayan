@@ -20,7 +20,7 @@ public function homeAction()
 	$data['discussions'] = $discussions;
 	$data['videos'] = $videos;
 	$data['events'] = $events;
-	$this->view->render('home.phtml', $data);
+	$this->view->render('home/home.phtml', $data);
 
 }
 

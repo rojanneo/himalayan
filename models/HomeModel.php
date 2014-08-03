@@ -1,6 +1,6 @@
 <?php
 
-require_once('system/model.php');
+//require_once('system/model.php');
 class HomeModel extends Model
 {
 	public function __construct()

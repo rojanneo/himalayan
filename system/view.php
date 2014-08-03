@@ -10,10 +10,10 @@
 		{
 			if($data)
 			extract($data, EXTR_PREFIX_ALL, "view");
-			include 'views/head.phtml';
-			include 'views/header.phtml';
+			include 'views/default/head.phtml';
+			include 'views/default/header.phtml';
 			include 'views/'.$name;
-			include 'views/footer.phtml';
+			include 'views/default/footer.phtml';
 		}
 	}
 ?>

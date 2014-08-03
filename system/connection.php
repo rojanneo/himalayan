@@ -64,7 +64,14 @@
 				
 				public function InsertQuery($query)
 				{
-					$result = mysql_query($query, self::$db) or die(mysql_error(self::$db)) ;
+					try
+					{
+						$result = mysql_query($query, self::$db) or die(mysql_error(self::$db)) ;						
+					}
+					catch(Exception $e)
+					{
+						die($e->getMessage());
+					}
 				}
 				
 				public function CreateQuery($query)

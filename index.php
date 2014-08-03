@@ -1,5 +1,7 @@
 <?php
 	//require_once 'config/config.php';
+	require_once 'system/controller.php';
+	require_once 'system/model.php';
 	require_once 'helpers/Autoload.php';
 	foreach (glob("config/*.php") as $configs)
 	{
@@ -23,7 +25,7 @@
 		$control = $url[0].'Controller';
 		if(!class_exists($control))
 		{
-		include('views/404.phtml');
+		include('views/default/404.phtml');
 		}
 		else
 		{
@@ -31,7 +33,7 @@
 			$function = $url[1].'Action';
 			if(!method_exists($controller, $function))
 			{
-				include('views/404.phtml');
+				include('views/default/404.phtml');
 			}
 			else
 			{
@@ -47,7 +49,7 @@
 			$control = $url[0].'Controller';
 			if(!class_exists($control))
 			{
-			include('views/404.phtml');
+			include('views/default/404.phtml');
 			}
 			else
 			{
@@ -55,7 +57,7 @@
 				$function = $url[1].'Action';
 				if(!method_exists($controller, $function))
 				{
-					include('views/404.phtml');
+					include('views/default/404.phtml');
 				}
 				else
 				{
@@ -72,7 +74,7 @@
 				$control = $url[0].'Controller';
 				if(!class_exists($control))
 				{
-					include('views/404.phtml');
+					include('views/default/404.phtml');
 				}
 				else
 				{
@@ -80,7 +82,7 @@
 					$default_act = 'indexAction';
 					if(!method_exists($controller, $default_act))
 					{
-						include('views/404.phtml');
+						include('views/default/404.phtml');
 					}
 					else
 					{
