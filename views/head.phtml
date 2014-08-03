@@ -1,0 +1,13 @@
+<html>
+<head>
+<title>Home</title>
+
+<?php foreach (glob("assets/css/*.css") as $filename):?>
+	<link rel="stylesheet" type="text/css" href="<?php echo URL.$filename?>">
+<?php endforeach;?>
+
+<?php foreach (glob("assets/js/*.js") as $filename):?>
+	<script src="<?php echo URL.$filename?>"></script>
+<?php endforeach;?>
+</head>
+<body>

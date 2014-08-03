@@ -1,5 +1,5 @@
 <?php
-			require_once '../config/sqlDefinitions.php';
+			require_once 'config/sqlDefinitions.php';
 			
 //			$db = mysql_connect(MYSQL_Server, MYSQL_User,MYSQL_Password) or die(mysql_error($db));
 //			mysql_select_db(DATABASE, $db) or die(mysql_error($db));
@@ -16,28 +16,28 @@
 					
 					self::$db = mysql_connect(MYSQL_Server, MYSQL_User, MYSQL_Password) or die(mysql_error(self::$instance));
 					
-					mysql_query("CREATE DATABASE IF NOT EXISTS movies_db", self::$db);
+					//mysql_query("CREATE DATABASE IF NOT EXISTS movies_db", self::$db);
 					
 					mysql_select_db(DATABASE);
 				}
 				
-				public function CreateDatabase()
-				{
+				// public function CreateDatabase()
+				// {
 						
 					
 					
-					mysql_query("INSERT INTO usertypes VALUES('','standard')");
-					mysql_query("INSERT INTO usertypes VALUES('', 'admin')");
+				// 	mysql_query("INSERT INTO usertypes VALUES('','standard')");
+				// 	mysql_query("INSERT INTO usertypes VALUES('', 'admin')");
 					
-					mysql_query("INSERT INTO languages VALUES('','English')");
+				// 	mysql_query("INSERT INTO languages VALUES('','English')");
 
-					mysql_query("INSERT INTO genres VALUES('','Action')");
-					mysql_query("INSERT INTO genres VALUES('','Sci Fi')");
+				// 	mysql_query("INSERT INTO genres VALUES('','Action')");
+				// 	mysql_query("INSERT INTO genres VALUES('','Sci Fi')");
 					
-					mysql_query("INSERT INTO users VALUES('rojan_neo', 'Rojan', 'Shrestha', '1992-02-19', 'Description', '123', 'rojan_neo@hotmail.com',2)");
+				// 	mysql_query("INSERT INTO users VALUES('rojan_neo', 'Rojan', 'Shrestha', '1992-02-19', 'Description', '123', 'rojan_neo@hotmail.com',2)");
 
 					
-				}
+				// }
 				
 				
 				public static function GetInstance()

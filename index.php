@@ -77,16 +77,23 @@
 				else
 				{
 					$controller = new $control();
-					$default_act = default_action.'Action';
-					$controller->$default_act();
+					$default_act = 'indexAction';
+					if(!method_exists($controller, $default_act))
+					{
+						include('views/404.phtml');
+					}
+					else
+					{
+						$controller->$default_act();
+					}
 				}
 				
 			}
 			else
 			{
-				$default_cont = default_controller.'Controller';
+				$default_cont = DEFAULT_CONTORLLER.'Controller';
 				$controller = new default_cont();
-				$default_act = default_action.'Action';
+				$default_act = DEFAULT_ACTION.'Action';
 				$controller->$default_act();
 			}
 		}
