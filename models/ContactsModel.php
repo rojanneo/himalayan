@@ -14,11 +14,11 @@ class ContactsModel extends Model
 		
 		$this->connection->InsertQuery($query);
 
-		$to      = 'rojan.ku@gmail.com';
+		$to      = 'rojan.ku@gmail.com'; // Put appropirate email in this section
 		$subject = 'the subject';
-		$message = 'hello';
-		$headers = 'From: rojan.neo@gmail.com' . "\r\n" .
-		    'Reply-To: rojan.neo@gmail.com' . "\r\n" .
+		$message = 'hello'; // Put mail content here
+		$headers = 'From:  info@himalandogchew.com' . "\r\n" .
+		    'Reply-To: info@himalandogchew.com' . "\r\n" .
 		    'X-Mailer: PHP/' . phpversion();
 		try
 		{

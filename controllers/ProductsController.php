@@ -17,6 +17,8 @@ class ProductsController extends Controller
 
 	public function listAction($category_id = null)
 	{
-		$this->view->render('products/list.phtml');
+		//MAKE THIS DYNAMIC
+		$data['category_id'] = $category_id;
+		$this->view->render('products/list.phtml',$data);
 	}
 }

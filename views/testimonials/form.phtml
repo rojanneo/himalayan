@@ -1,0 +1,19 @@
+<?php require_once('system/recaptchalib.php');
+$error = null;
+?>
+<div class="testimonials-form">
+<form method = "post" action ="http://192.168.1.107/himalayan/testimonials/testimonialPost">
+<input type="hidden" value="<?php echo date('Y-m-d H:i:s');?>" name="t_dt"/>
+	<label for = "t_name">Name</label>
+	<input type="text" name="t_name"/>
+	<label for = "t_email">Email</label>
+	<input type="text" name="t_email"/>
+	<label for = "t_add">city & state</label>
+	<input type="text" name="t_add"/>
+	<label for = "t_comment">testimonial</label>
+	<input type="text" name="t_comment"/>
+	<?php echo recaptcha_get_html(CAPTCHA_PUBLIC_KEY, $error);?>
+	<input type="submit" value="submit"/>
+</form>
+<a href="<?php echo URL.'testimonials/show'?>">See what people are saying about our creations</a>
+</div>

@@ -19,4 +19,13 @@ if (!defined('ASSET_URL')) {
 	define('ASSET_URL', URL.'assets/');
 }
 
+if (!defined('CAPTCHA_PUBLIC_KEY')) {
+	define('CAPTCHA_PUBLIC_KEY', '6Lcb-_cSAAAAAJDbx1f7OgP6Eigh39fuxBIKoGJ8');
+}
+
+if (!defined('CAPTCHA_PRIVATE_KEY')) {
+	define('CAPTCHA_PRIVATE_KEY', '6Lcb-_cSAAAAAGTU-Fgeosq9j9rcbK2G1qbsjrmD');
+}
+
+
 ?>

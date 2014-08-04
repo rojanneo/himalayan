@@ -1,1 +1,94 @@
 <h1>Listing Page</h1>
+<!-- FOR CATEGORY DOG CHEWS -->
+<?php if($view_category_id == 1):?>
+	<div class="dog-chews">
+		<div class="description">
+			<h3>Himalayan Dog Chew</h3>
+			<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla justo velit, luctus non odio eget, pulvinar tempor neque. Donec porta, dolor sed tincidunt aliquam, lacus massa faucibus libero, vel tempor elit risus ac leo. Integer lacinia metus eu enim tincidunt tincidunt. Suspendisse imperdiet aliquam metus a porttitor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque at quam augue. Praesent purus urna, sagittis rutrum dolor ut, malesuada interdum risus. Praesent ornare neque velit, quis luctus nunc viverra non. Vivamus viverra eleifend ipsum ut malesuada. Maecenas vel mi in sem congue fermentum. Phasellus bibendum, massa suscipit porttitor pulvinar, quam nibh lobortis odio, eget rutrum nibh tortor vitae ante. Aliquam ligula tortor, pellentesque at porta sit amet, venenatis volutpat erat. Sed egestas arcu ac est convallis pulvinar. Phasellus eget dui ut justo aliquam commodo. Nullam sodales enim adipiscing, tristique ipsum a, elementum enim. Pellentesque tristique arcu non vulputate ultrices.
+
+			In at ornare nisi, sed feugiat velit. Donec id molestie mauris. Praesent at iaculis erat, non adipiscing tortor. Cras sed justo venenatis, ullamcorper elit a, adipiscing metus. Integer ullamcorper, nunc vitae aliquam bibendum, leo neque vestibulum leo, non pellentesque augue urna congue mi. Aenean ac pellentesque augue. Nunc id justo ipsum. Cras tortor erat, posuere tincidunt tellus at, pharetra euismod diam. Cras nisl leo, volutpat vitae libero vel, feugiat dapibus purus.
+			</p>
+		</div>
+		<div class="product-list-header">
+			<p><span>For Dogs Under</span><span><a href="#">back to creations</a></p>
+		</div>
+		<div class="product-list">
+			<ul class="list">
+				<li class="red"><a href="#">15 lbs</a><li>
+				<li class="green"><a href="#">35 lbs</a><li>
+				<li class="blue"><a href="#">55 lbs</a><li>
+				<li class="yellow"><a href="#">65 lbs</a><li>
+				<li class="grey"><a href="#">75 lbs</a><li>
+			</ul>
+		</div>
+		<div class="products">
+			<ul class="slides">
+				<li class="no-color">
+				<div class="product">
+					<img src="<?php echo ASSET_URL.'images/chews.png'?>"/>
+					<div class="category-detail">
+						<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+						<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+					</div>
+				</div>
+				</li>
+				<li class="red" style="display:none">
+					<div class="product">
+					<img src="<?php echo ASSET_URL.'images/bag_red.jpg'?>"/>
+					<div class="category-detail">
+						<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+						<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+					</div>
+					</div>
+				</li>
+				<li class="green" style="display:none">
+					<div class="product">
+					<img src="<?php echo ASSET_URL.'images/bag_green.jpg'?>"/>
+					<div class="category-detail">
+						<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+						<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+					</div>
+					</div>
+				</li>
+				<li class="blue" style="display:none">
+					<div class="product">
+					<img src="<?php echo ASSET_URL.'images/bag_blue.jpg'?>"/>
+					<div class="category-detail">
+						<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+						<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+					</div>
+					</div>
+				</li>
+				<li class="yellow" style="display:none">
+					<div class="product">
+					<img src="<?php echo ASSET_URL.'images/bag_yellow.jpg'?>"/>
+					<div class="category-detail">
+						<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+						<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+					</div>
+					</div>
+				</li>
+				<li class="grey" style="display:none">
+					<div class="product">
+					<img src="<?php echo ASSET_URL.'images/bag_gray.jpg'?>"/>
+					<div class="category-detail">
+						<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+						<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+					</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		$('ul.list li a').click(function(){
+			var class_name = ($(this).parent().attr('class'));
+			$('.products .slides li').hide();
+			$('.products .slides .'+class_name).show();
+		});
+	</script>
+<!-- DOG CHEW CATEGORY ENDS HERE -->
+
+
+<?php endif;?>
