@@ -1,5 +1,4 @@
 <?php
-require_once 'system/controller.php';
 class HomeController extends Controller
 {
 public function __construct()

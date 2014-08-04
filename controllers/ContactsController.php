@@ -1,7 +1,5 @@
 <?php
 
-require_once 'system/controller.php';
-
 class ContactsController extends Controller
 {
 	public function __construct()
