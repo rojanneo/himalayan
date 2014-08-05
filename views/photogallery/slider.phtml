@@ -1,0 +1,16 @@
+<div class="photogallery">
+<ul class="slides">
+<?php foreach($view_photos as $photo):?>
+	<li><img src="<?php echo ASSET_URL.$photo['photo_image']?>"/></li>
+<?php endforeach;?>
+</ul>
+</div>
+<script>
+ $(document).ready(function(){
+        $('.photogallery').flexslider({
+    animation: "fade",
+    controlNav:true,
+    directionNav:true,
+  });
+    });
+</script>
