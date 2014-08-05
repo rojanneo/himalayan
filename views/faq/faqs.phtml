@@ -1,0 +1,23 @@
+<div class="faqs">
+<ul>
+<?php foreach($view_faqs as $faq):?>
+	<li><a href="<?php echo URL.'faq/view/'.$faq['faq_id']?>"><?php echo $faq['faq_question'];?></a>
+<?php endforeach;?>
+</ul>
+</div>
+
+<div class="faq-search">
+<form method="post" action = "<?php echo URL.'faq/search'?>">
+<input type = "text" class="required input-box" name="faq-search-query"/>
+<input type ="submit" value = "Search"/> 
+</form>
+<?php if(isset($view_search_results)):?>
+<div class="search-results">
+<ul>
+<?php foreach($view_search_results as $result):?>
+	<li><a href="<?php echo URL.'faq/view/'.$result['faq_id']?>"><?php echo $result['faq_question']?></a></li>
+<?php endforeach;?>
+</ul>
+</div>
+<?php endif;?>
+</div>
