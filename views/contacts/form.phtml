@@ -3,13 +3,18 @@
 <div class="contact-form">
 	<form method = "post" action = "<?php echo URL.'contacts/messagePost'?>">
 		<label for ="sender_name">Name:</label>
-		<input type="text" class="required text-validation" name="sender_name"/>
+		<input type="text" class="input-box required text-validation" name="sender_name"/>
 		<label for = "sender_email">Email:</label>
-		<input type="text" class="required email-validation" name="sender_email"/>
+		<input type="text" class="input-box required email-validation" name="sender_email"/>
 		<label for ="message_nature">Nature</label>
-		<input type="text" class="required text-validation" name="message_nature"/>
+		<input type="text" class="input-box required number-validation" name="message_nature"/>
 		<label for ="message">Nature</label>
-		<textarea name="message" class="required text-validation" rows="10" cols="60"></textarea>
-		<input type="submit" value = "Submit"/>
+		<textarea name="message" class="input-box required text-validation" rows="10" cols="60"></textarea>
+		<input type="submit" value = "Submit" class="submit-button"/>
 	</form>
 </div>
+<script>
+$('.contact-form form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>
