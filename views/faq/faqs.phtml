@@ -21,3 +21,8 @@
 </div>
 <?php endif;?>
 </div>
+<script>
+$('.faq-search form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>
