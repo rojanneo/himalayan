@@ -19,6 +19,10 @@ if (!defined('ASSET_URL')) {
 	define('ASSET_URL', URL.'assets/');
 }
 
+if (!defined('UPLOAD_URL')) {
+	define('UPLOAD_URL', URL.'assets/uploads/');
+}
+
 if (!defined('CAPTCHA_PUBLIC_KEY')) {
 	define('CAPTCHA_PUBLIC_KEY', '6Lcb-_cSAAAAAJDbx1f7OgP6Eigh39fuxBIKoGJ8');
 }

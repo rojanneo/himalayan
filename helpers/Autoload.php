@@ -17,4 +17,12 @@ if(!function_exists('getModel'))
 		return $model;
 	}
 }
+
+if(!function_exists('loadView'))
+{
+	function loadView($filename)
+	{
+		include('views/'.$filename);
+	}
+}
 ?>

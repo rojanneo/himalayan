@@ -36,7 +36,7 @@ class LoginController extends Controller
 	{
 		
 
-			$data['logoutsucess']=Session::session_close();
+			Session::session_close();
 			loadHelper('url');	
 			//var_dump($data['logoutsucess']);
 			redirect('');
@@ -52,14 +52,14 @@ class LoginController extends Controller
 		$password = getPost('password');
 		if(Session::isLoggedIn()){
 			//$data['loginchecks']='Already Loggedin';
-			redirect('testimonials');
+			redirect('account');
 		}
 		elseif($username && $password)
 		{
 			$model = getModel('login');
 			$loginchecks = $model->login_check($username,$password);
 			if($loginchecks)
-				redirect('testimonials');
+				redirect('account');
 			else redirect('login');
 
 		}
