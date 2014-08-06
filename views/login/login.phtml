@@ -10,8 +10,9 @@
  //if(isset($view_loginchecks)){ echo $view_loginchecks; }
 
 ?>
-
 <a href="<?php echo URL.'login/register'?>">Sign Up</a>
+<?php Session::showErrorMessages();?>
+
 <form method = "post" action = "<?php echo URL.'login/loginto'?>">		
 Email <br><input type="text" name="username" size="40"><br>
  Password <br><input type="password" name="password" size="40"><br>

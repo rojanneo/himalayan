@@ -50,7 +50,7 @@ class LoginController extends Controller
 		loadHelper('url');
 		$username = getPost('username');
 		$password = getPost('password');
-		if(Session::getSessionId()){
+		if(Session::isLoggedIn()){
 			//$data['loginchecks']='Already Loggedin';
 			redirect('testimonials');
 		}

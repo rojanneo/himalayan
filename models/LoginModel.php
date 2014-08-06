@@ -13,7 +13,7 @@ class LoginModel extends Model
 		$pass = md5($password);
 		$query = "Select * from members where memail='".$username."' and mpass='".$pass."'";
 		$what = $this->connection->Query($query);
-		if(!empty($what))
+		if(!empty($what) and $what[0]['mconfirm'] == 1)
 		{
 			$data['message']=Session::createNewSession($what);
 			//$data['session']=$_SESSION['token'];
@@ -23,7 +23,15 @@ class LoginModel extends Model
 		else
 		{		
 		//$data['session']=$_SESSION['token'];
-			$data['message']='Username OR Password Donnt Match';
+			if(!empty($what))
+			{
+				Session::addErrorMessage('Account has not been activated');
+			}
+			else
+			{
+				Session::addErrorMessage('Username or Password Incorrect');
+			}
+
 		//var_dump($data);	die();		
 			return false;
 		}
