@@ -11,7 +11,7 @@
     	{
     		$.each(this.find('.'+class_of_input), function(i, input)
     		{
-    			if(($(input)).attr('type')  != 'submit')
+    			if(($(input)).attr('type')  == 'text')
     			{
 	    			var classes = $(input).attr('class');
 	    			classes = classes.split(' ');
@@ -48,6 +48,38 @@
 	    					}
 	    				}
 	    			}
+	        	}
+	        	else if(($(input)).attr('type')  == 'checkbox')
+	        	{
+	        	
+	    			var classes = $(input).attr('class');
+	    			classes = classes.split(' ');
+	    			for(var i = 0; i<classes.length; i++)
+	    			{
+	    				for(var j = 0; j<validation_rules.length; j++)
+	    				{
+	    					var obj = validation_rules[j];
+	    					if(obj.className == classes[i])
+	    					{
+	    						var errormsg = obj.errormsg;
+	    						var className = obj.className;
+	    						var name = $(input).attr('checkboxname');
+	    						//alert();
+	    						if(!$(input).is(":checked"))
+	    						{
+	    							$('p.'+className+name).remove();
+										
+									$('<p class = "'+className+name+'">'+errormsg+'</p>').insertAfter($(input));
+	    						}
+	    						else
+	    						{
+	    							//alert('here');
+	    							  $('p.'+className+name).remove();
+	    						}
+	    					}
+	    				}
+	    			}
+	        	
 	        	}
 	        });
 			if(noError == true)
