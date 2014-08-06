@@ -7,7 +7,7 @@ if(!function_exists('getPost'))
 			if(isset($_POST[$key]))
 			$post = $_POST[$key];
 			else
-			$post = null;
+			$post = false;
 		else
 			$post = $_POST;
 		return $post;
@@ -22,7 +22,7 @@ if(!function_exists('getParam'))
 			if(isset($_GET[$key]))
 			$get = $_GET[$key];
 			else
-			$get = null;
+			$get = false;
 		else
 			$get = $_GET;
 		return $get;

@@ -1,0 +1,42 @@
+<?php Session::showErrorMessages();?>
+
+<div class="register-form">
+<form method = "post" action = "<?php echo URL.'login/registerPost'?>">
+<label for ="name">Name</label>
+<input type="text" class="input-box required text-validation" name="mname"/>
+<label for ="name">Email</label>
+<input type="text" class="input-box required email-validation" name="memail"/>
+<label for ="name">Password</label>
+<input type="password" class="input-box required text-validation" name="mpass"/>
+<label for ="name">Address</label>
+<input type="text" class="input-box required text-validation" name="madd"/>
+<label for ="name">Apt/Ste</label>
+<input type="text" class="input-box text-validation" name="madd2"/>
+<label for ="name">City</label>
+<input type="text" class="input-box required text-validation" name="mcity"/>
+<label for ="name">State</label>
+<input type="text" class="input-box required text-validation" name="mstate"/>
+<label for ="name">Zip</label>
+<input type="text" class="input-box required text-validation" name="mzip"/>
+<label for ="name">Phone</label>
+<input type="text" class="input-box required text-validation" name="mtel"/>
+<label for ="name">Fax</label>
+<input type="text" class="input-box required text-validation" name="mfax"/>
+<label for ="name">Company/store</label>
+<input type="text" class="input-box required text-validation" name="mcompany"/>
+<!-- <label for ="name">Website</label>
+<input type="text" class="input-box required text-validation" name="mein"/>
+ -->
+<label for ="name">EIN(tax ID)</label>
+<input type="text" class="input-box required text-validation" name="mein"/>
+<input type="hidden" value="retailer" name="mtype"/>
+<input type="submit" value="Submit"/>
+
+	</form>
+
+</div>
+<script>
+	$('.register-form form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>

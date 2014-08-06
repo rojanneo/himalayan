@@ -5,6 +5,11 @@ class LoginController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
+		loadHelper('url');	
+		if(Session::isLoggedIn())
+		{
+			redirect('testimonials');
+		}
 	}
 
 	public function indexAction()
@@ -13,10 +18,12 @@ class LoginController extends Controller
 		
 	//	$data['alina']='hey';
 		//$data['loginchecks']=$_SESSION['token'];
-		if(isset($_SESSION['token']))
+		
+
+		if(Session::getSessionId())
 		{
-			$data['loginchecks']='Already Loggedin';
-			$this->view->render('login/login.phtml',$data);
+			//$data['loginchecks']='Already Loggedin';
+			$this->view->render('login/login.phtml');
 		}
 		else
 		{
@@ -29,33 +36,79 @@ class LoginController extends Controller
 	{
 		
 
-			$data['logoutsucess']=Session::session_close();	
+			$data['logoutsucess']=Session::session_close();
+			loadHelper('url');	
 			//var_dump($data['logoutsucess']);
-			header( 'Location: '.URL.'' );
+			redirect('');
 
 
 	}
 
 	public function logintoAction()
 	{
-
-		if(isset($_SESSION['token'])){
-			$data['loginchecks']='Already Loggedin';
-			$this->view->render('login/login.phtml',$data);
+		loadHelper('inputs');
+		loadHelper('url');
+		$username = getPost('username');
+		$password = getPost('password');
+		if(Session::getSessionId()){
+			//$data['loginchecks']='Already Loggedin';
+			redirect('testimonials');
 		}
-		elseif(isset($_POST['username'])&&isset($_POST['password']))
+		elseif($username && $password)
 		{
 			$model = getModel('login');
-			$loginchecks = $model->login_check($_POST['username'],$_POST['password']);
-			$data['loginchecks'] = $loginchecks;
-			$this->view->render('login/login.phtml',$data);
+			$loginchecks = $model->login_check($username,$password);
+			if($loginchecks)
+				redirect('testimonials');
+			else redirect('login');
 
 		}
 		else
 		{
-			loadHelper('url');
 			redirect('login');
 		}
+	}
+
+	public function registerAction()
+	{
+		$this->view->render('login/register.phtml');
+	}
+
+	public function registerSuccessAction()
+	{
+		$this->view->render('login/registerSuccess.phtml');
+	}
+
+	public function registerPostAction()
+	{//die('here');
+		loadHelper('inputs');
+		$post_data = getPost();
+		loadHelper('url');
+		if($post_data)
+		{
+			$email = $post_data['memail'];
+			$pass = $post_data['mpass'];
+
+			if(getModel('login')->emailExists($email, $pass))
+			{
+				redirect('login/register');
+			}
+
+			if(getModel('login')->register($post_data))
+			{
+				Session::addSuccessMessage('Your Request has been successfully submitted. We will verify and approve your request shortly.');
+				redirect('login/registerSuccess');
+			}
+			else
+			{
+				redirect('login/register');
+			}
+		}
+		else
+		{
+			redirect('login/register');
+		}
+		
 	}
 
 }

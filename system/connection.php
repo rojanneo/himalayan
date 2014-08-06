@@ -52,7 +52,7 @@
 				
 				public function Query($query)
 				{
-					$result = mysql_query($query,self::$db) or die(mysql_error(self::$db));
+					$result = mysql_query($query,self::$db) or Session::addErrorMessage(mysql_error(self::$db));
 					
 					$results = array();
 					while($row = mysql_fetch_assoc($result))
@@ -66,22 +66,25 @@
 				{
 					try
 					{
-						$result = mysql_query($query, self::$db) or die(mysql_error(self::$db)) ;						
+						$result = mysql_query($query, self::$db) or Session::addErrorMessage(mysql_error(self::$db));						
+						return true;
 					}
 					catch(Exception $e)
 					{
-						die($e->getMessage());
+						Session::addErrorMessage(mysql_error(self::$db));
 					}
 				}
 				
 				public function CreateQuery($query)
 				{
-					mysql_query($query, self::$db) or die(mysql_error(self::$db));
+					mysql_query($query, self::$db) or Session::addErrorMessage(mysql_error(self::$db));
+					return true;
 				}
 				
 				public function DeleteQuery($query)
 				{
-					mysql_query($query, self::$db) or die(mysql_error(self::$db));
+					mysql_query($query, self::$db) or Session::addErrorMessage(mysql_error(self::$db));
+					return true;
 				}
 				
 				public static function GetRowCount($query)

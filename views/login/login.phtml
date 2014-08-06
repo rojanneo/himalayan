@@ -7,22 +7,15 @@
 
 ?>
 <?php 
- if(isset($view_loginchecks)){ echo $view_loginchecks; }
-?>
-<?php if(isset($_SESSION['token'])){?>
- <div class="logout-form">
-	<form method = "post" action = "<?php echo URL.'login/logouts'?>">		
-		<input type="submit" value = "logout"/>
-	</form>
-</div>
-<?php }
+ //if(isset($view_loginchecks)){ echo $view_loginchecks; }
 
-else{?>
+?>
+
+<a href="<?php echo URL.'login/register'?>">Sign Up</a>
 <form method = "post" action = "<?php echo URL.'login/loginto'?>">		
-Username <br><input type="text" name="username" size="40"><br>
+Email <br><input type="text" name="username" size="40"><br>
  Password <br><input type="password" name="password" size="40"><br>
- <input type="submit" value = "submit"/>
+ <input type="submit" value = "Signin"/>
  </form>
-<?php }?>
 
 
