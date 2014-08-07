@@ -18,7 +18,7 @@ class ContactsController extends Controller
 		loadHelper('url');
 		$post_data = getPost();
 		getModel('contacts')->saveMessage($post_data);
-		redirect();
+		redirect('contacts');
 
 	}
 }

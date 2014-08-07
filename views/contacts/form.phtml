@@ -1,6 +1,53 @@
 
 <!-- Name for inputs must be same as the database fields -->
-<div class="contact-form">
+<?php Session::showErrorMessages();?>
+<?php Session::showSuccessMessages();?>
+<div class="wrapper">
+                <div class="contactPage">
+                    <div class="contactForm">
+                        <form method = "post" action = "<?php echo URL.'contacts/messagePost'?>">
+                            <fieldset>
+                                <label for ="sender_name">name</label>
+								<input type="text" class="input-box required text-validation" name="sender_name"/>
+                            </fieldset>
+                            <fieldset>
+                               <label for = "sender_email">email</label>
+								<input type="text" class="input-box required email-validation" name="sender_email"/>
+                            </fieldset>
+                            <fieldset>
+                                <label for ="message_nature">nature of inquiry</label>
+								<input type="text" class="input-box required text-validation" name="message_nature"/>
+                            </fieldset>
+                            <fieldset>
+                               <label for ="message">message</label>
+								<textarea name="message" class="input-box required text-validation" rows="10" cols="60"></textarea>
+								
+                            </fieldset>
+                            <fieldset class="align-right">
+                            	<!-- <input type="submit" value = "Submit" class="submit-button"/> -->
+                                <button class="btn btn-blue" onclick="$('.contactForm form').submit();">submit</button>
+                            </fieldset>
+                        </form>
+                    </div>
+	                <!-- TODO MAKE THIS DYNAMIC -->
+                    <div class="contactDetail">
+                        <a href="<?php echo URL.'faq'?>" class="btn btn-blue btn-large">our FAQs</a>
+                        <h1>Himalayan Corporation, DBA Himalayan Dog Chew</h1>
+                        <p>4480 Chennault Beach Road</p>
+                        <p>Mukilteo, WA 98275</p>
+                        <p>toll-free : 1.588.414.5153</p>
+                        <p>fax : 506.632.0177</p>
+                        <p><b>Sales/Orders/Returns</b> : sales@himalayandogchew.com</p>
+                        <p><b>Vendors</b> : vendors@himalayandogchew.com</p>
+                        <p><b>Marketing/Donations</b> : marketing@himalayandogchew.com</p>
+                        <p><b>Employment/HR</b> : human.resource@himalayandogchew.com</p>
+                        <p><b>General Inquiries</b> : info@himalayandogchew.com</p>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+<!-- <div class="contact-form">
 	<form method = "post" action = "<?php echo URL.'contacts/messagePost'?>">
 		<label for ="sender_name">Name:</label>
 		<input type="text" class="input-box required text-validation" name="sender_name"/>
@@ -12,9 +59,9 @@
 		<textarea name="message" class="input-box required text-validation" rows="10" cols="60"></textarea>
 		<input type="submit" value = "Submit" class="submit-button"/>
 	</form>
-</div>
+</div> -->
 <script>
-$('.contact-form form').submit(function(){
+$('.contactForm form').submit(function(){
 	return $(this).validate('input-box');
 });
 </script>
