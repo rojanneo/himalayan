@@ -47,14 +47,17 @@
 		$_SESSION['token_id'] = $token_id;
 	}
 
-	public static function getCurrentSession($token)
+	public static function getCurrentSession()
 	{
 		self::GetInstance();
+		$token = self::getSessionId();
 		$sessionv="Select * from user_session where token_id='".$token."'";
 		$ses_cur_val = self::GetInstance()->connection->Query($sessionv);
 
 		//$ses_cur_val=$this->connection->Query($sessionv);
-		return $ses_cur_val;
+		if($ses_cur_val)
+		return $ses_cur_val[0];
+		else return false;
 	}
 
 	public static function getSessionId()

@@ -1,4 +1,7 @@
 <?php loadView('account/account-menu.phtml');?>
+<?php $session = Session::getCurrentSession();
+$role = getModel('customer')->getCustomerRole($session['user_id']);?>
+
 <div class="pricing-products">
 <ul class="slides">
 <li>
@@ -9,9 +12,11 @@
 	<p>For Dogs Under 15lbs</p>
 	<p>3 - 4 pieces | 359 cal</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale price: <span>$5.15</span></p>
 	<p>Discounted price: <span>$5.00</span></p>
 	<p>MSRP price: <span>$9.99</span></p>
+<?php endif;?>
 
 	</div>
 	</div>
@@ -24,9 +29,11 @@
 	<p>For Dogs under 70 pounds</p>
 	<p>1 Piece | 614 Cal</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price : $8.80</p>
 	<p>Discounted Price :$8.60</p>
 	<p>MSRP :$17.99</p>
+<?php endif;?>
 
 	</div>
 	</div>
@@ -39,9 +46,11 @@
 	<p>For Dogs under 35 pounds</p>
 	<p>1 Piece | 256 Cal</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :$4.15</p>
 	<p>Discounted Price :	$4.00</p>
 	<p>MSRP :	$7.99</p>
+<?php endif;?>
 
 	</div>
 	</div>
@@ -54,9 +63,11 @@
 	<p>For Dogs under 55 pounds</p>
 	<p>1 Piece | 359 Cal</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$5.15</p>
 	<p>Discounted Price :	$5.00</p>
 	<p>MSRP :	$9.99</p>
+<?php endif;?>
 
 	</div>
 	</div>
@@ -69,9 +80,11 @@
 	<p>For Dogs under 65 pounds</p>
 	<p>3 Pieces | 1,179 Cal</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$16.75</p>
 	<p>Discounted Price :	$16.30</p>
 	<p>MSRP :	$27.99</p>
+<?php endif;?>
 
 	</div>
 	</div>
@@ -85,9 +98,11 @@
 	<p>For all dog sizes</p>
 	<p>2 oz bottle : 204 cal per bottle</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$1.85</p>
 	<p>Discounted Price :	$1.75</p>
 	<p>MSRP :	$3.99</p>
+<?php endif;?>
 
 	</div>
 	</div>
@@ -101,15 +116,19 @@
 	<p>For all dog sizes</p>
 	<p>1.25 Oz box: 75 - 80 Pieces | 1.5 - 2 Cal per treat</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$2.65</p>
 	<p>Discounted Price :	$2.50</p>
 	<p>MSRP :	$4.99</p>
+<?php endif;?>
 
 	<p>3 Oz box: 200 - 220 Pieces | 1.5 - 2 Cal per treat</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$5.95</p>
 	<p>Discounted Price :	$5.65</p>
 	<p>MSRP :	$11.99</p>
+<?php endif;?>
 
 	</div>
 	</div>
@@ -123,9 +142,11 @@
 	<p>For all dog sizes</p>
 	<p>21 - 24 Pieces | 17 - 20 Cal per treat</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$2.65</p>
 	<p>Discounted Price :	$2.50</p>
 	<p>MSRP :	$4.99</p>
+<?php endif;?>
 	</div>
 	</div>
 </li>
@@ -138,9 +159,11 @@
 	<p>For all dog sizes</p>
 	<p>12 - 13 Pieces | 16 - 18 Cal per treat</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$2.65</p>
 	<p>Discounted Price :	$2.50</p>
 	<p>MSRP :	$4.99</p>
+<?php endif;?>
 	</div>
 	</div>
 </li>
@@ -154,9 +177,11 @@
 	<p>For Dogs under 50 pounds</p>
 	<p>Box of 12 Pieces | 152 Cal</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$71.40/cs; $5.95/pc</p>
 	<p>Discounted Price :	$69.00/cs; $5.75/pc</p>
 	<p>MSRP :	$11.99/pc</p>
+<?php endif;?>
 	</div>
 
 	<p class="product-name">Yaky Sticks - 6"</p>
@@ -164,9 +189,11 @@
 	<p>For Dogs under 25 pounds</p>
 	<p>Box of 12 Pieces | 152 Cal</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$42.00/cs; $3.50/pc</p>
 	<p>Discounted Price :	$40.50/cs; $3.35/pc</p>
 	<p>MSRP :	$7.49/pc</p>
+<?php endif;?>
 	</div>
 	</div>
 </li>
@@ -179,15 +206,19 @@
 	<p>For all dog sizes</p>
 	<p>4.0 Oz box: 40 - 43 Pieces | 8 - 11 Cal per treat</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$1.85</p>
 	<p>Discounted Price :	$1.75</p>
 	<p>MSRP :	$3.99</p>
+<?php endif;?>
 
 	<p>14.0 Oz box: 140 - 146 Pieces | 8 - 11 Cal per treat</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$4.85</p>
 	<p>Discounted Price :	$4.60</p>
 	<p>MSRP :	$9.99</p>
+<?php endif;?>
 
 	</div>
 	</div>
@@ -201,15 +232,19 @@
 	<p>For all dog sizes</p>
 	<p>4.0 Oz box: 40 - 43 Pieces | 8 - 11 Cal per treat</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$1.85</p>
 	<p>Discounted Price :	$1.75</p>
 	<p>MSRP :	$3.99</p>
+<?php endif;?>
 
 	<p>14.0 Oz box: 140 - 146 Pieces | 8 - 11 Cal per treat</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$4.85</p>
 	<p>Discounted Price :	$4.60</p>
 	<p>MSRP :	$9.99</p>
+<?php endif;?>
 
 	</div>
 	</div>
@@ -223,15 +258,19 @@
 	<p>For all dog sizes</p>
 	<p>4.0 Oz box: 40 - 43 Pieces | 8 - 11 Cal per treat</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$1.85</p>
 	<p>Discounted Price :	$1.75</p>
 	<p>MSRP :	$3.99</p>
+<?php endif;?>
 
 	<p>14.0 Oz box: 140 - 146 Pieces | 8 - 11 Cal per treat</p>
 
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$4.85</p>
 	<p>Discounted Price :	$4.60</p>
 	<p>MSRP :	$9.99</p>
+<?php endif;?>
 
 	</div>
 	</div>
@@ -243,7 +282,9 @@
 	<p class="product-name">Himalayan POP Display</p>
 	<div class="desc">
 	<p>Collection of all Himalayan Products</p>
+<?php if($role != 'customer'):?>
 	<p>Wholesale Price :	$545.50</p>
+<?php endif;?>
 	</div>
 	</div>
 </li>

@@ -8,7 +8,7 @@ class LoginController extends Controller
 		loadHelper('url');	
 		if(Session::isLoggedIn())
 		{
-			redirect('testimonials');
+			redirect('account');
 		}
 	}
 
