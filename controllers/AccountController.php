@@ -25,4 +25,9 @@ class AccountController extends Controller
 		$this->view->render('account/forms.phtml',$data);
 	}
 
+	public function pricingAction()
+	{
+		$this->view->render('account/products/pricing.phtml');
+	}
+
 }
