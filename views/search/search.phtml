@@ -1,0 +1,55 @@
+<center>
+<table class="mainBody2" cellspacing="0" cellpadding="0">
+<tr>
+    <!-- ********************************
+
+    Left Pane 
+
+    **************************************--> 
+
+	<td align="left" valign="top" width="650" >
+		<?php echo $view_search; ?>
+	 </td>
+
+
+ 	<td align="left" valign="top" style="padding: 10px 10px 0px 0px;" width="360" >
+
+		<?php //include ("$pgms/consumer/consumerright.php"); ?>
+
+
+		<!---------------------------------------consuemer right start---------------------------------------------->
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+		<tr>
+        <td valign="top"  class="" style="">
+        <div class="productInfoM">
+        <div class="productInfoM2" style="padding: 25px 25px 25px 25px;">  
+        &raquo; <a href="<?php echo "$url/?input=consumers"; ?>" class="productLink">Consumer Information Home</a>
+        <br /><br> 
+		<?php if(!isset($_SESSION['user']))
+				echo "&raquo; <a href=\"'".URL."'/?input=register\" class=\"productLink\">Register for Information &amp; mailing List</a>";
+		?>
+		<br><br> 
+		<div class="productInfo2">
+        <form name="findStores" method="post" action="<?php echo URL.'search/?input=consumers'?>">
+        <input type="text" name="requestZipCode" size="4" style="padding: 3px 3px 3px 3px">
+        <button type="submit" name="searchZip" value="searchZip" style="">Find Stores by Zip/Postal Code</button>
+        </form>
+        <small> &raquo; Enter US Zip Code OR Canadian Postal Code</small>
+        </div>      
+		<br>
+
+		<?php if(isset($view_canadian)){ echo $view_canadian; } ?>
+
+			
+        	<br />
+        </div></div>
+        </td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+</table>
+		<!---------------------------------------consuemer right end---------------------------------------------->
+
+	</td>   
+</tr>
+</table>
+</center>

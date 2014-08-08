@@ -105,3 +105,22 @@ Now, this piece of Himalayan culture is available to you and your Dog.</p>
   });
     });
 </script>
+
+<div id="search">
+
+            <form name="findStores" method="post" action="<?php echo URL.'search/?input=consumers'?>">
+
+
+                <div class="textinput">
+
+                    <input class="textinput" style="font-size:13px;" type="text" value="Enter Zip/Postal Code for closest store" name="requestZipCode" title="Find the closest store from your Zip or Postal Code" onfocus="if(this.value==this.defaultValue){this.value='';}" onblur="if(this.value==''){this.value=this.defaultValue;}" />
+
+                    <button type="submit" name="searchZip" value="searchZip" >Search</button>
+
+                    
+
+                </div>
+
+            </form>
+
+        </div>
