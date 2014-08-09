@@ -1,6 +1,6 @@
 <?php
 if (!defined('URL')) {
-	define('URL', 'http://192.168.1.107/himalayan/');
+	define('URL', 'http://192.168.0.107/himalayan/');
 }
 
 if (!defined('DEFAULT_CONTROLLER')) {

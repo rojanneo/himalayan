@@ -3,6 +3,8 @@
 		{"className":"required", "errormsg":"This field is required", "pattern":"."},
 		{"className":"number-validation", "errormsg":"Only Numbers Allowed", "pattern":"[0-9]"},
 		{"className":"email-validation", "errormsg":"Please Enter a valid email", "pattern":"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"},
+		{"className":"confirm-password", "errormsg":"Passwords must match", "pattern":"equal"},
+		{"className":"password", "errormsg":"", "pattern":"."},
 	];
     $.fn.validate = function(class_of_input) {
     	var noError = true;
@@ -11,7 +13,7 @@
     	{
     		$.each(this.find('.'+class_of_input), function(i, input)
     		{
-    			if(($(input)).attr('type')  == 'text')
+    			if(($(input)).attr('type')  == 'text' || $(input).attr('type')  == 'password')
     			{
 	    			var classes = $(input).attr('class');
 	    			classes = classes.split(' ');
@@ -35,14 +37,34 @@
 	    							// 	$('<p class = "'+className+'">'+errormsg+'</p>').insertAfter($(input));
 	    							// }
 	    							// /alert(obj.pattern);
-	    							if (regexp.test(value)) {
-										    $('p.'+className+name).remove();
-									} else {
-											$('p.'+className+name).remove();
-										
-									    $('<p class = "'+className+name+'">'+errormsg+'</p>').insertAfter($(input));
-									    noError = false;
-									}
+	    							if(className == 'confirm-password')
+	    							{
+
+	    								if($('.password').val() != $(input).val())
+	    								{
+	    									console.log($(input).val());
+	    									$('p.'+className).remove();
+											
+										    $('<p class = "'+className+'">'+errormsg+'</p>').insertAfter($(input));
+										    noError = false;
+	    								}
+	    								else
+	    								{
+	    									 $('p.'+className).remove();
+	    								}
+	    							}
+	    							else
+	    							{
+		    							if (regexp.test(value)) {
+											    $('p.'+className+name).remove();
+										} else {
+												$('p.'+className+name).remove();
+											
+										    $('<p class = "'+className+name+'">'+errormsg+'</p>').insertAfter($(input));
+										    noError = false;
+										}
+
+	    							}
 	    							
 	    						}
 	    					}

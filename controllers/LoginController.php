@@ -32,17 +32,7 @@ class LoginController extends Controller
 		}
 	}
 
-	public function logoutsAction()
-	{
-		
-
-			Session::session_close();
-			loadHelper('url');	
-			//var_dump($data['logoutsucess']);
-			redirect('');
-
-
-	}
+	
 
 	public function logintoAction()
 	{

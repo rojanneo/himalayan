@@ -74,6 +74,19 @@
 						Session::addErrorMessage(mysql_error(self::$db));
 					}
 				}
+
+				public function UpdateQuery($query)
+				{
+					try
+					{
+						$result = mysql_query($query, self::$db) or Session::addErrorMessage(mysql_error(self::$db));						
+						return true;
+					}
+					catch(Exception $e)
+					{
+						Session::addErrorMessage(mysql_error(self::$db));
+					}
+				}
 				
 				public function CreateQuery($query)
 				{
