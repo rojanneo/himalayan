@@ -3,5 +3,10 @@ echo Session::showSuccessMessages();?>
 <div class="cpanel-menu">
 <ul>
 <li><a href="<?php echo URL.'account/edit'?>">Edit Information</a></li>
+<?php $session = Session::getCurrentSession();
+$role = getModel('customer')->getCustomerRole($session['user_id']);?>
+<?php if($role == 'retailer'):?>
+<li><a href="<?php echo URL.'account/stores'?>">Manage Stores</a></li>
+<?php endif?>
 </ul>
 </div>

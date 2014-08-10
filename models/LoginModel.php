@@ -71,6 +71,6 @@ class LoginModel extends Model
 	    mein = '".mysql_real_escape_string($mein)."', mdate = '".mysql_real_escape_string($mdate)."', mtype = '".mysql_real_escape_string($mtype)."',
 	    mdes = '', mlist = '0', mconfirm = '0'";
 
-	    return $this->connection->InsertQuery($query);
+	   return $this->connection->InsertQuery($query);
 	}
 }

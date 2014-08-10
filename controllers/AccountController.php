@@ -105,6 +105,105 @@ class AccountController extends Controller
 		}
 	}
 
+	public function storesAction()
+	{
+		loadHelper('url');
+		loadHelper('inputs');
+		$session = Session::getCurrentSession();
+		$role = getModel('customer')->getCustomerRole($session['user_id']);
+		if($role != 'retailer')
+		{
+			redirect('home/pagenotfound');
+		}
+
+		$session = Session::getCurrentSession();
+		$retailer_id = $session['user_id'];
+		$page = getParam('p');
+		if(!$page) $page = 1;
+		$limit = 10;
+		$first = ($page-1) * $limit;
+		$stores = getModel('store')->getStores($retailer_id,$first,$limit);
+		$data = array();
+		if(count($stores) > 0)
+			$data['stores'] = $stores;
+
+		$num = getModel('store')->getStoreCount($retailer_id)[0];
+		if($limit < $num["COUNT(*)"])
+			$data['pagination_num'] = ceil($num["COUNT(*)"]/$limit);
+		$this->view->render('account/cpanel/stores.phtml',$data);
+	}
+
+	public function addStoreAction()
+	{
+		$session = Session::getCurrentSession();
+		$role = getModel('customer')->getCustomerRole($session['user_id']);
+		if($role != 'retailer')
+		{
+			redirect('home/pagenotfound');
+		}
+		$retailer_id = $session['user_id'];
+		$data['rid'] = $retailer_id;
+		$this->view->render('account/cpanel/addstore.phtml',$data);
+	}
+
+	public function addStorePostAction()
+	{
+		loadHelper('inputs');
+		loadHelper('url');
+		$post_data = getPost();
+		if(getModel('store')->saveStore($post_data))
+		{
+			Session::addSuccessMessage('Store Added Successfully.');
+			redirect('account/stores');
+		}
+		else
+		{
+			Session::addErrorMessage('Failed to add a store.');
+			redirect('account/stores');
+		}
+	}
+
+	public function editStoreAction($store_id)
+	{
+		loadHelper('url');
+		$session = Session::getCurrentSession();
+		$role = getModel('customer')->getCustomerRole($session['user_id']);
+		if($role != 'retailer')
+		{
+			redirect('home/pagenotfound');
+		}
+		$retailer_id = $session['user_id'];
+		$data['rid'] = $retailer_id;
+		$store = getModel('store')->getStore($store_id);
+		$data['store'] = $store[0];
+		$this->view->render('account/cpanel/addstore.phtml',$data);
+	}
+
+	public function editStorePostAction()
+	{
+		loadHelper('inputs');
+		loadHelper('url');
+		$post_data = getPost();
+		if(getModel('store')->updateStoreInfo($post_data))
+		{
+			Session::addSuccessMessage("Store Information Successfully Updated");
+			redirect('account/stores');
+		}
+		else
+		{
+			Session::addSuccessMessage("Unable to update store information");
+			redirect('account/stores');			
+		}
+	}
+
+	public function deleteStoreAction($store_id)
+	{
+		loadHelper('url');
+		if(getModel('store')->deleteStore($store_id))
+			Session::addSuccessMessage('Store Deleted');
+		redirect('account/stores');
+	}
+
 	public function logoutAction()
 	{
 		

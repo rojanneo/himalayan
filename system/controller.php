@@ -8,4 +8,9 @@
 		{
 			$this->view = new View();
 		}
+
+		public function pagenotfoundAction()
+		{
+			$this->view->render('default/404.phtml');
+		}
 	}
