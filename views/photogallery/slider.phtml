@@ -1,7 +1,7 @@
 <div class="photogallery">
 <ul class="slides">
 <?php foreach($view_photos as $photo):?>
-	<li><img src="<?php echo ASSET_URL.$photo['photo_image']?>"/></li>
+	<li><img src="<?php echo ASSET_URL.$photo['photo_image_resized']?>" width="200" height="200"/></li>
 <?php endforeach;?>
 </ul>
 </div>
