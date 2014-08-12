@@ -1,6 +1,6 @@
 <?php
 if (!defined('URL')) {
-	define('URL', 'http://192.168.0.107/himalayan/');
+	define('URL', 'http://192.168.1.107/himalayan/');
 }
 
 if (!defined('DEFAULT_CONTROLLER')) {
@@ -9,6 +9,14 @@ if (!defined('DEFAULT_CONTROLLER')) {
 
 if (!defined('DEFAULT_ACTION')) {
 	define('DEFAULT_ACTION', 'home');
+}
+
+if (!defined('DEFAULT_ADMIN_CONTROLLER')) {
+	define('DEFAULT_ADMIN_CONTROLLER', 'dashboard');
+}
+
+if (!defined('DEFAULT_ADMIN_ACTION')) {
+	define('DEFAULT_ADMIN_ACTION', 'index');
 }
 
 if (!defined('LOGO')) {

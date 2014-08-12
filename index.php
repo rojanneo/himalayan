@@ -106,9 +106,9 @@
 					else
 					{
 
-						$default_cont = DEFAULT_CONTORLLER.'AdminController';
-						$controller = new default_cont();
-						$default_act = DEFAULT_ACTION.'Action';
+						$default_cont = DEFAULT_ADMIN_CONTROLLER.'AdminController';
+						$controller = new $default_cont();
+						$default_act = DEFAULT_ADMIN_ACTION.'Action';
 						$controller->$default_act();
 					}
 				}
