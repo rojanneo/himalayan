@@ -3,6 +3,10 @@ if (!defined('URL')) {
 	define('URL', 'http://192.168.1.107/himalayan/');
 }
 
+if (!defined('ADMIN_URL')) {
+	define('ADMIN_URL', URL.'admin/');
+}
+
 if (!defined('DEFAULT_CONTROLLER')) {
 	define('DEFAULT_CONTROLLER', 'home');
 }

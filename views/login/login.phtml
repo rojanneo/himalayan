@@ -10,13 +10,23 @@
  //if(isset($view_loginchecks)){ echo $view_loginchecks; }
 
 ?>
-<a href="<?php echo URL.'login/register'?>">Sign Up</a>
+<div class="wrapper">
+<a href="<?php echo URL.'login/register'?>" class="btn btn-blue">Sign Up</a>
 <?php Session::showErrorMessages();?>
-
-<form method = "post" action = "<?php echo URL.'login/loginto'?>">		
-Email <br><input type="text" name="username" size="40"><br>
- Password <br><input type="password" name="password" size="40"><br>
- <input type="submit" value = "Signin"/>
+<div class="contactForm login-form">
+<form method = "post" action = "<?php echo URL.'login/loginto'?>">
+<fieldset>		
+<label for="username">Email</label>
+<input type="text" name="username" size="40">
+</fieldset>
+<fieldset>
+<label for="password">Password</label>
+<input type="password" name="password" size="40">	
+</fieldset> 
+<fieldset class="align-right">
+ <button class="btn btn-blue" onclick="$('.login-form form').submit();">Signin</button>
+</fieldset>
  </form>
-
+ </div>
+</div>
 
