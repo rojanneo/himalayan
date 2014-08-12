@@ -293,23 +293,49 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 </ul>
 </div>
 
-<!-- <div class="products-thumbs">
+<div class="products-thumbs">
 	<ul class="slides">
+	<li>
 	<img src="<?php echo ASSET_URL.'images/bag_blue.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/bag_gray.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/bag_green.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/bag_red.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/bag_yellow.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/seasoning.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/yaky_crunch.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/yaky_nuggets.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/yPuff2.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/yaky_stick_6_box.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/fruity_fruit_box.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/lotsa_chicken_box.jpg'?>" width="100" height="100"/>
+	</li>
+	<li>
 	<img src="<?php echo ASSET_URL.'images/very_veggie_box.jpg'?>" width="100" height="100"/>
+	</li>
 	</ul>
-</div> -->
+</div>
 
 <script>
 $(document).ready(function(){
@@ -319,32 +345,32 @@ $(document).ready(function(){
 // 	itemWidth:100,
 // });
 
-$('.pricing-products').flexslider({
-    animation: "slide",
-    controlNav:true,
-    directionNav:true,
-  });
+// $('.products-thumbs').flexslider({
+//     animation: "slide",
+//     controlNav:true,
+//     directionNav:true,
+//   });
 
-      // $('.products-thumbs').flexslider({
-      //   animation: "slide",
-      //   controlNav: true,
-      //   directionNav: true,
-      //   animationLoop: false,
-      //   slideshow: false,
-      //   itemWidth: 200,
-      //   itemHeight:200,
-      //   itemMargin: 5,
-      //   asNavFor: '.pricing-products'
-      // });
+      $('.products-thumbs').flexslider({
+        animation: "slide",
+        controlNav: false,
+        directionNav: false,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 200,
+        itemHeight:200,
+        itemMargin: 5,
+        asNavFor: '.pricing-products'
+      });
 
-      // $('.pricing-products').flexslider({
-      //   animation: "slide",
-      //   controlNav: true,
-      //   directionNav: true,
-      //   animationLoop: false,
-      //   slideshow: false,
-      //   itemWidth: 1000,
-      //   sync: ".products-thumbs",
-      // });
+      $('.pricing-products').flexslider({
+        animation: "fade",
+        controlNav: false,
+        directionNav: true,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 1000,
+        sync: ".products-thumbs",
+      });
 });
 </script>
