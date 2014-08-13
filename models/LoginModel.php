@@ -52,6 +52,7 @@ class LoginModel extends Model
 		$password = md5($pass);
 		$query = 'SELECT * FROM members where memail="'.$email.'";';
 		$count = $this->connection->GetRowCount($query);
+		//echo $count;die;
 		if($count > 0)
 		{
 			Session::addErrorMessage('Email Already Exists');
@@ -69,8 +70,34 @@ class LoginModel extends Model
 	    mcity = '".mysql_real_escape_string($mcity)."', mstate = '".mysql_real_escape_string($mstate)."', mzip = '".mysql_real_escape_string($mzip)."',
 	    mtel = '".mysql_real_escape_string($mtel)."', mfax = '".mysql_real_escape_string($mfax)."', mcompany = '".mysql_real_escape_string($mcompany)."',
 	    mein = '".mysql_real_escape_string($mein)."', mdate = '".mysql_real_escape_string($mdate)."', mtype = '".mysql_real_escape_string($mtype)."',
-	    mdes = '', mlist = '0', mconfirm = '0'";
+	    mdes = '', mlist = '1', mconfirm = '0'";
 
-	   return $this->connection->InsertQuery($query);
+	   if($this->connection->InsertQuery($query))
+	   {
+	   		$type = $mtype;
+	   		if($type == 'retailer')
+	   		{
+	   			$insert_id = $this->connection->GetInsertID();
+	   			$query = "INSERT INTO `retailers`(`rid`, `rcompany`, `rein`, `rwebsite`, `retailerSellOnline`, 
+	   				`regtype`, `rqual`, `rterm`, `rship`, `rshipqual`, `rauth`, `rinformed`) 
+	   			VALUES (".$insert_id.",'".mysql_real_escape_string($mcompany)."','".mysql_real_escape_string($mein)."','".mysql_real_escape_string($mwebsite)."',
+	   				'','web','','','0','0','','0')";
+				$query2 = "INSERT INTO `member_mtype`(`member_mtype`, `member_id`, `membertype_id`) VALUES ('',".$insert_id.",3)";
+				return $this->connection->InsertQuery($query) && $this->connection->InsertQuery($query2);
+	   		}
+	   		else if($type == 'customer')
+	   		{
+	   			$insert_id = $this->connection->GetInsertID();
+	   			$query = "INSERT INTO `customer`(`customer_id`, `cname`, `cemail`) VALUES ($insert_id,'".mysql_real_escape_string($mname)."','".mysql_real_escape_string($memail)."')";
+				$query2 = "INSERT INTO `member_mtype`(`member_mtype`, `member_id`, `membertype_id`) VALUES ('',".$insert_id.",8)";
+				return $this->connection->InsertQuery($query) && $this->connection->InsertQuery($query2);
+	   		}
+	   }
+	   else 
+	   {
+	   	return false;
+	   }
 	}
+
+	
 }

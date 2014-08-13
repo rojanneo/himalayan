@@ -196,6 +196,41 @@ class AccountController extends Controller
 		}
 	}
 
+	public function retailerContactsAction()
+	{
+		$rid = Session::getCurrentSession()['user_id'];
+		$data = null;
+		if($rid)
+		{
+			$contacts = getModel('retailercontact')->getContacts($rid);
+			$data['contacts'] = $contacts;
+		}
+		$this->view->render('account/cpanel/retailerContacts.phtml',$data);
+	}
+
+	public function addRetailerContactAction()
+	{
+		$this->view->render('account/cpanel/addRetailerContact.phtml');
+	}
+
+	public function addRetailerContactPostAction()
+	{
+		loadHelper('inputs');
+		loadHelper('url');
+		$post_data = getPost();
+		$model = getModel('retailercontact');
+		if(!getModel('login')->emailExists($post_data['memail'], ''))
+		{
+			$model->registerContact($post_data);
+			redirect('account/retailercontacts');
+		}
+		else
+		{
+			redirect('account/cpanel');
+		}		
+
+	}
+
 	public function deleteStoreAction($store_id)
 	{
 		loadHelper('url');

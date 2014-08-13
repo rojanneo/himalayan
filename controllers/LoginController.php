@@ -78,20 +78,22 @@ class LoginController extends Controller
 		{
 			$email = $post_data['memail'];
 			$pass = $post_data['mpass'];
-
 			if(getModel('login')->emailExists($email, $pass))
 			{
 				redirect('login/register');
 			}
 
-			if(getModel('login')->register($post_data))
-			{
-				Session::addSuccessMessage('Your Request has been successfully submitted. We will verify and approve your request shortly.');
-				redirect('login/registerSuccess');
-			}
 			else
 			{
-				redirect('login/register');
+				if(getModel('login')->register($post_data))
+				{
+					Session::addSuccessMessage('Your Request has been successfully submitted. We will verify and approve your request shortly.');
+					redirect('login/registerSuccess');
+				}
+				else
+				{
+					redirect('login/register');
+				}
 			}
 		}
 		else
