@@ -1,7 +1,7 @@
 <?php
 	//require_once 'config/config.php';
 
-	require_once 'system/session.php';
+	
 	require_once 'system/controller.php';
 	require_once 'system/model.php';
 	require_once 'helpers/Autoload.php';
@@ -30,6 +30,7 @@
 	$url = explode('/', $url);
 	if($url[0] == 'admin')
 	{
+			require_once 'system/adminsession.php';
 			if(isset($url[3]))
 			{
 				$control = $url[1].'AdminController';
@@ -117,6 +118,7 @@
 	}
 	else
 	{
+		require_once 'system/session.php';
 		if(isset($url[2]))
 		{
 			$control = $url[0].'Controller';

@@ -8,6 +8,29 @@ class LoginModel extends Model
 		parent::__construct();
 	}
 
+	public function checkAdminLogin($username, $password)
+	{
+		$pass = md5($password);
+		$query = "SELECT employee_login.eid, employee_login.memail, employee_login.mpass, employee_login.etid FROM 
+		(SELECT * FROM `employees` JOIN members ON members.mid = employees.eid) as employee_login 
+		WHERE employee_login.memail = '".$username."' AND employee_login.mpass = '".$pass."'";
+		$what = $this->connection->Query($query);
+		if(!empty($what))
+		{
+			$data['message']=AdminSession::createNewSession($what);
+			//$data['session']=$_SESSION['token'];
+			//var_dump($data); die();
+			return true;
+		}
+		else
+		{		
+			{
+				AdminSession::addErrorMessage('Username or Password Incorrect');
+			}
+			return false;
+		}
+	}
+
 	public function login_check($username,$password)
 	{
 		$pass = md5($password);

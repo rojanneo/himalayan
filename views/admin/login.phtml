@@ -1,0 +1,9 @@
+<?php echo AdminSession::showErrorMessages();
+echo AdminSession::showSuccessMessages();?>
+<form method = "post" action = "<?php echo ADMIN_URL.'login/loginPost'?>">
+<label for = "username">Email:</label>
+<input type="text" name="username"/>
+<label for = "password">Password:</label>
+<input type="password" name="password"/>
+<input type="submit"/>
+</form>

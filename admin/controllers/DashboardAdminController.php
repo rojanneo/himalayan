@@ -5,6 +5,11 @@ class DashboardAdminController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
+		loadHelper('url');
+		if(!AdminSession::isLoggedIn())
+		{
+			redirect('admin/login');
+		}
 	}
 
 	public function indexAction()
@@ -21,5 +26,13 @@ class DashboardAdminController extends Controller
 	public function modelAction()
 	{
 		var_dump(getModel('category')->getCategories());
+	}
+
+	public function logoutAction()
+	{
+		AdminSession::session_close();
+		loadHelper('url');	
+			//var_dump($data['logoutsucess']);
+		redirect('admin');
 	}
 }

@@ -52,17 +52,7 @@
 				
 				public function Query($query)
 				{
-					try{
-					$result = mysql_query($query,self::$db);
-					}
-					catch(Exception $e)
-					{
-						if(class_exists('Session'))
-						Session::addErrorMessage($e->getMessage());
-						else
-						AdminSession::addErrorMessage($e->getMessage());
-
-					}
+					$result = mysql_query($query,self::$db) or Session::addErrorMessage(mysql_error(self::$db));
 					
 					$results = array();
 					while($row = mysql_fetch_assoc($result))
@@ -76,16 +66,12 @@
 				{
 					try
 					{
-						echo $query;
-						$result = mysql_query($query, self::$db);				
+						$result = mysql_query($query, self::$db) or Session::addErrorMessage(mysql_error(self::$db));						
 						return true;
 					}
 					catch(Exception $e)
 					{
-						if(class_exists('Session'))
-						Session::addErrorMessage($e->getMessage());
-						else
-						AdminSession::addErrorMessage($e->getMessage());
+						Session::addErrorMessage(mysql_error(self::$db));
 					}
 				}
 
@@ -93,27 +79,24 @@
 				{
 					try
 					{
-						$result = mysql_query($query, self::$db);					
+						$result = mysql_query($query, self::$db) or Session::addErrorMessage(mysql_error(self::$db));						
 						return true;
 					}
 					catch(Exception $e)
 					{
-						if(class_exists('Session'))
-						Session::addErrorMessage($e->getMessage());
-						else
-						AdminSession::addErrorMessage($e->getMessage());
+						Session::addErrorMessage(mysql_error(self::$db));
 					}
 				}
 				
 				public function CreateQuery($query)
 				{
-					mysql_query($query, self::$db);
+					mysql_query($query, self::$db) or Session::addErrorMessage(mysql_error(self::$db));
 					return true;
 				}
 				
 				public function DeleteQuery($query)
 				{
-					mysql_query($query, self::$db);
+					mysql_query($query, self::$db) or Session::addErrorMessage(mysql_error(self::$db));
 					return true;
 				}
 				
