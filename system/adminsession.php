@@ -63,6 +63,7 @@
 
 	public static function getSessionId()
 	{
+		//echo $_SESSION['token_id'];
 		if(isset($_SESSION['token_id']))
 			return $_SESSION['token_id'];
 		else return false;
@@ -89,7 +90,8 @@
 	{
 		$token = self::getSessionId();
 		$session = self::getCurrentSession($token);
-		if($session)
+		
+		if($session and self::getSessionVariable('is_admin'))
 		{
 			return true;
 		}

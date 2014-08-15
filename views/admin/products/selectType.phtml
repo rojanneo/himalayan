@@ -1,0 +1,16 @@
+<div class="select-type">
+	<form method="get" action = "<?php echo ADMIN_URL.'products/add'?>">
+	<select name="type">
+		<?php foreach($view_types as $type):?>
+			<option value="<?php echo $type['ptid']?>"><?php echo $type['type_name']?></option>
+		<?php endforeach?>
+	</select>
+
+	<select name="set">
+		<?php foreach($view_sets as $set):?>
+			<option value="<?php echo $set['asid']?>"><?php echo $set['asname']?></option>
+		<?php endforeach?>
+	</select>
+	<input type="submit" value = "Continue"/>
+	</form>
+</div>

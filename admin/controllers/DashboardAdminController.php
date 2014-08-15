@@ -14,12 +14,12 @@ class DashboardAdminController extends Controller
 
 	public function indexAction()
 	{
-		$this->view->renderAdmin('admin/dashboard.phtml');
+		$this->view->renderAdmin('dashboard.phtml');
 	}
 
 	public function testAction()
 	{
-		$this->view->renderAdmin('admin/test.phtml');
+		$this->view->renderAdmin('test.phtml');
 	}
 
 

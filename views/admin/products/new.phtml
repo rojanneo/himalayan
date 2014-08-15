@@ -1,0 +1,31 @@
+<div class="product-form">
+	<form method="post" action="<?php echo ADMIN_URL.'products/addPost'?>">
+		<input type="hidden" name="attribute_set" value="<?php echo $view_set?>"/>
+		<input type="hidden" name="product_type" value="<?php echo $view_type?>"/>
+		<label for = "name">Name</label>
+		<input type="text" class="input-box required text-validation" name="name"/>
+
+		<?php if(isset($view_attributes)):?>
+			<?php foreach ($view_attributes as $attribute):?>
+				<label for = <?php echo $attribute['acode']?>><?php echo $attribute['aname']?></label>
+				<?php switch($attribute['atype']): 
+				case 'int':?>
+					<input type=<?php echo $attribute['atype']?> name="<?php echo $attribute['acode']?>"/>
+				<?php break;?>
+				<?php case 'text':?>
+					<input type=<?php echo $attribute['atype']?> name="<?php echo $attribute['acode']?>"/>
+				<?php break;?>
+				<?php case 'select':?>
+					<select name = "<?php echo $attribute['acode']?>">
+						<?php $options = getModel('attribute')->getAttributeOptions($attribute['aid'])?>
+						<?php foreach($options as $option):?>
+							<option value=<?php echo $option['vid']?>><?php echo $option['value']?></option>
+						<?php endforeach;?>
+					</select>
+				<?php break;?>				<?php endswitch;?>
+			<?php endforeach;?>
+		<?php endif;?>
+
+
+	</form>
+</div>

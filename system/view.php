@@ -29,7 +29,7 @@
 				include 'views/admin/default/head.phtml';
 				include 'views/admin/default/header.phtml';
 			}
-			include 'views/'.$name;
+			include 'views/admin/'.$name;
 			if($showFooter)
 			include 'views/admin/default/footer.phtml';
 		}

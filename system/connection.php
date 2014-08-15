@@ -53,7 +53,16 @@
 				public function Query($query)
 				{
 					try{
+						
 					$result = mysql_query($query,self::$db);
+					
+					$results = array();
+					
+					while($row = mysql_fetch_assoc($result))
+					{
+						$results[] = $row;
+					}
+					return $results;
 					}
 					catch(Exception $e)
 					{
@@ -64,12 +73,7 @@
 
 					}
 					
-					$results = array();
-					while($row = mysql_fetch_assoc($result))
-					{
-						$results[] = $row;
-					}
-					return $results;
+				
 				}
 				
 				public function InsertQuery($query)
