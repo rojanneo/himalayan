@@ -12,8 +12,11 @@
 				case 'int':?>
 					<input type=<?php echo $attribute['atype']?> name="<?php echo $attribute['acode']?>"/>
 				<?php break;?>
-				<?php case 'text':?>
+				<?php case 'varchar':?>
 					<input type=<?php echo $attribute['atype']?> name="<?php echo $attribute['acode']?>"/>
+				<?php break;?>
+				<?php case 'text':?>
+					<textarea name="<?php echo $attribute['acode']?>"></textarea>
 				<?php break;?>
 				<?php case 'select':?>
 					<select name = "<?php echo $attribute['acode']?>">

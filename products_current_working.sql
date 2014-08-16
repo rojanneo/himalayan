@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2014 at 05:54 PM
+-- Generation Time: Aug 16, 2014 at 05:17 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `test`
+-- Database: `_hdc`
 --
 
 -- --------------------------------------------------------
@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS `attributes` (
   `aid` int(11) NOT NULL AUTO_INCREMENT,
   `acode` varchar(255) NOT NULL,
   `aname` varchar(255) NOT NULL,
-  `atype` enum('int','text','select') NOT NULL,
+  `atype` enum('int','text','select','varchar') NOT NULL,
   PRIMARY KEY (`aid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `attributes`
@@ -42,7 +42,9 @@ CREATE TABLE IF NOT EXISTS `attributes` (
 INSERT INTO `attributes` (`aid`, `acode`, `aname`, `atype`) VALUES
 (1, 'weight', 'weight', 'int'),
 (2, 'dog_size', 'Dog Size', 'select'),
-(3, 'box_size', 'Box Size', 'text');
+(3, 'box_size', 'Box Size', 'varchar'),
+(8, 'ingredients', 'Ingredients', 'text'),
+(9, 'testselect', 'SEEL', 'select');
 
 -- --------------------------------------------------------
 
@@ -55,15 +57,16 @@ CREATE TABLE IF NOT EXISTS `attributeset` (
   `ascode` varchar(255) NOT NULL,
   `asname` varchar(255) NOT NULL,
   PRIMARY KEY (`asid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `attributeset`
 --
 
 INSERT INTO `attributeset` (`asid`, `ascode`, `asname`) VALUES
-(1, 'chew', 'Chew'),
-(2, 'yam', 'Yam');
+(1, 'chew', 'Chew1'),
+(2, 'yam', 'Yam'),
+(6, 'seasoning', 'Seasoning');
 
 -- --------------------------------------------------------
 
@@ -77,15 +80,19 @@ CREATE TABLE IF NOT EXISTS `attribute_values` (
   `value` text NOT NULL,
   PRIMARY KEY (`vid`),
   KEY `values_aid` (`values_aid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Dumping data for table `attribute_values`
 --
 
 INSERT INTO `attribute_values` (`vid`, `values_aid`, `value`) VALUES
-(1, 2, '65lbs'),
-(2, 2, '40lbs');
+(3, 9, 'otp1'),
+(4, 9, 'opt3'),
+(5, 9, 'opt4'),
+(40, 2, '40lbs'),
+(41, 2, '65lbs'),
+(42, 2, '30lbs');
 
 -- --------------------------------------------------------
 
@@ -100,15 +107,30 @@ CREATE TABLE IF NOT EXISTS `a_as` (
   PRIMARY KEY (`aasid`),
   KEY `aas_aid` (`aas_aid`,`aas_asid`),
   KEY `aas_asid` (`aas_asid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+
+--
+-- Dumping data for table `a_as`
+--
+
+INSERT INTO `a_as` (`aasid`, `aas_aid`, `aas_asid`) VALUES
+(41, 1, 1),
+(44, 1, 2),
+(47, 1, 6),
+(42, 2, 1),
+(48, 2, 6),
+(45, 3, 2),
+(43, 8, 1),
+(46, 8, 2),
+(49, 8, 6);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Table structure for table `products_simple`
 --
 
-CREATE TABLE IF NOT EXISTS `products` (
+CREATE TABLE IF NOT EXISTS `products_simple` (
   `pid` int(11) NOT NULL AUTO_INCREMENT,
   `pname` varchar(255) NOT NULL,
   `psku` varchar(255) NOT NULL,
@@ -120,10 +142,10 @@ CREATE TABLE IF NOT EXISTS `products` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `products`
+-- Dumping data for table `products_simple`
 --
 
-INSERT INTO `products` (`pid`, `pname`, `psku`, `ptype`, `product_asid`) VALUES
+INSERT INTO `products_simple` (`pid`, `pname`, `psku`, `ptype`, `product_asid`) VALUES
 (1, 'HDC Red', 'hdc_red', 1, 1),
 (2, 'Yaky Yam Fruity Fruit', 'fruity_fruit', 1, 2);
 
@@ -167,13 +189,6 @@ CREATE TABLE IF NOT EXISTS `product_attribute_values_select` (
   KEY `pavs_aid` (`pavs_aid`),
   KEY `pavs_vid` (`pavs_vid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `product_attribute_values_select`
---
-
-INSERT INTO `product_attribute_values_select` (`id`, `pavs_pid`, `pavs_aid`, `pavs_vid`) VALUES
-(1, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -222,7 +237,8 @@ CREATE TABLE IF NOT EXISTS `product_attribute_values_varchar` (
 
 CREATE TABLE IF NOT EXISTS `ptype` (
   `ptid` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) NOT NULL,
+  `type_code` varchar(255) NOT NULL,
+  `type_name` varchar(255) NOT NULL,
   PRIMARY KEY (`ptid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -230,9 +246,9 @@ CREATE TABLE IF NOT EXISTS `ptype` (
 -- Dumping data for table `ptype`
 --
 
-INSERT INTO `ptype` (`ptid`, `type`) VALUES
-(1, 'simple'),
-(2, 'configurable');
+INSERT INTO `ptype` (`ptid`, `type_code`, `type_name`) VALUES
+(1, 'simple', 'Simple Product'),
+(2, 'configurable', 'Configurable Product');
 
 --
 -- Constraints for dumped tables
@@ -248,44 +264,44 @@ ALTER TABLE `attribute_values`
 -- Constraints for table `a_as`
 --
 ALTER TABLE `a_as`
-  ADD CONSTRAINT `a_as_ibfk_2` FOREIGN KEY (`aas_asid`) REFERENCES `attributeset` (`asid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `a_as_ibfk_1` FOREIGN KEY (`aas_aid`) REFERENCES `attributes` (`aid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `a_as_ibfk_1` FOREIGN KEY (`aas_aid`) REFERENCES `attributes` (`aid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `a_as_ibfk_2` FOREIGN KEY (`aas_asid`) REFERENCES `attributeset` (`asid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `products`
+-- Constraints for table `products_simple`
 --
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`product_asid`) REFERENCES `attributeset` (`asid`),
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`ptype`) REFERENCES `ptype` (`ptid`);
+ALTER TABLE `products_simple`
+  ADD CONSTRAINT `products_simple_ibfk_1` FOREIGN KEY (`ptype`) REFERENCES `ptype` (`ptid`),
+  ADD CONSTRAINT `products_simple_ibfk_2` FOREIGN KEY (`product_asid`) REFERENCES `attributeset` (`asid`);
 
 --
 -- Constraints for table `product_attribute_values_int`
 --
 ALTER TABLE `product_attribute_values_int`
-  ADD CONSTRAINT `product_attribute_values_int_ibfk_2` FOREIGN KEY (`pavi_aid`) REFERENCES `attributes` (`aid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_attribute_values_int_ibfk_1` FOREIGN KEY (`pavi_pid`) REFERENCES `products` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_attribute_values_int_ibfk_1` FOREIGN KEY (`pavi_pid`) REFERENCES `products_simple` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_attribute_values_int_ibfk_2` FOREIGN KEY (`pavi_aid`) REFERENCES `attributes` (`aid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_attribute_values_select`
 --
 ALTER TABLE `product_attribute_values_select`
-  ADD CONSTRAINT `product_attribute_values_select_ibfk_3` FOREIGN KEY (`pavs_vid`) REFERENCES `attribute_values` (`vid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_attribute_values_select_ibfk_1` FOREIGN KEY (`pavs_pid`) REFERENCES `products` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_attribute_values_select_ibfk_3` FOREIGN KEY (`pavs_vid`) REFERENCES `attribute_values` (`vid`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_attribute_values_select_ibfk_1` FOREIGN KEY (`pavs_pid`) REFERENCES `products_simple` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `product_attribute_values_select_ibfk_2` FOREIGN KEY (`pavs_aid`) REFERENCES `attributes` (`aid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_attribute_values_text`
 --
 ALTER TABLE `product_attribute_values_text`
-  ADD CONSTRAINT `product_attribute_values_text_ibfk_2` FOREIGN KEY (`pavt_aid`) REFERENCES `attributes` (`aid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_attribute_values_text_ibfk_1` FOREIGN KEY (`pavt_pid`) REFERENCES `products` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_attribute_values_text_ibfk_1` FOREIGN KEY (`pavt_pid`) REFERENCES `products_simple` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_attribute_values_text_ibfk_2` FOREIGN KEY (`pavt_aid`) REFERENCES `attributes` (`aid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_attribute_values_varchar`
 --
 ALTER TABLE `product_attribute_values_varchar`
-  ADD CONSTRAINT `product_attribute_values_varchar_ibfk_2` FOREIGN KEY (`pavv_aid`) REFERENCES `attributes` (`aid`),
-  ADD CONSTRAINT `product_attribute_values_varchar_ibfk_1` FOREIGN KEY (`pavv_pid`) REFERENCES `products` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_attribute_values_varchar_ibfk_1` FOREIGN KEY (`pavv_pid`) REFERENCES `products_simple` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_attribute_values_varchar_ibfk_2` FOREIGN KEY (`pavv_aid`) REFERENCES `attributes` (`aid`);
 SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

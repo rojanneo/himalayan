@@ -1,0 +1,20 @@
+<a href="<?php echo ADMIN_URL.'attributeset/add'?>">Add New Attribute Set</a>
+
+<?php if(isset($view_attribute_set)):?>
+	<table>
+		<thead>
+			<th>Attribute Set ID</th>
+			<th>Attribute Set Code</th>
+			<th>Attribute Set Name</th>
+		</thead>
+		<tbody>
+			<?php foreach($view_attribute_set as $attributeset):?>
+				<tr>
+					<td><a href="<?php echo ADMIN_URL.'attributeset/edit/'.$attributeset['asid']?>"><?php echo $attributeset['asid']?></td>
+					<td><a href="<?php echo ADMIN_URL.'attributeset/edit/'.$attributeset['asid']?>"><?php echo $attributeset['ascode']?></td>
+					<td><a href="<?php echo ADMIN_URL.'attributeset/edit/'.$attributeset['asid']?>"><?php echo $attributeset['asname']?></td>
+				</tr>
+			<?php endforeach;?>
+		</tbody>
+	</table>
+<?php endif;?>

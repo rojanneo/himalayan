@@ -1,0 +1,60 @@
+<?php echo AdminSession::showErrorMessages();
+echo AdminSession::showSuccessMessages();?>
+<form method="post" action = "<?php echo (isset($view_attribute))?ADMIN_URL.'attributes/editpost':ADMIN_URL.'attributes/addpost'?>">
+	<?php if(isset($view_attribute)):?>
+		<input type="hidden" name="attribute_id" value="<?php echo $view_attribute['aid']?>"/>
+	<?php endif;?>
+	<label for name="acode">Atttribute Code</label>
+	<input type="text" name="acode" class="input-box required text-validation" value="<?php echo (isset($view_attribute))?$view_attribute['acode']:null?>"/>
+
+	<label for name="aname">Atttribute Name</label>
+	<input type="text" name="aname" class="input-box required text-validation" value="<?php echo (isset($view_attribute))?$view_attribute['aname']:null?>"/>
+	
+	<label for name="atype">Attribute Type</label>
+	<select name="atype" class="attr-type-select">
+		<option value="int" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'int')?'selected':null?>>Int</option>
+		<option value="varchar" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'varchar')?'selected':null?>>Varchar</option>
+		<option value="text" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'text')?'selected':null?>>Text</option>
+		<option value="select" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'select')?'selected':null?>>Select</option>
+	</select>
+
+	<a href="javascript:void(0)" class="add-option" <?php echo (!isset($view_options))?'style="display:none"':null?>>Add Option</a>
+	<div class="options">
+		<?php if(isset($view_options)):?>
+			<?php foreach($view_options as $option):?>
+				<div class="option">
+					<label>Option: </label>
+					<input type="text" name="option_value[]" class="input-box required text-validation"/ value="<?php echo $option['value']?>"><a href="javascript:void(0)" class="remove-option">Remove</a>
+				</div>
+				<script>
+				$('a.remove-option').click(function(){
+					$(this).parent().remove();
+				});
+				</script>
+			<?php endforeach;?>
+		<?php endif;?>
+	</div>
+	<input type="submit" value="Save"/>
+</form>
+
+<script>
+	$('.attr-type-select').change(function(){
+		if($(this).val() == 'select')
+		{
+			$('a.add-option').show();
+		}
+		else
+		{
+			$('a.add-option').hide();			
+		}
+	});
+
+	$('a.add-option').click(function(){
+		$('.options').append('<div class="option"><label>Option: </label><input type="text" name="option_value[]" class="input-box required text-validation"/><a href="javascript:void(0)" class="remove-option">Remove</a></div>');
+		var script   = document.createElement("script");
+		script.type  = "text/javascript";
+		script.text  = "$('a.remove-option').click(function(){$(this).parent().remove();});";               // use this for inline script
+		document.body.appendChild(script);
+	});
+	
+</script>

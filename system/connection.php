@@ -80,7 +80,6 @@
 				{
 					try
 					{
-						echo $query;
 						$result = mysql_query($query, self::$db);				
 						return true;
 					}
@@ -89,7 +88,9 @@
 						if(class_exists('Session'))
 						Session::addErrorMessage($e->getMessage());
 						else
+						{
 						AdminSession::addErrorMessage($e->getMessage());
+						}
 					}
 				}
 
@@ -117,7 +118,7 @@
 				
 				public function DeleteQuery($query)
 				{
-					mysql_query($query, self::$db);
+					mysql_query($query, self::$db) or die(mysql_error(self::$db));
 					return true;
 				}
 				
