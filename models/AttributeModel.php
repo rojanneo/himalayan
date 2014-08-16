@@ -77,4 +77,10 @@ class AttributeModel extends Model
 
 		return $result2 and $result2;
 	}
+
+	public function deleteAttribute($attribute_id)
+	{
+		$sql = "DELETE FROM attributes WHERE aid = ".$attribute_id;
+		return $this->connection->DeleteQuery($sql);
+	}
 }

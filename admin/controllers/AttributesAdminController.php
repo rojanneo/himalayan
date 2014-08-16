@@ -47,6 +47,21 @@ class AttributesAdminController extends Controller
 		$this->view->renderAdmin('attributes/new.phtml',$data);
 	}
 
+	public function deleteAction($attribute_id)
+	{
+		loadHelper('url');
+		if(getModel('attribute')->deleteAttribute($attribute_id))
+		{
+			AdminSession::addSuccessMessage('Attribute Deleted');
+			redirect('admin/attributes');
+		}
+		else
+		{
+			AdminSession::addErrorMessage('Could not delete Attribute');
+			redirect('admin/attributes/edit/'.$attribute_id);
+		}
+	}
+
 	public function editPostAction()
 	{
 		loadHelper('inputs');

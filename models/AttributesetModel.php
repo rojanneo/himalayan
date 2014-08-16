@@ -67,4 +67,10 @@ class AttributesetModel extends Model
 		}
 		return $result1 and $result2;
 	}
+
+	public function deleteAttributeset($attributeset_id)
+	{
+		$sql = "DELETE FROM attributeset WHERE asid = ".$attributeset_id;
+		return $this->connection->DeleteQuery($sql);
+	}
 }

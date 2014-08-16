@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2014 at 05:17 PM
+-- Generation Time: Aug 16, 2014 at 05:34 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -43,8 +43,7 @@ INSERT INTO `attributes` (`aid`, `acode`, `aname`, `atype`) VALUES
 (1, 'weight', 'weight', 'int'),
 (2, 'dog_size', 'Dog Size', 'select'),
 (3, 'box_size', 'Box Size', 'varchar'),
-(8, 'ingredients', 'Ingredients', 'text'),
-(9, 'testselect', 'SEEL', 'select');
+(8, 'ingredients', 'Ingredients', 'text');
 
 -- --------------------------------------------------------
 
@@ -57,16 +56,16 @@ CREATE TABLE IF NOT EXISTS `attributeset` (
   `ascode` varchar(255) NOT NULL,
   `asname` varchar(255) NOT NULL,
   PRIMARY KEY (`asid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `attributeset`
 --
 
 INSERT INTO `attributeset` (`asid`, `ascode`, `asname`) VALUES
-(1, 'chew', 'Chew1'),
-(2, 'yam', 'Yam'),
-(6, 'seasoning', 'Seasoning');
+(7, 'hdc_chew', 'Chew'),
+(8, 'yaky_yams', 'Yaky Yams'),
+(9, 'seasoning', 'Seasoning');
 
 -- --------------------------------------------------------
 
@@ -87,9 +86,6 @@ CREATE TABLE IF NOT EXISTS `attribute_values` (
 --
 
 INSERT INTO `attribute_values` (`vid`, `values_aid`, `value`) VALUES
-(3, 9, 'otp1'),
-(4, 9, 'opt3'),
-(5, 9, 'opt4'),
 (40, 2, '40lbs'),
 (41, 2, '65lbs'),
 (42, 2, '30lbs');
@@ -107,22 +103,21 @@ CREATE TABLE IF NOT EXISTS `a_as` (
   PRIMARY KEY (`aasid`),
   KEY `aas_aid` (`aas_aid`,`aas_asid`),
   KEY `aas_asid` (`aas_asid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=58 ;
 
 --
 -- Dumping data for table `a_as`
 --
 
 INSERT INTO `a_as` (`aasid`, `aas_aid`, `aas_asid`) VALUES
-(41, 1, 1),
-(44, 1, 2),
-(47, 1, 6),
-(42, 2, 1),
-(48, 2, 6),
-(45, 3, 2),
-(43, 8, 1),
-(46, 8, 2),
-(49, 8, 6);
+(50, 1, 7),
+(53, 1, 8),
+(56, 1, 9),
+(51, 2, 7),
+(54, 3, 8),
+(52, 8, 7),
+(55, 8, 8),
+(57, 8, 9);
 
 -- --------------------------------------------------------
 
@@ -135,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `products_simple` (
   `pname` varchar(255) NOT NULL,
   `psku` varchar(255) NOT NULL,
   `ptype` int(11) NOT NULL,
-  `product_asid` int(11) NOT NULL,
+  `product_asid` int(11) DEFAULT NULL,
   PRIMARY KEY (`pid`),
   KEY `ptype` (`ptype`,`product_asid`),
   KEY `product_asid` (`product_asid`)
@@ -146,8 +141,8 @@ CREATE TABLE IF NOT EXISTS `products_simple` (
 --
 
 INSERT INTO `products_simple` (`pid`, `pname`, `psku`, `ptype`, `product_asid`) VALUES
-(1, 'HDC Red', 'hdc_red', 1, 1),
-(2, 'Yaky Yam Fruity Fruit', 'fruity_fruit', 1, 2);
+(1, 'HDC Red', 'hdc_red', 1, NULL),
+(2, 'Yaky Yam Fruity Fruit', 'fruity_fruit', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -271,8 +266,8 @@ ALTER TABLE `a_as`
 -- Constraints for table `products_simple`
 --
 ALTER TABLE `products_simple`
-  ADD CONSTRAINT `products_simple_ibfk_1` FOREIGN KEY (`ptype`) REFERENCES `ptype` (`ptid`),
-  ADD CONSTRAINT `products_simple_ibfk_2` FOREIGN KEY (`product_asid`) REFERENCES `attributeset` (`asid`);
+  ADD CONSTRAINT `products_simple_ibfk_2` FOREIGN KEY (`product_asid`) REFERENCES `attributeset` (`asid`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `products_simple_ibfk_1` FOREIGN KEY (`ptype`) REFERENCES `ptype` (`ptid`);
 
 --
 -- Constraints for table `product_attribute_values_int`

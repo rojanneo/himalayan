@@ -65,4 +65,19 @@ class AttributeSetAdminController extends Controller
 			redirect('admin/attributeset/add');
 		}
 	}
+
+	public function deleteAction($attributeset_id)
+	{
+		loadHelper('url');
+		if(getModel('attributeset')->deleteAttributeset($attributeset_id))
+		{
+			AdminSession::addSuccessMessage('Attribute Set Deleted');
+			redirect('admin/attributeset');
+		}
+		else
+		{
+			AdminSession::addErrorMessage('Could not delete Attribute Set');
+			redirect('admin/attributeset/edit/'.$attributeset_id);
+		}
+	}
 }
