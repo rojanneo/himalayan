@@ -1,1 +1,28 @@
 <a href="<?php echo ADMIN_URL.'products/add'?>">Add Product</a>
+
+<?php if(isset($view_products)):?>
+<?php loadHelper('view');?>
+<table>
+<thead>
+	<th>Product ID</th>
+	<th>Name</th>
+	<th>SKU</th>
+	<th>Type</th>
+	<th>Attribute Set</th>
+	<th>Quantity</th>
+	<th>Status</th>
+</thead>
+<tbody>
+<?php foreach($view_products as $product):?>
+	<tr>
+		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo $product['pid']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo $product['pname']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo $product['psku']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo getModel('products')->getTypeNameFromId($product['ptype'])?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo getModel('attributeset')->getAttributeSetNameFromId($product['product_asid'])?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo $product['quantity']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo convertStatusIdToText($product['status'])?></a></td>
+	</tr>
+<?php endforeach;?>
+</tbody>
+<?php endif;?>

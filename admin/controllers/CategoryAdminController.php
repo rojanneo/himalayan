@@ -11,4 +11,9 @@ class CategoryAdminController extends Controller
 			redirect('admin/login');
 		}
 	}
+
+	public function indexAction()
+	{
+		
+	}
 }

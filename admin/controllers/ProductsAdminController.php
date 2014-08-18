@@ -15,7 +15,9 @@ class ProductsAdminController extends Controller
 
 	public function indexAction()
 	{
-		$this->view->renderAdmin('products/grid.phtml');
+		$products = getModel('products')->getAllProducts();
+		$data['products'] = $products;
+		$this->view->renderAdmin('products/grid.phtml', $data);
 	}
 
 	public function addAction()
@@ -39,6 +41,85 @@ class ProductsAdminController extends Controller
 			$data['set'] = $set;
 			$data['attributes'] = $attributes;
 			$this->view->renderAdmin('products/new.phtml',$data);
+		}
+	}
+
+	public function addPostAction()
+	{
+		loadHelper('inputs');
+		$post_data = getPost();
+		//getModel('products')->addNewProduct($post_data);
+		if(getModel('products')->addNewProduct($post_data))
+		{
+			redirect('admin/products');
+		}
+		else
+		{
+			redirect('admin/products/add');
+		}
+	}
+
+	public function editAction($product_id)
+	{
+		$product = getModel('products')->getProduct($product_id);
+		$data['product'] = $product;
+		$set = $product['product_asid'];
+		$attributes = getModel('attribute')->getAttributeCollection($set);
+		$data['attributes'] = $attributes;
+		
+		$this->view->renderAdmin('products/new.phtml',$data);
+	}
+
+	public function editPostAction()
+	{
+		loadHelper('inputs');
+		$post_data = getPost();
+		if(getModel('products')->updateProduct($post_data))
+		{
+			redirect('admin/products');
+		}
+		else
+		{
+			redirect('admin/products/edit'.$post_data['product_id']);
+		}
+	}
+
+	public function testAction()
+	{
+		loadHelper('inputs');
+		foreach ($_FILES['file']['name'] as $f => $name) {
+		 $allowedExts = array("gif", "jpeg", "jpg", "png");
+		    $temp = explode(".", $name);
+		    $extension = end($temp);
+
+		if ((($_FILES["file"]["type"][$f] == "image/gif")
+		|| ($_FILES["file"]["type"][$f] == "image/jpeg")
+		|| ($_FILES["file"]["type"][$f] == "image/jpg")
+		|| ($_FILES["file"]["type"][$f] == "image/png"))
+		&& ($_FILES["file"]["size"][$f] < 2000000)
+		&& in_array($extension, $allowedExts))
+		{
+		  if ($_FILES["file"]["error"][$f] > 0)
+		  {
+		    echo "Return Code: " . $_FILES["file"]["error"][$f] . "<br>";
+		  }
+		  else
+		  {
+
+		    if (file_exists(UPLOADS_FOLDER.'products'.DIRECTORY_SEPARATOR.$name))
+		    {
+
+		    }
+		    else
+		    {
+		        move_uploaded_file($_FILES["file"]["tmp_name"][$f], UPLOADS_FOLDER.'products'.DIRECTORY_SEPARATOR.uniqid() . "_" . $name);
+		    }
+		  }
+		}
+		else
+		{
+		    $error =  "Invalid file";
+		}
 		}
 	}
 }

@@ -24,7 +24,7 @@ echo AdminSession::showSuccessMessages();?>
 			<?php foreach($view_options as $option):?>
 				<div class="option">
 					<label>Option: </label>
-					<input type="text" name="option_value[]" class="input-box required text-validation"/ value="<?php echo $option['value']?>"><a href="javascript:void(0)" class="remove-option">Remove</a>
+					<input type="text" name="update_option_value[<?php echo $option['vid']?>]" class="input-box required text-validation"/ value="<?php echo $option['value']?>"><a href="javascript:void(0)" class="remove-option">Remove</a>
 				</div>
 				<script>
 				$('a.remove-option').click(function(){

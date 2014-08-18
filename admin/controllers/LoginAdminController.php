@@ -13,7 +13,7 @@ class LoginAdminController extends Controller
 
 	public function indexAction()
 	{
-		$this->view->renderAdmin('login.phtml');
+		$this->view->renderAdmin('login.phtml', false, false, false);
 	}
 
 	public function loginPostAction()

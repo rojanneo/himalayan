@@ -1,11 +1,39 @@
 <?php
 if (!defined('URL')) {
-	define('URL', 'http://192.168.0.107/himalayan/');
+	define('URL', 'http://192.168.1.107/himalayan/');
 }
 
 if (!defined('ADMIN_URL')) {
 	define('ADMIN_URL', URL.'admin/');
 }
+
+if (!defined('DOC_ROOT')) {
+	if($_SERVER['SERVER_NAME'] == '192.168.1.107' or $_SERVER['SERVER_NAME'] == '192.168.0.107')
+	define('DOC_ROOT', str_replace('/','\\',$_SERVER['DOCUMENT_ROOT']));
+	else
+	{
+		define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT']);	
+	}
+}
+
+if (!defined('ASSET_FOLDER')) {
+	if($_SERVER['SERVER_NAME'] == '192.168.1.107' or $_SERVER['SERVER_NAME'] == '192.168.0.107')
+	define('ASSET_FOLDER', str_replace('/','\\',$_SERVER['DOCUMENT_ROOT']).'\\himalayan\\assets\\');
+	else
+	{
+		define('ASSET_FOLDER', $_SERVER['DOCUMENT_ROOT'].'/assets/');	
+	}
+}
+
+if (!defined('UPLOADS_FOLDER')) {
+	if($_SERVER['SERVER_NAME'] == '192.168.1.107' or $_SERVER['SERVER_NAME'] == '192.168.0.107')
+	define('UPLOADS_FOLDER', str_replace('/','\\',$_SERVER['DOCUMENT_ROOT']).'\\himalayan\\assets\\uploads\\');
+	else
+	{
+		define('UPLOADS_FOLDER', $_SERVER['DOCUMENT_ROOT'].'/assets/uploads/');	
+	}
+}
+
 
 if (!defined('DEFAULT_CONTROLLER')) {
 	define('DEFAULT_CONTROLLER', 'home');

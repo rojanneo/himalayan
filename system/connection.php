@@ -80,7 +80,7 @@
 				{
 					try
 					{
-						$result = mysql_query($query, self::$db);				
+						$result = mysql_query($query, self::$db) or die(mysql_error(self::$db));				
 						return true;
 					}
 					catch(Exception $e)

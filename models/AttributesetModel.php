@@ -20,6 +20,12 @@ class AttributesetModel extends Model
 		return $this->connection->Query($sql);
 	}
 
+	public function getAttributeSetNameFromId($attribute_set_id)
+	{
+		$set = $this->getAttributeSetById($attribute_set_id);
+		return $set[0]['asname'];
+	}
+
 	public function addNewAttributeset($post_data)
 	{
 		if(isset($post_data)) extract($post_data);
