@@ -34,7 +34,7 @@ class CategoryModel extends Model
 
 	public function cat_ul($category_name,$category_id)
 	{
-		$category='<li>'.$category_name.'<a href="'.ADMIN_URL.'category/editcat/'.$category_id.'">edit</a> <a href="'.ADMIN_URL.'category/deletecat/'.$category_id.'">DELETE</a></li>';
+		$category='<li><a href="'.ADMIN_URL.'category/editcat/'.$category_id.'">'.$category_name.'</a> <a href="'.ADMIN_URL.'category/deletecat/'.$category_id.'">DELETE</a></li>';
 			$query1='SELECT * FROM `categories` WHERE `parent_id`='.$category_id.'';
 			$cat_hier1=$this->connection->Query($query1);
 			if(!empty($cat_hier1))
