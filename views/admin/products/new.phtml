@@ -1,7 +1,7 @@
 <?php loadHelper('view');?>
 <?php if(!isset($view_product)):?>
 <div class="product-form">
-	<form method="post" action="<?php echo ADMIN_URL.'products/addPost'?>">
+	<form method="post" enctype="multipart/form-data" action="<?php echo ADMIN_URL.'products/addPost'?>">
 		<input type="hidden" name="attribute_set" value="<?php echo $view_set?>"/>
 		<input type="hidden" name="product_type" value="<?php echo $view_type?>"/>
 		<label for = "name">Name</label>
@@ -46,23 +46,69 @@
 			<?php endforeach;?>
 		<?php endif;?>
 
+		</br></br>
+		<?php if(isset($view_catlist)){ $i=1;?>
+		<label for ="category">Category </label>
+		</br>
+		<?php foreach ($view_catlist as $view_catlist) { ?>	
+		<input type="checkbox" id="pc<?php echo $i; ?>" name="pccheck_list[<?php echo $i; ?>]" value="<?php echo $view_catlist['category_id']; ?>" />
+		<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_name']; ?></label></br>
+		<?php $i++;}?>
+		<?php } ?>
+
+
+		<a href="javascript:void(0)" class="add-image">Add Image</a>
+		<table>
+			<thead>
+				<th>Image</th>
+				<!-- <th>Base Image</th>
+				<th>Thumbnail</th> -->
+			</thead>
+			<?php $base_count = 0; $thumb_count =0; ?>
+			<tbody class="gallery-table">
+				<tr>
+					<td><input type="file" name="gallery[]"/></td>
+				<!-- 	<td><input type="radio" name="base_image" value="<?php echo $base_count++?>" id="default-base"/></td>
+					<td><input type="radio" name="thumbnail" value="<?php echo $thumb_count++?>" id="default-thumbnail"/></td> -->
+				</tr>
+			</tbody>
+		</table>
+
 		<input type="submit" value="Save"/>
 
 
 	</form>
 
-	<form enctype="multipart/form-data" method="post" action="<?php echo ADMIN_URL.'products/test'?>">
+
+	<!-- <form  method="post" action="<?php echo ADMIN_URL.'products/test'?>">
 		<input type="file" name="file[]"  >
 		<input type="file" name="file[]" >
 		<input type="file" name="file[]" >
 
 			<input type="submit" value="Save"/>
-	</form>
+	</form> -->
+
+	<script>
+		$(document).ready(function()
+		{
+			//$("#default-base").attr('checked','checked');
+			//$("#default-thumbnail").attr('checked','checked');
+			$('a.add-image').click(function(){
+				$('tbody.gallery-table').append('<tr class="option"><td><input type="file" name="gallery[]"/></td><td><a href="javascript:void(0)" class="remove-image">Remove Image</a></td></tr>');
+				var script   = document.createElement("script");
+				script.type  = "text/javascript";
+				script.text  = "$('a.remove-image').click(function(){$(this).parent().parent().remove()});";               // use this for inline script
+				document.body.appendChild(script);
+			});
+
+			
+		});
+	</script>
 </div>
 
 <?php else:?>
 	<div class="product-form">
-	<form method="post" action="<?php echo ADMIN_URL.'products/editPost'?>">
+	<form method="post" enctype="multipart/form-data" action="<?php echo ADMIN_URL.'products/editPost'?>">
 		<input type="hidden" name="product_id" value="<?php echo $view_product['pid']?>"/>
 		<input type="hidden" name="attribute_set" value="<?php echo $view_product['product_asid']?>"/>
 		<input type="hidden" name="product_type" value="<?php echo $view_product['ptype']?>"/>
@@ -108,9 +154,94 @@
 			<?php endforeach;?>
 		<?php endif;?>
 
+		</br></br>
+		<?php if(isset($view_catlist)){ $i=1;?>
+		<label for ="category">Category </label>
+		</br>
+		<?php foreach ($view_catlist as $view_catlist) { ?>	
+		<input type="checkbox" id="pc<?php echo $i; ?>" name="pccheck_list[<?php echo $i; ?>]" value="<?php echo $view_catlist['category_id']; ?>" 
+		<?php if(is_array($view_CatInList) and in_array($view_catlist['category_id'], $view_CatInList)) { echo'checked'; }?> />
+		<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_name']; ?></label></br>
+		<?php $i++;}?>
+		<?php } ?>
+
+<a href="javascript:void(0)" class="add-image">Add Image</a>
+			<table>
+			<thead>
+			<th>Image</th>
+			<!-- <th>Base Image</th>
+			<th>Thumbnail</th> -->
+			</thead>
+			<tbody class="gallery-table">
+		<?php if(isset($view_gallery)):?>
+			<?php foreach($view_gallery as $image):?>
+				<tr>
+					<td><img src="<?php echo UPLOAD_URL.$image['value']?>" width="100" height="100"/></td>
+					<!-- <td><input type="radio" name="base_image" <?php echo ($image['is_base_image'])?'class="checked"':null?>/></td>
+					<td><input type="radio" name="thumbnail" <?php echo ($image['is_thumbnail_image'])?'class="checked"':null?>/></td> -->
+					<td><a href="javascript:void(0)" class="remove-uploaded-image" rel="<?php echo $image['gid']?>">Remove Image</a>
+				</tr>
+			<?php endforeach;?>
+		<?php endif;?>
+			<?php $base_count = 0; $thumb_count =0; ?>
+<!-- 				<tr class="option">
+					<td><input type="file" name="gallery[]"/></td>
+					<td><input type="radio" name="base_image" id="default-base" value="<?php echo $base_count++?>" /></td>
+					<td><input type="radio" value="<?php echo $thumbnail?>" id ="default-thumbnail" name="thumbnail"/></td>
+					<td><a href="javascript:void(0)" class="remove-image-default">Remove Image</a></td>
+				</tr>
+ -->			</tbody>
+		</table>
 		<input type="submit" value="Save"/>
 
 
 	</form>
+	<script>
+		$(document).ready(function()
+		{
+
+			$('.remove-uploaded-image').click(function(){
+				var answer = confirm('Are you sure you want to delete this image?');
+				$image = $(this);
+				if(answer)
+				{
+					var gid = $(this).attr('rel');
+
+					$.ajax({url:"<?php echo ADMIN_URL?>"+"products/deleteImage/"+gid,success:function(result){
+						if(result == 'success')
+						{
+							$image.parent().parent().remove();
+							alert('Image has been Deleted');
+						}
+						else
+						{
+							alert("Image Could Not Be Deleted");
+						}
+					  }});
+				}
+				else
+				{
+					return false;
+				}
+			});
+
+
+
+			//$('.checked').attr('checked','checked');
+			$('a.remove-image-default').click(function(){
+				$(this).parent().parent().remove();
+			})
+			$('a.add-image').click(function(){
+				$('tbody.gallery-table').append('<tr class="option"><td><input type="file" name="gallery[]"/></td><td><a href="javascript:void(0)" class="remove-image">Remove Image</a></td></tr>');
+				var script   = document.createElement("script");
+				script.type  = "text/javascript";
+				script.text  = "$('a.remove-image').click(function(){$(this).parent().parent().remove()});";               // use this for inline script
+				document.body.appendChild(script);
+			});
+
+			
+		});
+	</script>
 </div>
 <?php endif;?>
+	

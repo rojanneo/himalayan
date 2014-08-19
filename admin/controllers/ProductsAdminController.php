@@ -40,6 +40,7 @@ class ProductsAdminController extends Controller
 			$data['type'] = $type;
 			$data['set'] = $set;
 			$data['attributes'] = $attributes;
+			$data['catlist']=getModel('category')->getCategories();
 			$this->view->renderAdmin('products/new.phtml',$data);
 		}
 	}
@@ -48,6 +49,8 @@ class ProductsAdminController extends Controller
 	{
 		loadHelper('inputs');
 		$post_data = getPost();
+		//$files = getFiles();
+
 		//getModel('products')->addNewProduct($post_data);
 		if(getModel('products')->addNewProduct($post_data))
 		{
@@ -59,6 +62,18 @@ class ProductsAdminController extends Controller
 		}
 	}
 
+	public function deleteImageAction($gid)
+	{
+		if(getModel('products')->deleteImage($gid))
+		{
+			echo 'success';
+		}
+		else
+		{
+			echo 'error';
+		}
+	}
+
 	public function editAction($product_id)
 	{
 		$product = getModel('products')->getProduct($product_id);
@@ -66,7 +81,10 @@ class ProductsAdminController extends Controller
 		$set = $product['product_asid'];
 		$attributes = getModel('attribute')->getAttributeCollection($set);
 		$data['attributes'] = $attributes;
-		
+		$data['CatInList']=getModel('products')->getProductInCat($product_id);		
+		$model=getModel('category');
+		$data['catlist']=$model->getCategories();
+		$data['gallery'] = getModel('products')->getGalleryImages($product_id);
 		$this->view->renderAdmin('products/new.phtml',$data);
 	}
 
@@ -84,42 +102,54 @@ class ProductsAdminController extends Controller
 		}
 	}
 
-	public function testAction()
+	public function deleteAction($product_id)
 	{
-		loadHelper('inputs');
-		foreach ($_FILES['file']['name'] as $f => $name) {
-		 $allowedExts = array("gif", "jpeg", "jpg", "png");
-		    $temp = explode(".", $name);
-		    $extension = end($temp);
-
-		if ((($_FILES["file"]["type"][$f] == "image/gif")
-		|| ($_FILES["file"]["type"][$f] == "image/jpeg")
-		|| ($_FILES["file"]["type"][$f] == "image/jpg")
-		|| ($_FILES["file"]["type"][$f] == "image/png"))
-		&& ($_FILES["file"]["size"][$f] < 2000000)
-		&& in_array($extension, $allowedExts))
+		if(getModel('products')->deleteProduct($product_id))
 		{
-		  if ($_FILES["file"]["error"][$f] > 0)
-		  {
-		    echo "Return Code: " . $_FILES["file"]["error"][$f] . "<br>";
-		  }
-		  else
-		  {
-
-		    if (file_exists(UPLOADS_FOLDER.'products'.DIRECTORY_SEPARATOR.$name))
-		    {
-
-		    }
-		    else
-		    {
-		        move_uploaded_file($_FILES["file"]["tmp_name"][$f], UPLOADS_FOLDER.'products'.DIRECTORY_SEPARATOR.uniqid() . "_" . $name);
-		    }
-		  }
+			redirect('admin/products');
 		}
 		else
 		{
-		    $error =  "Invalid file";
-		}
+			redirect('admin/products');
 		}
 	}
+
+	// public function testAction()
+	// {
+	// 	loadHelper('inputs');
+	// 	foreach ($_FILES['file']['name'] as $f => $name) {
+	// 	 $allowedExts = array("gif", "jpeg", "jpg", "png");
+	// 	    $temp = explode(".", $name);
+	// 	    $extension = end($temp);
+
+	// 	if ((($_FILES["file"]["type"][$f] == "image/gif")
+	// 	|| ($_FILES["file"]["type"][$f] == "image/jpeg")
+	// 	|| ($_FILES["file"]["type"][$f] == "image/jpg")
+	// 	|| ($_FILES["file"]["type"][$f] == "image/png"))
+	// 	&& ($_FILES["file"]["size"][$f] < 2000000)
+	// 	&& in_array($extension, $allowedExts))
+	// 	{
+	// 	  if ($_FILES["file"]["error"][$f] > 0)
+	// 	  {
+	// 	    echo "Return Code: " . $_FILES["file"]["error"][$f] . "<br>";
+	// 	  }
+	// 	  else
+	// 	  {
+
+	// 	    if (file_exists(UPLOADS_FOLDER.'products'.DIRECTORY_SEPARATOR.$name))
+	// 	    {
+
+	// 	    }
+	// 	    else
+	// 	    {
+	// 	        move_uploaded_file($_FILES["file"]["tmp_name"][$f], UPLOADS_FOLDER.'products'.DIRECTORY_SEPARATOR.uniqid() . "_" . $name);
+	// 	    }
+	// 	  }
+	// 	}
+	// 	else
+	// 	{
+	// 	    $error =  "Invalid file";
+	// 	}
+	// 	}
+	// }
 }

@@ -28,3 +28,16 @@ if(!function_exists('getParam'))
 		return $get;
 	}
 }
+
+if(!function_exists('getFiles'))
+{
+	function getFiles($key)
+	{
+		if($key)
+			if(isset($_FILES[$key]))
+			$get = $_FILES[$key];
+			else
+			$get = false;
+		return $get;
+	}
+}

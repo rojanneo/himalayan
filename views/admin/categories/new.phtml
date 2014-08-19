@@ -1,0 +1,27 @@
+<?php echo AdminSession::showErrorMessages();
+echo AdminSession::showSuccessMessages();?>
+
+
+<form method="post" action = "<?php echo (isset($view_category))?ADMIN_URL.'category/editcatpost':ADMIN_URL.'category/addcatpost'?>">
+	<?php if(isset($view_category)):?>
+		<input type="hidden" name="attribute_id" value="<?php echo $view_category['category_id']?>"/>
+	<?php endif;?>
+	<label for name="ccode">CATEGORY name</label>
+	<input type="text" name="cname" class="input-box required text-validation" value="<?php echo (isset($view_category))?$view_category['category_name']:null?>"/>
+
+	<label for name="cname">CATEGORY Description</label>
+	<textarea name="cdescription"><?php echo (isset($view_category))?$view_category['category_description']:null?></textarea>
+	
+	<label for name="atype">Parent Type</label>
+	<select name="ctype" class="attr-type-select">
+		<option value="0" <?php echo (isset($view_category) and $view_category['parent_id'] == 0)?'selected':null?>>No Parent</option>
+		<?php foreach ($view_catlist as $view_catlist) { ?>
+		<option value="<?php  echo $view_catlist['category_id']; ?>" <?php echo (isset($view_category) and $view_category['parent_id'] == $view_catlist['category_id'])?'selected':null?>>
+		<?php echo $view_catlist['category_name']; ?>
+		</option>	
+		<?php }	?>
+	</select>
+
+	<input type="submit" value="Save"/>
+</form>
+

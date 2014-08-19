@@ -48,18 +48,109 @@ class ProductsModel extends Model
 			$atype = $attribute[0]['atype'];
 			$sql = "SELECT * FROM product_attribute_values_".$atype." where pav".$atype[0]."_pid = $product_id AND pav".$atype[0]."_aid = $attribute_id";
 			$av = $this->connection->Query($sql);
+			if($av)
 			return $av[0]['value'];
+			else
+				return false;
 		}
+	}
+
+	public function getGalleryImages($product_id)
+	{
+		$sql = "SELECT * FROM product_attribute_values_gallery WHERE pavg_pid = $product_id";
+		$gallery = $this->connection->Query($sql);
+		$images = array();
+		$count = 0;
+		foreach($gallery as $image)
+		{
+			$image['value'] = str_replace('\\','/',$image['value']);
+			$gallery[$count++]['value'] = $image['value'];
+		}
+		return $gallery;
+	}
+
+	public function deleteImage($gid)
+	{
+
+		$sql = "SELECT * FROM product_attribute_values_gallery WHERE gid = $gid";
+			$images = $this->connection->Query($sql);
+
+			foreach($images as $image)
+			{
+				unlink(UPLOADS_FOLDER.$image['value']);
+			}
+
+		$sql = "DELETE FROM product_attribute_values_gallery WHERE gid = $gid";
+		return $this->connection->DeleteQuery($sql);
+	}
+
+	public function saveImages($product_id, $base_image, $thumbnail)
+	{
+		$filenames = array();
+		$base_count = 0;
+		$thumb_count = 0;
+		foreach ($_FILES['gallery']['name'] as $f => $name) {
+		 $allowedExts = array("gif", "jpeg", "jpg", "png");
+		    $temp = explode(".", $name);
+		    $extension = end($temp);
+
+		if ((($_FILES["gallery"]["type"][$f] == "image/gif")
+		|| ($_FILES["gallery"]["type"][$f] == "image/jpeg")
+		|| ($_FILES["gallery"]["type"][$f] == "image/jpg")
+		|| ($_FILES["gallery"]["type"][$f] == "image/png"))
+		&& ($_FILES["gallery"]["size"][$f] < 2000000)
+		&& in_array($extension, $allowedExts))
+		{
+		  if ($_FILES["gallery"]["error"][$f] > 0)
+		  {
+		    echo "Return Code: " . $_FILES["gallery"]["error"][$f] . "<br>";
+		  }
+		  else
+		  {
+
+		    if (file_exists(UPLOADS_FOLDER.'products'.DIRECTORY_SEPARATOR.$name))
+		    {
+
+		    }
+		    else
+		    {
+		    	$filename = 'products'.DIRECTORY_SEPARATOR.uniqid() . "_" . $name;
+		    	if($base_count == $base_image) 
+		    		{$base = 1; } else {$base = 0;}
+		    	$base_count++;
+		    	if($thumb_count == $thumbnail) {$thumb = 1;} else $thumb = 0;
+		    	$thumb_count++;
+		        move_uploaded_file($_FILES["gallery"]["tmp_name"][$f], UPLOADS_FOLDER.$filename);
+		        $filename = str_replace('\\','\\\\',$filename);
+		        $sql = "INSERT INTO `product_attribute_values_gallery`(`pavg_pid`, `value`, `is_base_image`, `is_thumbnail_image`) VALUES ($product_id,'$filename',$base,$thumb)";
+		       $result = $this->connection->InsertQuery($sql);
+		    }
+		  }
+		}
+		else
+		{
+		    $error =  "Invalid file";
+		}
+		}
+		return $result;
 	}
 
 	public function addNewProduct($post_data)
 	{
 		if($post_data) extract($post_data);
+
 		$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`) VALUES 
 		('$name','$sku','$product_type','$attribute_set','$quantity','$in_stock','$status')";
 		$result1 = $this->connection->InsertQuery($sql);
 
 		$pid = $this->connection->GetInsertID();
+
+		foreach ($pccheck_list as $pccheck_list) 
+		{
+			$sql1="INSERT INTO `product_cat`(`pid`, `category_id`) VALUES ('".$pid."','".$pccheck_list."')";
+			$this->connection->InsertQuery($sql1);
+		}		
+
 
 		$attributeTable = 'product_attribute_values_';
 
@@ -80,7 +171,41 @@ class ProductsModel extends Model
 			}
 			$result2 = $this->connection->InsertQuery($sql);
 		}
-		return $result1 and $result2;
+		if(isset($base_image) and isset($thumbnail))
+			$result3 = $this->saveImages($pid, $base_image, $thumbnail);
+		else
+		{
+			$result3 = $this->saveImages($pid, 0, 0);
+		}
+		return $result1 and $result2 and $result3;
+	}
+
+	public function deleteProduct($product_id)
+	{
+			$sql = "SELECT * FROM product_attribute_values_gallery WHERE pavg_pid = $product_id";
+			$images = $this->connection->Query($sql);
+
+			foreach($images as $image)
+			{
+				unlink(UPLOADS_FOLDER.$image['value']);
+			}
+			$sql = "DELETE FROM product_attribute_values_int WHERE pavi_pid = $product_id"; 
+			$result = $this->connection->DeleteQuery($sql);
+			$sql = "DELETE FROM product_attribute_values_text WHERE pavt_pid = $product_id"; 
+			$result = $this->connection->DeleteQuery($sql);
+			$sql = "DELETE FROM product_attribute_values_varchar WHERE pavv_pid = $product_id"; 
+			$result = $this->connection->DeleteQuery($sql);
+			$sql = "DELETE FROM product_attribute_values_select WHERE pavs_pid = $product_id"; 
+			$result = $this->connection->DeleteQuery($sql);
+
+
+
+			$sql = "DELETE FROM product_attribute_values_gallery WHERE pavg_pid = $product_id"; 
+			$result = $this->connection->DeleteQuery($sql);
+
+			$sql = "DELETE FROM products_simple WHERE pid = $product_id";
+			$result = $this->connection->DeleteQuery($sql);
+			return $result;
 	}
 
 	public function updateProduct($post_data)
@@ -89,6 +214,21 @@ class ProductsModel extends Model
 		$sql = "UPDATE products_simple SET pname = '".$name."', psku = '".$sku."', ptype='".$product_type."', product_asid = '".$attribute_set."',
 		 quantity = '".$quantity."', in_stock = '".$in_stock."', status = '".$status."' WHERE pid = '".$product_id."'";
 		$result = $this->connection->UpdateQuery($sql);
+
+		$getProductInCatval=$this->getProductInCat($product_id);
+		//var_dump($getProductInCatval);
+
+		foreach ($getProductInCatval as $getProductInCatval) 
+		{
+			$sql="DELETE FROM `product_cat` WHERE `category_id`='".$getProductInCatval."'";
+			$this->connection->DeleteQuery($sql);
+		}
+		foreach ($pccheck_list as $pccheck_list) 
+		{
+			$sql1="INSERT INTO `product_cat`(`pid`, `category_id`) VALUES ('".$product_id."','".$pccheck_list."')";
+			$this->connection->InsertQuery($sql1);
+		}	
+
 		if(isset($attributes))
 		{
 			$sql = "DELETE FROM product_attribute_values_int WHERE pavi_pid = $product_id"; 
@@ -124,7 +264,30 @@ class ProductsModel extends Model
 		 
 		}
 
+		if(isset($base_image) and isset($thumbnail))
+		{
+			$result3 = $this->saveImages($product_id, $base_image, $thumbnail);
+		}
+		else
+		{
+			$result3 = $this->saveImages($product_id, 0, 0);
+		}
+
 	return $result and $result2;
 
+	}
+
+	public function getProductInCat($product_id)
+	{
+		$sql="SELECT * FROM product_cat WHERE `pid`='".$product_id."'";
+		$query=$this->connection->Query($sql);
+		$val=null;
+		$i=1;
+		foreach ($query as $query) 
+		{
+			$val[$i]=$query['category_id'];
+			$i++;
+		}
+		return $val;
 	}
 }
