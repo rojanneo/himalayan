@@ -1,0 +1,19 @@
+<a href="<?php echo ADMIN_URL.'faq/add'?>">Add New FAQ</a>
+<?php if(isset($view_faqs)):?>
+<table>
+	<thead>
+		<th>FAQ ID</th>
+		<th>FAQ Question</th>
+		<th>Actions</th>
+	</thead>
+	<tbody>
+		<?php foreach($view_faqs as $faq):?>
+			<tr>
+				<td><a href="<?php echo ADMIN_URL.'faq/edit/'.$faq['faq_id']?>"><?php echo $faq['faq_id']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'faq/edit/'.$faq['faq_id']?>"><?php echo $faq['faq_question']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'faq/delete/'.$faq['faq_id']?>">Delete</a></td>
+			</tr>
+		<?php endforeach;?>
+	</tbody>
+</table>
+<?php endif;?>

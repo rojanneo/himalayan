@@ -2,6 +2,7 @@
 <!-- Name for inputs must be same as the database fields -->
 <?php Session::showErrorMessages();?>
 <?php Session::showSuccessMessages();?>
+<?php loadHelper('inputs');?>
 <div class="wrapper">
                 <div class="contactPage">
                     <div class="contactForm">
@@ -27,6 +28,13 @@
                             	<!-- <input type="submit" value = "Submit" class="submit-button"/> -->
                                 <button class="btn btn-blue" onclick="$('.contactForm form').submit();">submit</button>
                             </fieldset>
+
+                            <?php if(getParam('from')):?>
+                                <fieldset>
+                                    <label for ="from_url">Related To:</label>
+                                    <input type="text" name="from_url" value="<?php echo getParam('from')?>"/>
+                                </fieldset>
+                            <?php endif;?>
                         </form>
                     </div>
 	                <!-- TODO MAKE THIS DYNAMIC -->

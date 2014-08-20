@@ -1,14 +1,19 @@
 <?php
 if (!defined('URL')) {
-	define('URL', 'http://192.168.1.107/himalayan/');
+	define('URL', 'http://rojan/himalayan/');
 }
 
 if (!defined('ADMIN_URL')) {
 	define('ADMIN_URL', URL.'admin/');
 }
 
+if (!defined('SERVER_NAME')) {
+	define('SERVER_NAME', $_SERVER['SERVER_NAME']);
+}
+
+
 if (!defined('DOC_ROOT')) {
-	if($_SERVER['SERVER_NAME'] == '192.168.1.107' or $_SERVER['SERVER_NAME'] == '192.168.0.107')
+	if($_SERVER['SERVER_NAME'] == 'rojan' or $_SERVER['SERVER_NAME'] == '192.168.0.107')
 	define('DOC_ROOT', str_replace('/','\\',$_SERVER['DOCUMENT_ROOT']));
 	else
 	{
@@ -17,7 +22,7 @@ if (!defined('DOC_ROOT')) {
 }
 
 if (!defined('ASSET_FOLDER')) {
-	if($_SERVER['SERVER_NAME'] == '192.168.1.107' or $_SERVER['SERVER_NAME'] == '192.168.0.107')
+	if($_SERVER['SERVER_NAME'] == 'rojan' or $_SERVER['SERVER_NAME'] == '192.168.0.107')
 	define('ASSET_FOLDER', str_replace('/','\\',$_SERVER['DOCUMENT_ROOT']).'\\himalayan\\assets\\');
 	else
 	{
@@ -26,7 +31,7 @@ if (!defined('ASSET_FOLDER')) {
 }
 
 if (!defined('UPLOADS_FOLDER')) {
-	if($_SERVER['SERVER_NAME'] == '192.168.1.107' or $_SERVER['SERVER_NAME'] == '192.168.0.107')
+	if($_SERVER['SERVER_NAME'] == 'rojan' or $_SERVER['SERVER_NAME'] == '192.168.0.107')
 	define('UPLOADS_FOLDER', str_replace('/','\\',$_SERVER['DOCUMENT_ROOT']).'\\himalayan\\assets\\uploads\\');
 	else
 	{
@@ -64,11 +69,11 @@ if (!defined('UPLOAD_URL')) {
 }
 
 if (!defined('CAPTCHA_PUBLIC_KEY')) {
-	define('CAPTCHA_PUBLIC_KEY', '6Lcb-_cSAAAAAJDbx1f7OgP6Eigh39fuxBIKoGJ8');
+	define('CAPTCHA_PUBLIC_KEY', '6LdQ4_gSAAAAAPh5QFnu83_u6s_bh9a2HDchWXqj');
 }
 
 if (!defined('CAPTCHA_PRIVATE_KEY')) {
-	define('CAPTCHA_PRIVATE_KEY', '6Lcb-_cSAAAAAGTU-Fgeosq9j9rcbK2G1qbsjrmD');
+	define('CAPTCHA_PRIVATE_KEY', '6LdQ4_gSAAAAAD-TerNJXUwEAXUWCrWI-1Uxi0Hy');
 }
 
 

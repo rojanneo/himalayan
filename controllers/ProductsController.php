@@ -21,4 +21,5 @@ class ProductsController extends Controller
 		$data['category_id'] = $category_id;
 		$this->view->render('products/list.phtml',$data);
 	}
+
 }

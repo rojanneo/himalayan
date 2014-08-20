@@ -1,3 +1,4 @@
+<?php loadHelper('url');?>
 <div class="wrapper">
                 <div class="faq">
                     <div class="faqLeft">
@@ -5,6 +6,7 @@
                         <h2><?php echo $view_faq['faq_question'];?></h2>
                         <p><?php echo $view_faq['faq_answer'];?></p>
                         <a href="<?php echo URL.'faq'?>" class="faqback">back to FAQs</a>
+                        <a href="<?php echo URL.'contacts?from='.CurrentURL()?>" class="faqback">Contact Us Regarding This Issue</a>
                     </div>
                 </div>
                 <div class="clearfix"></div>

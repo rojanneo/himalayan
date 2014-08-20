@@ -10,7 +10,14 @@ class ContactsModel extends Model
 	public function saveMessage($message)
 	{
 		extract($message);
-		$query = 'Insert into contact_messages values("","'.$sender_name.'","'.$sender_email.'","'.$message_nature.'","'.$message.'")';
+		if(isset($from_url))
+		{
+			$query = 'Insert into contact_messages values("","'.$sender_name.'","'.$sender_email.'","'.$message_nature.'","'.$message.'","'.$from_url.'")';
+		}
+		else
+		{
+			$query = 'Insert into contact_messages values("","'.$sender_name.'","'.$sender_email.'","'.$message_nature.'","'.$message.'","")';		
+		}
 		try
 		{
 			$this->connection->InsertQuery($query);
@@ -29,5 +36,23 @@ class ContactsModel extends Model
 		{
 			Session::addErrorMessage($e->getMessage());
 		}
+	}
+
+	public function getAllMessages()
+	{
+		$sql = "SELECT * FROM `contact_messages` ORDER BY `contact_id` DESC";
+		return $this->connection->Query($sql);
+	}
+
+	public function getMessage($id)
+	{
+		$sql = "SELECT * FROM `contact_messages` WHERE `contact_id` = ".$id;
+		return $this->connection->Query($sql)[0];
+	}
+
+	public function deleteMessage($id)
+	{
+		$sql = "DELETE FROM `contact_messages` WHERE `contact_id` = ".$id;
+		return $this->connection->DeleteQuery($sql);
 	}
 }

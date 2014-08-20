@@ -13,6 +13,8 @@
     	{
     		$.each(this.find('.'+class_of_input), function(i, input)
     		{
+    			if($(input).is('input'))
+    			{
     			if(($(input)).attr('type')  == 'text' || $(input).attr('type')  == 'password')
     			{
 	    			var classes = $(input).attr('class');
@@ -103,13 +105,55 @@
 	    			}
 	        	
 	        	}
+	        }
+	        else if($(input).is('textarea'))
+	        {
+	        	var classes = $(input).attr('class');
+	    			classes = classes.split(' ');
+	    			for(var i = 0; i<classes.length; i++)
+	    			{
+	    				for(var j = 0; j<validation_rules.length; j++)
+	    				{
+	    					var obj = validation_rules[j];
+	    					if(obj.className == classes[i])
+	    					{
+	    						
+	    						{
+	    							var pattern = obj.pattern;
+	    							var errormsg = obj.errormsg;
+	    							var value = $(input).val();
+	    							var className = obj.className;
+	    							var regexp = new RegExp(pattern);
+	    							var name = $(input).attr('name');
+	    							
+	    							{
+		    							if (regexp.test(value)) {
+											    $('p.'+className+name).remove();
+										} else {
+												$('p.'+className+name).remove();
+											
+										    $('<p class = "'+className+name+'">'+errormsg+'</p>').insertAfter($(input));
+										    noError = false;
+										   
+										}
+
+	    							}
+	    							
+	    						}
+	    					}
+	    				}
+	    			}
+	        }
 	        });
 			if(noError == true)
 			{
+				
+
 				$(this).submit();
 			}
 			else
 			{
+				console.log('there');
 				return false;
 			}
 

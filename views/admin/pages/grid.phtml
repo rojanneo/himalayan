@@ -1,0 +1,22 @@
+<a href="<?php echo ADMIN_URL.'pages/add'?>">Add New Page</a>
+<?php loadHelper('view');
+if(isset($view_pages)):?>
+<table>
+	<thead>
+		<th>Page Title</th>
+		<th>Url Key</th>
+		<th>Status</th>
+		<th>Action</th>
+	</thead>
+	<tbody>
+		<?php foreach($view_pages as $page):?>
+			<tr>
+				<td><a href="<?php echo ADMIN_URL.'pages/edit/'.$page['page_id']?>"><?php echo $page['title']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'pages/edit/'.$page['page_id']?>"><?php echo $page['urlKey']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'pages/edit/'.$page['page_id']?>"><?php echo convertStatusIdToText($page['status']);?></a></td>
+				<td><a href="<?php echo URL.'pages/view/'.$page['urlKey']?>" target = "_blank">Preview</a>
+			</tr>
+		<?php endforeach?>
+	</tbody>
+</table>
+<?php endif;?>

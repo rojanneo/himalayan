@@ -1,0 +1,22 @@
+<?php if(isset($view_messages)):?>
+<table>
+<thead>
+	<th>ID</th>
+	<th>Sender Name</th>
+	<th>Sender Email</th>
+	<th>Nature of Message</th>
+	<th>Action</th>
+</thead>
+<tbody>
+<?php foreach($view_messages as $message):?>
+	<tr>
+		<td><a href="<?php echo ADMIN_URL.'contacts/view/'.$message['contact_id']?>"><?php echo $message['contact_id']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'contacts/view/'.$message['contact_id']?>"><?php echo $message['sender_name']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'contacts/view/'.$message['contact_id']?>"><?php echo $message['sender_email']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'contacts/view/'.$message['contact_id']?>"><?php echo $message['message_nature']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'contacts/delete/'.$message['contact_id']?>">Delete</a></td>
+	</tr>
+<?php endforeach;?>
+</tbody>
+</table>
+<?php endif;?>

@@ -21,6 +21,26 @@ class FaqModel extends Model
 		return $faq;
 	}
 
+	public function addFaq($post_data)
+	{
+		if(isset($post_data)) extract($post_data);
+		$query = "INSERT INTO `faq`(`faq_question`, `faq_answer`) VALUES ('$faq_question','$faq_answer')";
+		return $this->connection->InsertQuery($query);
+	}
+
+	public function updateFaq($post_data)
+	{
+		if(isset($post_data)) extract($post_data);
+		$query = "UPDATE `faq` SET `faq_question`='$faq_question',`faq_answer`='$faq_answer' WHERE `faq_id` = $faq_id";
+		return $this->connection->UpdateQuery($query);
+	}
+
+	public function deleteFaq($id)
+	{
+		$sql = "DELETE FROM `faq` WHERE `faq_id` = ".$id;
+		return $this->connection->DeleteQuery($sql);
+	}
+
 	public function searchFaq($keywords)
 	{
 		$results = array();

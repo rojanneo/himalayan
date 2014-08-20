@@ -21,3 +21,9 @@ echo AdminSession::showSuccessMessages();
 	</select>
 	<input type ="submit" value="Save"/>
 </form>
+
+<script>
+$('form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>

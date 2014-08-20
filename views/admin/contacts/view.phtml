@@ -1,0 +1,16 @@
+<?php if(isset($view_message)):?>
+	<div class="message">
+		<a href="<?php echo ADMIN_URL.'contacts'?>">Back To Messages</a>
+		<div class="message-header">
+			<p><?php echo $view_message['message_nature'];?></p>
+		</div>
+		<p><?php echo $view_message['sender_name'];?></p>
+		<p><?php echo $view_message['sender_email'];?></p>
+		<div class="message">
+		<p><?php echo $view_message['message'];?></p>
+		<?php if(isset($view_message['from_url'])):?>
+			<p><?php echo $view_message['from_url'];?></p>
+		<?php endif;?>
+		</div>
+	</div>
+<?php endif;?>

@@ -1,0 +1,32 @@
+<?php if(!isset($view_faq)):?>
+	<form method="post" action="<?php echo ADMIN_URL.'faq/addpost'?>">
+		<label for = "faq_question">FAQ Question</label>
+		<!-- <a href="javascript:void(0)" onclick="toggleEditor('add_question')"><span>Toggle TinyMCE</span></a> -->
+		<textarea id='add_question' name="faq_question" ></textarea>
+
+		<label for = "faq_answer">FAQ Answer</label>
+		<!-- <a href="javascript:void(0)" onclick="toggleEditor('add_answer')"><span>Toggle TinyMCE</span></a> -->
+		<textarea id='add_answer' name="faq_answer" ></textarea>
+
+		<input type="submit" value="Save"/>
+	</form>
+<?php else: ?>
+	<form method="post" action="<?php echo ADMIN_URL.'faq/editpost'?>">
+	<input type="hidden" name="faq_id" value="<?php echo $view_faq['faq_id']?>"/>
+		<label for = "faq_question">FAQ Question</label>
+		<!-- <a href="javascript:void(0)" onclick="toggleEditor('add_question')"><span>Toggle TinyMCE</span></a> -->
+		<textarea id='add_question' name="faq_question" class="input-box required" ><?php echo $view_faq['faq_question']?></textarea>
+
+		<label for = "faq_answer">FAQ Answer</label>
+		<!-- <a href="javascript:void(0)" onclick="toggleEditor('add_answer')"><span>Toggle TinyMCE</span></a> -->
+		<textarea id='add_answer' name="faq_answer" class="input-box required"><?php echo $view_faq['faq_answer']?></textarea>
+
+		<input type="submit" value="Save"/>
+	</form>
+<?php endif;?>
+
+<script>
+$('form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>

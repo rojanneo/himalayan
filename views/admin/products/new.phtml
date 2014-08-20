@@ -32,7 +32,7 @@
 					<input type=<?php echo $attribute['atype']?> name="attributes[<?php echo $attribute['acode']?>]"/>
 				<?php break;?>
 				<?php case 'text':?>
-					<textarea name="attributes[<?php echo $attribute['acode']?>]"></textarea>
+					<textarea class="editor" name="attributes[<?php echo $attribute['acode']?>]"></textarea>
 				<?php break;?>
 				<?php case 'select':?>
 					<select name="attributes[<?php echo $attribute['acode']?>]">
@@ -244,4 +244,8 @@
 	</script>
 </div>
 <?php endif;?>
-	
+	<script>
+$('form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>

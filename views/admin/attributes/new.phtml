@@ -58,3 +58,9 @@ echo AdminSession::showSuccessMessages();?>
 	});
 	
 </script>
+
+<script>
+$('form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>
