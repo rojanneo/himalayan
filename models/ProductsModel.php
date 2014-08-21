@@ -171,13 +171,47 @@ class ProductsModel extends Model
 			}
 			$result2 = $this->connection->InsertQuery($sql);
 		}
-		if(isset($base_image) and isset($thumbnail))
-			$result3 = $this->saveImages($pid, $base_image, $thumbnail);
-		else
+		if(isset($gallery_images))
 		{
-			$result3 = $this->saveImages($pid, 0, 0);
+			foreach($gallery_images as $gallery_image){
+				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image) VALUES(".$pid.",'".$gallery_image."', 0, 0)";
+				$result3 = $this->connection->InsertQuery($sql);
+			}
 		}
+		// if(isset($base_image) and isset($thumbnail))
+		// 	$result3 = $this->saveImages($pid, $base_image, $thumbnail);
+		// else
+		// {
+		// 	$result3 = $this->saveImages($pid, 0, 0);
+		// }
+		$this->deleteUnnecessaryProductImages();
+
 		return $result1 and $result2 and $result3;
+	}
+
+	public function deleteUnnecessaryProductImages()
+	{
+		$sql = "SELECT * FROM product_attribute_values_gallery";
+		$images = $this->connection->Query($sql);
+
+		foreach (glob("assets/uploads/products/*.*") as $imagesFolder)
+		{
+			$imageExists = false;
+			foreach($images as $image)
+			{
+				if($imagesFolder == 'assets/uploads/'.$image['value'])
+				{
+					$imageExists = true;
+				}
+			}
+			if($imageExists == false)
+			{
+				$filename = explode('/',$imagesFolder)[3];
+				$file = UPLOADS_FOLDER.'products'.DIRECTORY_SEPARATOR.$filename;
+				 unlink($file);
+				//echo $file.'<br>';
+			}
+		}
 	}
 
 	public function deleteProduct($product_id)

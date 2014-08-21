@@ -1,5 +1,14 @@
 <?php loadHelper('view');?>
 <?php if(!isset($view_product)):?>
+<style>
+#cropContainerHeader {
+			width: 200px;
+			height: 150px;
+			position:relative; /* or fixed or absolute */
+		}
+		#cropContainerModal0, #cropContainerModal1, .croppic { width:200px; height:200px; position: relative; border:1px solid #ccc;}
+
+</style>
 <div class="product-form">
 	<form method="post" enctype="multipart/form-data" action="<?php echo ADMIN_URL.'products/addPost'?>">
 		<input type="hidden" name="attribute_set" value="<?php echo $view_set?>"/>
@@ -57,23 +66,50 @@
 		<?php } ?>
 
 
-		<a href="javascript:void(0)" class="add-image">Add Image</a>
+<!-- 		<a href="javascript:void(0)" class="add-image">Add Image</a>
 		<table>
 			<thead>
 				<th>Image</th>
-				<!-- <th>Base Image</th>
-				<th>Thumbnail</th> -->
 			</thead>
 			<?php $base_count = 0; $thumb_count =0; ?>
 			<tbody class="gallery-table">
 				<tr>
 					<td><input type="file" name="gallery[]"/></td>
-				<!-- 	<td><input type="radio" name="base_image" value="<?php echo $base_count++?>" id="default-base"/></td>
-					<td><input type="radio" name="thumbnail" value="<?php echo $thumb_count++?>" id="default-thumbnail"/></td> -->
 				</tr>
 			</tbody>
 		</table>
+ -->
 
+ <a href="#" class="add" id='0'>Add</a>
+<div class="images">
+<div class="croppic" id="cropContainerModal-0"></div>
+<input type="hidden" name="gallery_images[]" id='input-0'/>
+</div>
+<script>
+
+var croppicContainerModalOptions = {
+				uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
+				cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
+				modal:true,
+				imgEyecandyOpacity:0.4,
+				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+				onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+		}
+
+		var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+
+		$('a.add').click(function(){
+			var id = parseInt($(this).attr('id')) + 1;
+			croppicContainerModalOptions.outputUrlId = 'outputUrlId'+id;
+			$('.images').append('<div id="cropContainerModal-'+id+'" class="croppic"></div><input type="hidden" name="gallery_images[]" id="input-'+id+'"/></div>');
+
+			var script   = document.createElement("script");
+				script.type  = "text/javascript";
+				script.text  = "var cropContainerModal = new Croppic('cropContainerModal-"+id+"', croppicContainerModalOptions);";               // use this for inline script
+				document.body.appendChild(script);
+			$(this).attr('id',id);
+		});
+</script>
 		<input type="submit" value="Save"/>
 
 

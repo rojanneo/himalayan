@@ -1,6 +1,6 @@
 <?php
 if (!defined('URL')) {
-	define('URL', 'http://rojan/himalayan/');
+	define('URL', 'http://192.168.0.107/himalayan/');
 }
 
 if (!defined('ADMIN_URL')) {
