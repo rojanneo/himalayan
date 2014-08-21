@@ -171,13 +171,7 @@ class ProductsModel extends Model
 			}
 			$result2 = $this->connection->InsertQuery($sql);
 		}
-		if(isset($gallery_images))
-		{
-			foreach($gallery_images as $gallery_image){
-				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image) VALUES(".$pid.",'".$gallery_image."', 0, 0)";
-				$result3 = $this->connection->InsertQuery($sql);
-			}
-		}
+		
 		// if(isset($base_image) and isset($thumbnail))
 		// 	$result3 = $this->saveImages($pid, $base_image, $thumbnail);
 		// else
@@ -298,14 +292,15 @@ class ProductsModel extends Model
 		 
 		}
 
-		if(isset($base_image) and isset($thumbnail))
+		if(isset($gallery_images))
 		{
-			$result3 = $this->saveImages($product_id, $base_image, $thumbnail);
+			foreach($gallery_images as $gallery_image){
+				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image) VALUES(".$product_id.",'".$gallery_image."', 0, 0)";
+				$result3 = $this->connection->InsertQuery($sql);
+			}
 		}
-		else
-		{
-			$result3 = $this->saveImages($product_id, 0, 0);
-		}
+
+		$this->deleteUnnecessaryProductImages();
 
 	return $result and $result2;
 
