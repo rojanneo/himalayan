@@ -17,8 +17,8 @@ echo AdminSession::showSuccessMessages();?>
 </select>
 
 <label for="content">Content</label>
-<a href="javascript:void(0)" onclick="toggleEditor('add')"><span>Toggle TinyMCE</span></a>
-<textarea id='add' name="content" class="editor"></textarea>
+<a class="btn" href="javascript:void(0)" onclick="  tinymce.execCommand('mceRemoveControl', true, 'content');"><span>Toggle TinyMCE</span></a>
+<textarea id='add' name="content" class="editor" id="content"></textarea>
 
 <input type="submit" value="save"/>
 </form>
