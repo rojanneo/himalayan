@@ -1,6 +1,15 @@
 <?php echo AdminSession::showErrorMessages();
 echo AdminSession::showSuccessMessages();?>
+<style>
 
+#cropContainerHeader {
+			width: 500px;
+			height: 350px;
+			position:relative; /* or fixed or absolute */
+		}
+		#cropContainerModal0, #cropContainerModal1, .croppic { width:500px; height:350px; position: relative; border:1px solid #ccc;}
+
+</style>
 
 <form method="post" action = "<?php echo (isset($view_category))?ADMIN_URL.'category/editcatpost':ADMIN_URL.'category/addcatpost'?>">
 	<?php if(isset($view_category)):?>
@@ -10,7 +19,7 @@ echo AdminSession::showSuccessMessages();?>
 	<input type="text" name="cname" class="input-box required text-validation" value="<?php echo (isset($view_category))?$view_category['category_name']:null?>"/>
 
 	<label for name="cname">CATEGORY Description</label>
-	<textarea name="cdescription"><?php echo (isset($view_category))?$view_category['category_description']:null?></textarea>
+	<textarea class = "editor" name="cdescription"><?php echo (isset($view_category))?$view_category['category_description']:null?></textarea>
 	
 	<label for name="atype">Parent Type</label>
 	<select name="ctype" class="attr-type-select">
@@ -21,6 +30,39 @@ echo AdminSession::showSuccessMessages();?>
 		</option>	
 		<?php }	?>
 	</select>
+
+<?php if(!isset($view_category['category_image'])):?>
+<div class="images">
+<div class="croppic" id="cropContainerModal-0"></div>
+<input type="hidden" name="category_image" id='input-0'/>
+</div>
+<?php else:?>
+	<table>
+		<thead>
+			<th>Image</th>
+			<th>Action</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td><img src="<?php echo UPLOAD_URL.$view_category['category_image']?>"/></td>
+				<td><a href="<?php echo ADMIN_URL.'category/deleteImage/'.$view_category['category_id']?>">Remove Image</a>
+			</tr>
+		</tbody>
+
+<?php endif;?>
+<script>
+
+var croppicContainerModalOptions = {
+				uploadUrl:'<?php echo ADMIN_URL?>category/uploadImage',
+				cropUrl:'<?php echo ADMIN_URL?>category/cropImage',
+				modal:true,
+				imgEyecandyOpacity:0.4,
+				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+				onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+		}
+
+		var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+</script>
 
 	<input type="submit" value="Save"/>
 </form>

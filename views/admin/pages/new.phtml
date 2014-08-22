@@ -17,7 +17,7 @@ echo AdminSession::showSuccessMessages();?>
 </select>
 
 <label for="content">Content</label>
-<a class="btn" href="javascript:void(0)" onclick="  tinymce.execCommand('mceRemoveControl', true, 'content');"><span>Toggle TinyMCE</span></a>
+<!-- <a class="btn" href="javascript:void(0)" onclick="  tinymce.execCommand('mceRemoveControl', true, 'content');"><span>Toggle TinyMCE</span></a> -->
 <textarea id='add' name="content" class="editor" id="content"></textarea>
 
 <input type="submit" value="save"/>
@@ -42,7 +42,7 @@ $('form').submit(function(){
 </select>
 
 <label for="content">Content</label>
-<a href="javascript:void(0)" onclick="toggleEditor('edit')"><span>Toggle TinyMCE</span></a>
+<!-- <a href="javascript:void(0)" onclick="toggleEditor('edit')"><span>Toggle TinyMCE</span></a> -->
 <textarea id='edit' name="content" class="editor"><?php echo $view_page['content']?></textarea>
 
 <input type="submit" value="save"/>

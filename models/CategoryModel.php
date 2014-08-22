@@ -53,15 +53,17 @@ class CategoryModel extends Model
 	{
 		if($post_data) extract($post_data);
 		$cslug=str_replace(" ","_",$cname).uniqid();
+		if(!isset($category_image)) $category_image = null;
 		if($ctype==0)
 		{ 
-			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_description`, `parent_id`, `is_root`) VALUES ('".$cname."','".$cslug."','".$cdescription."',0,1)";
+			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_description`,`category_image`, `parent_id`, `is_root`) VALUES ('".mysql_escape_string($cname)."','".$cslug."','".mysql_escape_string($cdescription)."', '".$category_image."',0,1)";
 		}
 		else
 		{
-			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_description`, `parent_id`, `is_root`) VALUES ('".$cname."','".$cslug."','".$cdescription."','".$ctype."',0)";
+			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_description`,`category_image`, `parent_id`, `is_root`) VALUES ('".mysql_escape_string($cname)."','".$cslug."','".mysql_escape_string($cdescription)."','".$category_image."','".$ctype."',0)";
 		}
 		$result1 = $this->connection->InsertQuery($sql);
+		$this->deleteUnnecessaryImages();
 		return true;
 	}
 
@@ -74,16 +76,50 @@ class CategoryModel extends Model
 	public function updatecatval($post_data)
 	{
 		if($post_data) extract($post_data);	
+		if(!isset($category_image)) $category_image = null;
 		if($ctype==0)
 		{
-			$sql="UPDATE `categories` SET `category_name`='".$cname."',`category_description`='".$cdescription."',`parent_id`=0,`is_root`= 1 WHERE `category_id`='".$attribute_id."'";
+			$sql="UPDATE `categories` SET `category_name`='".mysql_escape_string($cname)."',`category_description`='".mysql_escape_string($cdescription)."',`category_image` = '".$category_image."',`parent_id`=0,`is_root`= 1 WHERE `category_id`='".$attribute_id."'";
 		}
 		else
 		{	
-		$sql="UPDATE `categories` SET `category_name`='".$cname."',`category_description`='".$cdescription."',`parent_id`='".$ctype."',`is_root`=0 WHERE `category_id`='".$attribute_id."'";
+		$sql="UPDATE `categories` SET `category_name`='".mysql_escape_string($cname)."',`category_description`='".mysql_escape_string($cdescription)."',`category_image` = '".$category_image."',`parent_id`='".$ctype."',`is_root`=0 WHERE `category_id`='".$attribute_id."'";
 		}
 		$this->connection->UpdateQuery($sql);
+		$this->deleteUnnecessaryImages();
 		return true;
+	}
+
+	public function deleteImage($id)
+	{
+		$query = "UPDATE `categories` SET `category_image` = NULL WHERE `category_id` = $id";
+		$this->connection->UpdateQuery($query);
+		$this->deleteUnnecessaryImages();
+	}
+
+	public function deleteUnnecessaryImages()
+	{
+		$sql = "SELECT * FROM categories";
+		$images = $this->connection->Query($sql);
+
+		foreach (glob("assets/uploads/category/*.*") as $imagesFolder)
+		{
+			$imageExists = false;
+			foreach($images as $image)
+			{
+				if($imagesFolder == 'assets/uploads/'.$image['category_image'])
+				{
+					$imageExists = true;
+				}
+			}
+			if($imageExists == false)
+			{
+				$filename = explode('/',$imagesFolder)[3];
+				$file = UPLOADS_FOLDER.'category'.DIRECTORY_SEPARATOR.$filename;
+				 unlink($file);
+				//echo $file.'<br>';
+			}
+		}
 	}
 
 	public function deletecatval($category_id)
@@ -100,5 +136,6 @@ class CategoryModel extends Model
 				$this->connection->UpdateQuery($sql);
 			}
 		}
+		return true;
 	}
 }

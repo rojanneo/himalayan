@@ -40,7 +40,6 @@
         <?php addJS('himalayan.js');?>
 
 
-
        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
          <script>
         //     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -75,45 +74,6 @@ tinymce.init({
 
 
 
-</script>
-
-<script>
-    var editorMode = true;
-    function toggleEditor(id)
-    {
-        //alert();
-        if(tinymce.get(id))
-        {
-            tinyMCE.execCommand('mceRemoveControl', false, id);
-            editorMode = false;
-        }
-        else
-        {
-            tinyMCE.execCommand('mceAddControl', false, id);
-            editorMode = true;
-
-        }
-    }
-
-</script>
-
-
-<script>
-var tinyMCEmode = true; 
-
-function toogleEditorMode(sEditorID) { 
-    try { 
-        if(tinyMCEmode) { 
-            tinyMCE.removeMCEControl(tinyMCE.getEditorId(sEditorID)); 
-            tinyMCEmode = false; 
-        } else { 
-            tinyMCE.addMCEControl(document.getElementById('editor'), sEditorID); 
-            tinyMCEmode = true; 
-        } 
-    } catch(e) { 
-        //error handling 
-    }
-    } 
 </script>
 
     </head>

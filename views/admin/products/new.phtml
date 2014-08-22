@@ -9,9 +9,8 @@
 		#cropContainerModal0, #cropContainerModal1, .croppic { width:500px; height:350px; position: relative; border:1px solid #ccc;}
 
 </style>
+
 <?php if(!isset($view_product)):?>
-<img src="../../..//himalayan/assets/uploads/cms/Koala.jpg" alt="Koala" />
-<img src="../../../assets/uploads/cms/Penguins.jpg" alt="Penguins" width="1024" height="768" /><div class="product-form">
 	<form method="post" enctype="multipart/form-data" action="<?php echo ADMIN_URL.'products/addPost'?>">
 		<input type="hidden" name="attribute_set" value="<?php echo $view_set?>"/>
 		<input type="hidden" name="product_type" value="<?php echo $view_type?>"/>
