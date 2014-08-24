@@ -36,13 +36,41 @@ class ProductsAdminController extends Controller
 		}
 		else
 		{
-			$attributes = getModel('attribute')->getAttributeCollection($set);
-			$data['type'] = $type;
-			$data['set'] = $set;
-			$data['attributes'] = $attributes;
-			$data['catlist']=getModel('category')->getCategories();
-			$this->view->renderAdmin('products/new.phtml',$data);
+				$attributes = getModel('attribute')->getAttributeCollection($set);
+				$data['type'] = $type;
+				$data['set'] = $set;
+				$data['attributes'] = $attributes;
+				$data['catlist']=getModel('category')->getCategories();
+				$this->view->renderAdmin('products/new.phtml',$data);
 		}
+	}
+
+	public function loadVariationListAction()
+	{
+		$variations = getModel('products')->getAllVariations();
+		$data['variations'] = $variations;
+		$this->view->renderAdmin('products/variations-list.phtml', $data, false, false, false);
+	}
+
+	public function addVariationAction()
+	{
+		loadHelper('inputs');
+		$post_data = getPost();
+		if(getModel('products')->addVariation($post_data))
+		{
+			echo '<h3>Variation Saved</h3>';
+		}
+
+	}
+
+	public function showVariationFormAction()
+	{
+		loadHelper('inputs');
+		$set = getParam('set');
+		$attributes = getModel('attribute')->getAttributeCollection($set);
+		$data['set'] = $set;
+		$data['attributes'] = $attributes;
+		$this->view->renderAdmin('products/variation-form.phtml', $data, true, false, false);
 	}
 
 	public function addPostAction()
@@ -85,6 +113,7 @@ class ProductsAdminController extends Controller
 		$model=getModel('category');
 		$data['catlist']=$model->getCategories();
 		$data['gallery'] = getModel('products')->getGalleryImages($product_id);
+		$data['type'] = $product['ptype'];
 		$this->view->renderAdmin('products/new.phtml',$data);
 	}
 
@@ -98,7 +127,7 @@ class ProductsAdminController extends Controller
 		}
 		else
 		{
-			redirect('admin/products/edit'.$post_data['product_id']);
+			redirect('admin/products/edit/'.$post_data['product_id']);
 		}
 	}
 
@@ -165,39 +194,39 @@ class ProductsAdminController extends Controller
 	{
 
 		$imgUrl = $_POST['imgUrl'];
-$imgInitW = $_POST['imgInitW'];
-$imgInitH = $_POST['imgInitH'];
-$imgW = $_POST['imgW'];
-$imgH = $_POST['imgH'];
-$imgY1 = $_POST['imgY1'];
-$imgX1 = $_POST['imgX1'];
-$cropW = $_POST['cropW'];
-$cropH = $_POST['cropH'];
+		$imgInitW = $_POST['imgInitW'];
+		$imgInitH = $_POST['imgInitH'];
+		$imgW = $_POST['imgW'];
+		$imgH = $_POST['imgH'];
+		$imgY1 = $_POST['imgY1'];
+		$imgX1 = $_POST['imgX1'];
+		$cropW = $_POST['cropW'];
+		$cropH = $_POST['cropH'];
 
-$jpeg_quality = 100;
-$filename = "products/croppedImg_".rand();
-$output_filename = UPLOADS_FOLDER.$filename;
+		$jpeg_quality = 100;
+		$filename = "products/croppedImg_".rand();
+		$output_filename = UPLOADS_FOLDER.$filename;
 
-$what = getimagesize($imgUrl);
-switch(strtolower($what['mime']))
-{
-    case 'image/png':
-        $img_r = imagecreatefrompng($imgUrl);
-		$source_image = imagecreatefrompng($imgUrl);
-		$type = '.png';
-        break;
-    case 'image/jpeg':
-        $img_r = imagecreatefromjpeg($imgUrl);
-		$source_image = imagecreatefromjpeg($imgUrl);
-		$type = '.jpeg';
-        break;
-    case 'image/gif':
-        $img_r = imagecreatefromgif($imgUrl);
-		$source_image = imagecreatefromgif($imgUrl);
-		$type = '.gif';
-        break;
-    default: die('image type not supported');
-}
+		$what = getimagesize($imgUrl);
+		switch(strtolower($what['mime']))
+		{
+		    case 'image/png':
+		        $img_r = imagecreatefrompng($imgUrl);
+				$source_image = imagecreatefrompng($imgUrl);
+				$type = '.png';
+		        break;
+		    case 'image/jpeg':
+		        $img_r = imagecreatefromjpeg($imgUrl);
+				$source_image = imagecreatefromjpeg($imgUrl);
+				$type = '.jpeg';
+		        break;
+		    case 'image/gif':
+		        $img_r = imagecreatefromgif($imgUrl);
+				$source_image = imagecreatefromgif($imgUrl);
+				$type = '.gif';
+		        break;
+		    default: die('image type not supported');
+		}
 	
 	$resizedImage = imagecreatetruecolor($imgW, $imgH);
 	imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $imgW, 

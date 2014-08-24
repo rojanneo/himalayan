@@ -135,21 +135,87 @@ class ProductsModel extends Model
 		return $result;
 	}
 
+	public function getAllVariations()
+	{
+		$sql = "SELECT * FROM products_simple WHERE is_variation = 1 ORDER BY pid ASC";
+		return $this->connection->Query($sql);
+	}
+
+	public function addVariation($post_data)
+	{
+		if($post_data) extract($post_data);
+		if(!isset($is_variation))
+		{
+			$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`) VALUES 
+			('$name','$sku','$product_type','$attribute_set','$quantity','$in_stock','$status')";
+		}
+		else
+		{
+			$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`, `is_variation`) VALUES 
+			('$name','$sku','$product_type','$attribute_set','$quantity','$in_stock','$status',$is_variation)";			
+		}
+
+		$result1 = $this->connection->InsertQuery($sql);
+			$pid = $this->connection->GetInsertID();
+		$attributeTable = 'product_attribute_values_';
+
+		$aModel = getModel('attribute');
+		foreach($attributes as $acode => $attrib)
+		{
+			$attribute = $aModel->getAttributeByCode($acode);
+			$atype = $attribute['atype'];
+			$table =$attributeTable.$atype;
+			$a = $atype[0];
+			if($atype == 'select')
+			{
+					$sql = "INSERT INTO ".$table."(pavs_pid, pavs_aid, pavs_vid) VALUES(".$pid.",".$attribute['aid'].",".$attrib.")";
+			}
+			else
+			{
+				$sql = "INSERT INTO ".$table."(pav".$a."_pid,pav".$a."_aid,value) VALUES(".$pid.",".$attribute['aid'].",'".$attrib."')";				
+			}
+			$result2 = $this->connection->InsertQuery($sql);
+		}
+
+		if(isset($gallery_images))
+		{
+			foreach($gallery_images as $gallery_image){
+				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image) VALUES(".$pid.",'".$gallery_image."', 0, 0)";
+				$result3 = $this->connection->InsertQuery($sql);
+			}
+		}
+
+		$this->deleteUnnecessaryProductImages();
+
+		return $result1 and $result2;
+	}
+
 	public function addNewProduct($post_data)
 	{
 		if($post_data) extract($post_data);
 
-		$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`) VALUES 
-		('$name','$sku','$product_type','$attribute_set','$quantity','$in_stock','$status')";
+
+		if(!isset($is_variation))
+		{
+			$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`) VALUES 
+			('$name','$sku','$product_type','$attribute_set','$quantity','$in_stock','$status')";
+		}
+		else
+		{
+			$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`, `is_variation`) VALUES 
+			('$name','$sku','$product_type','$attribute_set','$quantity','$in_stock','$status',$is_variation)";			
+		}
 		$result1 = $this->connection->InsertQuery($sql);
 
 		$pid = $this->connection->GetInsertID();
-
+		if(isset($pccheck_list))
+		{
 		foreach ($pccheck_list as $pccheck_list) 
 		{
 			$sql1="INSERT INTO `product_cat`(`pid`, `category_id`) VALUES ('".$pid."','".$pccheck_list."')";
 			$this->connection->InsertQuery($sql1);
 		}		
+	}
 
 
 		$attributeTable = 'product_attribute_values_';
@@ -178,7 +244,25 @@ class ProductsModel extends Model
 		// {
 		// 	$result3 = $this->saveImages($pid, 0, 0);
 		// }
+
+		if(isset($gallery_images))
+		{
+			foreach($gallery_images as $gallery_image){
+				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image) VALUES(".$pid.",'".$gallery_image."', 0, 0)";
+				$result3 = $this->connection->InsertQuery($sql);
+			}
+		}
+
 		$this->deleteUnnecessaryProductImages();
+
+		if(isset($variations))
+		{
+			foreach($variations as $variation)
+			{
+				$sql = "INSERT INTO `product_associations`(`parent_pid`, `associate_pid`) VALUES ($pid, $variation)";
+				$this->connection->InsertQuery($sql);				
+			}
+		}
 
 		return $result1 and $result2 and $result3;
 	}
@@ -239,10 +323,12 @@ class ProductsModel extends Model
 	public function updateProduct($post_data)
 	{
 		if(isset($post_data)) extract($post_data);
+		if(!isset($quantity)) $quantity = 0;
+		if(!isset($in_stock)) $in_stock = 0;
 		$sql = "UPDATE products_simple SET pname = '".$name."', psku = '".$sku."', ptype='".$product_type."', product_asid = '".$attribute_set."',
 		 quantity = '".$quantity."', in_stock = '".$in_stock."', status = '".$status."' WHERE pid = '".$product_id."'";
 		$result = $this->connection->UpdateQuery($sql);
-
+		$result2 = true;
 		$getProductInCatval=$this->getProductInCat($product_id);
 		//var_dump($getProductInCatval);
 
@@ -302,6 +388,19 @@ class ProductsModel extends Model
 
 		$this->deleteUnnecessaryProductImages();
 
+
+		if(isset($variations))
+		{
+			$sql = "DELETE FROM `product_associations` WHERE parent_pid = $product_id";
+			$this->connection->DeleteQuery($sql);
+			foreach($variations as $variation)
+			{
+
+				$sql = "INSERT INTO `product_associations`(`parent_pid`, `associate_pid`) VALUES ($product_id, $variation)";
+				$this->connection->InsertQuery($sql);				
+			}
+		}
+
 	return $result and $result2;
 
 	}
@@ -318,5 +417,30 @@ class ProductsModel extends Model
 			$i++;
 		}
 		return $val;
+	}
+
+	public function getCategories($pid)
+	{
+		$sql="SELECT * FROM product_cat WHERE `pid`='".$pid."'";
+		$query=$this->connection->Query($sql);
+		$val=array();
+		$i=1;
+		foreach ($query as $query) 
+		{
+			array_push($val, $query['category_id']);
+		}
+		return $val;
+	}
+
+	public function getAssociatedProducts($pid)
+	{
+		$sql = "SELECT * FROM product_associations WHERE parent_pid = $pid";
+		$rows = $this->connection->Query($sql);
+		$associated = array();
+		foreach($rows as $row)
+		{
+			array_push($associated, $row['associate_pid']);
+		}
+		return $associated;
 	}
 }

@@ -1,0 +1,10 @@
+<?php loadHelper('inputs');?>
+<?php $pid = getParam('pid');?>
+<?php $associated = getModel('products')->getAssociatedProducts($pid);?>
+<?php if(($view_variations)):?>
+	<?php foreach($view_variations as $variation):?>
+		<input type="checkbox" name="variations[]" value="<?php echo $variation['pid']?>" <?php echo (in_array($variation['pid'], $associated))?'checked':null?>><?php echo $variation['pname'];?></input>
+	<?php endforeach;?>
+<?php else: ?>
+	<h3>No Variations Found. Atleast one variation needs to be created</h3>
+<?php endif;?>

@@ -20,13 +20,16 @@
 			include 'views/default/footer.phtml';
 		}
 
-		public function renderAdmin($name, $data = false, $showHeader = true, $showFooter = true)
+		public function renderAdmin($name, $data = false,$showHead = true, $showHeader = true, $showFooter = true)
 		{
 			if($data)
 			extract($data, EXTR_PREFIX_ALL, "view");
-			if($showHeader)
+			if($showHead)
 			{
 				include 'views/admin/default/head.phtml';
+			}
+			if($showHeader)
+			{
 				include 'views/admin/default/header.phtml';
 			}
 			include 'views/admin/'.$name;

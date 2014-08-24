@@ -55,7 +55,7 @@ class AttributeModel extends Model
 	public function addNewAttribute($post_data)
 	{
 		if($post_data) extract($post_data);
-		$sql = "INSERT INTO attributes(acode, aname, atype) VALUES ('".$acode."','".$aname."','".$atype."')";
+		$sql = "INSERT INTO attributes(acode, aname, atype, used_for_variation) VALUES ('".$acode."','".$aname."','".$atype."','".$used_for_variation."')";
 		$result1 = $this->connection->InsertQuery($sql);
 		$insert_id = $this->connection->GetInsertID();
 		$result2 = true;
@@ -75,7 +75,7 @@ class AttributeModel extends Model
 	public function updateAttribute($post_data)
 	{
 		if($post_data) extract($post_data);
-		$sql = "UPDATE attributes SET acode = '".$acode."', aname = '".$aname."', atype = '".$atype."' WHERE aid = '".$attribute_id."'";
+		$sql = "UPDATE attributes SET acode = '".$acode."', aname = '".$aname."', atype = '".$atype."', used_for_variation = '".$used_for_variation."' WHERE aid = '".$attribute_id."'";
 		$result1 = $this->connection->UpdateQuery($sql);
 		if(isset($update_option_value))
 		{

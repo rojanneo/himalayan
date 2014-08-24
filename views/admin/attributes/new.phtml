@@ -18,7 +18,15 @@ echo AdminSession::showSuccessMessages();?>
 		<option value="select" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'select')?'selected':null?>>Select</option>
 	</select>
 
-	<a href="javascript:void(0)" class="add-option" <?php echo (!isset($view_options))?'style="display:none"':null?>>Add Option</a>
+<div class="variation-attribute" <?php echo (!isset($view_options) or $view_attribute['atype'] != 'select')?'style="display:none"':null?>>
+	<label for name="used_for_variation">Used to create variable product</label>
+	<select name="used_for_variation" class="attr-variation">
+		<option value="0" <?php echo (isset($view_attribute) and $view_attribute['used_for_variation'] == 0)?'selected':null?>>No</option>
+		<option value="1" <?php echo (isset($view_attribute) and $view_attribute['used_for_variation'] == 1)?'selected':null?>>Yes</option>
+	</select>
+</div>
+
+	<a href="javascript:void(0)" class="add-option" <?php echo (!isset($view_options) or $view_attribute['atype'] != 'select')?'style="display:none"':null?>>Add Option</a>
 	<div class="options">
 		<?php if(isset($view_options)):?>
 			<?php foreach($view_options as $option):?>
@@ -42,10 +50,13 @@ echo AdminSession::showSuccessMessages();?>
 		if($(this).val() == 'select')
 		{
 			$('a.add-option').show();
+			$('.variation-attribute').show();
 		}
 		else
 		{
 			$('a.add-option').hide();			
+			$('.attr-variation').val('0');
+			$('.variation-attribute').hide();
 		}
 	});
 
