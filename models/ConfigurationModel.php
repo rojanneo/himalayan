@@ -87,8 +87,9 @@ class ConfigurationModel extends Model
 	public function getConfigValue($identifier)
 	{
 		$sql = "SELECT * FROM configurations WHERE config_identifier = '$identifier'";
-		$config = $this->connection->Query($sql)[0];
-		return $config['config_value'];		
+		$config = $this->connection->Query($sql);
+		if(($config)) return $config[0]['config_value'];
+		else return false;
 	}
 
 	public function getConfigName($identifier)
