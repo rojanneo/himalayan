@@ -1,0 +1,22 @@
+<?php if(isset($view_groups)):?>
+<form method="post" action = "<?php echo ADMIN_URL.'configuration/saveConfig'?>">
+	<?php foreach($view_groups as $group => $fields):?>
+		<a href="javascript:void(0)" id = "<?php echo $group?>" class = "group"><?php echo $group?></a>
+		<?php foreach($fields as $field):?>
+			<?php $field_name = getModel('configuration')->getConfigName($field); $field_value = getModel('configuration')->getConfigValue($field);?>
+			<div class="<?php echo $group?>" style="display:none">
+			<label for name="<?php echo $field?>"><?php echo $field_name?></label>
+			<input type="text" name="<?php echo $field?>" value="<?php echo $field_value?>"/>
+			</div>
+		<?php endforeach;?>
+	<?php endforeach;?>
+<input type="submit" value="Save"/>
+</form>
+<?php endif;?>
+
+<script type="text/javascript">
+	$('.group').click(function(){
+		var id = $(this).attr('id'); 
+		$(this).parent().find('.'+id).slideToggle();
+	});
+</script>

@@ -1,0 +1,14 @@
+<form method = "post" action="<?php echo (isset($view_group))?ADMIN_URL.'configuration/editgrouppost':ADMIN_URL.'configuration/addgrouppost'?>">
+
+<?php if(isset($view_group)):?>
+	<input type="hidden" name="config_group_id" value="<?php echo $view_group['config_group_id']?>"/>
+<?php endif;?>
+	<label for = "config_group_identifier">Identifier</label>
+	<input type="text" name="config_group_identifier" value="<?php echo (isset($view_group))?$view_group['config_group_identifier']:null?>"/>
+
+	<label for = "config_group_name">Name</label>
+	<input type="text" name="config_group_name" value="<?php echo (isset($view_group))?$view_group['config_group_name']:null?>"/>
+
+	<input type="submit" value="Save"/>
+
+</form>

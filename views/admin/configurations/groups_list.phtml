@@ -1,0 +1,21 @@
+<a href="<?php echo ADMIN_URL.'configuration/addgroup'?>">Add New Configuration Group</a>
+<?php if(isset($view_groups)):?>
+<table>
+<thead>
+	<th>Group ID</th>
+	<th>Group Identifier</th>
+	<th>Group Name</th>
+	<th>Action</th>
+</thead>
+<tbody>
+<?php foreach($view_groups as $group):?>
+	<tr>
+		<td><a href="<?php echo ADMIN_URL.'configuration/editgroup/'.$group['config_group_id']?>"><?php echo $group['config_group_id']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'configuration/editgroup/'.$group['config_group_id']?>"><?php echo $group['config_group_identifier']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'configuration/editgroup/'.$group['config_group_id']?>"><?php echo $group['config_group_name']?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'configuration/deletegroup/'.$group['config_group_id']?>">Delete</a></td>
+	</tr>
+<?php endforeach;?>
+</tbody>
+</table>
+<?php endif;?>

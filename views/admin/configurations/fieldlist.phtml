@@ -1,0 +1,23 @@
+<a href="<?php echo ADMIN_URL.'configuration/addfield'?>">Add New Configuration Field</a>
+<?php if(isset($view_fields)):?>
+	<table>
+		<thead>
+			<th>Field ID</th>
+			<th>Field Identifier</th>
+			<th>Field Name</th>
+			<th>Field Group</th>
+			<th>Action</th>
+		</thead>
+		<tbody>
+			<?php foreach($view_fields as $field):?>
+				<tr>
+					<td><a href="<?php echo ADMIN_URL.'configuration/editField/'.$field['config_id']?>"><?php echo $field['config_id'];?></a></td>
+					<td><a href="<?php echo ADMIN_URL.'configuration/editField/'.$field['config_id']?>"><?php echo $field['config_identifier'];?></a></td>
+					<td><a href="<?php echo ADMIN_URL.'configuration/editField/'.$field['config_id']?>"><?php echo $field['config_name'];?></a></td>
+					<td><a href="<?php echo ADMIN_URL.'configuration/editField/'.$field['config_id']?>"><?php echo getModel('configuration')->getGroupNameById($field['config_group']);?></a></td>
+					<td><a href="<?php echo ADMIN_URL.'configuration/deleteField/'.$field['config_id']?>">Delete</a></td>
+				</tr>
+			<?php endforeach;?>
+		</tbody>
+	</table>
+<?php endif;?>

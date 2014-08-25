@@ -5,6 +5,7 @@
 	require_once 'system/controller.php';
 	require_once 'system/model.php';
 	require_once 'helpers/Autoload.php';
+	require_once 'system/widget.php';
 	foreach (glob("config/*.php") as $configs)
 	{
 		include $configs;
