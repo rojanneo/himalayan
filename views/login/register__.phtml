@@ -1,0 +1,111 @@
+<?php Session::showErrorMessages();?>
+<div class="register-choice">
+<input type="radio" class="registration" name="registration-type" checked id="registration-retailer"/><label  for = "registration-retailer">Retailer</label>
+<input type="radio" class="registration" name="registration-type" id="registration-consumer"/><label  for = "registration-consumer">Consumer</label>
+</div>
+<div class="register-retailer-form">
+<form method = "post" action = "<?php echo URL.'login/registerPost'?>">
+<label for ="name">Name1</label>
+<input type="text" class="input-box required text-validation" name="mname"/>
+<label for ="name">Email</label>
+<input type="text" class="input-box required email-validation" name="memail"/>
+<label for ="name">Password</label>
+<input type="password" class="input-box required text-validation" name="mpass"/>
+<label for ="name">Address</label>
+<input type="text" class="input-box required text-validation" name="madd"/>
+<label for ="name">Apt/Ste</label>
+<input type="text" class="input-box text-validation" name="madd2"/>
+<label for ="name">City</label>
+<input type="text" class="input-box required text-validation" name="mcity"/>
+<label for ="name">State</label>
+<input type="text" class="input-box required text-validation" name="mstate"/>
+<label for ="name">Zip</label>
+<input type="text" class="input-box required text-validation" name="mzip"/>
+<label for ="name">Phone</label>
+<input type="text" class="input-box required text-validation" name="mtel"/>
+<label for ="name">Fax</label>
+<input type="text" class="input-box required text-validation" name="mfax"/>
+<label for ="name">Company/store</label>
+<input type="text" class="input-box required text-validation" name="mcompany"/>
+<label for ="name">Website</label>
+<input type="text" class="input-box required text-validation" name="mwebsite"/>
+<!-- <label for ="name">Website</label>
+<input type="text" class="input-box required text-validation" name="mein"/>
+ -->
+<label for ="name">EIN(tax ID)</label>
+<input type="text" class="input-box required text-validation" name="mein"/>
+<input type="hidden" value="retailer" name="mtype"/>
+<input type="checkbox" class="input-box required" checkboxname="privacy-policy"/><p>I have read the privacy policy</p>
+<input type="submit" value="Submit"/>
+
+	</form>
+
+</div>
+
+<div class="register-consumer-form" style="display:none">
+<form method = "post" action = "<?php echo URL.'login/registerPost'?>">
+<label for ="name">Name</label>
+<input type="text" class="input-box required text-validation" name="mname"/>
+<label for ="name">Email</label>
+<input type="text" class="input-box required email-validation" name="memail"/>
+<label for ="name">Password</label>
+<input type="password" class="input-box required text-validation" name="mpass"/>
+<label for ="name">Address</label>
+<input type="text" class="input-box required text-validation" name="madd"/>
+<label for ="name">Apt/Ste</label>
+<input type="text" class="input-box text-validation" name="madd2"/>
+<label for ="name">City</label>
+<input type="text" class="input-box required text-validation" name="mcity"/>
+<label for ="name">State</label>
+<input type="text" class="input-box required text-validation" name="mstate"/>
+<label for ="name">Zip</label>
+<input type="text" class="input-box required text-validation" name="mzip"/>
+<label for ="name">Phone</label>
+<input type="text" class="input-box required text-validation" name="mtel"/>
+<label for ="name">Fax</label>
+<input type="text" class="input-box required text-validation" name="mfax"/>
+<label for ="name">Company/store</label>
+<input type="text" class="input-box required text-validation" name="mcompany"/>
+<!-- <label for ="name">Website</label>
+<input type="text" class="input-box required text-validation" name="mein"/>
+ -->
+<label for ="name">EIN(tax ID)</label>
+<input type="text" class="input-box required text-validation" name="mein"/>
+<input type="hidden" value="customer" name="mtype"/>
+<input type="checkbox" class="input-box required" checkboxname="privacy-policy"/><p>I have read the privacy policy</p>
+<input type="submit" value="Submit"/>
+</form>
+
+</div>
+<script>
+$('.register-retailer-form form').submit(function(){
+	return $(this).validate('input-box');
+});
+$('.register-consumer-form form').submit(function(){
+	return $(this).validate('input-box');
+});
+
+
+
+jQuery(document).ready(function(){
+			//showRegistrationForm();
+			jQuery('.registration').click(function(){
+				showRegistrationForm();
+			});
+		});
+		function showRegistrationForm()
+		{
+		
+			if(jQuery('#registration-retailer').is(':checked')) 
+			{ 
+				jQuery('.register-consumer-form').hide();
+				jQuery('.register-retailer-form').show(); 
+			}
+			else
+			{
+				jQuery('.register-retailer-form').hide();
+				jQuery('.register-consumer-form').show();		
+			}
+		
+		}
+</script>

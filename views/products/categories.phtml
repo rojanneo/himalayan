@@ -1,6 +1,10 @@
-<h1>Categories</h1>
+<div class="wrapper creation">
+<div class="rightBody"><img src="http://127.0.0.1/himalayan/assets/images/images_old/group_photo_2012.jpg"></div>
+<div class="leftBody">
 <ul class="category-list">
 <?php foreach($view_categories as $category):?>
 	<li><a href="<?php echo URL.'products/list/'.$category['category_id']?>"><?php echo $category['category_name']?></a></li>
 <?php endforeach;?>
 </ul>
+</div>
+</div>
