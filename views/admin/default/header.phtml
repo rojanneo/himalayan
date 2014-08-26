@@ -1,24 +1,36 @@
 <div id="navMenu">
-	<ul class="admin-menu">
-	<li><a href="<?php echo ADMIN_URL.'pages'?>">Pages</a></li>
+	<ul id="menu">
+	<li><a href="<?php echo ADMIN_URL.'dashboard'?>">Home</a></li>
 	<li><a href="javascript:void(0)">Catalog</a>
 		<ul>
-			<li><a href="<?php echo ADMIN_URL.'attributes'?>">Manage Attributes</a></li>
-			<li><a href="<?php echo ADMIN_URL.'attributeset'?>">Manage Attribute Sets</a></li>
-			<li><a href="<?php echo ADMIN_URL.'category'?>">Manage Categories</a></li>
-			<li><a href="<?php echo ADMIN_URL.'products'?>">Manage Products</a></li>
+			<li><a href="javascript:void(0)">Attributes</a>
+				<ul>
+					<li><a href="<?php echo ADMIN_URL.'attributes'?>">Manage Attributes</a></li>
+					<li><a href="<?php echo ADMIN_URL.'attributeset'?>">Manage Attribute Sets</a></li>
+				</ul>
+			</li>
+			<li><a href="<?php echo ADMIN_URL.'category'?>">Categories</a></li>
+			<li><a href="<?php echo ADMIN_URL.'products'?>">Products</a></li>
+		</ul>
+	</li>
+	<li><a href="javascript:void(0)">CMS</a>
+		<ul>
+			<li><a href="<?php echo ADMIN_URL.'pages'?>">Pages</a></li>
 		</ul>
 	</li>
 	<li><a href="<?php echo ADMIN_URL.'faq'?>">FAQs</a></li>
 	<li><a href="<?php echo ADMIN_URL.'contacts'?>">Contact Messages</a></li>
 	<li><a href="javascript:void(0)">Configuration</a>
 		<ul>
-			<li><a href="<?php echo ADMIN_URL.'configuration'?>">Configuration Data</a></li>
-			<li><a href="<?php echo ADMIN_URL.'configuration/grouplist'?>">Configuration Groups</a></li>
-			<li><a href="<?php echo ADMIN_URL.'configuration/fieldlist'?>">Configuration Fields</a></li>
+			<li><a href="<?php echo ADMIN_URL.'configuration'?>">Configuration</a></li>
+			<li><a href="javascript:void(0)">Manage Configuration Fields</a>
+				<ul>
+					<li><a href="<?php echo ADMIN_URL.'configuration/grouplist'?>">Configuration Groups</a></li>
+					<li><a href="<?php echo ADMIN_URL.'configuration/fieldlist'?>">Configuration Fields</a></li>
+				</ul>
+			</li>
 		</ul>
 	</li>
 	<li><a href="<?php echo ADMIN_URL.'dashboard/logout'?>">Logout</a></li>
 	</ul>
 </div>
-
