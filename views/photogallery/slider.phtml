@@ -1,42 +1,48 @@
-<div class="photogallery">
+
+
+<div class="photos">
 <ul class="slides">
 <?php foreach($view_photos as $photo):?>
-	<li class="gallery-slide <?php echo $photo['photo_id']?>" ><img src="<?php echo ASSET_URL.$photo['photo_image_resized']?>" width="200" height="200"/></li>
+    <li class="gallery-slide <?php echo $photo['photo_id']?>" ><img src="<?php echo ASSET_URL.$photo['photo_image_resized']?>" width="200" height="200"/></li>
 <?php endforeach;?>
 </ul>
+
 </div>
 
-<div class="photogallery-thumbs">
-<ul class="slides">
-<?php foreach($view_photos as $photo):?>
-	<li class="thumb-slide"><img id = "<?php echo $photo['photo_id']?>" src="<?php echo ASSET_URL.$photo['photo_image_resized']?>" width="50" height="50"/></li>
+<div class="photos-thumbs">
+    <ul class="slides">
+    <?php foreach($view_photos as $photo):?>
+    <li class="thumb-slide"><img id = "<?php echo $photo['photo_id']?>" src="<?php echo ASSET_URL.$photo['photo_image_resized']?>" width="50" height="50"/></li>
 <?php endforeach;?>
-</ul>
+    </ul>
 </div>
+
+</div>
+
 <script>
- $(document).ready(function(){
+$(document).ready(function(){
 
- 	$('.photogallery-thumbs').flexslider({
+      $('.photos-thumbs').flexslider({
         animation: "slide",
-        controlNav: false,
-        directionNav: false,
-        animationLoop: false,
-        slideshow: false,
-        itemWidth: 100,
-        itemHeight:200,
-        itemMargin: 5,
-        asNavFor: '.photogallery'
-      });
-
-      $('.photogallery').flexslider({
-        animation: "fade",
         controlNav: false,
         directionNav: true,
         animationLoop: false,
         slideshow: false,
-        itemWidth: 1000,
-        sync: ".photogallery-thumbs",
+        itemWidth: 200,
+        itemHeight:200,
+        itemMargin: 5,
+        asNavFor: '.photos'
       });
 
+      $('.photos').flexslider({
+        animation: "slide",
+        controlNav: false,
+        directionNav: true,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 1920,
+        itemHeight:200,
+        sync: ".photos-thumbs",
+      });
 });
 </script>

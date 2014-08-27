@@ -192,8 +192,7 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; widt
 .products .slides { list-style: none;}
 .products .slides li { margin: 0px;}
 .category-detail { background: #707070; border-radius: 0 0 10px 10px; -moz-border-radius: 0 0 10px 10px; -webkit-border-radius: 0 0 10px 10px;}
-.category-detail p { color:#FFFFC2; width: 40%; padding: 0 5%; float: left; vertical-align: top; margin-top: 10px; font-weight: 700;}
-.category-detail p span { display: block; font-weight: 400;}
+.category-detail p { color:#FFFFC2; width: 40%; padding: 0 5%; float: left; vertical-align: top; margin-top: 20px;}
 
 /*search*/
 .productInfoM { color: #707070; text-decoration: none;}
@@ -237,16 +236,6 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; widt
 .pricing-products .slides .product { background: none; width: 600px; float: left;}
 .pricing-products .slides .product-info { width: 400px; float: left;}
 .pricing-products .slides .product-info .product-name { font-size: 20px; font-weight: 700;}
-
-/*yakyyams*/
-.yakyyam { background: #fff;}
-.yakyyam .product-list .list li a { text-align: center; display: table-cell; width: 180px; color: #FCF288;}
-.yakyyam .product-list .list li.lotsa-chicken a { background: #9A2C79;}
-.yakyyam .product-list .list li.very-veggy a { background: #00A89B;}
-.yakyyam .product-list .list li.fruity-fruit a { background: #FF475E;}
-
-.yakystick .product-list .list li a { background:#00A89B; color: #FCF288; border: 2px solid #00A89B;}
-.yakystick .product-list .list li a:hover, .yakystick .product-list .list li a.active { background:#FCF288; color: #00A89B; border: 2px solid #00A89B;}
 
 /*buttons*/
 .btn { padding: 15px 60px; font-size: 18px; border-radius: 10px; display: inline-block; text-decoration: none; transition: all linear 0.2s; margin: 10px 0; border: none;}

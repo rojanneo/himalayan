@@ -486,8 +486,6 @@
 						<script>
 							$('ul.list li a').click(function(){
 								var class_name = ($(this).parent().attr('class'));
-								$('ul.list li a').removeClass('active');
-								$(this).addClass('active');
 								$('.products .slides li').hide();
 								$('.products .slides .'+class_name).show();
 							});
