@@ -1,5 +1,14 @@
+<div class="page">
 <a href="<?php echo ADMIN_URL.'configuration/addfield'?>">Add New Configuration Field</a>
 <?php if(isset($view_fields)):?>
+<div class="pagination">
+	<?php
+$page = getParam('p');
+if(!$page) $page = 1;
+loadHelper('pagination');
+showPagination($page, $view_pagination_num, 'admin/configuration/fieldlist');
+?>
+</div>
 	<table>
 		<thead>
 			<th>Field ID</th>
@@ -20,10 +29,13 @@
 			<?php endforeach;?>
 		</tbody>
 	</table>
+	<div class="pagination">
 	<?php
 $page = getParam('p');
 if(!$page) $page = 1;
 loadHelper('pagination');
 showPagination($page, $view_pagination_num, 'admin/configuration/fieldlist');
 ?>
+</div>
 <?php endif;?>
+</div>
