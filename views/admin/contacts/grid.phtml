@@ -1,3 +1,4 @@
+<div class="page-wrapper">
 <?php if(isset($view_messages)):?>
 <table>
 <thead>
@@ -14,7 +15,7 @@
 		<td><a href="<?php echo ADMIN_URL.'contacts/view/'.$message['contact_id']?>"><?php echo $message['sender_name']?></a></td>
 		<td><a href="<?php echo ADMIN_URL.'contacts/view/'.$message['contact_id']?>"><?php echo $message['sender_email']?></a></td>
 		<td><a href="<?php echo ADMIN_URL.'contacts/view/'.$message['contact_id']?>"><?php echo $message['message_nature']?></a></td>
-		<td><a href="<?php echo ADMIN_URL.'contacts/delete/'.$message['contact_id']?>">Delete</a></td>
+		<td><a class="button" href="<?php echo ADMIN_URL.'contacts/delete/'.$message['contact_id']?>">Delete</a></td>
 	</tr>
 <?php endforeach;?>
 </tbody>
@@ -26,3 +27,4 @@ loadHelper('pagination');
 showPagination($page, $view_pagination_num, 'admin/contacts/index');
 ?>
 <?php endif;?>
+</div>

@@ -21,4 +21,19 @@ class HomeModel extends Model
 		$events = $this->connection->Query($query);
 		return $events;
 	}
+
+	public function getBlogPosts()
+	{
+		$query="SELECT * FROM blog WHERE blog_status='publish' ORDER BY blog_id DESC LIMIT 3";
+		return $this->connection->Query($query);
+	}
+
+	public function getBlogByVal($attribute_val)
+	{
+		$query="SELECT * FROM `blog` WHERE blog_name='".$attribute_val."' AND blog_status='publish'";
+		$sql=$this->connection->Query($query);
+		if($sql)
+		return $sql[0];
+		else { return false; }
+	}
 }

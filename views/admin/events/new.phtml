@@ -1,0 +1,82 @@
+
+<?php echo AdminSession::showErrorMessages();
+echo AdminSession::showSuccessMessages();?>
+<div class="Eventnew">
+<form method="post" action = "<?php echo (isset($view_event))?ADMIN_URL.'events/editEventpost':ADMIN_URL.'events/addEventpost'?>">
+	<?php if(isset($view_event)):?>
+		<input type="hidden" name="event_id" value="<?php echo $view_event['event_id']?>"/>
+	<?php endif;?>
+	<label for name="enamel"><strong>Event Name</strong></label></br></br>
+	<input type="text" name="ename" class="input-box required text-validation" value="<?php echo (isset($view_event))?$view_event['eventName']:null?>"/></br></br>
+
+	<label for name="econtent"><strong>Event Description</strong></label></br></br>
+	<textarea name="econtent" class="editor"><?php echo (isset($view_event))?$view_event['eventDesc']:null?></textarea></br></br>
+
+	<label for name="eurl"><strong>Event Url</strong></label></br></br>
+	<input type="text" name="eurl"  value="<?php echo (isset($view_event))?$view_event['eventUrl']:null?>"/></br></br>
+	
+	<label for name="estatusl"><strong>Event Type</strong></label></br></br>
+	<select name="estatus" class="attr-type-select">
+		<option value="publish" <?php echo (isset($view_event) and $view_event['eventstatus'] == 'publish')?'selected':null?>>Published</option>
+		<option value="draft" <?php echo (isset($view_event) and $view_event['eventstatus'] == 'draft')?'selected':null?>>Draft</option>
+	</select></br></br>
+
+
+	<?php if(isset($view_event['eventDateBegin'])){ ?>	
+	<?php $date=date_create($view_event['eventDateBegin']); $data= date_format($date,"Y-m-d"); ?>	<?php }?>
+	<label for name="ebegindate"><strong>Event Begin Date</strong></label></br></br><input type="date" name="ebegindate" value="<?php echo(isset($view_event['eventDateBegin']))?$data:null ?>"/></br></br>
+
+	<?php if(isset($view_event['eventDateEnd'])){ ?>	
+	<?php $date=date_create($view_event['eventDateEnd']); $data= date_format($date,"Y-m-d"); ?>	<?php }?>
+	<label for name="eenddate"><strong>Event End Date</strong></label></br></br><input type="date" name="eendndate" value="<?php echo(isset($view_event['eventDateEnd']))?$data:null ?>"/>
+
+	
+
+
+<style>
+
+#cropContainerHeader {
+			width: 500px;
+			height: 350px;
+			position:relative; /* or fixed or absolute */
+		}
+		#cropContainerModal0, #cropContainerModal1, .croppic { width:500px; height:350px; position: relative; border:1px solid #ccc;background-color:gray;}
+
+</style>
+<?php if(!empty($view_event['event_feature_image'])):?>
+	<img src="<?php echo UPLOAD_URL.$view_event['event_feature_image']?>"/>
+<?php endif;?>
+<div class="croppic" id="cropContainerModal-0"></div>
+<input type="hidden" name="efimage" id='input-0'/>
+<script>
+
+var croppicContainerModalOptions = {
+				uploadUrl:'<?php echo ADMIN_URL?>events/uploadImage',
+				cropUrl:'<?php echo ADMIN_URL?>events/cropImage',
+				modal:true,
+				imgEyecandyOpacity:0.4,
+				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+				onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+		}
+
+		var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+</script>
+
+
+	<input type="submit" value="Save"/>
+</form>
+
+
+
+
+</div>
+
+<script>
+$('.Eventnew form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>
+<script type="text/javascript">
+$
+</script>
+

@@ -1,0 +1,51 @@
+
+<?php echo AdminSession::showErrorMessages();
+echo AdminSession::showSuccessMessages();?>
+<div class="widgetnew">
+<form method="post" action = "<?php echo (isset($view_widget['widget_id']))?ADMIN_URL.'widgets/editWidgetpost':ADMIN_URL.'widgets/addWidgetpost'?>">
+	<?php if(isset($view_widget)):?>
+		<input type="hidden" name="w_id" value="<?php echo $view_widget['widget_id']?>"/>
+	<?php endif;?>
+	<label for name="wnamel"><strong>Widget Name</strong></label></br></br>
+	<input type="text" name="wname" class="input-box required text-validation" value="<?php echo (isset($view_widget['widget_name']))?$view_widget['widget_name']:null?>"/></br></br>
+
+
+	<label for name="wtitle"><strong>Widget Title</strong></label></br></br>
+	<input type="text" name="wtitle"  class="input-box required text-validation" value="<?php echo (isset($view_widget['widget_title']))?$view_widget['widget_title']:null?>"/></br></br
+
+
+
+	<label for name="wcontent"><strong>Widget Content</strong></label></br></br>
+	<textarea name="wcontent" class="editor"><?php echo (isset($view_widget['widget_content']))?$view_widget['widget_content']:null?></textarea></br></br>
+
+
+	<label for name="widentifier"><strong>Widget Indentifier ( Must Be Unique )</strong></label></br></br>
+	<input type="text" name="widentifier" class="input-box required text-validation" value="<?php echo (isset($view_widget['widget_identifier']))?$view_widget['widget_identifier']:null?>"/></br></br>
+	<?php if(isset($view_false)){ ?> <label><?php echo $view_false; ?></label></br></br><?php  } ?>
+
+<style>
+
+#cropContainerHeader {
+			width: 500px;
+			height: 350px;
+			position:relative; /* or fixed or absolute */
+		}
+		#cropContainerModal0, #cropContainerModal1, .croppic { width:500px; height:350px; position: relative; border:1px solid #ccc;background-color:gray;}
+
+</style>
+
+	<input type="submit" value="Save"/>
+</form>
+
+
+
+
+</div>
+
+<script>
+$('.widgetnew form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>
+
+

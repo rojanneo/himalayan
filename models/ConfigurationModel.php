@@ -7,16 +7,10 @@ class ConfigurationModel extends Model
 		parent::__construct();
 	}
 
-	public function getConfigGroups($first, $limit)
-	{
-		$sql = "SELECT * FROM config_group ORDER BY config_group_id DESC LIMIT $first,$limit";
-		return $this->connection->Query($sql);
-	}
-
-	public function getConfigGroupsCount()
+	public function getConfigGroups()
 	{
 		$sql = "SELECT * FROM config_group";
-		return count($this->connection->Query($sql));
+		return $this->connection->Query($sql);
 	}
 
 	public function addConfigGroup($post_data)
@@ -122,17 +116,11 @@ class ConfigurationModel extends Model
 		}
 	}
 
-	public function getConfigFields($first, $limit)
-	{
-		$sql = "SELECT * FROM configurations ORDER BY config_id LIMIT $first, $limit";
-		return $this->connection->Query($sql);
-	}
-
-	public function getConfigFieldsCount()
-	{
-		$sql = "SELECT * FROM configurations";
-		return count($this->connection->Query($sql));
-	}
+	// public function getConfigFields()
+	// {
+	// 	$sql = "SELECT * FROM configurations";
+	// 	return $this->connection->Query($sql);
+	// }
 
 	public function addConfigField($post_data)
 	{
@@ -154,4 +142,17 @@ class ConfigurationModel extends Model
 		$sql = "DELETE FROM configurations WHERE config_id = $id";
 		return $this->connection->DeleteQuery($sql);
 	}
+
+	public function getConfigFields($first, $limit)
+	{
+		$sql = "SELECT * FROM configurations ORDER BY config_id LIMIT $first, $limit";
+		return $this->connection->Query($sql);
+	}
+
+	public function getConfigFieldsCount()
+	{
+		$sql = "SELECT * FROM configurations";
+		return count($this->connection->Query($sql));
+	}
+
 }

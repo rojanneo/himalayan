@@ -19,8 +19,16 @@ public function homeAction()
 	$data['discussions'] = $discussions;
 	$data['videos'] = $videos;
 	$data['events'] = $events;
+	$data['blogpost']=$model->getBlogPosts();
 	$this->view->render('home/home.phtml', $data);
 
+}
+
+public function blogAction($attribute_val)
+{
+
+	$data['post']=getModel('home')->getBlogByVal($attribute_val);
+	$this->view->render('home/post.phtml',$data);
 }
 
 }

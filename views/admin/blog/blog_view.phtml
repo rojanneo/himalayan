@@ -1,0 +1,48 @@
+<div class="page-wrapper">
+<div class="actions">
+  <a class="button" href="<?php echo ADMIN_URL.'blog/addnewblog'?>">ADD NEW BLOG POST </a>
+</div>
+<?php if(isset($view_bloglistposts)){ ?>
+
+<table>
+  <tr>
+    <th>Blog ID</th>
+    <th>Blog Title</th>
+    <th>Blog Content</th>
+    <th>Status </th> 
+    <th>Delete </th>
+    <th width="12.5%">Published On </th>
+  </tr>
+  <?php foreach ($view_bloglistposts as $view_bloglistposts) { ?>
+	
+
+  <tr>
+    <td><a href="<?php echo ADMIN_URL.'blog/editblog/'.$view_bloglistposts['blog_id']; ?>"><?php echo $view_bloglistposts['blog_id']; ?></a></td>  
+    <td><a href="<?php echo ADMIN_URL.'blog/editblog/'.$view_bloglistposts['blog_id']; ?>"><?php echo $view_bloglistposts['blog_title']; ?></a></td>
+    <td><a href="<?php echo ADMIN_URL.'blog/editblog/'.$view_bloglistposts['blog_id']; ?>"><?php echo strip_tags(substr($view_bloglistposts['blog_content'],0,15)); ?></a></td>
+    <td><a href="<?php echo ADMIN_URL.'blog/editblog/'.$view_bloglistposts['blog_id']; ?>"><?php echo $view_bloglistposts['blog_status']; ?></a></td>
+    <td><a href="<?php echo ADMIN_URL.'blog/editblog/'.$view_bloglistposts['blog_id']; ?>"> <?php echo $view_bloglistposts['blog-published_date']; ?></a></td>
+    <td><a class="button" href="<?php echo ADMIN_URL.'blog/deleteblog/'.$view_bloglistposts['blog_id']; ?>" class="confirm">Delete</a></td>
+  </tr> 
+
+<?php } echo'</table>';}?>
+<div class="pagination-bottom">
+  <?php
+$page = getParam('p');
+if(!$page) $page = 1;
+loadHelper('pagination');
+showPagination($page, $view_pagination_num, 'admin/blog/index');
+?>
+</div>
+<script>
+$(document).ready(function(){
+  $('.confirm').click(function(){
+    var answer = confirm("Are you sure you want to delete this item?");
+        if (answer){
+            return true;
+        } else {
+            return false;
+        }
+  });
+});
+</script>

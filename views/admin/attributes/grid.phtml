@@ -1,5 +1,9 @@
-<a href="<?php echo ADMIN_URL.'attributes/add'?>">Add New Attribute</a>
-
+<div class="page-wrapper">
+<div class="actions">
+<a class="button" href="<?php echo ADMIN_URL.'attributes/add'?>">Add New Attribute</a>
+</div>
+<!--<div class="toolbar" style="border:1px solid red; width:200px;height:20px;padding-top:20px;padding-right:20px; float:left">
+</div>-->
 <?php if(isset($view_attributes)):?>
 	<table>
 		<thead>
@@ -14,15 +18,18 @@
 					<td><a href="<?php echo ADMIN_URL.'attributes/edit/'.$attribute['aid']?>"><?php echo $attribute['aid']?></td>
 					<td><a href="<?php echo ADMIN_URL.'attributes/edit/'.$attribute['aid']?>"><?php echo $attribute['acode']?></td>
 					<td><a href="<?php echo ADMIN_URL.'attributes/edit/'.$attribute['aid']?>"><?php echo $attribute['aname']?></td>
-					<td><a href="<?php echo ADMIN_URL.'attributes/delete/'.$attribute['aid']?>">Delete</a></td>
+					<td><a class="button" href="<?php echo ADMIN_URL.'attributes/delete/'.$attribute['aid']?>">Delete</a></td>
 				</tr>
 			<?php endforeach;?>
 		</tbody>
 	</table>
+	<div class="pagination-bottom">
 	<?php
 $page = getParam('p');
 if(!$page) $page = 1;
 loadHelper('pagination');
 showPagination($page, $view_pagination_num, 'admin/attributes/index');
 ?>
+</div>
 <?php endif;?>
+</div>

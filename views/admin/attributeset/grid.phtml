@@ -1,5 +1,7 @@
-<a href="<?php echo ADMIN_URL.'attributeset/add'?>">Add New Attribute Set</a>
-
+<div class="page-wrapper">
+<div class="actions">
+	<a class="button" href="<?php echo ADMIN_URL.'attributeset/add'?>">Add New Attribute Set</a>
+</div>
 <?php if(isset($view_attribute_set)):?>
 	<table>
 		<thead>
@@ -14,15 +16,18 @@
 					<td><a href="<?php echo ADMIN_URL.'attributeset/edit/'.$attributeset['asid']?>"><?php echo $attributeset['asid']?></td>
 					<td><a href="<?php echo ADMIN_URL.'attributeset/edit/'.$attributeset['asid']?>"><?php echo $attributeset['ascode']?></td>
 					<td><a href="<?php echo ADMIN_URL.'attributeset/edit/'.$attributeset['asid']?>"><?php echo $attributeset['asname']?></td>
-					<td><a href="<?php echo ADMIN_URL.'attributeset/delete/'.$attributeset['asid']?>">Delete</td>
+					<td><a class="button" href="<?php echo ADMIN_URL.'attributeset/delete/'.$attributeset['asid']?>">Delete</td>
 				</tr>
 			<?php endforeach;?>
 		</tbody>
 	</table>
+	<div class="pagination-bottom">
 	<?php
 $page = getParam('p');
 if(!$page) $page = 1;
 loadHelper('pagination');
 showPagination($page, $view_pagination_num, 'admin/attributeset/index');
 ?>
+</div>
 <?php endif;?>
+</div>

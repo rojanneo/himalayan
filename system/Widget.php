@@ -36,7 +36,9 @@
 	public function render($identifier)
 	{
 		$widget = self::getWidgetFromIdentifier($identifier);
-		$data['content'] = $widget['widget_content'];
+		//$data['content'] = $widget['widget_content'];
+		$value= get_content($widget['widget_content']);
+		$data['content'] = $value;
 		self::GetInstance()->view->render('widgets/block.phtml',$data, false, false, false);
 	}
 

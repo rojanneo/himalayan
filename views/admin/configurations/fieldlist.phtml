@@ -1,7 +1,9 @@
-<div class="page">
-<a href="<?php echo ADMIN_URL.'configuration/addfield'?>">Add New Configuration Field</a>
+<div class="page-wrapper">
+<div class="actions">
+	<a class="button" href="<?php echo ADMIN_URL.'configuration/addfield'?>">Add New Configuration Field</a>
+</div>
 <?php if(isset($view_fields)):?>
-<div class="pagination">
+<!-- <div class="pagination-top">
 	<?php
 $page = getParam('p');
 if(!$page) $page = 1;
@@ -9,7 +11,7 @@ loadHelper('pagination');
 showPagination($page, $view_pagination_num, 'admin/configuration/fieldlist');
 ?>
 </div>
-	<table>
+ -->	<table>
 		<thead>
 			<th>Field ID</th>
 			<th>Field Identifier</th>
@@ -24,12 +26,12 @@ showPagination($page, $view_pagination_num, 'admin/configuration/fieldlist');
 					<td><a href="<?php echo ADMIN_URL.'configuration/editField/'.$field['config_id']?>"><?php echo $field['config_identifier'];?></a></td>
 					<td><a href="<?php echo ADMIN_URL.'configuration/editField/'.$field['config_id']?>"><?php echo $field['config_name'];?></a></td>
 					<td><a href="<?php echo ADMIN_URL.'configuration/editField/'.$field['config_id']?>"><?php echo getModel('configuration')->getGroupNameById($field['config_group']);?></a></td>
-					<td><a href="<?php echo ADMIN_URL.'configuration/deleteField/'.$field['config_id']?>">Delete</a></td>
+					<td><a class="button" href="<?php echo ADMIN_URL.'configuration/deleteField/'.$field['config_id']?>">Delete</a></td>
 				</tr>
 			<?php endforeach;?>
 		</tbody>
 	</table>
-	<div class="pagination">
+	<div class="pagination-bottom">
 	<?php
 $page = getParam('p');
 if(!$page) $page = 1;
