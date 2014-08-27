@@ -35,7 +35,15 @@ class ConfigurationAdminController extends Controller
 
 	public function groupListAction()
 	{
-		$data['groups'] = getModel('Configuration')->getConfigGroups();
+		loadHelper('inputs');
+		$page = getParam('p');
+		if(!$page) $page = 1;
+		$limit = 10;
+		$first = ($page-1) * $limit;
+		$data['groups'] = getModel('Configuration')->getConfigGroups($first,$limit);
+
+		$data['pagination_num'] = ceil(getModel('Configuration')->getConfigGroupsCount()/$limit);
+
 		$this->view->renderAdmin('configurations/groups_list.phtml',$data);
 	}
 
@@ -89,8 +97,15 @@ class ConfigurationAdminController extends Controller
 
 	public function fieldListAction()
 	{
-		$fields = getModel('configuration')->getConfigFields();
+		loadHelper('inputs');
+		$page = getParam('p');
+		if(!$page) $page = 1;
+		$limit = 10;
+		$first = ($page-1) * $limit;
+		$fields = getModel('configuration')->getConfigFields($first,$limit);
 		$data['fields'] = $fields;
+
+		$data['pagination_num'] = ceil(getModel('Configuration')->getConfigFieldsCount()/$limit);
 		$this->view->renderAdmin('configurations/fieldlist.phtml', $data);
 	}
 

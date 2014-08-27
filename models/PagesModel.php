@@ -41,5 +41,17 @@ class PagesModel extends Model
 		$sql = "UPDATE `pages` SET	`urlKey`='".mysql_real_escape_string ($urlKey)."',`title`='".mysql_real_escape_string($title)."',`content`='".mysql_real_escape_string($content)."',`status`=".mysql_real_escape_string($status)." WHERE `page_id` = ".mysql_real_escape_string($page_id);	
 		return $this->connection->UpdateQuery($sql);
 	}
+
+	public function getPages($first,$limit)
+	{
+		$sql = "SELECT * FROM pages ORDER BY page_id DESC Limit $first,$limit";
+		return $this->connection->Query($sql);
+	}
+
+	public function getPagesCount()
+	{
+		$sql = "SELECT * FROM pages";
+		return count($this->connection->Query($sql));
+	}
 }
 

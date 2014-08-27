@@ -443,4 +443,33 @@ class ProductsModel extends Model
 		}
 		return $associated;
 	}
+
+	public function toggleStatus($id)
+	{
+		$sql = "SELECT * FROM products_simple WHERE pid = $id";
+		$status = $this->connection->Query($sql)[0]['status'];
+		if($status == 1)
+		{
+			$sql = "UPDATE products_simple SET status = 0 WHERE pid = $id";
+			return $this->connection->UpdateQuery($sql);
+		}
+		else
+		{
+			$sql = "UPDATE products_simple SET status = 1 WHERE pid = $id";
+			return $this->connection->UpdateQuery($sql);
+		}
+	}
+
+	public function getProductCount()
+	{
+		$sql = "SELECT * FROM products_simple";
+		$products = $this->connection->Query($sql);
+		return count($products);
+	}
+
+	public function getProducts($first, $limit)
+	{
+		$sql = "SELECT * FROM products_simple ORDER BY pid DESC Limit $first,$limit";
+		return $this->connection->Query($sql);
+	}
 }

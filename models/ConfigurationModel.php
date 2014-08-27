@@ -7,10 +7,16 @@ class ConfigurationModel extends Model
 		parent::__construct();
 	}
 
-	public function getConfigGroups()
+	public function getConfigGroups($first, $limit)
+	{
+		$sql = "SELECT * FROM config_group ORDER BY config_group_id DESC LIMIT $first,$limit";
+		return $this->connection->Query($sql);
+	}
+
+	public function getConfigGroupsCount()
 	{
 		$sql = "SELECT * FROM config_group";
-		return $this->connection->Query($sql);
+		return count($this->connection->Query($sql));
 	}
 
 	public function addConfigGroup($post_data)
@@ -116,10 +122,16 @@ class ConfigurationModel extends Model
 		}
 	}
 
-	public function getConfigFields()
+	public function getConfigFields($first, $limit)
+	{
+		$sql = "SELECT * FROM configurations ORDER BY config_id LIMIT $first, $limit";
+		return $this->connection->Query($sql);
+	}
+
+	public function getConfigFieldsCount()
 	{
 		$sql = "SELECT * FROM configurations";
-		return $this->connection->Query($sql);
+		return count($this->connection->Query($sql));
 	}
 
 	public function addConfigField($post_data)

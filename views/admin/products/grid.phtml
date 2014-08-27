@@ -1,6 +1,6 @@
-<h1>test</h1>
-<a href="<?php echo ADMIN_URL.'products/add'?>">Add Product</a>
-
+<div class="actions">
+	<a href="<?php echo ADMIN_URL.'products/add'?>">Add Product</a>
+</div>
 <?php if(isset($view_products)):?>
 <?php loadHelper('view');?>
 <table>
@@ -23,13 +23,20 @@
 		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo getModel('products')->getTypeNameFromId($product['ptype'])?></a></td>
 		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo getModel('attributeset')->getAttributeSetNameFromId($product['product_asid'])?></a></td>
 		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo $product['quantity']?></a></td>
-		<td><a href="<?php echo ADMIN_URL.'products/edit/'.$product['pid']?>"><?php echo convertStatusIdToText($product['status'])?></a></td>
+		<td><a href="<?php echo ADMIN_URL.'products/statusToggle/'.$product['pid']?>"><?php echo convertStatusIdToText($product['status'])?></a></td>
 		<td><a href="<?php echo ADMIN_URL.'products/delete/'.$product['pid']?>" class="confirm">Delete</a></td>
 	</tr>
 <?php endforeach;?>
 </tbody>
 </table>
+<?php
+$page = getParam('p');
+if(!$page) $page = 1;
+loadHelper('pagination');
+showPagination($page, $view_pagination_num, 'admin/products/index');
+?>
 <?php endif;?>
+
 <script>
 $(document).ready(function(){
 	$('.confirm').click(function(){
@@ -42,3 +49,60 @@ $(document).ready(function(){
 	});
 });
 </script>
+
+<!-- <table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>showSpeed</strong></td>
+      <td>15</td>
+      <td>The speed of the show/reveal</td>
+    </tr>
+    <tr>
+      <td><a class="test" href="#"><strong>showEasing</strong></a></td>
+      <td><a class="test" href="#">'linear'</a></td>
+      <td>The easing of the show/reveal</td>
+    </tr>
+    <tr>
+      <td><strong>hideSpeed</strong></td>
+      <td>50</td>
+      <td>The speed of the hide/conceal</td>
+    </tr>
+    <tr>
+      <td><strong>hideEasing</strong></td>
+      <td>'linear'</td>
+      <td>The easing of the hide/conceal</td>
+    </tr>					
+    <tr>
+      <td><strong>width</strong></td>
+      <td>'auto'</td>
+      <td>The width that the data will be truncated to - <em>('auto' or px amount)</em></td>
+    </tr>
+    <tr>
+      <td><strong>ellipsis</strong></td>
+      <td>true</td>
+      <td>Set to true to enable the ellipsis</td>
+    </tr>
+    <tr>
+      <td><strong>title</strong></td>
+      <td>false</td>
+      <td>Set to true to show the full data on hover</td>
+    </tr>
+    <tr>
+      <td><strong>afterShow</strong></td>
+      <td> $.noop</td>
+      <td>The callback fired after the show/reveal</td>
+    </tr>
+    <tr>
+      <td><strong>afterHide</strong></td>
+      <td>$.noop</td>
+      <td>The callback fired after the hide/conceal</td>
+    </tr>
+  </tbody>
+</table> -->

@@ -14,8 +14,14 @@ class AttributeSetAdminController extends Controller
 
 	public function indexAction()
 	{
-		$attributeSets = getModel('attributeset')->getAllAttributeSets();
+		loadHelper('inputs');
+		$page = getParam('p');
+		if(!$page) $page = 1;
+		$limit = 10;
+		$first = ($page-1) * $limit;
+		$attributeSets = getModel('attributeset')->getAttributeSet($first,$limit);
 		$data['attribute_set'] = $attributeSets;
+		$data['pagination_num'] = ceil(getModel('attributeset')->getAttributeSetCount()/$limit);
 		$this->view->renderAdmin('attributeset/grid.phtml',$data);
 	}
 

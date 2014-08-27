@@ -14,8 +14,16 @@ class ContactsAdminController extends Controller
 
 	public function indexAction()
 	{
-		$messages = getModel('contacts')->getAllMessages();
+		
+		loadHelper('inputs');
+		$page = getParam('p');
+		if(!$page) $page = 1;
+		$limit = 10;
+		$first = ($page-1) * $limit;
+		$messages = getModel('contacts')->getMessages($first,$limit);
 		$data['messages'] = $messages;
+
+		$data['pagination_num'] = ceil(getModel('contacts')->getMessageCount()/$limit);
 
 		$this->view->renderAdmin('contacts/grid.phtml',$data);
 	}

@@ -23,7 +23,7 @@ for($i = 0; $i < count($matches[1]); $i++)
 {
     $match = $matches[1][$i];
     $code = '{{'.$match.'}}';
-    $match = explode(' ',$match);
+    $match = explode(' ',$match); 
     $value = false;
     if($match[0] == 'config')
     {

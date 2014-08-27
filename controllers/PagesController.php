@@ -19,6 +19,7 @@ class PagesController extends Controller
 		}
 	}
 
+
 	// public function homeAction()
 	// {
 	// 	$model = getModel('home');

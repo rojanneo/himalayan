@@ -55,4 +55,16 @@ class ContactsModel extends Model
 		$sql = "DELETE FROM `contact_messages` WHERE `contact_id` = ".$id;
 		return $this->connection->DeleteQuery($sql);
 	}
+
+	public function getMessages($first,$limit)
+	{
+		$sql = "SELECT * FROM contact_messages ORDER BY contact_id DESC LIMIT $first, $limit";
+		return $this->connection->Query($sql);
+	}
+
+	public function getMessageCount()
+	{
+		$sql = "SELECT * FROM contact_messages";
+		return count($this->connection->Query($sql));
+	}
 }

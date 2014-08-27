@@ -14,8 +14,15 @@ class FAQAdminController extends Controller
 
 	public function indexAction()
 	{
-		$faqs = getModel('faq')->getAllFaqs();
+		
+		loadHelper('inputs');
+		$page = getParam('p');
+		if(!$page) $page = 1;
+		$limit = 10;
+		$first = ($page-1) * $limit;
+		$faqs = getModel('faq')->getFaqs($first,$limit);
 		$data['faqs'] = $faqs;
+		$data['pagination_num'] = ceil(getModel('faq')->getFaqCount()/$limit);
 
 		$this->view->renderAdmin('faqs/grid.phtml',$data);
 	}

@@ -15,9 +15,27 @@ class ProductsAdminController extends Controller
 
 	public function indexAction()
 	{
-		$products = getModel('products')->getAllProducts();
+		loadHelper('inputs');
+		$page = getParam('p');
+		if(!$page) $page = 1;
+		$limit = 10;
+		$first = ($page-1) * $limit;
+		$products = getModel('products')->getProducts($first,$limit);
 		$data['products'] = $products;
+		$data['pagination_num'] = ceil(getModel('products')->getProductCount()/$limit);
 		$this->view->renderAdmin('products/grid.phtml', $data);
+	}
+
+	public function statusToggleAction($id)
+	{
+		if(getModel('products')->toggleStatus($id))
+		{
+			redirect('admin/products');
+		}
+		else
+		{
+			redirect('admin/products');
+		}
 	}
 
 	public function addAction()

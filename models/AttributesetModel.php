@@ -79,4 +79,17 @@ class AttributesetModel extends Model
 		$sql = "DELETE FROM attributeset WHERE asid = ".$attributeset_id;
 		return $this->connection->DeleteQuery($sql);
 	}
+
+	public function getAttributeSetCount()
+	{
+		$sql = "SELECT * FROM attributeset";
+		$products = $this->connection->Query($sql);
+		return count($products);
+	}
+
+	public function getAttributeSet($first, $limit)
+	{
+		$sql = "SELECT * FROM attributeset ORDER BY asid DESC Limit $first,$limit";
+		return $this->connection->Query($sql);
+	}
 }

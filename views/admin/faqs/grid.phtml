@@ -16,4 +16,10 @@
 		<?php endforeach;?>
 	</tbody>
 </table>
+<?php
+$page = getParam('p');
+if(!$page) $page = 1;
+loadHelper('pagination');
+showPagination($page, $view_pagination_num, 'admin/faq/index');
+?>
 <?php endif;?>

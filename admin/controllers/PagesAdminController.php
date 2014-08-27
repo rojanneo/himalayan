@@ -14,8 +14,14 @@ class PagesAdminController extends Controller
 
 	public function indexAction()
 	{
-		$pages = getModel('pages')->getAllPages();
+		loadHelper('inputs');
+		$page = getParam('p');
+		if(!$page) $page = 1;
+		$limit = 10;
+		$first = ($page-1) * $limit;
+		$pages = getModel('pages')->getPages($first,$limit);
 		$data['pages'] = $pages;
+		$data['pagination_num'] = ceil(getModel('pages')->getPagesCount()/$limit);
 		$this->view->renderAdmin('pages/grid.phtml', $data);
 	}
 

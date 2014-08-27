@@ -55,4 +55,16 @@ class FaqModel extends Model
 		}
 		return $results;
 	}
+
+	public function getFaqs($first,$limit)
+	{
+		$sql = "SELECT * FROM faq ORDER BY faq_id LIMIT $first,$limit";
+		return $this->connection->Query($sql);
+	}
+
+	public function getFaqCount()
+	{
+		$sql = "SELECT * FROM faq";
+		return count($this->connection->Query($sql));
+	}
 }

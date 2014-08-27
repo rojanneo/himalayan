@@ -127,4 +127,17 @@ class AttributeModel extends Model
 		$sql = "DELETE FROM attributes WHERE aid = ".$attribute_id;
 		return $this->connection->DeleteQuery($sql);
 	}
+
+	public function getAttributeCount()
+	{
+		$sql = "SELECT * FROM attributes";
+		$products = $this->connection->Query($sql);
+		return count($products);
+	}
+
+	public function getAttributes($first, $limit)
+	{
+		$sql = "SELECT * FROM attributes ORDER BY aid DESC Limit $first,$limit";
+		return $this->connection->Query($sql);
+	}
 }
