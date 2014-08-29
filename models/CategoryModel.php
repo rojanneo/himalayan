@@ -34,12 +34,12 @@ class CategoryModel extends Model
 
 	public function cat_ul($category_name,$category_id)
 	{
-		$category='<li><a href="'.ADMIN_URL.'category/editcat/'.$category_id.'">'.$category_name.'</a> <a href="'.ADMIN_URL.'category/deletecat/'.$category_id.'">DELETE</a></li>';
+		$category='<li><a href="javascript:void(0)" class="expand"><img width="15px" src="'.ASSET_URL.'images/expand.gif'.'"/></a><a href="'.ADMIN_URL.'category/editcat/'.$category_id.'">'.$category_name.'</a> <a href="'.ADMIN_URL.'category/deletecat/'.$category_id.'">DELETE</a></li>';
 			$query1='SELECT * FROM `categories` WHERE `parent_id`='.$category_id.'';
 			$cat_hier1=$this->connection->Query($query1);
 			if(!empty($cat_hier1))
 			{
-				$category.='<ul>';
+				$category.='<ul style="display:none">';
 				foreach ($cat_hier1 as $cat_hier1) 
 				{
 					$category.=$this->cat_ul($cat_hier1['category_name'],$cat_hier1['category_id']);

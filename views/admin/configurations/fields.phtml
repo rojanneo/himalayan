@@ -1,17 +1,41 @@
 <?php if(isset($view_groups)):?>
+	<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<h3>Configurations</h3>
+		</div>
+	<div class="form">
 <form method="post" action = "<?php echo ADMIN_URL.'configuration/saveConfig'?>">
+		<ul>
+			<li class="field" style="margin-bottom:20px">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
 	<?php foreach($view_groups as $group => $fields):?>
-		<a href="javascript:void(0)" id = "<?php echo $group?>" class = "group"><?php echo $group?></a>
+		<a href="javascript:void(0)" id = "<?php echo $group?>" class = "group button" style="width:96%"><?php echo $group?></a>
 		<?php foreach($fields as $field):?>
 			<?php $field_name = getModel('configuration')->getConfigName($field); $field_value = getModel('configuration')->getConfigValue($field);?>
 			<div class="<?php echo $group?>" style="display:none">
-			<label for name="<?php echo $field?>"><?php echo $field_name?></label>
-			<input type="text" name="<?php echo $field?>" value="<?php echo $field_value?>"/>
+				<li class="field">
+				<div class="input-title" style="float:left">
+					<label for name="<?php echo $field?>"><?php echo $field_name?></label>
+				</div>
+				<div class="input" style='line-height: 40px;margin-left: 160px;'>
+					<input type="text" name="<?php echo $field?>" class="input-box" value="<?php echo $field_value?>"/>
+				</div>
 			</div>
+		</li>
 		<?php endforeach;?>
 	<?php endforeach;?>
-<input type="submit" value="Save"/>
+<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+</ul>
 </form>
+</div>
+</div>
+</div>
 <?php endif;?>
 
 <script type="text/javascript">
