@@ -1,32 +1,78 @@
-<?php if(!isset($view_faq)):?>
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<?php if(!isset($view_faq)):?>
+			<h3>Add New FAQ</h3>
+		<?php else:?>
+		<h3>Edit FAQ</h3>
+	<?php endif;?>
+</div>
+
+	<?php if(!isset($view_faq)):?>
+	<div class="form">
 	<form method="post" action="<?php echo ADMIN_URL.'faq/addpost'?>">
-		<label for = "faq_question">FAQ Question</label>
-		<!-- <a href="javascript:void(0)" onclick="toggleEditor('add_question')"><span>Toggle TinyMCE</span></a> -->
-		<textarea id='add_question' name="faq_question" ></textarea>
+		<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for = "faq_question">FAQ Question</label>
+				</div>
+				<div class="input">
+					<textarea id='add_question' name="faq_question" ></textarea>
+				</div></li>
+				<li class="field">
+					<div class="input-title">
+						<label for = "faq_answer">FAQ Answer</label>
+					</div>
+					<div class="input">
+						<textarea id='add_answer' name="faq_answer" ></textarea>
+					</div></li>
+					<li class="field">
+						<div class="input">
+							<input class="button" type="submit" value="save"/>
+						</div></li>
+					</li>
+					</form>
+				</div>
+			<?php else: ?>
+			<div class="form">
+			<form method="post" action="<?php echo ADMIN_URL.'faq/editpost'?>">
+				<input type="hidden" name="faq_id" value="<?php echo $view_faq['faq_id']?>"/>
+				<ul>
+				<li class="field">
+					<div class="input">
+						<input class="button" type="submit" value="save"/>
+					</div></li>
+					<li class="field">
+						<div class="input-title">
+							<label for = "faq_question">FAQ Question</label>
+						</div>
+						<div class="input">
+							<textarea id='add_question' name="faq_question" class="input-box required" ><?php echo $view_faq['faq_question']?></textarea>
+						</div></li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "faq_answer">FAQ Answer</label>
+							</div>
+							<div class="input">
+								<textarea id='add_answer' name="faq_answer" class="input-box required"><?php echo $view_faq['faq_answer']?></textarea>
+							</div></li>
+							<li class="field">
+								<div class="input">
+									<input class="button" type="submit" value="save"/>
+								</div></li>
+							</li>
+							</form>
+						</div>
+					<?php endif;?>
+				</div>
+			</div>
 
-		<label for = "faq_answer">FAQ Answer</label>
-		<!-- <a href="javascript:void(0)" onclick="toggleEditor('add_answer')"><span>Toggle TinyMCE</span></a> -->
-		<textarea id='add_answer' name="faq_answer" ></textarea>
-
-		<input type="submit" value="Save"/>
-	</form>
-<?php else: ?>
-	<form method="post" action="<?php echo ADMIN_URL.'faq/editpost'?>">
-	<input type="hidden" name="faq_id" value="<?php echo $view_faq['faq_id']?>"/>
-		<label for = "faq_question">FAQ Question</label>
-		<!-- <a href="javascript:void(0)" onclick="toggleEditor('add_question')"><span>Toggle TinyMCE</span></a> -->
-		<textarea id='add_question' name="faq_question" class="input-box required" ><?php echo $view_faq['faq_question']?></textarea>
-
-		<label for = "faq_answer">FAQ Answer</label>
-		<!-- <a href="javascript:void(0)" onclick="toggleEditor('add_answer')"><span>Toggle TinyMCE</span></a> -->
-		<textarea id='add_answer' name="faq_answer" class="input-box required"><?php echo $view_faq['faq_answer']?></textarea>
-
-		<input type="submit" value="Save"/>
-	</form>
-<?php endif;?>
-
-<script>
-$('form').submit(function(){
-	return $(this).validate('input-box');
-});
-</script>
+					<script>
+					$('form').submit(function(){
+						return $(this).validate('input-box');
+					});
+					</script>

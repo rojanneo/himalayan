@@ -1,4 +1,7 @@
-<a href="<?php echo ADMIN_URL.'configuration/addgroup'?>">Add New Configuration Group</a>
+<div class="page-wrapper">
+<div class="actions">
+<a class="button" href="<?php echo ADMIN_URL.'configuration/addgroup'?>">Add New Configuration Group</a>
+</div>
 <?php if(isset($view_groups)):?>
 <table class="grid">
 <thead>
@@ -13,7 +16,7 @@
 		<td><a href="<?php echo ADMIN_URL.'configuration/editgroup/'.$group['config_group_id']?>"><?php echo $group['config_group_id']?></a></td>
 		<td><a href="<?php echo ADMIN_URL.'configuration/editgroup/'.$group['config_group_id']?>"><?php echo $group['config_group_identifier']?></a></td>
 		<td><a href="<?php echo ADMIN_URL.'configuration/editgroup/'.$group['config_group_id']?>"><?php echo $group['config_group_name']?></a></td>
-		<td><a href="<?php echo ADMIN_URL.'configuration/deletegroup/'.$group['config_group_id']?>">Delete</a></td>
+		<td><a class="button" href="<?php echo ADMIN_URL.'configuration/deletegroup/'.$group['config_group_id']?>">Delete</a></td>
 	</tr>
 <?php endforeach;?>
 </tbody>
@@ -25,3 +28,4 @@ loadHelper('pagination');
 showPagination($page, $view_pagination_num, 'admin/configuration/grouplist/');
 ?>
 <?php endif;?>
+</div>

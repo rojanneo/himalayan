@@ -1,22 +1,58 @@
-<form method = "post" action = "<?php echo (isset($view_field))?ADMIN_URL.'configuration/editfieldPost':ADMIN_URL.'configuration/addfieldpost'?>">
-<?php if(isset($view_field)):?>
-	<input type="hidden" name="config_id" value="<?php echo $view_field['config_id']?>"/>
-<?php endif;?>
-	<label for = "config_identifier">Identifier</label>
-	<input type="text" name="config_identifier" value="<?php echo (isset($view_field))?$view_field['config_identifier']:null?>"/>
-
-	<label for = "config_name">Name</label>
-	<input type="text" name="config_name" value="<?php echo (isset($view_field))?$view_field['config_name']:null?>"/>
-
-	<label for = "config_group">Group</label>
-	<?php if(isset($view_groups)):?>
-	<select name="config_group">
-	<?php foreach($view_groups as $group):?>
-		<option value="<?php echo $group['config_group_id']?>" <?php echo (isset($view_field) and $view_field['config_group'] == $group['config_group_id'])?'selected':null?>><?php echo $group['config_group_name']?></option>
-	<?php endforeach;?>
-	</select>
-	<?php else:?>
-		<h3>No Groups Created. Create A Group First</h3>
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<?php if(!isset($view_attribute)):?>
+			<h3>Add New Configuration Field</h3>
+		<?php else:?>
+		<h3>Edit Configuration Field</h3>
 	<?php endif;?>
-	<input type="submit" value="Save"/>
-</form>
+</div>
+<div class="form">
+	<form method = "post" action = "<?php echo (isset($view_field))?ADMIN_URL.'configuration/editfieldPost':ADMIN_URL.'configuration/addfieldpost'?>">
+		<?php if(isset($view_field)):?>
+		<input type="hidden" name="config_id" value="<?php echo $view_field['config_id']?>"/>
+	<?php endif;?>
+	<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for = "config_identifier">Identifier</label>
+				</div>
+				<div class="input">
+					<input class="input-box" type="text" name="config_identifier" value="<?php echo (isset($view_field))?$view_field['config_identifier']:null?>"/>
+				</div></li>
+				<li class="field">
+					<div class="input-title">
+						<label for = "config_name">Name</label>
+					</div>
+					<div class="input">
+						<input class="input-box" type="text" name="config_name" value="<?php echo (isset($view_field))?$view_field['config_name']:null?>"/>
+					</div></li>
+					<li class="field">
+						<div class="input-title">
+							<label for = "config_group">Group</label>
+							<?php if(isset($view_groups)):?>
+						</div>
+						<div class="input">
+							<select class="input-box" name="config_group">
+								<?php foreach($view_groups as $group):?>
+								<option value="<?php echo $group['config_group_id']?>" <?php echo (isset($view_field) and $view_field['config_group'] == $group['config_group_id'])?'selected':null?>><?php echo $group['config_group_name']?></option>
+							<?php endforeach;?>
+						</select>
+					</div></li>
+
+				<?php else:?>
+				<h3>No Groups Created. Create A Group First</h3>
+			<?php endif;?>
+			<li class="field">
+				<div class="input">
+					<input class="button" type="submit" value="save"/>
+				</div></li>
+			</ul>
+		</form>
+	</div>
+</div>
+</div>

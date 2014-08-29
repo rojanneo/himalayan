@@ -1,14 +1,44 @@
-<form method = "post" action="<?php echo (isset($view_group))?ADMIN_URL.'configuration/editgrouppost':ADMIN_URL.'configuration/addgrouppost'?>">
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<?php if(!isset($view_attribute)):?>
+			<h3>Add New Configuration Group</h3>
+		<?php else:?>
+		<h3>Edit Configuration Group</h3>
+	<?php endif;?>
+</div>
+<div class="form">
+	<form method = "post" action="<?php echo (isset($view_group))?ADMIN_URL.'configuration/editgrouppost':ADMIN_URL.'configuration/addgrouppost'?>">
 
-<?php if(isset($view_group)):?>
-	<input type="hidden" name="config_group_id" value="<?php echo $view_group['config_group_id']?>"/>
-<?php endif;?>
-	<label for = "config_group_identifier">Identifier</label>
-	<input type="text" name="config_group_identifier" value="<?php echo (isset($view_group))?$view_group['config_group_identifier']:null?>"/>
+		<?php if(isset($view_group)):?>
+		<input type="hidden" name="config_group_id" value="<?php echo $view_group['config_group_id']?>"/>
+	<?php endif;?>
+	<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for = "config_group_identifier">Identifier</label>
+				</div>
+				<div class="input">
+					<input class="input-box" type="text" name="config_group_identifier" value="<?php echo (isset($view_group))?$view_group['config_group_identifier']:null?>"/>
+				</div></li>
+				<li class="field">
+					<div class="input-title">
+						<label for = "config_group_name">Name</label>
+					</div>
+					<div class="input">
+						<input class="input-box" type="text" name="config_group_name" value="<?php echo (isset($view_group))?$view_group['config_group_name']:null?>"/>
+					</div></li>
 
-	<label for = "config_group_name">Name</label>
-	<input type="text" name="config_group_name" value="<?php echo (isset($view_group))?$view_group['config_group_name']:null?>"/>
-
-	<input type="submit" value="Save"/>
-
-</form>
+					<li class="field">
+						<div class="input">
+							<input class="button" type="submit" value="save"/>
+						</div></li>
+						<ul>
+						</form>
+					</div>
+				</div>
+			</div>

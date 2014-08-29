@@ -12,7 +12,11 @@ class ConfigurationModel extends Model
 		$sql = "SELECT * FROM config_group";
 		return $this->connection->Query($sql);
 	}
-
+	public function getConfigGroupsCount()
+	{
+		$sql = "SELECT * FROM config_group";
+		return count($this->connection->Query($sql));
+	}
 	public function addConfigGroup($post_data)
 	{
 		if($post_data) extract($post_data);

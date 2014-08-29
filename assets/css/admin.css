@@ -344,7 +344,9 @@ body {
    height:auto !important; 
    height: 800px;}
 .page-wrapper .actions{width:200px;float:left;margin-left:12.5%;padding:20px 0px 20px 0px;}
-a.button{display:block;border: solid 1px #32373b;
+.page-form .actions{width:240px; margin-left:6%; float:none;}
+
+a.button, input.button{display:block;border: solid 1px #32373b;
     text-decoration: none;
     background: #3e4347;
     box-shadow: inset 0px 1px 1px rgba(255,255,255, .1), 0px 1px 3px rgba(0,0,0, .1);
@@ -353,11 +355,25 @@ a.button{display:block;border: solid 1px #32373b;
     background: -moz-linear-gradient(0% 0% 270deg,#565b5f, #3e4347);
     text-align: center}
 
-a.button:hover{
+a.button:hover, input.button:hover{
     background: #3d4f5d;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#547085), to(#3d4f5d));
     background: -moz-linear-gradient(0% 0% 270deg,#547085, #3d4f5d);
 }
+
+.page-wrapper .page-form{width:75%; margin:20px auto; text-align: left; -moz-box-shadow: 0 0 6px #978f6c;
+-webkit-box-shadow: 0 0 6px #978f6c;background: #fbfcfc;/*border:1px solid red;*/}
+.page-wrapper .form{width:100%;padding:20px;}
+.images li.field{margin-top:10px;}
+.page-wrapper .form li.field label{font-weight: bold;line-height: 40px; }
+.page-wrapper .form li.field .input-box{width:75%;}
+.page-wrapper .form li.field .input .mce-tinymce{width:75%;}
+.page-wrapper .form li.field .input input.button{width: 150px;height: 30px;border-radius: 5px;margin-top:20px;}
+.page-wrapper .page-head{height:50px;width:100%; margin-top: 0px;margin-left: auto;
+margin-right: auto;background: linear-gradient(#444, #111);color: #fafafa; line-height: 45px; text-align:center;-moz-box-shadow: 0 0 6px #978f6c;
+-webkit-box-shadow: 0 0 6px #978f6c; }
+.option-width {width:155px;}
+/*.page-wrapper .page-head h3{position:absolute; top:50%;}*/
 .pagination-bottom {
    
     padding: 20px;
@@ -399,3 +415,4 @@ a.button:hover{
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#565b5f), to(#3e4347));
     background: -moz-linear-gradient(0% 0% 270deg,#565b5f, #3e4347);
 }
+

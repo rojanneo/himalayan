@@ -1,29 +1,59 @@
 <?php echo AdminSession::showErrorMessages();
 echo AdminSession::showSuccessMessages();
 ?>
-
-<form method="post" action="<?php echo (!isset($view_attribute_set))?ADMIN_URL.'attributeset/addpost':ADMIN_URL.'attributeset/editpost'?>">
-	<?php if(isset($view_attribute_set)):?>
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<?php if(!isset($view_attribute)):?>
+			<h3>Add New Attribute Set</h3>
+		<?php else:?>
+		<h3>Edit Attribute Set</h3>
+	<?php endif;?>
+</div>
+<div class="form">
+	<form method="post" action="<?php echo (!isset($view_attribute_set))?ADMIN_URL.'attributeset/addpost':ADMIN_URL.'attributeset/editpost'?>">
+		<?php if(isset($view_attribute_set)):?>
 		<input type="hidden" name="attribute_set_id" value="<?php echo $view_attribute_set['asid']?>"/>
 	<?php endif;?>
-	<label for ="ascode">Attribute Set Code</label>
-	<input type="text" name="ascode" value="<?php echo (isset($view_attribute_set))?$view_attribute_set['ascode']:null?>"/>
-
-	<label for ="asname">Attribute Set Name</label>
-	<input type="text" name="asname" value="<?php echo (isset($view_attribute_set))?$view_attribute_set['asname']:null?>"/>
-
-	<label for = 'attributes'>Select Attributes</label>
-	<?php $attributes = getModel('attribute')->getAllAttributes();?>
-	<select name="attributes[]" multiple	>
-		<?php foreach($attributes as $attribute):?>
-			<option value = "<?php echo $attribute['aid']?>" <?php echo (isset($view_attributes) and in_array($attribute['aid'], $view_attributes))?'selected':null?>><?php echo $attribute['aname']?></option>
-		<?php endforeach;?>
-	</select>
-	<input type ="submit" value="Save"/>
-</form>
-
-<script>
-$('form').submit(function(){
-	return $(this).validate('input-box');
-});
-</script>
+	<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="ascode">Attribute Set Code</label>
+				</div>
+				<div class="input">
+					<input type="text" name="ascode" class="input-box" value="<?php echo (isset($view_attribute_set))?$view_attribute_set['ascode']:null?>"/>
+				</div>
+				<li class="field">
+					<div class="input-title">
+						<label for ="asname">Attribute Set Name</label>
+					</div>
+					<div class="input">
+						<input type="text" class="input-box" name="asname" value="<?php echo (isset($view_attribute_set))?$view_attribute_set['asname']:null?>"/>
+					</div>
+					<li class="field">
+						<div class="input-title">
+							<label for = 'attributes'>Select Attributes</label>
+						</div>
+						<div class="input">
+							<?php $attributes = getModel('attribute')->getAllAttributes();?>
+							<select name="attributes[]" multiple size="10" class="input-box">
+								<?php foreach($attributes as $attribute):?>
+								<option value = "<?php echo $attribute['aid']?>" <?php echo (isset($view_attributes) and in_array($attribute['aid'], $view_attributes))?'selected':null?>><?php echo $attribute['aname']?></option>
+							<?php endforeach;?>
+						</select>
+					</div>
+					<li class="field">
+						<div class="input">
+							<input class="button" type="submit" value="save"/>
+						</div></li>
+					</form>
+				</div>
+				<script>
+				$('form').submit(function(){
+					return $(this).validate('input-box');
+				});
+				</script>

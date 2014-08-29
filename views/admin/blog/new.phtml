@@ -1,75 +1,105 @@
 
 <?php echo AdminSession::showErrorMessages();
 echo AdminSession::showSuccessMessages();?>
-<div class="blognew">
-<form method="post" action = "<?php echo (isset($view_blog))?ADMIN_URL.'blog/editblogpost':ADMIN_URL.'blog/addblogpost'?>">
-	<?php if(isset($view_blog)):?>
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<?php if(!isset($view_attribute)):?>
+			<h3>Add New Blog Post</h3>
+		<?php else:?>
+		<h3>Edit Blog Post</h3>
+	<?php endif;?>
+</div>
+<div class="form">
+	<form method="post" action = "<?php echo (isset($view_blog))?ADMIN_URL.'blog/editblogpost':ADMIN_URL.'blog/addblogpost'?>">
+		<?php if(isset($view_blog)):?>
 		<input type="hidden" name="blog_id" value="<?php echo $view_blog['blog_id']?>"/>
 	<?php endif;?>
-	<label for name="bnamel"><strong>BLOG Title</strong></label></br></br>
-	<input type="text" name="bname" class="input-box required text-validation" value="<?php echo (isset($view_blog))?$view_blog['blog_title']:null?>"/></br></br>
+	<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for name="bnamel"><strong>BLOG Title</strong></label></div>
+					<div class="input">
+						<input type="text" name="bname" class="input-box required text-validation" value="<?php echo (isset($view_blog))?$view_blog['blog_title']:null?>"/></div></li>
+						<li class="field">
+							<div class="input-title">
+								<label for name="bcontent"><strong>Blog content</strong></label></div>
+								<div class="input">
+									<textarea name="bcontent" class="editor"><?php echo (isset($view_blog))?$view_blog['blog_content']:null?></textarea></div></li>
+									<div class="input-title">
+										<label for name="bstatusl"><strong>Blog Type</strong></label></div>
+										<div class="input">
+											<select name="bstatus" class="attr-type-select">
+												<option value="publish" <?php echo (isset($view_blog) and $view_blog['blog_status'] == 'publish')?'selected':null?>>Published</option>
+												<option value="draft" <?php echo (isset($view_blog) and $view_blog['blog_status'] == 'draft')?'selected':null?>>Draft</option>
+											</select></div></li>
 
-	<label for name="bcontent"><strong>Blog content</strong></label></br></br>
-	<textarea name="bcontent" class="editor"><?php echo (isset($view_blog))?$view_blog['blog_content']:null?></textarea></br></br>
-	
-	<label for name="bstatusl"><strong>Blog Type</strong></label></br></br>
-	<select name="bstatus" class="attr-type-select">
-		<option value="publish" <?php echo (isset($view_blog) and $view_blog['blog_status'] == 'publish')?'selected':null?>>Published</option>
-		<option value="draft" <?php echo (isset($view_blog) and $view_blog['blog_status'] == 'draft')?'selected':null?>>Draft</option>
-	</select></br></br>
+											<?php if(isset($view_blog)){ ?>
+											
+											<?php $date=date_create($view_blog['blog-published_date']); $data= date_format($date,"Y-m-d"); ?>
+											<li class="field">
+												<div class="input-title">	
+													<label for name="bpublishdate"><strong>Published Date</strong></label></div>
+													<div class="input"><input type="date" name="bpublish" class="input-box" value="<?php echo $data; ?>"/></div></li>
 
-	<?php if(isset($view_blog)){ ?>
-	
-	<?php $date=date_create($view_blog['blog-published_date']); $data= date_format($date,"Y-m-d"); ?>	
-	<label for name="bpublishdate"><strong>Published Date</strong></label></br></br><input type="date" name="bpublish" value="<?php echo $data; ?>"/>
-
-	<?php }?>
-
-
-<style>
-
-#cropContainerHeader {
-			width: 500px;
-			height: 350px;
-			position:relative; /* or fixed or absolute */
-		}
-		#cropContainerModal0, #cropContainerModal1, .croppic { width:500px; height:350px; position: relative; border:1px solid #ccc;background-color:gray;}
-
-</style>
-<?php if(isset($view_blog['blog_feature_image'])):?>
-	<img src="<?php echo UPLOAD_URL.$view_blog['blog_feature_image']?>"/>
-<?php endif;?>
-<div class="croppic" id="cropContainerModal-0"></div>
-<input type="hidden" name="bfimage" id='input-0'/>
-<script>
-
-var croppicContainerModalOptions = {
-				uploadUrl:'<?php echo ADMIN_URL?>blog/uploadImage',
-				cropUrl:'<?php echo ADMIN_URL?>blog/cropImage',
-				modal:true,
-				imgEyecandyOpacity:0.4,
-				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-				onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
-		}
-
-		var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
-</script>
+													<?php }?>
 
 
-	<input type="submit" value="Save"/>
-</form>
+													<style>
+
+													#cropContainerHeader {
+														width: 500px;
+														height: 350px;
+														position:relative; /* or fixed or absolute */
+													}
+													#cropContainerModal0, #cropContainerModal1, .croppic { width:500px; height:350px; position: relative; border:1px solid #ccc;background-color:gray;}
+
+													</style>
+													<?php if(isset($view_blog['blog_feature_image'])):?>
+													<img src="<?php echo UPLOAD_URL.$view_blog['blog_feature_image']?>"/>
+												<?php endif;?>
+												<li class="field">
+													<div class="input">
+														<div class="croppic" id="cropContainerModal-0"></div>
+													</div></li>
+													<input type="hidden" name="bfimage" id='input-0'/>
+													<script>
+
+													var croppicContainerModalOptions = {
+														uploadUrl:'<?php echo ADMIN_URL?>blog/uploadImage',
+														cropUrl:'<?php echo ADMIN_URL?>blog/cropImage',
+														modal:true,
+														imgEyecandyOpacity:0.4,
+														loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+														onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+													}
+
+													var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+													</script>
+
+
+													<li class="field">
+														<div class="input">
+															<input class="button" type="submit" value="save"/>
+														</div></li></ul>
+													</form>
 
 
 
 
-</div>
-
-<script>
-$('.blognew form').submit(function(){
-	return $(this).validate('input-box');
-});
-</script>
-<script type="text/javascript">
-$
-</script>
+												</div>
+											</div>
+										</div>
+										<script>
+										$('.form form').submit(function(){
+											return $(this).validate('input-box');
+										});
+										</script>
+										<script type="text/javascript">
+										$
+										</script>
 

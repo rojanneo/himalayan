@@ -2,49 +2,122 @@
 echo AdminSession::showSuccessMessages();?>
 
 <?php loadHelper('view');?>
+<div class="page-wrapper">
+	<?php if(!isset($view_page)):?>
+	<div class="page-form">
+		<div class="page-head">
+			<h3>Add New Page</h3>
+		</div>
+		<div class="form">
+			<form method = "post" action = "<?php echo ADMIN_URL.'pages/addpost'?>">
+				<ul>
+					<li class="field">
+						<div class="input">
+							<input class="button" type="submit" value="save"/>
+						</div></li>
+						<li class="field">
+							<div class="input-title">
+								<label for ="title">Title</label>
+							</div>
+							<div class="input">
+								<input type="text" name="title" class="input-box required text-validation"/>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for ="urlKey">URL Key</label>
+							</div>
+							<div class="input">
+								<input type="text" name="urlKey" class="input-box required text-validation"/>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for="status">Status</label>
+							</div>
+							<div class="input">
+								<select name="status">
+									<option value="0"><?php echo convertStatusIdToText(0);?></option>
+									<option value="1"><?php echo convertStatusIdToText(1);?></option>	
+								</select>
+							</div>
+						</li>
 
-<?php if(!isset($view_page)):?>
-<div class="addpage-form">
-<form method = "post" action = "<?php echo ADMIN_URL.'pages/addpost'?>">
-<label for ="title">Title</label>
-<input type="text" name="title" class="input-box required text-validation"/>
-<label for ="urlKey">URL Key</label>
-<input type="text" name="urlKey" class="input-box required text-validation"/>
-<label for="status">Status</label>
-<select name="status">
-	<option value="0"><?php echo convertStatusIdToText(0);?></option>
-	<option value="1"><?php echo convertStatusIdToText(1);?></option>	
-</select>
-
-<label for="content">Content</label>
-<!-- <a class="btn" href="javascript:void(0)" onclick="  tinymce.execCommand('mceRemoveControl', true, 'content');"><span>Toggle TinyMCE</span></a> -->
-<textarea id='add' name="content" class="editor" id="content"></textarea>
-
-<input type="submit" value="save"/>
-</form>
-</div>
-<script>
-$('form').submit(function(){
-	return $(this).validate('input-box');
-});
-</script>
-<?php else:?>
-<form method = "post" action = "<?php echo ADMIN_URL.'pages/editpost'?>">
-<input type="hidden" value="<?php echo $view_page['page_id']?>" name="page_id"/>
-<label for ="title">Title</label>
-<input type="text" name="title" class="input-box required text-validation" value="<?php echo $view_page['title']?>"/>
-<label for ="urlKey">URL Key</label>
-<input type="text" name="urlKey" class="input-box required text-validation" value="<?php echo $view_page['urlKey']?>"/>
-<label for="status">Status</label>
-<select name="status">
-	<option value="0" <?php echo ($view_page['status'] == 0)?'selected':null?>><?php echo convertStatusIdToText(0);?></option>
-	<option value="1" <?php echo ($view_page['status'] == 1)?'selected':null?>><?php echo convertStatusIdToText(1);?></option>	
-</select>
-
-<label for="content">Content</label>
-<!-- <a href="javascript:void(0)" onclick="toggleEditor('edit')"><span>Toggle TinyMCE</span></a> -->
-<textarea id='edit' name="content" class="editor"><?php echo $view_page['content']?></textarea>
-
-<input type="submit" value="save"/>
-</form>
-<?php endif;?>
+						<li class="field">
+							<div class="input-title">
+								<label for="content">Content</label>
+								<!-- <a class="btn" href="javascript:void(0)" onclick="  tinymce.execCommand('mceRemoveControl', true, 'content');"><span>Toggle TinyMCE</span></a> -->
+							</div>
+							<div class="input">
+								<textarea id='add' name="content" class="editor" id="content"></textarea>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input">
+								<input class="button" type="submit" value="save"/>
+							</div></li>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<script>
+			$('form').submit(function(){
+				return $(this).validate('input-box');
+			});
+			</script>
+		<?php else:?>
+		<div class="page-form">
+			<div class="page-head">
+				<h3>Add New Page</h3>
+			</div>
+			<div class="form">
+				<form method = "post" action = "<?php echo ADMIN_URL.'pages/editpost'?>">
+					<input type="hidden" value="<?php echo $view_page['page_id']?>" name="page_id"/>
+					<ul>
+						<li class="field">
+							<div class="input">
+								<input class="button" type="submit" value="save"/>
+							</div></li>
+							<li class="field">
+								<div class="input-title">
+									<label for ="title">Title</label>
+								</div>
+								<div class="input">
+									<input type="text" name="title" class="input-box required text-validation" value="<?php echo $view_page['title']?>"/>
+								</div>
+							</li>
+							<li class="field">
+								<div class="input-title">
+									<label for ="urlKey">URL Key</label>
+								</div>
+								<div class="input">
+									<input type="text" name="urlKey" class="input-box required text-validation" value="<?php echo $view_page['urlKey']?>"/>
+								</div>
+							</li>
+							<li class="field">
+								<div class="input-title">
+									<label for="status">Status</label>
+								</div>
+								<div class="input">
+									<select name="status">
+										<option value="0" <?php echo ($view_page['status'] == 0)?'selected':null?>><?php echo convertStatusIdToText(0);?></option>
+										<option value="1" <?php echo ($view_page['status'] == 1)?'selected':null?>><?php echo convertStatusIdToText(1);?></option>	
+									</select>
+								</div>
+							</li>
+							<li class="field">
+								<div class="input-title">
+									<label for="content">Content</label>
+									<!-- <a href="javascript:void(0)" onclick="toggleEditor('edit')"><span>Toggle TinyMCE</span></a> -->
+								</div>
+								<div class="input">
+									<textarea id='edit' name="content" class="editor"><?php echo $view_page['content']?></textarea>
+								</div>
+							</li>
+							<li class="field">
+								<div class="input">
+									<input class="button" type="submit" value="save"/>
+								</div></li>
+							</form>
+						<?php endif;?>
+					</div>

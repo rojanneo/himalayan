@@ -1,49 +1,81 @@
 
 <?php echo AdminSession::showErrorMessages();
 echo AdminSession::showSuccessMessages();?>
-<div class="widgetnew">
-<form method="post" action = "<?php echo (isset($view_widget['widget_id']))?ADMIN_URL.'widgets/editWidgetpost':ADMIN_URL.'widgets/addWidgetpost'?>">
-	<?php if(isset($view_widget)):?>
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<?php if(!isset($view_widget)):?>
+			<h3>Add New Widget</h3>
+		<?php else:?>
+		<h3>Edit Widget</h3>
+	<?php endif;?>
+</div>
+<div class="form">
+	<form method="post" action = "<?php echo (isset($view_widget['widget_id']))?ADMIN_URL.'widgets/editWidgetpost':ADMIN_URL.'widgets/addWidgetpost'?>">
+		<?php if(isset($view_widget)):?>
 		<input type="hidden" name="w_id" value="<?php echo $view_widget['widget_id']?>"/>
 	<?php endif;?>
-	<label for name="wnamel"><strong>Widget Name</strong></label></br></br>
-	<input type="text" name="wname" class="input-box required text-validation" value="<?php echo (isset($view_widget['widget_name']))?$view_widget['widget_name']:null?>"/></br></br>
+	<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for name="wnamel"><strong>Widget Name</strong></label>
+				</div>
+				<div class="input">
+					<input type="text" name="wname" class="input-box required text-validation" value="<?php echo (isset($view_widget['widget_name']))?$view_widget['widget_name']:null?>"/>
+				</div>
+				<li class="field">
+					<div class="input-title">
+						<label for name="wtitle"><strong>Widget Title</strong></label>
+					</div>
+					<div class="input">
+						<input type="text" name="wtitle"  class="input-box required text-validation" value="<?php echo (isset($view_widget['widget_title']))?$view_widget['widget_title']:null?>"/>
+					</div>
 
-
-	<label for name="wtitle"><strong>Widget Title</strong></label></br></br>
-	<input type="text" name="wtitle"  class="input-box required text-validation" value="<?php echo (isset($view_widget['widget_title']))?$view_widget['widget_title']:null?>"/></br></br
-
-
-
-	<label for name="wcontent"><strong>Widget Content</strong></label></br></br>
-	<textarea name="wcontent" class="editor"><?php echo (isset($view_widget['widget_content']))?$view_widget['widget_content']:null?></textarea></br></br>
-
-
-	<label for name="widentifier"><strong>Widget Indentifier ( Must Be Unique )</strong></label></br></br>
-	<input type="text" name="widentifier" class="input-box required text-validation" value="<?php echo (isset($view_widget['widget_identifier']))?$view_widget['widget_identifier']:null?>"/></br></br>
-	<?php if(isset($view_false)){ ?> <label><?php echo $view_false; ?></label></br></br><?php  } ?>
-
+					<li class="field">
+						<div class="input-title">
+							<label for name="wcontent"><strong>Widget Content</strong></label>
+						</div>
+						<div class="input">
+							<textarea name="wcontent" class="editor"><?php echo (isset($view_widget['widget_content']))?$view_widget['widget_content']:null?></textarea>
+						</div>
+						<li class="field">
+							<div class="input-title">
+								<label for name="widentifier"><strong>Widget Indentifier ( Must Be Unique )</strong></label>
+							</div>
+							<div class="input">
+								<input type="text" name="widentifier" class="input-box required text-validation" value="<?php echo (isset($view_widget['widget_identifier']))?$view_widget['widget_identifier']:null?>"/>
+							</div>
+<!-- 	<?php if(isset($view_false)){ ?> <label><?php echo $view_false; ?></label><?php  } ?>
+-->
 <style>
 
 #cropContainerHeader {
-			width: 500px;
-			height: 350px;
-			position:relative; /* or fixed or absolute */
-		}
-		#cropContainerModal0, #cropContainerModal1, .croppic { width:500px; height:350px; position: relative; border:1px solid #ccc;background-color:gray;}
+	width: 500px;
+	height: 350px;
+	position:relative; /* or fixed or absolute */
+}
+#cropContainerModal0, #cropContainerModal1, .croppic { width:500px; height:350px; position: relative; border:1px solid #ccc;background-color:gray;}
 
 </style>
 
-	<input type="submit" value="Save"/>
+<li class="field">
+	<div class="input">
+		<input class="button" type="submit" value="save"/>
+	</div></li>
+</ul>
 </form>
-
-
-
-
 </div>
 
+
+
+
+
 <script>
-$('.widgetnew form').submit(function(){
+$('.form form').submit(function(){
 	return $(this).validate('input-box');
 });
 </script>

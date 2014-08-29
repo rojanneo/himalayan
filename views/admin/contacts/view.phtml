@@ -1,16 +1,59 @@
 <?php if(isset($view_message)):?>
-	<div class="message">
-		<a href="<?php echo ADMIN_URL.'contacts'?>">Back To Messages</a>
-		<div class="message-header">
-			<p><?php echo $view_message['message_nature'];?></p>
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<h3>Message</h3>
 		</div>
-		<p><?php echo $view_message['sender_name'];?></p>
-		<p><?php echo $view_message['sender_email'];?></p>
-		<div class="message">
-		<p><?php echo $view_message['message'];?></p>
+		<div class="form">
+		<ul>
+<li class="field">
+			<div class="input">
+				<input class="button" type="button" onclick="location.href='<?php echo ADMIN_URL.'contacts'?>'" value="Back To Messages"/>
+			</div></li>		<li class="field">
+		<div class="input-title">
+			<label for = "nature">Nature</label>
+		</div>
+		<div class="input">
+			<input type="text" class="input-box" name="nature" value="<?php echo $view_message['message_nature'];?>" readonly/>
+		</div>
+		</li>
+		<li class="field">
+		<div class="input-title">
+			<label for = "sender-name">Sender Name</label>
+		</div>
+		<div class="input">
+			<input type="text" class="input-box" name="sender-name" value="<?php echo $view_message['sender_name'];?>" readonly/>
+		</div>
+		</li>
+		<li class="field">
+		<div class="input-title">
+			<label for = "sender-email">Sender Email</label>
+		</div>
+		<div class="input">
+			<input type="text" class="input-box" name="sender-email" value="<?php echo $view_message['sender_email'];?>" readonly/>
+		</div>
+		</li>
+		<li class="field">
+		<div class="input-title">
+			<label for="message">Message</label>
+		</div>
+		<div class="input">
+			<textarea name="message" class="input-box" readonly><?php echo $view_message['message'];?></textarea>
+		</div>
+		</li>
 		<?php if(isset($view_message['from_url'])):?>
-			<p><?php echo $view_message['from_url'];?></p>
+				<li class="field">
+		<div class="input-title">
+			<label for="from_url">From</label>
+		</div>
+		<div class="input">
+			<input type="text" class="input-box" name="from_url" value="<?php echo $view_message['from_url'];?>" readonly/>
+		</div>
+		</li>
 		<?php endif;?>
+	</ul>
 		</div>
 	</div>
+</div>
+</div>
 <?php endif;?>

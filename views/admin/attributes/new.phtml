@@ -1,51 +1,100 @@
 <?php echo AdminSession::showErrorMessages();
 echo AdminSession::showSuccessMessages();?>
-<form method="post" action = "<?php echo (isset($view_attribute))?ADMIN_URL.'attributes/editpost':ADMIN_URL.'attributes/addpost'?>">
-	<?php if(isset($view_attribute)):?>
-		<input type="hidden" name="attribute_id" value="<?php echo $view_attribute['aid']?>"/>
-	<?php endif;?>
-	<label for name="acode">Atttribute Code</label>
-	<input type="text" name="acode" class="input-box required text-validation" value="<?php echo (isset($view_attribute))?$view_attribute['acode']:null?>"/>
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<?php if(!isset($view_attribute)):?>
+				<h3>Add New Attribute</h3>
+			<?php else:?>
+				<h3>Edit Attribute</h3>
+				<?php endif;?>
+		</div>
+		<div class="form">
+			<form method="post" action = "<?php echo (isset($view_attribute))?ADMIN_URL.'attributes/editpost':ADMIN_URL.'attributes/addpost'?>">
+				<?php if(isset($view_attribute)):?>
+				<input type="hidden" name="attribute_id" value="<?php echo $view_attribute['aid']?>"/>
+			<?php endif;?>
+			<ul>
+				<li class="field">
+					<div class="input">
+						<input class="button" type="submit" value="save"/>
+					</div></li>
+					<li class="field">
+						<div class="input-title">
+							<label for name="acode">Atttribute Code</label>
+						</div>
+						<div class="input">
+							<input type="text" name="acode" class="input-box required text-validation" value="<?php echo (isset($view_attribute))?$view_attribute['acode']:null?>"/>
+						</div>
+					</li>
+					<li class="field">
+						<div class="input-title">
+							<label for name="aname">Atttribute Name</label>
+						</div>
+						<div class="input">
+							<input type="text" name="aname" class="input-box required text-validation" value="<?php echo (isset($view_attribute))?$view_attribute['aname']:null?>"/>
+						</div>
+					</li>
+					<li class="field">
+						<div class="input-title">
+							<label for name="atype">Attribute Type</label>
+						</div>
+						<div class="input">
+							<select name="atype" class="attr-type-select">
+								<option value="int" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'int')?'selected':null?>>Int</option>
+								<option value="varchar" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'varchar')?'selected':null?>>Varchar</option>
+								<option value="text" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'text')?'selected':null?>>Text</option>
+								<option value="select" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'select')?'selected':null?>>Select</option>
+							</select>
+						</div>
+					</li>
+					<li class="fields">
+						<div class="variation-attribute" <?php echo (!isset($view_options) or $view_attribute['atype'] != 'select')?'style="display:none"':null?>>
+							<div class="input-title">
+								<label for name="used_for_variation">Used to create variable product</label>
+							</div>
+							<div class="input">
+								<select name="used_for_variation" class="attr-variation">
+									<option value="0" <?php echo (isset($view_attribute) and $view_attribute['used_for_variation'] == 0)?'selected':null?>>No</option>
+									<option value="1" <?php echo (isset($view_attribute) and $view_attribute['used_for_variation'] == 1)?'selected':null?>>Yes</option>
+								</select>
+							</div>
+						</div>
+					</li>
+					<!-- </label> -->
 
-	<label for name="aname">Atttribute Name</label>
-	<input type="text" name="aname" class="input-box required text-validation" value="<?php echo (isset($view_attribute))?$view_attribute['aname']:null?>"/>
-	
-	<label for name="atype">Attribute Type</label>
-	<select name="atype" class="attr-type-select">
-		<option value="int" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'int')?'selected':null?>>Int</option>
-		<option value="varchar" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'varchar')?'selected':null?>>Varchar</option>
-		<option value="text" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'text')?'selected':null?>>Text</option>
-		<option value="select" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'select')?'selected':null?>>Select</option>
-	</select>
-
-<div class="variation-attribute" <?php echo (!isset($view_options) or $view_attribute['atype'] != 'select')?'style="display:none"':null?>>
-	<label for name="used_for_variation">Used to create variable product</label>
-	<select name="used_for_variation" class="attr-variation">
-		<option value="0" <?php echo (isset($view_attribute) and $view_attribute['used_for_variation'] == 0)?'selected':null?>>No</option>
-		<option value="1" <?php echo (isset($view_attribute) and $view_attribute['used_for_variation'] == 1)?'selected':null?>>Yes</option>
-	</select>
-</div>
-
-	<a href="javascript:void(0)" class="add-option" <?php echo (!isset($view_options) or $view_attribute['atype'] != 'select')?'style="display:none"':null?>>Add Option</a>
-	<div class="options">
-		<?php if(isset($view_options)):?>
-			<?php foreach($view_options as $option):?>
-				<div class="option">
-					<label>Option: </label>
-					<input type="text" name="update_option_value[<?php echo $option['vid']?>]" class="input-box required text-validation"/ value="<?php echo $option['value']?>"><a href="javascript:void(0)" class="remove-option">Remove</a>
+					<a href="javascript:void(0)" class="add-option button option-width" <?php echo (!isset($view_options) or $view_attribute['atype'] != 'select')?'style="display:none"':null?>>Add Option</a>
+					<li class="fields">
+						<div class="options">
+							<?php if(isset($view_options)):?>
+							<?php foreach($view_options as $option):?>
+							<div class="option">
+								<div class="input-title">
+									<label>Option: </label>
+								</div>
+								<div class="input">
+									<input type="text" name="update_option_value[<?php echo $option['vid']?>]" class="input-box required text-validation"/ value="<?php echo $option['value']?>"><a href="javascript:void(0)" class="remove-option">Remove</a>
+								</div>
+							</div>
+							<script>
+							$('a.remove-option').click(function(){
+								$(this).parent().remove();
+							});
+							</script>
+						<?php endforeach;?>
+					<?php endif;?>
 				</div>
-				<script>
-				$('a.remove-option').click(function(){
-					$(this).parent().remove();
-				});
-				</script>
-			<?php endforeach;?>
-		<?php endif;?>
+			</li>
+			<li class="field">
+				<div class="input">
+					<input class="button" type="submit" value="save"/>
+				</div></li>
+			</ul>
+			</form>
+		</div>
 	</div>
-	<input type="submit" value="Save"/>
-</form>
 
-<script>
+	<script>
 	$('.attr-type-select').change(function(){
 		if($(this).val() == 'select')
 		{
@@ -61,17 +110,17 @@ echo AdminSession::showSuccessMessages();?>
 	});
 
 	$('a.add-option').click(function(){
-		$('.options').append('<div class="option"><label>Option: </label><input type="text" name="option_value[]" class="input-box required text-validation"/><a href="javascript:void(0)" class="remove-option">Remove</a></div>');
+		$('.options').append('<div class="option"><div class="input-title"><label>Option: </label></div><div class="input"><input type="text" name="option_value[]" class="input-box required text-validation"/><a href="javascript:void(0)" class="remove-option">Remove</a></div></div>');
 		var script   = document.createElement("script");
 		script.type  = "text/javascript";
 		script.text  = "$('a.remove-option').click(function(){$(this).parent().remove();});";               // use this for inline script
 		document.body.appendChild(script);
 	});
-	
-</script>
 
-<script>
-$('form').submit(function(){
-	return $(this).validate('input-box');
-});
-</script>
+	</script>
+
+	<script>
+	$('form').submit(function(){
+		return $(this).validate('input-box');
+	});
+	</script>
