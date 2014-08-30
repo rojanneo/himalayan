@@ -27,7 +27,9 @@ class AccountController extends Controller
 
 	public function pricingAction()
 	{
-		$this->view->render('account/products/pricing.phtml');
+		$products = getModel('products')->getActiveProducts();
+		$data['products'] = $products;
+		$this->view->render('account/products/pricing.phtml', $data);
 	}
 	
 	public function cpanelAction()

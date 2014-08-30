@@ -19,6 +19,12 @@ class ProductsModel extends Model
 		return $this->connection->Query($query);
 	}
 
+	public function getActiveProducts()
+	{
+		$query = "SELECT * FROM products_simple WHERE status = 1 AND is_variation = 0";
+		return $this->connection->Query($query);		
+	}
+
 	public function getTypeNameFromId($product_type_id)
 	{
 		$query = "SELECT * FROM ptype where ptid = $product_type_id";
@@ -55,6 +61,29 @@ class ProductsModel extends Model
 		}
 	}
 
+	public function getProductAttributeByCode($product_id, $attribute_code)
+	{
+		$attribute = getModel('attribute')->getAttributeByCode($attribute_code);
+		$sql = null;
+		if($attribute['atype'] == 'select')
+		{
+				$sql = "SELECT * FROM product_attribute_values_select where pavs_pid = $product_id AND pavs_aid = ".$attribute['aid'];
+				$av = $this->connection->Query($sql);
+				$value = (getModel('attribute')->getAttributeValueByValueId($av[0]['pavs_vid']));
+				return $value['value'];
+		}
+		else
+		{
+			$atype = $attribute['atype'];
+			$sql = "SELECT * FROM product_attribute_values_".$atype." where pav".$atype[0]."_pid = $product_id AND pav".$atype[0]."_aid = ".$attribute['aid'];
+			$av = $this->connection->Query($sql);
+			if($av)
+			return $av[0]['value'];
+			else
+				return false;
+		}
+	}
+
 	public function getGalleryImages($product_id)
 	{
 		$sql = "SELECT * FROM product_attribute_values_gallery WHERE pavg_pid = $product_id";
@@ -66,7 +95,9 @@ class ProductsModel extends Model
 			$image['value'] = str_replace('\\','/',$image['value']);
 			$gallery[$count++]['value'] = $image['value'];
 		}
+		if($gallery)
 		return $gallery;
+		else return false;
 	}
 
 	public function deleteImage($gid)

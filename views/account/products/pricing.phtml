@@ -1,9 +1,9 @@
 <?php loadView('account/account-menu.phtml');?>
 <?php $session = Session::getCurrentSession();
 $role = getModel('customer')->getCustomerRole($session['user_id']);?>
-
 <div class="pricing-products">
 <ul class="slides">
+
 <li>
 	<div class="product">
 	<img src="<?php echo ASSET_URL.'images/bag_blue.jpg'?>"/>

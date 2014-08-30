@@ -43,6 +43,13 @@ class AttributeModel extends Model
 		return $value;
 	}
 
+	public function getAttributeValueByValueId($value_id)
+	{
+		$sql = "SELECT * FROM attribute_values WHERE vid = $value_id";
+		$value = $this->connection->Query($sql);
+		return $value[0];		
+	}
+
 	public function getAttributeOptions($attribute_id)
 	{
 		//die('here');
