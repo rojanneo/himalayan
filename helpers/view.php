@@ -20,3 +20,13 @@ if(!function_exists('convertStockIdToText'))
 		else return 'Invalid Stock ID';
 	}
 }
+
+if(!function_exists('convertRequiredIdToText'))
+{
+	function convertRequiredIdToText($id)
+	{
+		if($id == 0) return 'No';
+		else if($id == 1) return 'Yes';
+		else return 'Invalid Required ID';
+	}
+}

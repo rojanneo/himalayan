@@ -87,6 +87,7 @@
 					</div>
 					<div class="attributes tab-content" style="display:none">
 						<?php if(isset($view_attributes)):?>
+						<?php if($attribute['is_required'] == 0) $required = null; else $required = 'input-box required';?>
 						<?php foreach ($view_attributes as $attribute):?>
 						<li class="field">
 							<div class="input-title">
@@ -95,16 +96,16 @@
 							<div class="input">
 								<?php switch($attribute['atype']): 
 								case 'int':?>
-								<input type=<?php echo $attribute['atype']?> name="attributes[<?php echo $attribute['acode']?>]"/>
+								<input class="<?php echo $required?>" type=<?php echo $attribute['atype']?> name="attributes[<?php echo $attribute['acode']?>]"/>
 								<?php break;?>
 								<?php case 'varchar':?>
-								<input type=<?php echo $attribute['atype']?> name="attributes[<?php echo $attribute['acode']?>]"/>
+								<input class="<?php echo $required?>" type=<?php echo $attribute['atype']?> name="attributes[<?php echo $attribute['acode']?>]"/>
 								<?php break;?>
 								<?php case 'text':?>
-								<textarea class="editor" name="attributes[<?php echo $attribute['acode']?>]" style="width: 400px"></textarea>
+								<textarea class="editor <?php echo $required?>" name="attributes[<?php echo $attribute['acode']?>]" style="width: 400px"></textarea>
 								<?php break;?>
 								<?php case 'select':?>
-								<select name="attributes[<?php echo $attribute['acode']?>]">
+								<select class="<?php echo $required?>" name="attributes[<?php echo $attribute['acode']?>]">
 									<?php $options = getModel('attribute')->getAttributeOptions($attribute['aid'])?>
 									<?php foreach($options as $option):?>
 									<option value=<?php echo $option['vid']?>><?php echo $option['value']?></option>
@@ -173,3 +174,8 @@
 		});
 
 			</script>
+<script>
+$('.form form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>

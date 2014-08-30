@@ -416,3 +416,4 @@ margin-right: auto;background: linear-gradient(#444, #111);color: #fafafa; line-
     background: -moz-linear-gradient(0% 0% 270deg,#565b5f, #3e4347);
 }
 
+.input p{color:red;}

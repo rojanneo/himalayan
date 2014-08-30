@@ -10,7 +10,7 @@ class AttributeModel extends Model
 
 	public function getAttributeCollection($attribute_set)
 	{
-		$sql = "SELECT * FROM (SELECT aid, acode, aname, atype, aas_asid FROM attributes join a_as 
+		$sql = "SELECT * FROM (SELECT aid, acode, aname, atype,is_required, aas_asid FROM attributes join a_as 
 			on attributes.aid = aas_aid) as attributes WHERE aas_asid = ".$attribute_set." ORDER BY aid ASC";
 		$attributes = $this->connection->Query($sql);
 		return $attributes;
@@ -62,7 +62,7 @@ class AttributeModel extends Model
 	public function addNewAttribute($post_data)
 	{
 		if($post_data) extract($post_data);
-		$sql = "INSERT INTO attributes(acode, aname, atype, used_for_variation) VALUES ('".$acode."','".$aname."','".$atype."','".$used_for_variation."')";
+		$sql = "INSERT INTO attributes(acode, aname, atype, used_for_variation, is_required) VALUES ('".$acode."','".$aname."','".$atype."','".$used_for_variation."','".$is_required."')";
 		$result1 = $this->connection->InsertQuery($sql);
 		$insert_id = $this->connection->GetInsertID();
 		$result2 = true;
@@ -82,7 +82,7 @@ class AttributeModel extends Model
 	public function updateAttribute($post_data)
 	{
 		if($post_data) extract($post_data);
-		$sql = "UPDATE attributes SET acode = '".$acode."', aname = '".$aname."', atype = '".$atype."', used_for_variation = '".$used_for_variation."' WHERE aid = '".$attribute_id."'";
+		$sql = "UPDATE attributes SET acode = '".$acode."', aname = '".$aname."', atype = '".$atype."', used_for_variation = '".$used_for_variation."', is_required = '".$is_required."' WHERE aid = '".$attribute_id."'";
 		$result1 = $this->connection->UpdateQuery($sql);
 		if(isset($update_option_value))
 		{
@@ -112,7 +112,7 @@ class AttributeModel extends Model
 		}
 		else
 		{
-			$sql = "DELETE FROM attributes_Values WHERE values_aid = $attribute_id";
+			$sql = "DELETE FROM attribute_values WHERE values_aid = $attribute_id";
 			$this->connection->DeleteQuery($sql);
 		}
 		$result2 = true;

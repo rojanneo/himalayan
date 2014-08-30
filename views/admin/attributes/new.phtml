@@ -1,5 +1,6 @@
 <?php echo AdminSession::showErrorMessages();
 echo AdminSession::showSuccessMessages();?>
+<?php loadHelper('view');?>
 <div class="page-wrapper">
 	<div class="page-form">
 		<div class="page-head">
@@ -45,6 +46,17 @@ echo AdminSession::showSuccessMessages();?>
 								<option value="varchar" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'varchar')?'selected':null?>>Varchar</option>
 								<option value="text" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'text')?'selected':null?>>Text</option>
 								<option value="select" <?php echo (isset($view_attribute) and $view_attribute['atype'] == 'select')?'selected':null?>>Select</option>
+							</select>
+						</div>
+					</li>
+					<li class="field">
+						<div class="input-title">
+							<label for name="is_required">Is Required</label>
+						</div>
+						<div class="input">
+							<select name="is_required" class="attr-type-select">
+								<option value="0" <?php echo (isset($view_attribute) and $view_attribute['is_required'] == 0)?'selected':null?>><?php echo convertRequiredIdToText(0)?></option>
+								<option value="1" <?php echo (isset($view_attribute) and $view_attribute['is_required'] == 1)?'selected':null?>><?php echo convertRequiredIdToText(1)?></option>
 							</select>
 						</div>
 					</li>

@@ -133,6 +133,7 @@
 												$('p.'+className+name).remove();
 											
 										    $('<p class = "'+className+name+'">'+errormsg+'</p>').insertAfter($(input));
+										    alert("All Required Fields Needs To Be Filled");
 										    noError = false;
 										   
 										}
@@ -154,6 +155,8 @@
 			else
 			{
 				console.log('there');
+			    alert("All Required Fields Needs To Be Filled");
+
 				return false;
 			}
 
