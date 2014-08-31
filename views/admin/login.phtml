@@ -1,9 +1,36 @@
-<?php echo AdminSession::showErrorMessages();
-echo AdminSession::showSuccessMessages();?>
-<form method = "post" action = "<?php echo ADMIN_URL.'login/loginPost'?>">
+<?php //echo AdminSession::showErrorMessages();
+//echo AdminSession::showSuccessMessages();?>
+<!-- <form method = "post" action = "<?php echo ADMIN_URL.'login/loginPost'?>">
 <label for = "username">Email:</label>
 <input type="text" name="username"/>
 <label for = "password">Password:</label>
 <input type="password" name="password"/>
 <input type="submit"/>
 </form>
+ -->
+<link rel="stylesheet" href="<?php echo ASSET_URL?>css/login.css" media="screen" type="text/css" />
+ <div id="login-form">
+
+        <h3>Login</h3>
+
+        <fieldset>
+
+            <form method = "post" action = "<?php echo ADMIN_URL.'login/loginPost'?>">
+
+                <input type="email" name="username" required value="Email" onBlur="if(this.value=='')this.value='Email'" onFocus="if(this.value=='Email')this.value='' "> <!-- JS because of IE support; better: placeholder="Email" -->
+
+                <input type="password" name="password" required value="Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "> <!-- JS because of IE support; better: placeholder="Password" -->
+
+                <input type="submit" value="Login">
+
+               <!--  <footer class="clearfix">
+
+                    <p><span class="info">?</span><a href="#">Forgot Password</a></p>
+
+                </footer> -->
+
+            </form>
+
+        </fieldset>
+
+    </div> 
