@@ -125,7 +125,9 @@
 		{
 			foreach($_SESSION['error'] as $key => $msg)
 			{
+				echo '<div class="error-message">';
 				echo $msg;
+				echo '</div>';
 				unset($_SESSION['error'][$key]);
 			}
 		}
@@ -143,7 +145,9 @@
 		{
 			foreach($_SESSION['success'] as $key => $msg)
 			{
+				echo '<div class="success-message">';
 				echo $msg;
+				echo '</div>';
 				unset($_SESSION['success'][$key]);
 			}
 		}

@@ -1,35 +1,37 @@
 <?php echo Session::showErrorMessages();
 echo Session::showSuccessMessages();?>
-<div class="actions">
-	<ul>
-		<li><a href="<?php echo URL.'account/addStore'?>">Add A New Store</a></li>
-	</ul>
-</div>
-<?php if(isset($view_stores)):?>
-<div class="stores-list">
-	<ul>
-		<?php foreach($view_stores as $store):?>
-			<li>
-				<div class="store">
-					<p><?php echo $store['rsnm']?></p>
-					<p><?php echo $store['rsadd']?></p>
-					<p><?php echo $store['rsadd2']?></p>
-					<p><?php echo $store['rscity']?></p>
-					<p><?php echo $store['rsstate']?></p>
-					<p><?php echo $store['rstel']?></p>
-					<p><?php echo $store['rsfax']?></p>
-					<p><?php echo $store['rswebsite']?></p>
-					<p><?php echo $store['rsemail']?></p>
-				</div>
-				<div class="store-action">
-					<ul>
-						<li><a href="<?php echo URL.'account/editStore/'.$store['rsid']?>">Edit</a></li>
-						<li><a href="<?php echo URL.'account/deleteStore/'.$store['rsid']?>">Delete</a></li>
-					</ul>
-				</div>
-			</li>
-		<?php endforeach;?>
-	</ul>
+<div class="wrapper">
+	<div class="actions">
+		<ul>
+			<li><a href="<?php echo URL.'account/addStore'?>" class="btn btn-blue" >Add A New Store</a></li>
+		</ul>
+	</div>
+	<?php if(isset($view_stores)):?>
+	<div class="stores-list">
+		<ul class="clearfix">
+			<?php foreach($view_stores as $store):?>
+				<li>
+					<div class="store">
+						<p><?php echo $store['rsnm']?></p>
+						<p><?php echo $store['rsadd']?></p>
+						<p><?php echo $store['rsadd2']?></p>
+						<p><?php echo $store['rscity']?></p>
+						<p><?php echo $store['rsstate']?></p>
+						<p><?php echo $store['rstel']?></p>
+						<p><?php echo $store['rsfax']?></p>
+						<p><?php echo $store['rswebsite']?></p>
+						<p><?php echo $store['rsemail']?></p>
+					</div>
+					<div class="store-action">
+						<ul>
+							<li><a href="<?php echo URL.'account/editStore/'.$store['rsid']?>" class="btn btn-blue">Edit</a></li>
+							<li><a href="<?php echo URL.'account/deleteStore/'.$store['rsid']?>" class="btn btn-blue">Delete</a></li>
+						</ul>
+					</div>
+				</li>
+			<?php endforeach;?>
+		</ul>
+	</div>
 </div>
 <?php else:?>
 	<p>No Stores Found</p>

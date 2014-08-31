@@ -1,0 +1,96 @@
+<div class="page-wrapper">
+		<div class="page-form">
+			<div class="page-head">
+				<?php if(!isset($view_product)):?>
+				<h3>Add New Image</h3>
+			<?php else:?>
+			<h3>Edit Image</h3>
+		<?php endif;?>
+	</div>
+<?php echo AdminSession::showErrorMessages();
+echo AdminSession::showSuccessMessages();?>
+<div class="blognew form">
+<form method="post" action = "<?php echo (isset($view_gallery['photo_id']))?ADMIN_URL.'photogallery/editGallerypost':ADMIN_URL.'photogallery/addGallerypost'?>">
+	<?php if(isset($view_gallery['photo_id'])):?>
+		<input type="hidden" name="gallery_id" value="<?php echo $view_gallery['photo_id']?>"/>
+	<?php endif;?>
+	<ul>
+	<li class="field">
+					<div class="input">
+						<input class="button" type="submit" value="save"/>
+					</div></li>
+	<li class="field">
+					<div class="input-title">
+	<label for name="pcaption"><strong>Photo Caption</strong></label>
+	</div>
+	<div class="input">
+	<textarea name="pcaption" class="editor"><?php echo (isset($view_gallery))?$view_gallery['photo_caption']:null?></textarea></br></br>
+	</div></li>
+	<li class="field">
+	<div class = "input-tile">	
+	<label for name="pstatus"><strong>Status</strong></label>
+	</div>
+	<div class="input">
+	<select name="pstatus" class="attr-type-select">
+		<option value=1 <?php echo (isset($view_gallery) and $view_gallery['photo_status'] == 1)?'selected':null?>>Show</option>
+		<option value=0 <?php echo (isset($view_gallery) and $view_gallery['photo_status'] == 0)?'selected':null?>>Dont Show</option>
+	</select>
+	</div></li>
+	<style>
+
+#cropContainerHeader {
+			width: 500px;
+			height: 350px;
+			position:relative; /* or fixed or absolute */
+		}
+		#cropContainerModal0, #cropContainerModal1, .croppic { width:600px; height:370px; position: relative; border:1px solid #ccc;background-color:gray;}
+
+</style>
+	<?php if(isset($view_false)){ ?><label><?php echo $view_false; ?></label> <?php }?>
+<?php if(isset($view_gallery['photo_image'])):?>
+	<img src="<?php echo UPLOAD_URL.$view_gallery['photo_image']?>"/>
+<?php endif;?>
+<li class="field">
+<div class="input">
+<div class="croppic" id="cropContainerModal-0"></div>
+<?php if(isset($view_gallery['photo_image'])) { ?> <input type="hidden" name="photo" id='input-0' value="<?php echo $view_gallery['photo_image']; ?>" /><?php } else { ?>
+
+<input type="hidden" name="photo" id='input-0'/>
+<?php }?>
+</div>
+</li>
+<script>
+
+var croppicContainerModalOptions = {
+				uploadUrl:'<?php echo ADMIN_URL?>photogallery/uploadImage',
+				cropUrl:'<?php echo ADMIN_URL?>photogallery/cropImage',
+				modal:true,
+				imgEyecandyOpacity:0.4,
+				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+				onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+		}
+
+		var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+</script>
+
+<li class="field">
+					<div class="input">
+						<input class="button" type="submit" value="save"/>
+					</div></li>
+	</ul>
+</form>
+
+
+
+
+</div>
+
+<script>
+$('.blognew form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>
+<script type="text/javascript">
+$
+</script>
+

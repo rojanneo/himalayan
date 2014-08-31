@@ -1,6 +1,7 @@
-<a href="<?php echo URL.'account/addRetailerContact'?>">Add New Contact</a>
+<div class="wrapper retailercontacts">
+<a href="<?php echo URL.'account/addRetailerContact'?>" class="btn btn-blue" >Add New Contact</a>
 <?php if(isset($view_contacts)):?>
-	<ul>
+	<ul class="clearfix">
 	<?php foreach($view_contacts as $contact):?>
 		<li>
 			<p><?php echo $contact['retailer_designation'];?></p>
@@ -12,7 +13,14 @@
 			<p><?php echo $contact['mzip'];?></p>
 			<p><?php echo $contact['mtel'];?></p>
 			<p><?php echo $contact['mfax'];?></p>
+			<div class="store-action">
+						<ul>
+							<li><a href="<?php echo URL.'account/editRetailerContact/'.$contact['retailer_contact_id']?>" class="btn btn-blue">Edit</a></li>
+							<li><a href="<?php echo URL.'account/deleteContactAction/'.$contact['retailer_contact_id']?>" class="btn btn-blue">Delete</a></li>
+						</ul>
+					</div>
 		</li>
 	<?php endforeach;?>
 	</ul>
 <?php endif;?>
+</div>

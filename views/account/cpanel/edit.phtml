@@ -4,50 +4,84 @@ echo Session::showSuccessMessages();?>
 $customer = getModel('customer')->getCustomer($session['user_id']);
 extract($customer);
 ?>
-<div class="edit-retailer-form">
-<form method = "post" action = "<?php echo URL.'account/editPost'?>">
-<input type="hidden" value="<?php echo $mid?>" name="mid"/>
-<label for ="name">Name</label>
-<input type="text" class="input-box required text-validation" name="mname" value="<?php echo $mname?>"/>
-<label for ="name">Email</label>
-<input type="text" class="input-box required email-validation" name="memail" value="<?php echo $memail?>"/>
-<label for ="name">Address</label>
-<input type="text" class="input-box required text-validation" name="madd" value="<?php echo $madd?>"/>
-<label for ="name">Apt/Ste</label>
-<input type="text" class="input-box text-validation" name="madd2" value="<?php echo $madd2?>"/>
-<label for ="name">City</label>
-<input type="text" class="input-box required text-validation" name="mcity" value="<?php echo $mcity?>"/>
-<label for ="name">State</label>
-<input type="text" class="input-box required text-validation" name="mstate" value="<?php echo $mstate?>"/>
-<label for ="name">Zip</label>
-<input type="text" class="input-box required text-validation" name="mzip" value="<?php echo $mzip?>"/>
-<label for ="name">Phone</label>
-<input type="text" class="input-box required text-validation" name="mtel" value="<?php echo $mtel?>"/>
-<label for ="name">Fax</label>
-<input type="text" class="input-box required text-validation" name="mfax" value="<?php echo $mfax?>"/>
-<label for ="name">Company/store</label>
-<input type="text" class="input-box required text-validation" name="mcompany" value="<?php echo $mcompany?>"/>
-<!-- <label for ="name">Website</label>
-<input type="text" class="input-box required text-validation" name="mein"/>
- -->
-<input type="submit" value="Submit"/>
+<div class="wrapper account-edit">
+	<div class="edit-retailer-form">
+	<form method = "post" action = "<?php echo URL.'account/editPost'?>">
+	<input type="hidden" value="<?php echo $mid?>" name="mid"/>
+	<fieldset>
+	<label for ="name">Name</label>
+	<input type="text" class="input-box required text-validation" name="mname" value="<?php echo $mname?>"/>
+	</fieldset>
+	<fieldset>
+	<label for ="name">Email</label>
+	<input type="text" class="input-box required email-validation" name="memail" value="<?php echo $memail?>"/>
+	</fieldset>
+	<fieldset>
+	<label for ="name">Address</label>
+	<input type="text" class="input-box required text-validation" name="madd" value="<?php echo $madd?>"/>
+	</fieldset>
+	<fieldset>
+	<label for ="name">Apt/Ste</label>
+	<input type="text" class="input-box text-validation" name="madd2" value="<?php echo $madd2?>"/>
+	</fieldset>
+	<fieldset>
+	<label for ="name">City</label>
+	<input type="text" class="input-box required text-validation" name="mcity" value="<?php echo $mcity?>"/>
+	</fieldset>
+	<fieldset>
+	<label for ="name">State</label>
+	<input type="text" class="input-box required text-validation" name="mstate" value="<?php echo $mstate?>"/>
+	</fieldset>
+	<fieldset>
+	<label for ="name">Zip</label>
+	<input type="text" class="input-box required text-validation" name="mzip" value="<?php echo $mzip?>"/>
+	</fieldset>
+	<fieldset>
+	<label for ="name">Phone</label>
+	<input type="text" class="input-box required text-validation" name="mtel" value="<?php echo $mtel?>"/>
+	</fieldset>
+	<fieldset>
+	<label for ="name">Fax</label>
+	<input type="text" class="input-box required text-validation" name="mfax" value="<?php echo $mfax?>"/>
+	</fieldset>
+	<fieldset>
+	<label for ="name">Company/store</label>
+	<input type="text" class="input-box required text-validation" name="mcompany" value="<?php echo $mcompany?>"/>
+	</fieldset>
+	<!-- <label for ="name">Website</label>
+	<input type="text" class="input-box required text-validation" name="mein"/>
+	 -->
+	 <fieldset>
+	 <label></label>
+	<input type="submit" value="Submit" class="btn btn-blue"/>
+	</fieldset>
 
+		</form>
+
+	</div>
+
+
+	<div class="password-form">
+	<form method="post" action ="<?php echo URL.'account/editPassword'?>">
+	<input type="hidden" value="<?php echo $mid?>" name="mid"/>
+	<fieldset>
+	<label for = "oldpassword">Old Password</label>
+	<input type="password" name="oldpassword" class="input-box required equal"/>
+	</fieldset>
+	<fieldset>
+	<label for = "newpassword">New Password</label>
+	<input type="password" name="newpassword" class="input-box required password"/>
+	</fieldset>
+	<fieldset>
+	<label for = "newpassword1">New Password Again</label>
+	<input type="password" name="newpassword1" class="input-box required confirm-password"/>
+	</fieldset>
+	<fieldset>
+	<label></label>
+	<input type="submit" value="Save" class="btn btn-blue"/>
+	</fieldset>
 	</form>
-
-</div>
-
-
-<div class="password-form">
-<form method="post" action ="<?php echo URL.'account/editPassword'?>">
-<input type="hidden" value="<?php echo $mid?>" name="mid"/>
-<label for = "oldpassword">Old Password</label>
-<input type="password" name="oldpassword" class="input-box required equal"/>
-<label for = "newpassword">New Password</label>
-<input type="password" name="newpassword" class="input-box required password"/>
-<label for = "newpassword1">New Password Again</label>
-<input type="password" name="newpassword1" class="input-box required confirm-password"/>
-<input type="submit" value="Save"/>
-</form>
+	</div>
 </div>
 <script>
 $(document).ready(function(){

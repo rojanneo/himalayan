@@ -215,6 +215,17 @@ class AccountController extends Controller
 		$this->view->render('account/cpanel/addRetailerContact.phtml');
 	}
 
+	public function guaranteeAction()
+	{
+		$this->view->render('account/cpanel/guarantee.phtml');
+	}
+
+	public function shippingAction()
+	{
+		$this->view->render('account/cpanel/shipping.phtml');
+	}
+
+
 	public function addRetailerContactPostAction()
 	{
 		loadHelper('inputs');
@@ -228,9 +239,45 @@ class AccountController extends Controller
 		}
 		else
 		{
-			redirect('account/cpanel');
+			redirect('account/retailercontacts');
 		}		
 
+	}
+
+	public function editRetailerContactAction($id)
+	{
+		$contact = getModel('retailercontact')->getContact($id);
+		$member = getModel('customer')->getCustomer($contact['mid']);
+		$data['contact'] = $contact;
+		$data['member'] = $member;
+		$this->view->render('account/cpanel/addRetailerContact.phtml',$data);
+	}
+
+	public function editRetailerContactPostAction()
+	{
+		loadHelper('inputs');
+		loadHelper('url');
+		$post_data = getPost();
+		if(getModel('retailercontact')->updateContact($post_data))
+		{
+			redirect('account/retailercontacts');
+		}
+		else
+			redirect('account/retailercontacts/editRetailerContact/'.$post_data['retailer_contact_id']);
+	}
+
+	public function deleteContactAction($id)
+	{
+			loadHelper('url');
+		if(getModel('retailercontact')->deleteContact($id))
+		{
+			Session::addSuccessMessage('Contact Deleted');
+			redirect('account/retailercontacts');
+		}
+		else
+		{
+			redirect('account/retailercontacts');
+		}
 	}
 
 	public function deleteStoreAction($store_id)

@@ -257,6 +257,13 @@ class ProductsModel extends Model
 		return $result1 and $result2;
 	}
 
+	public function getFirstCategory($product_id)
+	{
+		$sql = "SELECT * FROM `product_cat` WHERE pid = $product_id";
+		$categories = $this->connection->Query($sql);
+		return $categories[0];
+	}
+
 	public function addNewProduct($post_data)
 	{
 		if($post_data) extract($post_data);

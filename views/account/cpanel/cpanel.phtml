@@ -1,13 +1,15 @@
 <?php echo Session::showErrorMessages();
 echo Session::showSuccessMessages();?>
-<div class="cpanel-menu">
-<ul>
-<li><a href="<?php echo URL.'account/edit'?>">Edit Information</a></li>
-<?php $session = Session::getCurrentSession();
-$role = getModel('customer')->getCustomerRole($session['user_id']);?>
-<?php if($role == 'retailer'):?>
-<li><a href="<?php echo URL.'account/stores'?>">Manage Stores</a></li>
-<li><a href="<?php echo URL.'account/retailercontacts'?>">Manage Retailer Contacts</a></li>
-<?php endif?>
-</ul>
+<div class="wrapper">
+	<div class="cpanel-menu">
+	<ul class="clearfix">
+	<li><a href="<?php echo URL.'account/edit'?>">Edit Information</a></li>
+	<?php $session = Session::getCurrentSession();
+	$role = getModel('customer')->getCustomerRole($session['user_id']);?>
+	<?php if($role == 'retailer'):?>
+	<li><a href="<?php echo URL.'account/stores'?>">Manage Stores</a></li>
+	<li><a href="<?php echo URL.'account/retailercontacts'?>">Manage Retailer Contacts</a></li>
+	<?php endif?>
+	</ul>
+	</div>
 </div>

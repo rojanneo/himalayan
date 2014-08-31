@@ -1,0 +1,51 @@
+
+
+<div class="photos">
+<ul class="slides">
+<?php foreach($view_photos as $photo):?>
+    <li class="gallery-slide <?php echo $photo['photo_id']?>" >
+        <img src="<?php echo ASSET_URL.$photo['photo_image_resized']?>" width="200" height="200"/>
+        <p><?php echo $photo['photo_caption']?></p>
+    </li>
+<?php endforeach;?>
+</ul>
+
+</div>
+
+<div class="photos-thumbs">
+    <ul class="slides">
+    <?php foreach($view_photos as $photo):?>
+    <li class="thumb-slide"><img id = "<?php echo $photo['photo_id']?>" src="<?php echo ASSET_URL.$photo['photo_image_resized']?>" width="50" height="50"/></li>
+<?php endforeach;?>
+    </ul>
+</div>
+
+</div>
+
+<script>
+$(document).ready(function(){
+
+      $('.photos-thumbs').flexslider({
+        animation: "slide",
+        controlNav: false,
+        directionNav: true,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 200,
+        itemHeight:200,
+        itemMargin: 5,
+        asNavFor: '.photos'
+      });
+
+      $('.photos').flexslider({
+        animation: "slide",
+        controlNav: false,
+        directionNav: true,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 1920,
+        itemHeight:200,
+        sync: ".photos-thumbs",
+      });
+});
+</script>

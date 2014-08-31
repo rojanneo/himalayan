@@ -1,22 +1,24 @@
-<div class="testimonials">
-<ul>
-<?php foreach($view_testimonials as $testimonial):?>
-<li>
-	<div class="testimonial">
-	<p><span><?php echo $testimonial['t_name']?></span> from <span><?php echo $testimonial['t_add']?></span> on <span><?php echo date("M d, Y", strtotime($testimonial['t_dt']))?></span></p>
-	<p><?php echo $testimonial['t_comment']?></p>
+<div class="wrapper">
+	<div class="testimonials">
+	<ul>
+	<?php foreach($view_testimonials as $testimonial):?>
+	<li>
+		<div class="testimonial">
+		<p class="title"><span><?php echo $testimonial['t_name']?></span> from <span><?php echo $testimonial['t_add']?></span> on <span><?php echo date("M d, Y", strtotime($testimonial['t_dt']))?></span></p>
+		<p><?php echo $testimonial['t_comment']?></p>
+		</div>
+	</li>
+	<?php endforeach;?>
+	</ul>
+	<div class="pagination">
+	<?php 
+	$page = getParam('p');
+	loadHelper('pagination');
+	showPagination($page, $view_pagination_num, 'testimonials/show');
+	?>
 	</div>
-</li>
-<?php endforeach;?>
-</ul>
-<div class="pagination">
-<?php 
-$page = getParam('p');
-loadHelper('pagination');
-showPagination($page, $view_pagination_num, 'testimonials/show');
-?>
-</div>
-</div>
-<div class="add-testimonials">
-<a href="<?php echo URL.'testimonials/'?>">Add a Testimonial of your own</a>
+	</div>
+	<div class="add-testimonials">
+	<a href="<?php echo URL.'testimonials/'?>" class="btn btn-blue">Add a Testimonial of your own</a>
+	</div>
 </div>

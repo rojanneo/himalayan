@@ -47,7 +47,7 @@
 	    									console.log($(input).val());
 	    									$('p.'+className).remove();
 											
-										    $('<p class = "'+className+'">'+errormsg+'</p>').insertAfter($(input));
+										    $('<p class = "error '+className+'">'+errormsg+'</p>').insertAfter($(input));
 										    noError = false;
 	    								}
 	    								else
@@ -62,7 +62,7 @@
 										} else {
 												$('p.'+className+name).remove();
 											
-										    $('<p class = "'+className+name+'">'+errormsg+'</p>').insertAfter($(input));
+										    $('<p class = "error '+className+name+'">'+errormsg+'</p>').insertAfter($(input));
 										    noError = false;
 										}
 
@@ -93,7 +93,7 @@
 	    						{
 	    							$('p.'+className+name).remove();
 										
-									$('<p class = "'+className+name+'">'+errormsg+'</p>').insertAfter($(input));
+									$('<p class = "error '+className+name+'">'+errormsg+'</p>').insertAfter($(input));
 	    						}
 	    						else
 	    						{
@@ -132,8 +132,8 @@
 										} else {
 												$('p.'+className+name).remove();
 											
-										    $('<p class = "'+className+name+'">'+errormsg+'</p>').insertAfter($(input));
-										    alert("All Required Fields Needs To Be Filled");
+										    $('<p class = "error '+className+name+'">'+errormsg+'</p>').insertAfter($(input));
+										    //alert("All Required Fields Needs To Be Filled");
 										    noError = false;
 										   
 										}
@@ -155,7 +155,7 @@
 			else
 			{
 				console.log('there');
-			    alert("All Required Fields Needs To Be Filled");
+			    //alert("All Required Fields Needs To Be Filled");
 
 				return false;
 			}

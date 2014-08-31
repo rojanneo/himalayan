@@ -1,41 +1,55 @@
-<div class="add-store-form">
-	<form method="post" action="<?php echo (isset($view_store)?URL.'account/editStorePost':URL.'account/addStorePost')?>">
-		<input type="hidden" name="rsid" value="<?php echo (isset($view_store)?$view_store['rsid']:null) ?>"/>
-		<input type="hidden" name="rid" value="<?php echo $view_rid?>"/>
-		<label for = "rsnm">Store Name:</label>
-		<input type="text" name="rsnm" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rsnm']:null) ?>"/>
-
-		<label for = "rsadd">Store Address:</label>
-		<input type="text" name="rsadd" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rsadd']:null) ?>"/>
-		
-		<label for = "rscity">City:</label>
-		<input type="text" name="rscity" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rscity']:null) ?>"/>
-		
-		<label for = "rsstate">State:</label>
-		<input type="text" name="rsstate" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rsstate']:null) ?>"/>
-		
-		<label for = "rszip">Zip:</label>
-		<input type="text" name="rszip" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rszip']:null) ?>"/>
-		
-		<label for = "rstel">Store Phone:</label>
-		<input type="text" name="rstel" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rstel']:null) ?>"/>
-		
-		<label for = "rsfax">Store Fax:</label>
-		<input type="text" name="rsfax" class="input-box text-validation" value="<?php echo (isset($view_store)?$view_store['rsfax']:null) ?>"/>
-		
-		<label for = "rswebsite">Store Website:</label>
-		<input type="text" name="rswebsite" class="input-box text-validation" value="<?php echo (isset($view_store)?$view_store['rswebsite']:null) ?>"/>
-		
-		<label for = "rsemail">Store Email:</label>
-		<input type="text" name="rsemail" class="input-box required email-validation" value="<?php echo (isset($view_store)?$view_store['rsemail']:null) ?>"/>
-		
-		<label for = "rsdes">Store Description:</label>
-		<textarea type="text" name="rsdes" class="input-box required text-validation"><?php echo (isset($view_store)?$view_store['rsdes']:null) ?></textarea>
-
-		<input type="submit" value="Save"/>		
-	</form>
+<div class="wrapper">
+	<div class="add-store-form">
+		<form method="post" action="<?php echo (isset($view_store)?URL.'account/editStorePost':URL.'account/addStorePost')?>">
+			<input type="hidden" name="rsid" value="<?php echo (isset($view_store)?$view_store['rsid']:null) ?>"/>
+			<input type="hidden" name="rid" value="<?php echo $view_rid?>"/>
+			<fieldset>
+			<label for = "rsnm">Store Name:</label>
+			<input type="text" name="rsnm" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rsnm']:null) ?>"/>
+			</fieldset>
+			<fieldset>
+			<label for = "rsadd">Store Address:</label>
+			<input type="text" name="rsadd" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rsadd']:null) ?>"/>
+			</fieldset>
+			<fieldset>
+			<label for = "rscity">City:</label>
+			<input type="text" name="rscity" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rscity']:null) ?>"/>
+			</fieldset>
+			<fieldset>
+			<label for = "rsstate">State:</label>
+			<input type="text" name="rsstate" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rsstate']:null) ?>"/>
+			</fieldset>
+			<fieldset>
+			<label for = "rszip">Zip:</label>
+			<input type="text" name="rszip" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rszip']:null) ?>"/>
+			</fieldset>
+			<fieldset>
+			<label for = "rstel">Store Phone:</label>
+			<input type="text" name="rstel" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rstel']:null) ?>"/>
+			</fieldset>
+			<fieldset>
+			<label for = "rsfax">Store Fax:</label>
+			<input type="text" name="rsfax" class="input-box text-validation" value="<?php echo (isset($view_store)?$view_store['rsfax']:null) ?>"/>
+			</fieldset>
+			<fieldset>
+			<label for = "rswebsite">Store Website:</label>
+			<input type="text" name="rswebsite" class="input-box text-validation" value="<?php echo (isset($view_store)?$view_store['rswebsite']:null) ?>"/>
+			</fieldset>
+			<fieldset>
+			<label for = "rsemail">Store Email:</label>
+			<input type="text" name="rsemail" class="input-box required email-validation" value="<?php echo (isset($view_store)?$view_store['rsemail']:null) ?>"/>
+			</fieldset>
+			<fieldset>
+			<label for = "rsdes">Store Description:</label>
+			<textarea type="text" name="rsdes" class="input-box required text-validation"><?php echo (isset($view_store)?$view_store['rsdes']:null) ?></textarea>
+			</fieldset>
+			<fieldset>
+			<label></label>
+			<input type="submit" value="Save" class="btn btn-blue" />		
+			</fieldset>
+		</form>
+	</div>
 </div>
-
 <script>
 $(document).ready(function(){
 	$('.add-store-form form').submit(function(){
