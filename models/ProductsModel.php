@@ -32,6 +32,35 @@ class ProductsModel extends Model
 		return $type[0]['type_name'];
 	}
 
+	public function getTypeCodeFromId($product_type_id)
+	{
+		$query = "SELECT * FROM ptype where ptid = $product_type_id";
+		$type = $this->connection->Query($query);
+		return $type[0]['type_code'];	
+	}
+
+	public function isConfigurable($product_id)
+	{
+		$product = $this->getProduct($product_id);
+		if($this->getTypeCodeFromId($product['ptype']) == 'configurable')
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public function getVariations($product_id)
+	{
+		$sql = "SELECT associate_pid FROM `product_associations` WHERE `parent_pid` = $product_id";
+		$variations = $this->connection->Query($sql);
+		$variation_array = array();
+		foreach($variations as $variation)
+		{
+			array_push($variation_array, $variation['associate_pid']);
+		}
+		return $variation_array;
+	}
+
 	public function getProduct($product_id)
 	{
 		$sql = "SELECT * FROM products_simple WHERE pid = $product_id";
@@ -69,8 +98,15 @@ class ProductsModel extends Model
 		{
 				$sql = "SELECT * FROM product_attribute_values_select where pavs_pid = $product_id AND pavs_aid = ".$attribute['aid'];
 				$av = $this->connection->Query($sql);
-				$value = (getModel('attribute')->getAttributeValueByValueId($av[0]['pavs_vid']));
-				return $value['value'];
+				if($av)
+				{
+					$value = (getModel('attribute')->getAttributeValueByValueId($av[0]['pavs_vid']));
+					return $value['value'];				
+				}
+				else
+				{
+					return false;
+				}
 		}
 		else
 		{
@@ -224,8 +260,8 @@ class ProductsModel extends Model
 	public function addNewProduct($post_data)
 	{
 		if($post_data) extract($post_data);
-
-
+		if(!isset($quantity)) $quantity = 0;
+		if(!isset($in_stock)) $in_stock = 1;		
 		if(!isset($is_variation))
 		{
 			$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`) VALUES 

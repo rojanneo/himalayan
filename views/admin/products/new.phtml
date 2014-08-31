@@ -338,7 +338,7 @@
 			<th>Thumbnail</th> -->
 		</thead>
 		<tbody class="gallery-table">
-			<?php if(isset($view_gallery)):?>
+			<?php if(($view_gallery)):?>
 			<?php foreach($view_gallery as $image):?>
 			<tr>
 				<td><img src="<?php echo UPLOAD_URL.$image['value']?>"/></td>
@@ -488,9 +488,8 @@ $('.edit-form form').submit(function(){
 	<?php if(!isset($view_product)):?>
 	<div class="form">
 		<form method="post" enctype="multipart/form-data" action="<?php echo ADMIN_URL.'products/addpost'?>" class="add-conf-product-form">
-			<input type="hidden" name="product_id" value="<?php echo $view_product['pid']?>"/>
-			<input type="hidden" name="attribute_set" value="<?php echo $view_product['product_asid']?>"/>
-			<input type="hidden" name="product_type" value="<?php echo $view_product['ptype']?>"/>
+			<input type="hidden" name="attribute_set" value="<?php echo $view_set?>"/>
+			<input type="hidden" name="product_type" value="<?php echo $view_type?>"/>
 			<ul>
 				<li class="field">
 					<div class="input">

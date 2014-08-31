@@ -3,8 +3,127 @@
 $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 <div class="pricing-products">
 <ul class="slides">
-
-<li>
+<?php foreach($view_products as $product):?>
+	<?php $gallery = getModel('products')->getGalleryImages($product['pid']);?>
+	<?php $image = $gallery[0]['value'];?>
+	<?php $product_id = $product['pid'];?>
+	<?php $productModel = getModel('products');?>
+	<li>
+		<div class="product">
+			<img src="<?php echo UPLOAD_URL.$image?>"/>
+		</div>
+		<div class="product-info">
+			<p class="product-name"><?php echo $product['pname']?></p>
+			<?php if(!$productModel->isConfigurable($product_id)):?>
+				<div class="desc">
+					<?php $dog_size = $productModel->getProductAttributeByCode($product_id,'dog_size');?>
+					<?php if($dog_size):?>
+						<p>For Dogs Under <?php echo $dog_size?></p>
+					<?php endif;?>
+					<?php $min_pieces = $productModel->getProductAttributeByCode($product_id,'min_pieces');
+					$max_pieces = $productModel->getProductAttributeByCode($product_id, 'max_pieces');?>
+					<?php $min_cal = $productModel->getProductAttributeByCode($product_id, 'min_cal'); 
+					$max_cal = $productModel->getProductAttributeByCode($product_id, 'max_cal');
+					$cal_unit = $productModel->getProductAttributeByCode($product_id,'calorie_type');
+						if($cal_unit == 'None') $cal_unit = null;
+					?>
+					<?php if($min_pieces != $max_pieces):?>
+						<p><?php if($min_pieces != false and $max_pieces!=false):?>
+							<?php echo $min_pieces.' - '.$max_pieces?> pieces 
+						<?php endif;?>
+						<?php if(($min_cal == $max_cal)):?>
+							<?php if($min_cal != false and $max_cal != false):?>
+								| <?php echo $min_cal.' Cal '.$cal_unit?>
+							<?php endif;?>
+						<?php else:?>
+							<?php if($min_cal != false and $max_cal != false):?>
+								| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+							<?php endif;?>
+						<?php endif;?>
+						</p>
+					<?php else:?>
+						<p><?php if($min_pieces != false and $max_pieces!=false):?>
+							<?php if($min_pieces != false and $max_pieces!=false):?>
+							<?php echo $min_pieces?> pieces 
+						<?php endif;?>
+						<?php endif;?><?php if(($min_cal == $max_cal)):?>
+							<?php if($min_cal != false and $max_cal != false):?>
+								| <?php echo $min_cal.' Cal '.$cal_unit?>
+							<?php endif;?>
+						<?php else:?>
+							<?php if($min_cal != false and $max_cal != false):?>
+								| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+							<?php endif;?>
+						<?php endif;?></p>
+					<?php endif;?>
+					<?php if($role != 'customer'):?>
+						<p>Wholesale price: <span>$5.15</span></p>
+						<p>Discounted price: <span>$5.00</span></p>
+						<p>MSRP price: <span>$9.99</span></p>
+					<?php endif;?>
+				</div>
+			<?php else:?>
+				<?php $variations = $productModel->getVariations($product_id);?>
+				<?php foreach($variations as $variation_id):?>
+					<?php $variation = getModel('products')->getProduct($variation_id);?>
+					<?php $box_size_crunch = $productModel->getProductAttributeByCode($variation_id, 'box_size_crunch');?>
+					<?php $min_pieces = $productModel->getProductAttributeByCode($variation_id,'min_pieces');
+					$max_pieces = $productModel->getProductAttributeByCode($variation_id, 'max_pieces');
+					$min_cal = $productModel->getProductAttributeByCode($variation_id, 'min_cal'); $max_cal = $productModel->getProductAttributeByCode($variation_id, 'max_cal'); $cal_unit = $productModel->getProductAttributeByCode($variation_id,'calorie_type');
+						if($cal_unit == 'None') $cal_unit = null;
+						?>
+						<?php $box_size_yam = $productModel->getProductAttributeByCode($variation_id, 'box_size_yam');?>
+						<?php $length = $productModel->getProductAttributeByCode($variation_id, 'length');?>
+						<?php $pieces_per_box = $productModel->getProductAttributeByCode($variation_id, 'pieces_per_box');?>
+					<p>
+					<?php if($box_size_crunch):?>
+						<?php echo $box_size_crunch.' box : ';?>
+					<?php elseif($box_size_yam):?>
+						<?php echo $box_size_yam.' box : '?>
+					<?php elseif($pieces_per_box):?>
+						<?php echo 'box of '.$pieces_per_box.' pieces '?>						
+					<?php endif;?>
+					
+					<?php if($min_pieces != $max_pieces):?>
+						<?php if($min_pieces != false and $max_pieces!=false):?>
+							<?php echo $min_pieces.' - '.$max_pieces?> pieces 
+						<?php endif;?>
+						<?php if(($min_cal == $max_cal)):?>
+							<?php if($min_cal != false and $max_cal != false):?>
+								| <?php echo $min_cal.' Cal '.$cal_unit?>
+							<?php endif;?>
+						<?php else:?>
+							<?php if($min_cal != false and $max_cal != false):?>
+								| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+							<?php endif;?>
+						<?php endif;?>
+						
+					<?php else:?>
+						<?php if($min_pieces != false and $max_pieces!=false):?>
+							<?php echo $min_pieces?> pieces 
+						<?php endif;?>
+						<?php if(($min_cal == $max_cal)):?>
+							<?php if($min_cal != false and $max_cal != false):?>
+								| <?php echo $min_cal.' Cal '.$cal_unit?>
+							<?php endif;?>
+						<?php else:?>
+							<?php if($min_cal != false and $max_cal != false):?>
+								| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+							<?php endif;?>
+						<?php endif;?>
+					<?php endif;?>
+					</p>
+					<?php if($role != 'customer'):?>
+						<p>Wholesale price: <span>$5.15</span></p>
+						<p>Discounted price: <span>$5.00</span></p>
+						<p>MSRP price: <span>$9.99</span></p>
+					<?php endif;?>
+				<?php endforeach;?>
+			<?php endif;?>
+		</div>
+	</li>
+<?php endforeach;?>
+<!-- <li>
 	<div class="product">
 	<img src="<?php echo ASSET_URL.'images/bag_blue.jpg'?>"/>
 	</div>
@@ -315,7 +434,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 <?php endif;?>
 	</div>
 	</div>
-</li>
+</li> -->
 
 
 </ul>

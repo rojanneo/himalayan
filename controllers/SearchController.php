@@ -33,7 +33,7 @@ public function indexAction()
 //////////////////////////////////////////////////////////////////////
 public function csearchconsumers()
 {
-			$value = $_GET['value'];
+			//$value = $_GET['value'];
 			if(isset($_POST['searchZip']))
 			{
 				$searchZip = trim($_POST['searchZip']);
@@ -44,13 +44,17 @@ public function csearchconsumers()
 				redirect('search/?input=consumers&&value=findStore&&gzipcode='.$requestZipCode.'');
 			}	
 
-			if($value == 'findStore') 
+			if(isset($_GET['value']) && $_GET['value'] == 'findStore') 
 			{ 
 				$data['csearch']=$this->cwhereAction();
 				return $data['csearch'];
 			}
-			else{ echo'bye'; die();include ("$pgms/consumer/consumermain.php");}	
-			}		
+			else
+			{ 
+				$data['consumer']=$this->consumermain();
+				return $data['consumer'];	
+			}
+}		
 
 public function cwhereAction()
 {
@@ -179,6 +183,7 @@ public function clistforzipAction($gzipcode)
 		else $cnt ++;
 
 	}
+	$data['clistfor'].="</table>";
 	return $data['clistfor'];
 
 }
@@ -278,10 +283,10 @@ public function distinctcountryname()
 
 public function storebyregions($gstate)
 {
+	if(isset($_GET['gcity']))		{ 	$gcity = $_GET['gcity'];		}
 	$model = getModel('search');
 	$storebyregionsval= 		"<strong style=\"font-size: 14px; color: #0066cc;\">";
 	$storebyregionsval.= 		"Listing Stores in ";
-	if(isset($gcity) )echo "$gcity, ";
 	$storebyregionsval.=		 $model->getState($gstate);
 	$storebyregionsval.=		 "</strong>";
 
@@ -362,6 +367,71 @@ public function ptelForm($tel)
 		return "$a-$b";
 	}
 
+}
+
+public function consumermain()
+{
+	$consumermain='<table border="0" cellspacing="0" cellpadding="0" width="100%">
+					 <tr>
+						<td valign="top"  colspan="2" style="padding: 10px 10px 0px 10px;" > 
+        					<div class="productInfoM">
+        					<div class="productInfoM2" >        
+								<!--<strong style="font-size: 14px; color: #0066cc;">Consumer Information</strong>
+        						<hr align="left" style="background-color: #0066cc; width:100%; " /> <br /><br />-->
+        						<strong style=\"font-size: 14px; color: #0066cc;\">Our products are available in following regions of the World</strong>
+        						<hr align=\"left\" style=\"background-color: #0066cc; width:100%; \" >
+        			';
+    $state_sql=getModel('search')->state_query(null);
+    $consumermain.="    <table cellspacing='5' cellpadding='0' align='center' valign='middle' width='100%'>";
+    foreach ($state_sql as $statesql)
+    {
+    	$state = $statesql['stt_nm'];
+
+		$st_abb = $statesql['rsstate'];
+
+		$consumermain.="	<tr>
+								<td class='productInfo2' width='100%' valign='middle' style=\"padding: 15px 15px 15px 15px;\">
+									<strong \">".$state."</strong>
+									<hr align='left'>
+						";
+		$city_sql=getModel('search')->city_query($st_abb);
+
+		$consumermain.="			<table cellspacing='0' cellpadding='3' align='center' valign='middle' width='100%' >
+										<tr>";	
+		$total_cities=$city_sql[0]['totalrowcount'];
+		$cnt = 1;
+		foreach ($city_sql as $city_sql)
+		{
+			$cityName = $city_sql['rscity'];
+			$consumermain.="				<td>&raquo; <a href=\"".URL."search/?input=consumers&&value=findStore&&gstate=$st_abb&&gcity=$cityName\">".$cityName."</a>
+						   					</td>
+						   ";
+			if($cnt % 3 == 0 && $cnt != $total_cities) $consumermain.="
+									  </tr>
+													  <tr>";
+
+			if($cnt == $total_cities) $consumermain.="</tr>";
+
+			
+			$cnt++;
+		}
+
+		$consumermain.="			</table>
+								</td>
+							</tr>
+					   ";
+	
+    }
+    $consumermain.=" </table>";						
+   
+    $consumermain.='		</div>
+    						</div>
+    					</td>
+    				 </tr>
+    				 <tr><td>&nbsp;</td></tr>
+    				</table>'; 
+      
+	return $consumermain;
 }
 //////////////////////////////////////////////////////////////////////
 

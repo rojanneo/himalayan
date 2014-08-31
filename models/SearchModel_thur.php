@@ -10,8 +10,6 @@ class SearchModel extends Model
 
 	public function zipCity($zip)
 	{
-		if(is_numeric ($zip))
-		{
 		$sqlsyn="SELECT * FROM zipcodes WHERE zipcode=$zip";
 		$sql=$this->connection->Query($sqlsyn);
 		$rowcount=$this->connection->GetRowCount($sqlsyn);		
@@ -19,7 +17,6 @@ class SearchModel extends Model
 		{
 
 			return $sql[0]['city'].',&nbsp' .$sql[0]['state'];
-		}
 		}
 		else return 0;		
 	}
@@ -33,8 +30,6 @@ class SearchModel extends Model
 
 	public function findLatlon($gzipcode)
 	{
-		if(is_numeric ($gzipcode))
-		{
 		$sqlsyn="SELECT * FROM zipcodes WHERE zipcode = $gzipcode";
 		$sql=$this->connection->Query($sqlsyn);
 		$rowcount=$this->connection->GetRowCount($sqlsyn);
@@ -43,7 +38,6 @@ class SearchModel extends Model
 		$l['latitude'] = $sql[0]['latitude'];
 		$l['longitude']=$sql[0]['longitude'];
 		return $l;
-		}
 		}
 		else return 0;
 	}
@@ -82,14 +76,7 @@ class SearchModel extends Model
 	}
 	public function state_query($country)
 	{
-		if(!isset($country))
-		{
-			$sqlsyn="SELECT DISTINCT retstores.rsstate, retstores.rshdc, state.stt_nm  FROM retstores, state WHERE retstores.rshdc = '1' AND state.abb = retstores.rsstate GROUP BY state.stt_nm ORDER BY state.stt_nm ASC";
-		}
-		else
-		{
 		$sqlsyn="SELECT DISTINCT retstores.rsstate, retstores.rshdc, state.stt_nm, state.country  FROM retstores, state WHERE state.country = '$country' AND retstores.rshdc = '1' AND state.abb = retstores.rsstate GROUP BY state.stt_nm ORDER BY state.country ASC, state.stt_nm ASC";
-		}
 		$sql=$this->connection->Query($sqlsyn);
 		return $sql;
 	}
@@ -134,14 +121,6 @@ class SearchModel extends Model
 		$sqlsyn.= " AND members.mid = retailers.rid  AND retstores.rshdc = '1' ";
 		$sqlsyn.=" ORDER BY retstores.rscity ASC, retstores.rsnm ASC";
 		$sql=$this->connection->Query($sqlsyn);
-		return $sql;
-	}
-
-	public function city_query($st_abb)
-	{
-		$sqlsyn="SELECT DISTINCT retstores.rscity, retstores.rshdc, retstores.rsstate FROM retstores WHERE rshdc = '1' AND rsstate = '".$st_abb."' GROUP BY retstores.rscity ORDER BY retstores.rscity ASC";
-		$sql=$this->connection->Query($sqlsyn);
-		$sql[0]['totalrowcount']=$this->connection->GetRowCount($sqlsyn);
 		return $sql;
 	}
 

@@ -104,7 +104,7 @@ class ProductsAdminController extends Controller
 		}
 		else
 		{
-			redirect('admin/products/add');
+			redirect('admin/products');
 		}
 	}
 

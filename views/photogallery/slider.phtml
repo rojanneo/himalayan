@@ -3,7 +3,10 @@
 <div class="photos">
 <ul class="slides">
 <?php foreach($view_photos as $photo):?>
-    <li class="gallery-slide <?php echo $photo['photo_id']?>" ><img src="<?php echo ASSET_URL.$photo['photo_image_resized']?>" width="200" height="200"/></li>
+    <li class="gallery-slide <?php echo $photo['photo_id']?>" >
+        <img src="<?php echo ASSET_URL.$photo['photo_image_resized']?>" width="200" height="200"/>
+        <p><?php echo $photo['photo_caption']?></p>
+    </li>
 <?php endforeach;?>
 </ul>
 

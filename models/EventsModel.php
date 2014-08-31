@@ -28,11 +28,11 @@ class EventsModel extends Model
 	{
 		if($post_data) extract($post_data);	
 		$eventslug=str_replace(" ","_",$ename);
-		if(!empty($eurl))
+		/*if(!empty($eurl))
 		{
 			$eventguid=$eurl;
 		}
-		else{ $eventguid=URL.$eventslug; }
+		else{ $eventguid=URL.$eventslug; }*/
 		$sqlbname="SELECT * FROM `event` WHERE `eventslug`='".$eventslug."'";
 		$sqlbnameexsit=$this->connection->Query($sqlbname);
 		if(!empty($sqlbnameexsit))
@@ -48,11 +48,11 @@ class EventsModel extends Model
 		$now=date('Y-m-d H:i:s'); 
 		if($post_data) extract($post_data);
 		$eventslug=str_replace(" ","_",$ename);
-		if(!empty($eurl))
+		/*if(!empty($eurl))
 		{
 			$eurl=$eurl;
 		}
-		else{ $eurl=URL.$eventslug; }
+		else{ $eurl=URL.$eventslug; }*/
 		$sql="UPDATE `event` SET `eventName`='".$ename."',`eventDateBegin`='".$ebegindate."',`eventDateEnd`='".$eendndate."',`eventDesc`='".$econtent."',`eventUrl`='".$eurl."',`eventstatus`='".$estatus."',`event_feature_image`='".$efimage."',`event_revised_date`='".$now."' WHERE `event_id`='".$event_id."'";
 		return $this->connection->UpdateQuery($sql);
 	}
