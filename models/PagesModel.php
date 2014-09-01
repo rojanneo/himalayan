@@ -31,7 +31,7 @@ class PagesModel extends Model
 	public function addNewPage($post_data)
 	{
 		if($post_data) extract($post_data);
-		$query = "INSERT INTO `pages`(`urlKey`, `title`, `content`, `status`) VALUES ('$urlKey','$title','$content',$status)";
+		$query = "INSERT INTO `pages`(`urlKey`, `title`, `content`, `status`) VALUES ('$urlKey','$title','".mysql_real_escape_string($content)."',".$status.")";
 		return $this->connection->InsertQuery($query);
 	}
 

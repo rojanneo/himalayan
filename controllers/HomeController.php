@@ -4,8 +4,8 @@ class HomeController extends Controller
 public function __construct()
 {
 	parent::__construct();
-	loadHelper('url'); 
-	redirect('pages/view/our-mission');
+	// loadHelper('url'); 
+	// redirect('pages/view/our-mission');
 	
 }
 
