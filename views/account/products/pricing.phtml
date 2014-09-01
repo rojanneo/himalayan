@@ -62,10 +62,15 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 						<?php endif;?></p>
 					<?php endif;?>
 					<?php if($role != 'customer'):?>
-						<p>Wholesale price: <span>$5.15</span></p>
+						<?php $price = $productModel->getProductAttributeByCode($product_id,'price');?>
+						<?php if($price):?>
+							<?php echo $price;?>
+						<?php endif;?>
+<!-- 						<p>Wholesale price: <span>$5.15</span></p>
 						<p>Discounted price: <span>$5.00</span></p>
 						<p>MSRP price: <span>$9.99</span></p>
-					<?php endif;?>
+ -->
+ 					<?php endif;?>
 				</div>
 				</div>
 				</div>
@@ -137,9 +142,10 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 						<?php endif;?>
 					</p>
 					<?php if($role != 'customer'):?>
-						<p>Wholesale price: <span>$5.15</span></p>
-						<p>Discounted price: <span>$5.00</span></p>
-						<p>MSRP price: <span>$9.99</span></p>
+						<?php $price = $productModel->getProductAttributeByCode($variation_id,'price');?>
+						<?php if($price):?>
+							<?php echo $price;?>
+						<?php endif;?>
 					<?php endif;?>
 				<?php endforeach;?>
 				</div>

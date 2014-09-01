@@ -53,5 +53,11 @@ class PagesModel extends Model
 		$sql = "SELECT * FROM pages";
 		return count($this->connection->Query($sql));
 	}
+
+	public function deletePage($id)
+	{
+		$sql = "DELETE FROM pages WHERE page_id = $id";
+		return $this->connection->DeleteQuery($sql);
+	}
 }
 

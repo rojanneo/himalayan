@@ -28,11 +28,17 @@
         </form>
         <?php if(isset($view_search_results)):?>
         <div class="search-results">
+            <?php if($view_search_results):?>
             <ul>
-            <?php foreach($view_search_results as $result):?>
-                <li><a href="<?php echo URL.'faq/view/'.$result['faq_id']?>"><?php echo $result['faq_question']?></a></li>
-            <?php endforeach;?>
+                <?php foreach($view_search_results as $result):?>
+                    <li><a href="<?php echo URL.'faq/view/'.$result['faq_id']?>"><?php echo $result['faq_question']?></a></li>
+                <?php endforeach;?>
             </ul>
+            <?php else:?>
+            <ul>
+                    <li><a href="javascript:void(0)">No Results Found</a></li>
+            </ul>
+            <?php endif;?>
         </div>
         <?php endif;?>
     </div>

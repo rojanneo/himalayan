@@ -17,7 +17,9 @@ if(isset($view_pages)):?>
 				<td><a href="<?php echo ADMIN_URL.'pages/edit/'.$page['page_id']?>"><?php echo $page['title']?></a></td>
 				<td><a href="<?php echo ADMIN_URL.'pages/edit/'.$page['page_id']?>"><?php echo $page['urlKey']?></a></td>
 				<td><a class="button" href="<?php echo ADMIN_URL.'pages/edit/'.$page['page_id']?>"><?php echo convertStatusIdToText($page['status']);?></a></td>
-				<td><a class="button" href="<?php echo URL.'pages/view/'.$page['urlKey']?>" target = "_blank">Preview</a></td>
+				<td><a class="button preview" href="<?php echo URL.'pages/view/'.$page['urlKey']?>" target = "_blank">Preview</a>
+				<a class="button" href="<?php echo ADMIN_URL.'pages/delete/'.$page['page_id']?>">Delete</a>
+				</td>
 			</tr>
 		<?php endforeach?>
 	</tbody>

@@ -66,7 +66,8 @@ echo AdminSession::showSuccessMessages();?>
 													<div class="input">
 														<div class="croppic" id="cropContainerModal-0"></div>
 													</div></li>
-													<input type="hidden" name="bfimage" id='input-0'/>
+													<?php if(isset($view_blog['blog_feature_image'])) { ?> <input type="hidden" name="bfimage" id='input-0'value="<?php echo $view_blog['blog_feature_image']; ?>" /><?php } else { ?>
+													<input type="hidden" name="bfimage" id='input-0'/><?php } ?>
 													<script>
 
 													var croppicContainerModalOptions = {

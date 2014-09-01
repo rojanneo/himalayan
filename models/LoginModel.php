@@ -88,6 +88,8 @@ class LoginModel extends Model
 	{
 		if(isset($post_data)) extract($post_data);
 		$mdate = date('Y-m-d');
+		if(!isset($mcompany)) $mcompany='';
+		if(!isset($mein)) $mein = '';
 		$query = "INSERT INTO members SET mname = '".mysql_real_escape_string($mname)."', memail = '".mysql_real_escape_string($memail)."',
 		mpass = '".mysql_real_escape_string(md5($mpass))."', madd = '".mysql_real_escape_string($madd)."', madd2 = '".mysql_real_escape_string($madd2)."',
 	    mcity = '".mysql_real_escape_string($mcity)."', mstate = '".mysql_real_escape_string($mstate)."', mzip = '".mysql_real_escape_string($mzip)."',

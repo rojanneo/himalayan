@@ -5,7 +5,11 @@
         <ul class="nav">
         <li class="testimonials"><a href="<?php echo URL.'testimonials'?>">Testimonials</a></li>
         <li class="photogallery"><a href="<?php echo URL.'photogallery'?>">Photogallery</a></li>
-        <li class="signin"><a href="<?php echo URL.'login'?>">Signin</a></li>
+        <?php if(!Session::isLoggedIn()):?>
+            <li class="signin"><a href="<?php echo URL.'login'?>">Signin</a></li>
+        <?php else:?>
+            <li class="signin"><a href="<?php echo URL.'account'?>">CPanel</a></li>
+        <?php endif;?>
 
         </ul>
         </div>
@@ -28,4 +32,17 @@
         <div class="bottomLine"></div>
     </div>
 </div>
+<script type="text/javascript">
+var test;
+    $(".nav ul li a").filter(function(){
+        test = $(this).parent().attr('class');
+    if(this.href == location.href.replace(/#.*/, ""))
+    {
+        test = $(this).parent().attr('class');
+        $(this).parent().attr('id',test+'-active');
+        return true;
+    }
+    else return false;
+});
+</script>
 <div class="body">

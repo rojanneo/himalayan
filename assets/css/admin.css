@@ -417,3 +417,5 @@ margin-right: auto;background: linear-gradient(#444, #111);color: #fafafa; line-
 }
 
 .input p{color:red;}
+
+a.button.preview{margin-bottom: 10px}

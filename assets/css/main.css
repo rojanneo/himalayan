@@ -106,7 +106,7 @@ body { font-family: 'Open Sans', sans-serif;}
 .body ul li { margin: 9px 0;}
 .body .leftBody { width: 279px; margin-right: 40px; display: inline-block; vertical-align: top;}
 .body .leftBody img { max-width: 100%;}
-.body .rightBody { width: 701px; display: inline-block; vertical-align: top;}
+.body .rightBody { width: 627px; display: inline-block; vertical-align: top;}
 .body .wrapper { min-height: 605px;}
 
 /*header*/
@@ -119,17 +119,17 @@ body { font-family: 'Open Sans', sans-serif;}
 .nav ul { padding: 0; list-style: none;}
 .nav ul li { display: inline-block; height: 43px; width: 103px; background: url(../images/nav-sprite.png) no-repeat; text-align: center; margin-right: 10px;}
 .nav ul li a { text-decoration: none; color: #707070; margin-top: 10px; display: block; font-size: 14px;}
-.nav ul li:hover a { color: #fff;}
+.nav ul li:hover a, #mission-active>a,#about-active>a,#creation-active>a,#find-active>a,#contact-active>a { color: #fff;}
 .nav ul li.mission { background-position: -2px -3px;}
 .nav ul li.about { background-position: -2px -114px;}
 .nav ul li.creation { background-position: -125px -3px;}
 .nav ul li.find { background-position: -125px -114px;}
 .nav ul li.contact { background-position: -2px -224px;}
-.nav ul li.mission:hover { background-position: -2px -59px;}
-.nav ul li.about:hover { background-position: -2px -168px;}
-.nav ul li.creation:hover{ background-position: -125px -59px;}
-.nav ul li.find:hover { background-position: -125px -168px;}
-.nav ul li.contact:hover { background-position: -2px -283px;}
+.nav ul li.mission:hover, #mission-active { background-position: -2px -59px;}
+.nav ul li.about:hover, #about-active  { background-position: -2px -168px;}
+.nav ul li.creation:hover, #creation-active { background-position: -125px -59px;}
+.nav ul li.find:hover, #find-active  { background-position: -125px -168px;}
+.nav ul li.contact:hover, #contact-active  { background-position: -2px -283px;}
 
 .floatingMenu { width: 1024px; margin: 0 auto; position: relative; z-index: 9999;}
 .floatingMenu ul { list-style: none; padding: 0; margin: 0px;}

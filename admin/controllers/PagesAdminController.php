@@ -64,4 +64,13 @@ class PagesAdminController extends Controller
 			redirect('admin/pages/edit/'.$post_data['page_id']);
 		}
 	}
+
+	public function deleteAction($id)
+	{
+		if(!getModel('pages')->deletePage($id))
+		{
+			AdminSession::addErrorMessage('Could Not Delete Page');
+		}
+		redirect('admin/pages');
+	}
 }
