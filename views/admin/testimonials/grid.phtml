@@ -1,0 +1,26 @@
+<?php echo AdminSession::showErrorMessages();
+echo AdminSession::showSuccessMessages();?>
+<div class="page-wrapper">
+	<?php if(isset($view_testimonials)):?>
+	<table class="grid">
+		<thead>
+			<th>Testimonial ID</th>
+			<th>Sender Name</th>
+			<th>Sender Email</th>
+			<th>Sender Address</th>
+			<th>Action</th>
+		</thead>
+		<tbody>
+			<?php foreach($view_testimonials as $testimonial):?>
+				<tr>
+					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['t_id']?>"><?php echo $testimonial['t_id']?></a></td>
+					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['t_id']?>"><?php echo $testimonial['t_name']?></a></td>
+					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['t_id']?>"><?php echo $testimonial['t_email']?></a></td>
+					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['t_id']?>"><?php echo $testimonial['t_add']?></a></td>
+					<td><a class="button" href="<?php echo ADMIN_URL.'testimonials/delete/'.$testimonial['t_id']?>" class="confirm">Delete</a></td>
+				</tr>
+			<?php endforeach;?>
+		</tbody>
+	</table>
+	<?php endif;?>
+</div>

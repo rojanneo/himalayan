@@ -1,0 +1,56 @@
+<?php if(isset($view_testimonial)):?>
+	<div class="page-wrapper">
+		<div class="page-form">
+			<div class="page-head">
+				<h3>Message</h3>
+			</div>
+			<div class="form">
+				<ul>
+					<li class="field">
+						<div class="input">
+							<input class="button" type="button" onclick="location.href='<?php echo ADMIN_URL.'testimonials/delete/'.$view_testimonial['t_id']?>'" value="Delete"/>
+
+						</div></li>		<li class="field">
+						<div class="input-title">
+							<label for = "nature">Name</label>
+						</div>
+						<div class="input">
+							<input type="text" class="input-box" name="nature" value="<?php echo $view_testimonial['t_name'];?>" readonly/>
+						</div>
+					</li>
+
+					<li class="field">
+						<div class="input-title">
+							<label for = "sender-email">Email</label>
+						</div>
+						<div class="input">
+							<input type="text" class="input-box" name="sender-email" value="<?php echo $view_testimonial['t_email'];?>" readonly/>
+						</div>
+					</li>
+					<li class="field">
+						<div class="input-title">
+							<label for = "sender-email">Address</label>
+						</div>
+						<div class="input">
+							<input type="text" class="input-box" name="sender-email" value="<?php echo $view_testimonial['t_add'];?>" readonly/>
+						</div>
+					</li>
+					<li class="field">
+						<div class="input-title">
+							<label for="message">Comment</label>
+						</div>
+						<div class="input">
+							<textarea name="message" class="input-box" readonly><?php echo $view_testimonial['t_comment'];?></textarea>
+						</div>
+					</li>
+					<li class="field">
+						<div class="input">
+							<input class="button" type="button" onclick="location.href='<?php echo ADMIN_URL.'testimonials'?>'" value="Back To Testimonials"/>
+							
+						</div></li>
+					</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<?php endif;?>

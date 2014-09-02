@@ -26,6 +26,19 @@ class TestimonialsModel extends Model
 	{
 		$query = 'SELECT COUNT(*) FROM testimonials;';
 		$count = $this->connection->Query($query);
-		return $count;
+		return $count[0]['COUNT(*)'];
+	}
+
+	public function deleteTestimonial($id)
+	{
+		$sql = "DELETE FROM testimonials WHERE t_id = $id";
+		return $this->connection->DeleteQuery($sql);
+	}
+
+	public function getTestimonial($id)
+	{
+		$sql = "SELECT * FROM testimonials WHERE t_id = $id";
+		$t = $this->connection->Query($sql);
+		return $t[0];
 	}
 }
