@@ -3,6 +3,7 @@
 <script type="text/javascript">
 	$('.nav ul li.creation').attr('id','creation-active');
 </script>
+<?php if(count($view_products)>0):?>
 <?php if($view_category['cat_slug'] != 'yaky-sticks'):?>
 	<div class="wrapper creationDetail">
 		<div class="dog-chews">
@@ -14,7 +15,11 @@
 							<?php echo $view_category['category_description'];?>
 						</div>
 					<?php endif;?>
+
 				</div>
+				<div class="actions">
+						<a href="#" class="btn btn-blue">what to do with end pieces</a>
+					</div>
 			</div>
 
 			<?php if(isset($view_products)):?>
@@ -132,8 +137,6 @@
 					<?php endif;?>
 				</div>
 			<?php endif;?>
-		</div>
-	</div>
 
 <?php else:?>
 	<div class="wrapper creationDetail">
@@ -193,6 +196,12 @@
 													<?php endif;?>
 												</div>
 											</div>
+											<?php $desc = $productModel->getProductAttributeByCode($variation['pid'], 'short_description');?>
+											<?php if($desc):?>
+												<div class="product-detail">
+													<?php echo $desc;?>
+												</div>
+											<?php endif;?>
 										</li>
 
 									<?php endforeach;?>
@@ -204,17 +213,25 @@
 					<?php endif;?>
 				</div>
 				<script>
+					$('ul.list li a').first().addClass('active');
 					$('.products .slides li').hide();
 					$('.products .slides li').first().show();
 					$('ul.list li a').click(function(){
+						$('ul.list li a').removeClass('active');
 						var class_name = ($(this).parent().attr('class'));
+						$(this).addClass('active');
 						$('.products .slides li').hide();
 						$('.products .slides .'+class_name).show();
 					});
 				</script>
 			<?php endif;?>
 		</div>
-		
+
+<?php endif;?>
+<?php else:?>
+	<div>
+	<h3>No Products in this category</h3>
+	</div>
 <?php endif;?>
 
 
