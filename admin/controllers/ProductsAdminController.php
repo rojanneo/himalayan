@@ -18,7 +18,7 @@ class ProductsAdminController extends Controller
 		loadHelper('inputs');
 		$page = getParam('p');
 		if(!$page) $page = 1;
-		$limit = 10;
+		$limit = 20;
 		$first = ($page-1) * $limit;
 		$products = getModel('products')->getProducts($first,$limit);
 		$data['products'] = $products;

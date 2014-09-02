@@ -3,18 +3,235 @@
 <script type="text/javascript">
 	$('.nav ul li.creation').attr('id','creation-active');
 </script>
+<?php if($view_category['cat_slug'] != 'yaky-sticks'):?>
+	<div class="wrapper creationDetail">
+		<div class="dog-chews">
+			<div class="leftBody">
+				<div class="description">
+					<?php if(isset($view_category)):?>
+						<h1><?php echo $view_category['category_name']?></h1>
+						<div class="category-description-new">
+							<?php echo $view_category['category_description'];?>
+						</div>
+					<?php endif;?>
+				</div>
+			</div>
 
-<?php if($view_category_id == 1):?>
+			<?php if(isset($view_products)):?>
+				<div class="rightBody">
+					<div class="product-list-header">
+						<span class="left" >For Dogs Under</span><span class="right"><a href="<?php echo URL.'products/categories'?>">back to creations</a></span>
+					</div>
+					<?php if(count($view_products) > 1):?>
+						<div class="categoryContainer <?php echo (strtolower($view_category['category_name']) == 'yaky yams')?'yakyyam':null?>">
+							<div class="product-list">
+								<ul class="list">
+									<?php foreach($view_products as $product):?>
+										<?php $product_id = $product['pid'];?>
+										<?php $productModel = getModel('products');?>
+										<?php $displayName =  $productModel->getProductAttributeByCode($product_id,'display_name');?>
+										<?php if($displayName == false) $displayName = $product['pname'];?>
+										<?php
+										$class = null;
+										if($displayName == '15 lbs') $class = 'blue';
+										if($displayName == '75 lbs') $class="grey";
+										if($displayName == '35 lbs') $class = "green";
+										if($displayName == '55 lbs') $class = "red";
+										if($displayName == '65 lbs') $class = "yellow";
+
+										if(strtolower($product['pname']) == 'lotsa chicken') $class="lotsa-chicken";
+										if(strtolower($product['pname']) == 'very veggie') $class="very-veggy";
+										if(strtolower($product['pname']) == 'fruity fruit') $class="fruity-fruit";
+										?>
+										<li class="<?php echo $class?>"><a href="javascript:;"><?php echo $displayName?></a></li>
+									<?php endforeach;?>
+								</ul>
+							</div>
+						<?php endif;?>
+						<div class="products">
+							<ul class="slides">
+								<?php foreach($view_products as $product):?>
+									<?php $product_id = $product['pid'];?>
+									<?php $productModel = getModel('products');?>
+									<?php $displayName =  $productModel->getProductAttributeByCode($product_id,'display_name');?>
+									<?php if($displayName == false) $displayName = $product['pname'];?>
+									<?php
+									$class = null;
+									if($displayName == '15 lbs') $class = 'blue';
+									if($displayName == '75 lbs') $class="grey";
+									if($displayName == '35 lbs') $class = "green";
+									if($displayName == '55 lbs') $class = "red";
+									if($displayName == '65 lbs') $class = "yellow";
+
+									if(strtolower($product['pname']) == 'lotsa chicken') $class="lotsa-chicken";
+									if(strtolower($product['pname']) == 'very veggie') $class="very-veggy";
+									if(strtolower($product['pname']) == 'fruity fruit') $class="fruity-fruit";
+									?>
+
+									<li class="<?php echo $class?>">
+										<div class="product">
+											<?php $gallery = getModel('products')->getGalleryImages($product_id);?>
+											<?php $image = $gallery[0]['value'];?>
+											<img src = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image.'&w=627&h=368'?>"/>
+											<div class="category-detail clearfix">
+												<?php if(!$productModel->isConfigurable($product_id)):?>
+													<?php $ing = $productModel->getProductAttributeByCode($product_id,'ingredients');?>
+													<?php if($ing):?>
+														<p class="test">Ingredients:<span><?php echo $ing?></span></p>
+													<?php endif;?>
+													<?php $gua = $productModel->getProductAttributeByCode($product_id,'guarantee');?>
+													<?php if($gua):?>
+														<p class="test">Guaranteed Analysis:<span><?php echo $gua?></span></p>
+													<?php endif;?>
+												<?php else:?>
+													<?php $variations = $productModel->getVariations($product_id);?>
+													<?php $ing = $productModel->getProductAttributeByCode($variations[0],'ingredients');?>
+													<?php if($ing):?>
+														<p class="test">Ingredients:<span><?php echo $ing?></span></p>
+													<?php endif;?>
+													<?php $gua = $productModel->getProductAttributeByCode($variations[0],'guarantee');?>
+													<?php if($gua):?>
+														<p class="test">Guaranteed Analysis:<span><?php echo $gua?></span></p>
+													<?php endif;?>
+												<?php endif;?>
+											</div>
+										</div>
+										<?php if(!$productModel->isConfigurable($product_id)):?>
+											<?php $desc = $productModel->getProductAttributeByCode($product_id, 'short_description');?>
+											<?php if($desc):?>
+												<div class="product-detail">
+													<?php echo $desc;?>
+												</div>
+											<?php endif;?>
+										<?php else:?>
+											<?php $variations = $productModel->getVariations($product_id);?>
+											<?php $desc = $productModel->getProductAttributeByCode($variations[0], 'short_description');?>
+											<?php if($desc):?>
+												<div class="product-detail">
+													<?php echo $desc;?>
+												</div>
+											<?php endif;?>
+										<?php endif;?>
+
+									</li>
+								<?php endforeach;?>
+							</ul>
+						</div>
+						<script>
+							$('.products .slides li').hide();
+							$('.products .slides li').first().show();
+							$('ul.list li a').click(function(){
+								var class_name = ($(this).parent().attr('class'));
+								$('.products .slides li').hide();
+								$('.products .slides .'+class_name).show();
+							});
+						</script>
+
+						<?php if(count($view_products) > 1):?>
+						</div>
+					<?php endif;?>
+				</div>
+			<?php endif;?>
+		</div>
+	</div>
+
+<?php else:?>
 	<div class="wrapper creationDetail">
 		<div class="dog-chews">
 			<!-- TODO MAKE THIS DYNAMIC -->
+			<div class="leftBody">
+				<div class="description">
+					<h3><?php echo $view_category['category_name']?></h3>
+					<?php echo $view_category['category_description'];?>
+				</div>
+			</div>
+			<?php if(isset($view_products)):?>
+				<div class="rightBody">
+					<div class="product-list-header">
+						<span class="left">For Dogs Under</span><span class="right"><a href="#">back to creations</a></span>
+					</div>
+					<?php if(count($view_products) > 1):?>
+						<div class="categoryContainer yakystick">
+							<div class="product-list">
+								<ul class="list">
+									<?php foreach($view_products as $product):?>
+										<?php $product_id = $product['pid'];?>
+										<?php $productModel = getModel('products');?>
+										<?php $variations = $productModel->getVariations($product_id);?>
+										<?php foreach($variations as $variation):?>
+											<?php $variation = $productModel->getProduct($variation);?>
+											<?php $class = $variation['psku']?>
+											<?php $displayName = $productModel->getProductAttributeByCode($variation['pid'],'display_name'); ?>
+											<li class="<?php echo $class?>"><a href="javascript:;"><?php echo $displayName?></a></li>
+										<?php endforeach;?>
+									<?php endforeach;?>
+								</ul>
+							</div>
+						<?php endif;?>
+						<div class="products">
+							<ul class="slides">
+								<?php foreach($view_products as $product):?>
+									<?php $product_id = $product['pid'];?>
+									<?php $productModel = getModel('products');?>
+									<?php $variations = $productModel->getVariations($product_id);?>
+									<?php foreach($variations as $variation):?>
+										<?php $variation = $productModel->getProduct($variation);?>
+										<?php $class = $variation['psku']?>
+										<?php $gallery = getModel('products')->getGalleryImages($variation['pid']);?>
+										<?php $image = $gallery[0]['value'];?>
+										<li class = "<?php echo $class?>">
+											<div class="product">
+												<img src = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image.'&w=627&h=368'?>"/>
+												<div class="category-detail clearfix">
+													<?php $ing = $productModel->getProductAttributeByCode($variation['pid'],'ingredients');?>
+													<?php if($ing):?>
+														<p class="test">Ingredients:<span><?php echo $ing?></span></p>
+													<?php endif;?>
+													<?php $gua = $productModel->getProductAttributeByCode($variation['pid'],'guarantee');?>
+													<?php if($gua):?>
+														<p class="test">Guaranteed Analysis:<span><?php echo $gua?></span></p>
+													<?php endif;?>
+												</div>
+											</div>
+										</li>
+
+									<?php endforeach;?>
+								<?php endforeach;?>
+							</ul>
+						</div>
+						<?php if(count($view_products) > 1):?>
+						</div>
+					<?php endif;?>
+				</div>
+				<script>
+					$('.products .slides li').hide();
+					$('.products .slides li').first().show();
+					$('ul.list li a').click(function(){
+						var class_name = ($(this).parent().attr('class'));
+						$('.products .slides li').hide();
+						$('.products .slides .'+class_name).show();
+					});
+				</script>
+			<?php endif;?>
+		</div>
+		
+<?php endif;?>
+
+
+
+<?php if($view_category_id == 1):?>
+	<!-- <div class="wrapper creationDetail">
+		<div class="dog-chews">
+		
 
 			<div class="leftBody">
 				<div class="description ">
 					<h1>Himalayan Dog Chew</h1>
+					<div class="desc-test">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla justo velit, luctus non odio eget, pulvinar tempor neque. Donec porta, dolor sed tincidunt aliquam, lacus massa faucibus libero, vel tempor elit risus ac leo. Integer lacinia metus eu enim tincidunt tincidunt. Suspendisse imperdiet aliquam metus a porttitor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque at quam augue. Praesent purus urna, sagittis rutrum dolor ut, malesuada interdum risus. Praesent ornare neque velit, quis luctus nunc viverra non. Vivamus viverra eleifend ipsum ut malesuada.</p>
 
 					<p>In at ornare nisi, sed feugiat velit. Donec id molestie mauris. Praesent at iaculis erat, non adipiscing tortor. Cras sed justo venenatis, ullamcorper elit a, adipiscing metus. Integer ullamcorper, nunc vitae aliquam bibendum, leo neque vestibulum leo, non pellentesque augue urna congue mi. Aenean ac pellentesque augue. Nunc id justo ipsum. Cras tortor erat, posuere tincidunt tellus at, pharetra euismod diam. Cras nisl leo, volutpat vitae libero vel, feugiat dapibus purus.</p>
+					</div>
 				</div>
 			</div>
 			<div class="rightBody">
@@ -35,23 +252,25 @@
 						<ul class="slides">
 							<li class="no-color">
 								<div class="product">
-									<!-- TODO MAKE THIS DYNAMIC -->
 
 									<img src="<?php echo URL.'timthumb.php?src='.ASSET_URL.'images/chews.png&w=627&h=368'?>"/>
 								</div>
 								<div class="category-detail clearfix">
-									<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
-									<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+									<p class="test">Ingredients:<span class="inside">Yak and Cow milk, Salt, and Lime Juice</span></p>
+									<p class="test">Guaranteed Analysis:<span class="inside">Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
 								</div> 
 							</li>
 							<li class="red" style="display:none">
 								<div class="product">
-									<!-- <img src="<?php echo ASSET_URL.'images/bag_red.jpg'?>"/> -->
 									<img src="<?php echo URL.'timthumb.php?src='.ASSET_URL.'images/bag_red.jpg&w=627&h=368'?>"/>
 								</div>
 								<div class="category-detail clearfix">
 									<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
 									<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+								</div>
+								<div class="product-detail">
+								<p>TWhat is Yaky Yam? Yaky Yam is a baked gluten-free treat made of the same ingredients as Himalayan Dog Chews (100% yak and cow milk, salt, and lime juice) mixed with sweet potato and other healthy nourishing ingredients. Now with more rewarding flavor and nutrition! Key Features Completely Digestible A highly nutritious treat Lasts 5 to 7 times longer than Bully Sticks Lactose-free & gluten-free Yaky Yam Very Veggie and Yaky Yam Fruity Fruit are grain-free Made with 100% natural ingredients Available in 4 Oz and 14 Oz Boxes Why is it so Special? Olfaction is primary special </p>
+								<p>What is Yaky Yam? Yaky Yam is a baked gluten-free treat made of the same ingredients as Himalayan Dog Chews (100% yak and cow milk, salt, and lime juice) mixed with sweet potato and other healthy nourishing ingredients. Now with more rewarding flavor and nutrition! Key Features Completely Digestible A highly nutritious treat Lasts 5 to 7 times longer than Bully Sticks Lactose-free & gluten-free Yaky Yam Very Veggie and Yaky Yam Fruity Fruit are grain-free Made with 100% natural ingredients Available in 4 Oz and 14 Oz Boxes Why is it so Special? Olfaction is primary special </p>
 								</div>
 							</li>
 							<li class="green" style="display:none">
@@ -95,21 +314,20 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<script>
-		$('ul.list li a').click(function(){
-			var class_name = ($(this).parent().attr('class'));
-			$('.products .slides li').hide();
-			$('.products .slides .'+class_name).show();
-		});
-	</script>
-	<!-- DOG CHEW CATEGORY ENDS HERE -->
+		// $('ul.list li a').click(function(){
+		// 	var class_name = ($(this).parent().attr('class'));
+		// 	$('.products .slides li').hide();
+		// 	$('.products .slides .'+class_name).show();
+		// });
+</script>
+<!-- DOG CHEW CATEGORY ENDS HERE -->
 
-	<!-- DOG SEASONING CATEGORY STARTS HERE -->
+<!-- DOG SEASONING CATEGORY STARTS HERE -->
 <?php elseif($view_category_id == 2):?>
-	<div class="wrapper creationDetail">
+	<!-- <div class="wrapper creationDetail">
 		<div class="dog-chews">
-			<!-- TODO MAKE THIS DYNAMIC -->
 			<div class="leftBody">
 				<div class="description">
 					<h1>HDC Seasoning</h1>
@@ -126,7 +344,6 @@
 					<ul class="slides">
 						<li class="seasoning">
 							<div class="product">
-								<!-- TODO MAKE THIS DYNAMIC -->
 								<img src="<?php echo ASSET_URL.'images/seasoning.jpg'?>"/>
 							</div>
 							<div class="category-detail clearfix">
@@ -139,14 +356,13 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- DOG SEASONING CATEGORY ENDS HERE -->
 
 	<!-- HDC NUGGETS CATEGORY ENDS HERE -->
 <?php elseif($view_category_id == 3):?>
-	<div class="wrapper creationDetail">
+<!-- 	<div class="wrapper creationDetail">
 		<div class="dog-chews">
-			<!-- TODO MAKE THIS DYNAMIC -->
 			<div class="leftBody">
 				<div class="description">
 					<h3>HDC Seasoning</h3>
@@ -181,7 +397,6 @@
 					<ul class="slides">
 						<li class="seasoning">
 							<div class="product">
-								<!-- TODO MAKE THIS DYNAMIC -->
 
 								<img src="<?php echo ASSET_URL.'images/yaky_nuggets.jpg'?>"/>
 							</div>
@@ -195,14 +410,14 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- DOG NUGGETS CATEGORY ENDS HERE -->
 
 	<!-- HDC PUFF CATEGORY STARTS HERE -->
 <?php elseif($view_category_id == 4):?>
-	<div class="wrapper creationDetail">
+	<!-- <div class="wrapper creationDetail">
 		<div class="dog-chews">
-			<!-- TODO MAKE THIS DYNAMIC -->
+			
 			<div class="leftBody">
 				<div class="description">
 					<h3>HDC Seasoning</h3>
@@ -237,7 +452,7 @@
 					<ul class="slides">
 						<li class="seasoning">
 							<div class="product">
-								<!-- TODO MAKE THIS DYNAMIC -->
+							
 
 								<img src="<?php echo ASSET_URL.'images/yPuff2.jpg'?>"/>
 							</div>
@@ -251,14 +466,14 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- DOG PUFF CATEGORY ENDS HERE -->
 
 	<!-- HDC CRUNCH CATEGORY STARTS HERE -->
 <?php elseif($view_category_id == 5):?>
-	<div class="wrapper creationDetail">
+	<!-- <div class="wrapper creationDetail">
 		<div class="dog-chews">
-			<!-- TODO MAKE THIS DYNAMIC -->
+			
 			<div class="leftBody">
 				<div class="description">
 					<h3>Yaky Crunch</h3>
@@ -275,7 +490,7 @@
 					<ul class="slides">
 						<li class="seasoning">
 							<div class="product">
-								<!-- TODO MAKE THIS DYNAMIC -->
+							
 
 								<img src="<?php echo ASSET_URL.'images/yaky_crunch.jpg'?>"/>
 							</div>
@@ -288,14 +503,13 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- DOG PUFF CATEGORY ENDS HERE -->
 
 	<!-- YAKY YAMS CATEGORY STARTS HERE -->
 <?php elseif($view_category_id == 6):?>
-	<div class="wrapper creationDetail">
+	<!-- <div class="wrapper creationDetail">
 		<div class="dog-chews">
-			<!-- TODO MAKE THIS DYNAMIC -->
 			<div class="leftBody">
 				<div class="description">
 					<h3>Yaky Yam</h3>
@@ -354,7 +568,6 @@
 						</li>
 						<li class="lotsa-chicken"  style="display:none">
 							<div class="product">
-								<!-- TODO MAKE THIS DYNAMIC -->
 
 								<img src="<?php echo ASSET_URL.'images/lotsa_chicken_box.jpg'?>"/>
 							</div>
@@ -399,104 +612,15 @@
 				</div>
 				</div>
 			</div>
-						</div>
-						<script>
-							$('ul.list li a').click(function(){
-								var class_name = ($(this).parent().attr('class'));
-								$('.products .slides li').hide();
-								$('.products .slides .'+class_name).show();
-							});
-						</script>
-						<!-- YAKY YAMS CATEGORY ENDS HERE -->
+		</div> -->
 
-						<!-- YAKY STICKS CATEGORY STARTS HERE -->
-					<?php elseif($view_category_id == 7):?>
-						<div class="wrapper creationDetail">
-							<div class="dog-chews">
-								<!-- TODO MAKE THIS DYNAMIC -->
-								<div class="leftBody">
-									<div class="description">
-										<h3>Yaky Sticks</h3>
-										<p>
-											What is Yaky Stick?
+		<!-- YAKY YAMS CATEGORY ENDS HERE -->
 
-											Yaky Stick is the combination of two of dogs’ favorite treats; Himalayan Dog Chews wrapped around a Bully Stick, which is made using patented processes without using any binding agents or glue in the USA. Bully Sticks come from all free-range grass fed cattle and provide dogs with essential proteins while Himalayan Dog Chews provide them with essential minerals. Moreover, this combination allows the Bully Stick to have little or no saliva from the dogs, hence emitting very low or no odor. While some dogs go for the cheese of Himalayan Dog Chews and some go for the Bully Sticks, we guarantee that any dog will go for Yaky Sticks, enjoying them fairly longer than a regular Bully Stick. 
+		<!-- YAKY STICKS CATEGORY STARTS HERE -->
+	<?php elseif($view_category_id == 7):?>
 
-											Key Features
-
-											Low odor
-											Completely Digestible
-											Combination of Cheese and Beef
-											Made with 100% natural ingredients
-											Crumbles of cheese can be microwaved for 20 - 40 seconds (depnding on the type of microwave) to make Yaky Crunch
-											Lactose-free, gluten-free & grain-free
-											A highly nutritious treat
-										</p>
-									</div>
-								</div>
-								<div class="rightBody">
-									<div class="product-list-header">
-										<span class="left">For Dogs Under</span><span class="right"><a href="#">back to creations</a></span>
-									</div>
-									<div class="categoryContainer yakystick">
-										<div class="product-list">
-											<ul class="list">
-												<li class="stick-6"><a href="javascript:;">25 lbs</a></li>
-												<li class="stick-12"><a href="javascript:;">50 lbs</a></li>
-											</ul>
-										</div>
-										<div class="products">
-											<ul class="slides">
-												<li class="no-color">
-													<div class="product">
-														<!-- TODO MAKE THIS DYNAMIC -->
-														<img src="<?php echo ASSET_URL.'images/yaky_stick_12_box.jpg'?>"/>
-													</div>
-													<div class="category-detail clearfix">
-														<p>Ingredients:<span>100% Yak and Cow Milk, Beef, Salt and Lime Juice. </span></p>
-														<p>Guaranteed Analysis:<span>Crude Protein Min 78.7%. Crude Fat Min 5.7%. Crude Fiber Max 1.0%. Ash Max 3.4%. Moisture Max 10.2% 
-														</span></p>
-													</div>
-												</li>
-												<li class="stick-6"  style="display:none">
-													<div class="product">
-														<!-- TODO MAKE THIS DYNAMIC -->
-														<img src="<?php echo ASSET_URL.'images/yaky_stick_6_box.jpg'?>"/>
-													</div>
-													<div class="category-detail clearfix">
-														<p>Ingredients:<span>100% Yak and Cow Milk, Beef, Salt and Lime Juice. </span></p>
-														<p>Guaranteed Analysis:<span>Crude Protein Min 78.7%. Crude Fat Min 5.7%. Crude Fiber Max 1.0%. Ash Max 3.4%. Moisture Max 10.2% 
-														</span></p>
-													</div>
-												</li>
-												<li class="stick-12" style="display:none">
-													<div class="product">
-														<img src="<?php echo ASSET_URL.'images/yaky_stick_12_box.jpg'?>"/>
-													</div>
-													<div class="category-detail clearfix">
-														<p>Ingredients:<span>100% Yak and Cow Milk, Beef, Salt and Lime Juice. 
-														</span></p>
-														<p>Guaranteed Analysis:<span>Crude Protein Min 78.7%. Crude Fat Min 5.7%. Crude Fiber Max 1.0%. Ash Max 3.4%. Moisture Max 10.2% 
-														</span></p>
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<script>
-							$('ul.list li a').click(function(){
-								var class_name = ($(this).parent().attr('class'));
-								$('ul.list li a').removeClass('active');
-								$(this).addClass('active');
-								$('.products .slides li').hide();
-								$('.products .slides .'+class_name).show();
-							});
-						</script>
-						<!-- YAKY YAMS CATEGORY ENDS HERE -->
+		<!-- YAKY YAMS CATEGORY ENDS HERE -->
 
 
-					<?php else:?>
-					<?php endif;?>
+	<?php else:?>
+	<?php endif;?>

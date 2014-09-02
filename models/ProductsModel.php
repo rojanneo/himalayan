@@ -409,17 +409,16 @@ class ProductsModel extends Model
 		$result2 = true;
 		$getProductInCatval=$this->getProductInCat($product_id);
 		//var_dump($getProductInCatval);
-
-		foreach ($getProductInCatval as $getProductInCatval) 
+		if(isset($pccheck_list))
 		{
-			$sql="DELETE FROM `product_cat` WHERE `category_id`='".$getProductInCatval."'";
-			$this->connection->DeleteQuery($sql);
+				$sql="DELETE FROM `product_cat` WHERE `pid`='".$product_id."'";
+				$this->connection->DeleteQuery($sql);
+			foreach ($pccheck_list as $pccheck_list) 
+			{
+				$sql1="INSERT INTO `product_cat`(`pid`, `category_id`) VALUES ('".$product_id."','".$pccheck_list."')";
+				$this->connection->InsertQuery($sql1);
+			}	
 		}
-		foreach ($pccheck_list as $pccheck_list) 
-		{
-			$sql1="INSERT INTO `product_cat`(`pid`, `category_id`) VALUES ('".$product_id."','".$pccheck_list."')";
-			$this->connection->InsertQuery($sql1);
-		}	
 
 		if(isset($attributes))
 		{
@@ -448,7 +447,7 @@ class ProductsModel extends Model
 				}
 				else
 				{
-					$sql = "INSERT INTO ".$table."(pav".$a."_pid,pav".$a."_aid,value) VALUES(".$product_id.",".$attribute['aid'].",'".$attrib."')";				
+					$sql = "INSERT INTO ".$table."(pav".$a."_pid,pav".$a."_aid,value) VALUES(".$product_id.",".$attribute['aid'].",'".mysql_escape_string($attrib)."')";				
 				}
 				$result2 = $this->connection->InsertQuery($sql);
 			}
@@ -551,5 +550,23 @@ class ProductsModel extends Model
 	{
 		$sql = "SELECT * FROM products_simple ORDER BY pid DESC Limit $first,$limit";
 		return $this->connection->Query($sql);
+	}
+
+	public function getProductsFromCategoryId($category_id)
+	{
+		$sql = "SELECT * FROM product_cat WHERE category_id = $category_id order by pid asc";
+		$pids = $this->connection->Query($sql);
+		$product_array = array();
+		foreach($pids as $pid)
+		{
+			$sql = "SELECT * FROM products_simple WHERE pid = ".$pid['pid']." and is_variation = 0 and status = 1";
+			$product = $this->connection->Query($sql);
+			if(($product))
+			{
+				$product = $product[0];
+			array_push($product_array, $product);
+			}
+		}
+		return $product_array;
 	}
 }
