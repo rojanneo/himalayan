@@ -87,8 +87,8 @@
 					</div>
 					<div class="attributes tab-content" style="display:none">
 						<?php if(isset($view_attributes)):?>
-						<?php if($attribute['is_required'] == 0) $required = null; else $required = 'input-box required';?>
 						<?php foreach ($view_attributes as $attribute):?>
+						<?php if($attribute['is_required'] == 0) $required = null; else $required = 'input-box required';?>
 						<li class="field">
 							<div class="input-title">
 								<label for = <?php echo $attribute['acode']?>><?php echo $attribute['aname']?></label>
@@ -119,18 +119,42 @@
 			<?php endif;?>
 		</div>
 		<div class="images-tab tab-content" style="display:none">
-		<li class="field">
-			<div class="input">
-				<a class = "button add" href="javascript:void(0)" style="width:147px;margin-top:10px;padding:1px"id='0'>Add Another Image</a>
-			</div></li>
-			<div class="images">
-				<li class="field">
-					<div class="input">
-						<div class="croppic" id="cropContainerModal-0"></div>
-					</div></li>
-					<input type="hidden" name="gallery_images[]" id='input-0'/>
-				</div>
-			</div>
+<table>
+											<thead>
+												<th>Image</th>
+			<!-- <th>Base Image</th>
+			<th>Thumbnail</th> -->
+		</thead>
+		<tbody class="gallery-table">
+		</tbody>
+		</table>
+	<div id="mulitplefileuploader">Upload</div>
+	<input type="hidden" name="gallery_images" id="image_names"/>
+<script>
+	var settings = {
+	url: "<?php echo ADMIN_URL.'products/ajaxImageUpload'?>",
+	method: "POST",
+	allowedTypes:"jpg,png,gif",
+	fileName: "myfile",
+	multiple: true,
+	onSuccess:function(files,data,xhr)
+	{
+		var val = $('#image_names').val();
+		$('#image_names').val(data+','+val);
+		var str = '<tr><td>';
+		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
+		str += '<img src="'+url+data+'&h=300&w=500"/></td></tr>';
+		$('tbody.gallery-table').last().append(str);
+		
+	},
+	onError: function(files,status,errMsg)
+	{		
+		$("#status").html("<font color='red'>Upload is Failed</font>");
+	}
+}
+$("#mulitplefileuploader").uploadFile(settings);
+</script>
+	</div>
 			<li class="field">
 				<div class="input">
 					<input class="button" type="submit" value="save"/>

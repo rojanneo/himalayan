@@ -191,6 +191,7 @@ public function clistforzipAction($gzipcode)
 
 public function distinctcountryname()
 {
+			if(isset($_GET['gstate']))		{ 	$gstate = $_GET['gstate']; 		}
 			$discountyval= 			"<div class=\"productInfo2\" style=\"padding: 20px 20px 20px 20px;\">";
 			$discountyval.= 		"<strong>Find ";
 			$model = getModel('search');
@@ -232,44 +233,22 @@ public function distinctcountryname()
 
 			if(isset($gstate))
 			{
-
-				$city_query = "SELECT DISTINCT retstores.rscity, retstores.rshdc, retstores.rsstate FROM retstores WHERE rshdc = '1' AND rsstate = '$gstate' GROUP BY retstores.rscity ORDER BY retstores.rscity ASC";
-
-				
-				//if($user == '101') echo "<br> *** $city_query *** <br>";
-				
-
 				$discountyval.= 	"<div class=\"productInfo2\" style=\"padding: 20px 20px 20px 20px;\">";
 
 				$discountyval.= 	"<strong>Cities in ";
 
-				$discountyval.= 	getState($gstate) . " : " . totalSellersState($gstate) . " Stores";
+				$discountyval.= 	$model->getState($gstate) . " : " . $model->totalSellersState($gstate) . " Stores";
 
 				$discountyval.= 	"</strong>";
 
 				$discountyval.= 	"<hr align=\"left\" />";
 
-				
-
-				$citysql = mysql_query($city_query);
-
-				
-
-				while ($cities = mysql_fetch_array($citysql))
+				$cities=$model->city_query($gstate);
+				foreach ($cities as $cities) 
 				{
-
 					$cityName = $cities['rscity'];
-
-					
-
-					$discountyval.= "&raquo; <a href=\"$url/?input=consumers&&value=findStore&&gstate=$gstate&&gcity=$cityName\">$cityName</a><br>";
-
+					$discountyval.= "&raquo; <a href=\"?input=consumers&&value=findStore&&gstate=$gstate&&gcity=$cityName\">$cityName</a><br>";
 				}
-
-				
-
-				//echo "<br>";
-
 				$discountyval.= 	"</div>";		
 
 			}

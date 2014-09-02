@@ -246,6 +246,8 @@ class ProductsModel extends Model
 
 		if(isset($gallery_images))
 		{
+			$gallery_images = rtrim($gallery_images,',');
+			$gallery_images = explode(',',$gallery_images);
 			foreach($gallery_images as $gallery_image){
 				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image) VALUES(".$pid.",'".$gallery_image."', 0, 0)";
 				$result3 = $this->connection->InsertQuery($sql);
@@ -321,6 +323,8 @@ class ProductsModel extends Model
 
 		if(isset($gallery_images))
 		{
+			$gallery_images = rtrim($gallery_images,',');
+			$gallery_images = explode(',',$gallery_images);
 			foreach($gallery_images as $gallery_image){
 				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image) VALUES(".$pid.",'".$gallery_image."', 0, 0)";
 				$result3 = $this->connection->InsertQuery($sql);
@@ -454,6 +458,8 @@ class ProductsModel extends Model
 
 		if(isset($gallery_images))
 		{
+			$gallery_images = rtrim($gallery_images,',');
+			$gallery_images = explode(',',$gallery_images);
 			foreach($gallery_images as $gallery_image){
 				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image) VALUES(".$product_id.",'".$gallery_image."', 0, 0)";
 				$result3 = $this->connection->InsertQuery($sql);

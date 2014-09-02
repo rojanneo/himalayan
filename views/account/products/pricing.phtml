@@ -15,7 +15,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 				<li>
 				<div class="clearfix pricing-slider">
 				<div class="product">
-					<img src="<?php echo UPLOAD_URL.$image?>"/>
+					<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image.'&h=300&w=500&a=t'?>"/>
 				</div>
 				<div class="product-info">
 					<p class="product-name"><?php echo $product['pname']?></p>

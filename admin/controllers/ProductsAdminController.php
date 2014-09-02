@@ -63,6 +63,44 @@ class ProductsAdminController extends Controller
 		}
 	}
 
+	public function ajaxImageUploadAction()
+	{
+		$output_dir = "assets/uploads/products/";
+		$outpurfiledir = 'products/';
+
+		if(isset($_FILES["myfile"]))
+		{
+			$ret = array();
+
+			$error =$_FILES["myfile"]["error"];
+		   {
+		    
+		    	if(!is_array($_FILES["myfile"]['name'])) //single file
+		    	{
+		       	 	$fileName = $_FILES["myfile"]["name"];
+		       	 	move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. $_FILES["myfile"]["name"]);
+		       	 	 //echo "<br> Error: ".$_FILES["myfile"]["error"];
+		       	 	 
+			       	 	 $ret[$fileName]= $output_dir.$fileName;
+		    	}
+		    	else
+		    	{
+		    	    	$fileCount = count($_FILES["myfile"]['name']);
+		    		  for($i=0; $i < $fileCount; $i++)
+		    		  {
+		    		  	$fileName = $_FILES["myfile"]["name"][$i];
+			       	 	 $ret[$fileName]= $output_dir.$fileName;
+		    		    move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$fileName );
+		    		  }
+		    	
+		    	}
+		    }
+		    echo $outpurfiledir.$fileName;
+		 
+		}
+	}
+
+
 	public function loadVariationListAction()
 	{
 		$variations = getModel('products')->getAllVariations();
@@ -95,6 +133,7 @@ class ProductsAdminController extends Controller
 	{
 		loadHelper('inputs');
 		$post_data = getPost();
+		if($post_data['gallery_images'] == '') unset($post_data['gallery_images']);
 		//$files = getFiles();
 
 		//getModel('products')->addNewProduct($post_data);
@@ -139,6 +178,7 @@ class ProductsAdminController extends Controller
 	{
 		loadHelper('inputs');
 		$post_data = getPost();
+		if($post_data['gallery_images'] == '') unset($post_data['gallery_images']);
 		if(getModel('products')->updateProduct($post_data))
 		{
 			redirect('admin/products');
@@ -153,10 +193,12 @@ class ProductsAdminController extends Controller
 	{
 		if(getModel('products')->deleteProduct($product_id))
 		{
+			AdminSession::addSuccessMessage('Product Deleted');
 			redirect('admin/products');
 		}
 		else
 		{
+			AdminSession::addSuccessMessage('Unable to delete Product');
 			redirect('admin/products');
 		}
 	}

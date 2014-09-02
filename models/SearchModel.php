@@ -146,4 +146,12 @@ class SearchModel extends Model
 	}
 
 
+	public function totalSellersState($gstate)
+	{
+		$query = "SELECT count(*) FROM retstores WHERE rshdc = '1' AND rsstate = '$gstate'";
+		$sql=$this->connection->Query($query);
+		return $sql[0]['count(*)'];
+	}
+
+
 }

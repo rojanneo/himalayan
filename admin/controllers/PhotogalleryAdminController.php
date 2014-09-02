@@ -108,6 +108,8 @@ class PhotogalleryAdminController extends Controller
 	}
 
 	
+
+	
 	public function uploadImageAction()
 	{
 		$imagePath = UPLOAD_URL."photogallery/";

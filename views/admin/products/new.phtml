@@ -153,7 +153,44 @@
 			</tbody>
 		</table>
 	-->
-	<div class="images-tab tab-content" style="display:none">
+<div class="images-tab tab-content" style="display:none">
+<table>
+											<thead>
+												<th>Image</th>
+			<!-- <th>Base Image</th>
+			<th>Thumbnail</th> -->
+		</thead>
+		<tbody class="gallery-table">
+		</tbody>
+		</table>
+	<div id="mulitplefileuploader">Upload</div>
+	<input type="hidden" name="gallery_images" id="image_names"/>
+<script>
+	var settings = {
+	url: "<?php echo ADMIN_URL.'products/ajaxImageUpload'?>",
+	method: "POST",
+	allowedTypes:"jpg,png,gif",
+	fileName: "myfile",
+	multiple: true,
+	onSuccess:function(files,data,xhr)
+	{
+		var val = $('#image_names').val();
+		$('#image_names').val(data+','+val);
+		var str = '<tr><td>';
+		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
+		str += '<img src="'+url+data+'&h=300&w=500"/></td></tr>';
+		$('tbody.gallery-table').last().append(str);
+		
+	},
+	onError: function(files,status,errMsg)
+	{		
+		$("#status").html("<font color='red'>Upload is Failed</font>");
+	}
+}
+$("#mulitplefileuploader").uploadFile(settings);
+</script>
+	</div>
+<!--	
 		<li class="field">
 			<div class="input">
 				<a class = "button add" href="javascript:void(0)" style="width:147px;margin-top:10px;padding:1px"id='0'>Add Another Image</a>
@@ -165,19 +202,19 @@
 					</div></li>
 					<input type="hidden" name="gallery_images[]" id='input-0'/>
 				</div>
-			</div>
+		-->
 			<script>
 
-			var croppicContainerModalOptions = {
-				uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
-				cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
-				modal:true,
-				imgEyecandyOpacity:0.4,
-				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-				onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
-			}
+			// var croppicContainerModalOptions = {
+			// 	uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
+			// 	cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
+			// 	modal:true,
+			// 	imgEyecandyOpacity:0.4,
+			// 	loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+			// 	onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+			// }
 
-			var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+			// var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
 
 			$('a.add').click(function(){
 				var id = parseInt($(this).attr('id')) + 1;
@@ -341,11 +378,11 @@
 			<?php if(($view_gallery)):?>
 			<?php foreach($view_gallery as $image):?>
 			<tr>
-				<td><img src="<?php echo UPLOAD_URL.$image['value']?>"/></td>
+				<td><img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image['value'].'&h=300&w=500&a=t'?>"/></td>
 					<!-- <td><input type="radio" name="base_image" <?php echo ($image['is_base_image'])?'class="checked"':null?>/></td>
 					<td><input type="radio" name="thumbnail" <?php echo ($image['is_thumbnail_image'])?'class="checked"':null?>/></td> -->
-					<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="<?php echo $image['gid']?>">Remove Image</a>
-					</tr>
+					<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="<?php echo $image['gid']?>">Remove Image</a></td>
+			</tr>
 				<?php endforeach;?>
 			<?php endif;?>
 			<?php $base_count = 0; $thumb_count =0; ?>
@@ -358,39 +395,33 @@
 			-->			</tbody>
 		</table>
 
-
-		<a href="javascript:void(0)" class="add button" style="width:147px" id='0'>Add Another Image</a>
-		<div class="images">
-<!-- <div class="croppic" id="cropContainerModal-0"></div>
- <input type="hidden" name="gallery_images[]" id='input-0'/>
--->
-</div>
-</div>
+	<div id="mulitplefileuploader">Upload</div>
+	<input type="hidden" name="gallery_images" id="image_names"/>
 <script>
-
-var croppicContainerModalOptions = {
-	uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
-	cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
-	modal:true,
-	imgEyecandyOpacity:0.4,
-	loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-	onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+	var settings = {
+	url: "<?php echo ADMIN_URL.'products/ajaxImageUpload'?>",
+	method: "POST",
+	allowedTypes:"jpg,png,gif",
+	fileName: "myfile",
+	multiple: true,
+	onSuccess:function(files,data,xhr)
+	{
+		var val = $('#image_names').val();
+		$('#image_names').val(data+','+val);
+		var str = '<tr><td>';
+		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
+		str += '<img src="'+url+data+'&h=300&w=500"/></td></tr>';
+		$('tbody.gallery-table').last().append(str);		
+		
+	},
+	onError: function(files,status,errMsg)
+	{		
+		$("#status").html("<font color='red'>Upload is Failed</font>");
+	}
 }
-
-		//var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
-
-		$('a.add').click(function(){
-			var id = parseInt($(this).attr('id')) + 1;
-			croppicContainerModalOptions.outputUrlId = 'outputUrlId'+id;
-			$('.images').append('<div id="cropContainerModal-'+id+'" class="croppic"></div><input type="hidden" name="gallery_images[]" id="input-'+id+'"/></div>');
-
-			var script   = document.createElement("script");
-			script.type  = "text/javascript";
-				script.text  = "var cropContainerModal = new Croppic('cropContainerModal-"+id+"', croppicContainerModalOptions);";               // use this for inline script
-				document.body.appendChild(script);
-				$(this).attr('id',id);
-			});
-		</script>
+$("#mulitplefileuploader").uploadFile(settings);
+</script>
+	</div>
 		<li class="field">
 			<div class="input">
 				<input class="button" type="submit" value="save"/>
@@ -560,17 +591,39 @@ $('.edit-form form').submit(function(){
 						$(".iframe").colorbox({iframe:true, width:"80%", height:"100%", onClosed:function(){ loadVariations() }});
 						</script>
 						<div class="images-tab tab-content" style="display:none">
-							<li class="field">
-								<div class="input">
-									<a class = "button add" href="javascript:void(0)" style="width:147px;margin-top:10px;padding:1px"id='0'>Add Another Image</a>
-								</div></li>
-								<div class="images">
-									<li class="field">
-										<div class="input">
-											<div class="croppic" id="cropContainerModal-0"></div>
-										</div></li>
-										<input type="hidden" name="gallery_images[]" id='input-0'/>
-									</div>
+							<div class="images-tab tab-content" style="display:none">
+
+	<div id="mulitplefileuploader">Upload</div>
+	<input type="hidden" name="gallery_images" id="image_names"/>
+<script>
+	var settings = {
+	url: "<?php echo ADMIN_URL.'products/ajaxImageUpload'?>",
+	method: "POST",
+	allowedTypes:"jpg,png,gif",
+	fileName: "myfile",
+	multiple: true,
+	onSuccess:function(files,data,xhr)
+	{
+		var val = $('#image_names').val();
+		$('#image_names').val(data+','+val);
+		var rel =<?php echo $image['gid']?>;
+		var str = '</tr><tr><td>';
+		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
+		str += '<img src="'+url+data+'&h=300&w=500"/></td>';
+		str += '<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="'+rel+'">Remove Image</a></td></tr>';
+		$('tbody.gallery-table').last().append(str);		
+		
+	},
+	onError: function(files,status,errMsg)
+	{		
+		$("#status").html("<font color='red'>Upload is Failed</font>");
+	}
+}
+$("#mulitplefileuploader").uploadFile(settings);
+</script>
+
+	
+</div>
 								</div>
 								<li class="field">
 									<div class="input">
@@ -580,28 +633,28 @@ $('.edit-form form').submit(function(){
 							</form>
 						</div>
 						<script>
-						var croppicContainerModalOptions = {
-							uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
-							cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
-							modal:true,
-							imgEyecandyOpacity:0.4,
-							loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-							onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
-						}
+			// 			var croppicContainerModalOptions = {
+			// 				uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
+			// 				cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
+			// 				modal:true,
+			// 				imgEyecandyOpacity:0.4,
+			// 				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+			// 				onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+			// 			}
 
-						var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+			// 			var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
 
-						$('a.add').click(function(){
-							var id = parseInt($(this).attr('id')) + 1;
-							croppicContainerModalOptions.outputUrlId = 'outputUrlId'+id;
-							$('.images').append('<div id="cropContainerModal-'+id+'" class="croppic"></div><input type="hidden" name="gallery_images[]" id="input-'+id+'"/></div>');
+			// 			$('a.add').click(function(){
+			// 				var id = parseInt($(this).attr('id')) + 1;
+			// 				croppicContainerModalOptions.outputUrlId = 'outputUrlId'+id;
+			// 				$('.images').append('<div id="cropContainerModal-'+id+'" class="croppic"></div><input type="hidden" name="gallery_images[]" id="input-'+id+'"/></div>');
 
-							var script   = document.createElement("script");
-							script.type  = "text/javascript";
-				script.text  = "var cropContainerModal = new Croppic('cropContainerModal-"+id+"', croppicContainerModalOptions);";               // use this for inline script
-				document.body.appendChild(script);
-				$(this).attr('id',id);
-			});
+			// 				var script   = document.createElement("script");
+			// 				script.type  = "text/javascript";
+			// 	script.text  = "var cropContainerModal = new Croppic('cropContainerModal-"+id+"', croppicContainerModalOptions);";               // use this for inline script
+			// 	document.body.appendChild(script);
+			// 	$(this).attr('id',id);
+			// });
 						</script>
 						<script>
 						$(document).ready(function()
@@ -710,7 +763,7 @@ $('.edit-form form').submit(function(){
 			<?php if(isset($view_gallery)):?>
 			<?php foreach($view_gallery as $image):?>
 			<tr>
-				<td><img src="<?php echo UPLOAD_URL.$image['value']?>"/></td>
+				<td><img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image['value'].'&h=300&w=500&a=t'?>"/></td>
 					<!-- <td><input type="radio" name="base_image" <?php echo ($image['is_base_image'])?'class="checked"':null?>/></td>
 					<td><input type="radio" name="thumbnail" <?php echo ($image['is_thumbnail_image'])?'class="checked"':null?>/></td> -->
 					<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="<?php echo $image['gid']?>">Remove Image</a>
@@ -728,11 +781,37 @@ $('.edit-form form').submit(function(){
 		</table>
 
 
-		<a href="javascript:void(0)" class="add button" style="width:147px" id='0'>Add Another Image</a>
-		<div class="images">
-<!-- <div class="croppic" id="cropContainerModal-0"></div>
- <input type="hidden" name="gallery_images[]" id='input-0'/>
--->
+		<div class="images-tab tab-content" style="display:none">
+
+	<div id="mulitplefileuploader">Upload</div>
+	<input type="hidden" name="gallery_images" id="image_names"/>
+<script>
+	var settings = {
+	url: "<?php echo ADMIN_URL.'products/ajaxImageUpload'?>",
+	method: "POST",
+	allowedTypes:"jpg,png,gif",
+	fileName: "myfile",
+	multiple: true,
+	onSuccess:function(files,data,xhr)
+	{
+		var val = $('#image_names').val();
+		$('#image_names').val(data+','+val);
+		var rel =<?php echo $image['gid']?>;
+		var str = '</tr><tr><td>';
+		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
+		str += '<img src="'+url+data+'&h=300&w=500"/></td>';
+		str += '<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="'+rel+'">Remove Image</a></td></tr>';
+		$('tbody.gallery-table').last().append(str);		
+		
+	},
+	onError: function(files,status,errMsg)
+	{		
+		$("#status").html("<font color='red'>Upload is Failed</font>");
+	}
+}
+$("#mulitplefileuploader").uploadFile(settings);
+</script>
+	
 </div>
 </div>
 <li class="field">
@@ -742,28 +821,28 @@ $('.edit-form form').submit(function(){
 </form>
 </div>
 <script>
-var croppicContainerModalOptions = {
-	uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
-	cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
-	modal:true,
-	imgEyecandyOpacity:0.4,
-	loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-	onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
-}
+// var croppicContainerModalOptions = {
+// 	uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
+// 	cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
+// 	modal:true,
+// 	imgEyecandyOpacity:0.4,
+// 	loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+// 	onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+// }
 
-var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+// var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
 
-$('a.add').click(function(){
-	var id = parseInt($(this).attr('id')) + 1;
-	croppicContainerModalOptions.outputUrlId = 'outputUrlId'+id;
-	$('.images').append('<div id="cropContainerModal-'+id+'" class="croppic"></div><input type="hidden" name="gallery_images[]" id="input-'+id+'"/></div>');
+// $('a.add').click(function(){
+// 	var id = parseInt($(this).attr('id')) + 1;
+// 	croppicContainerModalOptions.outputUrlId = 'outputUrlId'+id;
+// 	$('.images').append('<div id="cropContainerModal-'+id+'" class="croppic"></div><input type="hidden" name="gallery_images[]" id="input-'+id+'"/></div>');
 
-	var script   = document.createElement("script");
-	script.type  = "text/javascript";
-				script.text  = "var cropContainerModal = new Croppic('cropContainerModal-"+id+"', croppicContainerModalOptions);";               // use this for inline script
-				document.body.appendChild(script);
-				$(this).attr('id',id);
-			});
+// 	var script   = document.createElement("script");
+// 	script.type  = "text/javascript";
+// 				script.text  = "var cropContainerModal = new Croppic('cropContainerModal-"+id+"', croppicContainerModalOptions);";               // use this for inline script
+// 				document.body.appendChild(script);
+// 				$(this).attr('id',id);
+// 			});
 </script>
 <script>
 $(document).ready(function()
