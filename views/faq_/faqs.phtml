@@ -1,0 +1,51 @@
+<div class="wrapper">
+    <div class="faq">
+        <div class="faqLeft">
+            <h1>Frequently asked questions</h1>
+            <ul>
+            <?php foreach($view_faqs as $faq):?>
+				<li><a href="<?php echo URL.'faq/view/'.$faq['faq_id']?>"><?php echo $faq['faq_question'];?></a>
+			<?php endforeach;?>
+            </ul>
+        </div>
+
+        <!-- TODO MAKE THIS DYNAMIC -->
+        <div class="faqInformation">
+            <p>As with any dog treat, please supervise your dog(s) when feeding our treats and be cautious to discard when any potential hazard presents itself.</p>
+            <a href="<?php echo URL.'contacts'?>" class="btn btn-blue">back</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+     <!-- TODO MAKE THIS DYNAMIC -->
+    <div class="faq-search">
+        <form method="post" action = "<?php echo URL.'faq/search'?>">
+            <fieldset>
+            <input type = "text" class="required input-box" name="faq-search-query"/>
+            </fieldset>
+            <fieldset>
+            <input type ="submit" value = "Search" class="btn btn-blue" /> 
+            </fieldset>
+        </form>
+        <?php if(isset($view_search_results)):?>
+        <div class="search-results">
+            <?php if($view_search_results):?>
+            <ul>
+                <?php foreach($view_search_results as $result):?>
+                    <li><a href="<?php echo URL.'faq/view/'.$result['faq_id']?>"><?php echo $result['faq_question']?></a></li>
+                <?php endforeach;?>
+            </ul>
+            <?php else:?>
+            <ul>
+                    <li><a href="javascript:void(0)">No Results Found</a></li>
+            </ul>
+            <?php endif;?>
+        </div>
+        <?php endif;?>
+    </div>
+</div>
+
+<script>
+$('.faq-search form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>

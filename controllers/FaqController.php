@@ -28,14 +28,23 @@ class FaqController extends Controller
 	public function searchAction()
 	{
 		loadHelper('inputs');
-		$query = getPost("faq-search-query");
+		//var_dump($_GET['faq-search-query']); die();
+		//$query = getPost("faq-search-query");
+		$query=$_GET['faq-search-query'];
 		$keywords = $this->extractCommonWords($query);
 		$results = getModel('faq')->searchFaq($keywords);
-		$data['search_results'] = $results;
-
+		if(!empty($query))
+		{ 		
+		$data['search_results'] = $results;		
+		}
+		else
+		{ 
+			loadHelper('url');
+			//$data['nopostdata']=1;
+			redirect('faq');
+		}
 		$faqs = getModel('faq')->getAllFaqs();
 		$data['faqs'] = $faqs;
-
 		$this->view->render('faq/faqs.phtml',$data);
 	}
 
