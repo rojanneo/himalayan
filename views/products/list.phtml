@@ -25,10 +25,16 @@
 			<?php if(isset($view_products)):?>
 				<div class="rightBody">
 					<div class="product-list-header">
-						<span class="left" >For Dogs Under</span><span class="right"><a href="<?php echo URL.'products/categories'?>">back to creations</a></span>
+					<?php $dog_size = getModel('products')->getProductAttributeByCode($view_products[0]['pid'], 'dog_size'); 
+					if($dog_size!='All'):?>
+						<span class="left" >For Dogs Under</span>
+					<?php else:?>
+						<span class="left" >For All Dog Sizes</span>
+					<?php endif;?>
+					<span class="right"><a href="<?php echo URL.'products/categories'?>">back to creations</a></span>
 					</div>
 					<?php if(count($view_products) > 1):?>
-						<div class="categoryContainer <?php echo (strtolower($view_category['category_name']) == 'yaky yams')?'yakyyam':null?>">
+						<div class="categoryContainer <?php echo (strtolower($view_category['cat_slug']) == 'yaky-yams')?'yakyyam':null?>">
 							<div class="product-list">
 								<ul class="list">
 									<?php foreach($view_products as $product):?>
@@ -55,6 +61,17 @@
 						<?php endif;?>
 						<div class="products">
 							<ul class="slides">
+								<?php if(strtolower($view_category['cat_slug']) == 'yaky-yams'):?>
+									<li class="no-color">
+										<div class="product">
+											<?php $cat_image = getModel('category')->getCategoryBySlug('yaky-yams')['category_image'];?>
+											<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=627&h=368'?>"/>
+											<div class="category-detail clearfix">
+											<p class="test"></p>
+											</div>
+										</div>
+									</li>
+								<?php endif;?>
 								<?php foreach($view_products as $product):?>
 									<?php $product_id = $product['pid'];?>
 									<?php $productModel = getModel('products');?>
@@ -173,6 +190,15 @@
 						<?php endif;?>
 						<div class="products">
 							<ul class="slides">
+							<li class="no-color">
+								<div class="product">
+								<?php $cat_image = getModel('category')->getCategoryBySlug('yaky-sticks')['category_image'];?>
+								<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=627&h=368'?>"/>
+								<div class="category-detail clearfix">
+								<p class="test"></p>
+								</div>
+								</div>
+							</li>
 								<?php foreach($view_products as $product):?>
 									<?php $product_id = $product['pid'];?>
 									<?php $productModel = getModel('products');?>
@@ -213,7 +239,6 @@
 					<?php endif;?>
 				</div>
 				<script>
-					$('ul.list li a').first().addClass('active');
 					$('.products .slides li').hide();
 					$('.products .slides li').first().show();
 					$('ul.list li a').click(function(){

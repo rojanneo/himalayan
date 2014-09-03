@@ -73,6 +73,17 @@ class CategoryModel extends Model
 		return $this->connection->Query($sql);
 	}
 
+	public function getCategoryBySlug($slug)
+	{
+		$sql = "SELECT * FROM `categories` WHERE `cat_slug`='$slug'";
+		$cat = $this->connection->Query($sql);
+		if($cat)
+		{
+			return $cat[0];
+		}
+		else return false;
+	}
+
 	public function updatecatval($post_data)
 	{
 		if($post_data) extract($post_data);	
