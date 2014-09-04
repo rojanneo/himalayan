@@ -1,17 +1,40 @@
-<div class="wrapper">
-<div class="half">
-<h1>Our Mission</h1>
-<p>Himalayan Corporation aspires to become the most prominient company in the pet industry while maintainin and building on our reputation for innovative, healthy, and high quality products. to ensure we uphold these standards in each new enterp[rise, we are driven by a set of core values:</p>
-<ul>
-<li>Provide exceptional customer service</li>
-<li>Treat employees with the utmost respect</li>
-<li>Produce and sell products of the highest quality</li>
-<li>Maximize savings, satisfaction and value for our customers</li>
-<li>Fuel growth through customer referrals, Innovation and reputation</li>
-<li>Actively impact the community through our presence and charitable contributions</li>
-</ul>
-<p>Himalayan Corporation embodies a collection of divers pet products with the highest aspirations.</p>
-<h1>Our Vision</h1>
-<p> is to be recognized and respected for producin the healthiest and highest quality pet food and products in teh world.</p>
+<div class="wrapper home-wrapper">
+<div class="leftBody half">
+<?php Widget::render('mission_vision');?>
+<?php $images = array();?>
+<?php foreach (glob("assets/uploads/cms/home/*.*") as $image)
+		{
+			array_push($images, $image);
+		}
+?>
 </div>
-<img src="<?php echo UPLOAD_URL.'cms/homepage-banner.png'?>" alt="homepage-banner" /></div>
+<div class="rightBody">
+<div class="announcements">
+	<div class="annoucement-header product-list-header">
+	<h2>the barking bulletin</h2>
+	</div>
+	<div class="announcement">
+	<?php Widget::render('announcement');?>
+	</div>
+</div>
+</div>
+<div class="home-slider">
+<ul class="slides">
+<li>
+	<img src="<?php echo URL.$image?>"/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<script type="text/javascript">
+	
+      $('.home-slider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        directionNav: false,
+        animationLoop: true,
+        slideshow: true,
+      });
+</script>

@@ -5,9 +5,8 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 <div class="pricing-products">
 	<ul class="slides">
 		<?php foreach($view_products as $product):?>
-			<?php $gallery = getModel('products')->getGalleryImages($product['pid']);?>
-			<?php $image = $gallery[0]['value'];?>
-			<?php array_push($image_array, UPLOAD_URL.$image);?>
+			<?php $base = getModel('products')->getBaseImage($product['pid']);?>
+			<?php array_push($image_array, $base);?>
 			<?php $product_id = $product['pid'];?>
 			<?php $productModel = getModel('products');?>
 		
@@ -15,7 +14,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 				<li>
 				<div class="clearfix pricing-slider">
 				<div class="product">
-					<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image.'&h=300&w=500&a=t'?>"/>
+					<img src="<?php echo URL.'timthumb.php?src='.$base.'&h=300&w=500&a=t'?>"/>
 				</div>
 				<div class="product-info">
 					<p class="product-name"><?php echo $product['pname']?></p>
@@ -84,7 +83,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 				<li>
 				<div class="clearfix pricing-slider">
 						<div class="product">
-					<img src="<?php echo UPLOAD_URL.$image?>"/>
+					<img src="<?php echo $base?>"/>
 				</div>
 				<div class="product-info">
 					<p class="product-name"><?php echo $product['pname']?></p>

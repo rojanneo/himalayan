@@ -92,9 +92,8 @@
 
 									<li class="<?php echo $class?>">
 										<div class="product">
-											<?php $gallery = getModel('products')->getGalleryImages($product_id);?>
-											<?php $image = $gallery[0]['value'];?>
-											<img src = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image.'&w=627&h=368'?>"/>
+											<?php $thumb = getModel('products')->getThumbnailImage($product_id);?>
+											<img src = "<?php echo URL.'timthumb.php?src='.$thumb.'&w=627&h=368'?>"/>
 											<div class="category-detail clearfix">
 												<?php if(!$productModel->isConfigurable($product_id)):?>
 													<?php $ing = $productModel->getProductAttributeByCode($product_id,'ingredients');?>
@@ -158,7 +157,6 @@
 <?php else:?>
 	<div class="wrapper creationDetail">
 		<div class="dog-chews">
-			<!-- TODO MAKE THIS DYNAMIC -->
 			<div class="leftBody">
 				<div class="description">
 					<h3><?php echo $view_category['category_name']?></h3>
@@ -206,11 +204,10 @@
 									<?php foreach($variations as $variation):?>
 										<?php $variation = $productModel->getProduct($variation);?>
 										<?php $class = $variation['psku']?>
-										<?php $gallery = getModel('products')->getGalleryImages($variation['pid']);?>
-										<?php $image = $gallery[0]['value'];?>
+										<?php $thumb = getModel('products')->getThumbnailImage($variation['pid']);?>
 										<li class = "<?php echo $class?>">
 											<div class="product">
-												<img src = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image.'&w=627&h=368'?>"/>
+												<img src = "<?php echo URL.'timthumb.php?src='.$thumb.'&w=627&h=368'?>"/>
 												<div class="category-detail clearfix">
 													<?php $ing = $productModel->getProductAttributeByCode($variation['pid'],'ingredients');?>
 													<?php if($ing):?>

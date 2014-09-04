@@ -178,7 +178,7 @@
 		$('#image_names').val(data+','+val);
 		var str = '<tr><td>';
 		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
-		str += '<img src="'+url+data+'&h=300&w=500"/></td></tr>';
+		str += '<img src="'+url+data+'&h=300&w=500"/></br><input type="radio" name="radiobasval" value="'+data+'"/>base</br><input type="radio" name="radiothumval" value="'+data+'"/>Thumnail Image</br></td></tr>';
 		$('tbody.gallery-table').last().append(str);
 		
 	},
@@ -381,7 +381,10 @@ $("#mulitplefileuploader").uploadFile(settings);
 				<td><img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image['value'].'&h=300&w=500&a=t'?>"/></td>
 					<!-- <td><input type="radio" name="base_image" <?php echo ($image['is_base_image'])?'class="checked"':null?>/></td>
 					<td><input type="radio" name="thumbnail" <?php echo ($image['is_thumbnail_image'])?'class="checked"':null?>/></td> -->
-					<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="<?php echo $image['gid']?>">Remove Image</a></td>
+					<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="<?php echo $image['gid']?>">Remove Image</a>
+		<input type="radio" name="radiobasval"  value="<?php echo $image['value']; ?>"<?php if($image['is_base_image']==1){?> checked<?php }?> />base</br>
+					<input type="radio" name="radiothumval" value="<?php echo $image['value']; ?>"<?php if($image['is_thumbnail_image']==1){?> checked<?php }?>/>Thumnail Image</br>
+					</td>
 			</tr>
 				<?php endforeach;?>
 			<?php endif;?>
@@ -410,7 +413,7 @@ $("#mulitplefileuploader").uploadFile(settings);
 		$('#image_names').val(data+','+val);
 		var str = '<tr><td>';
 		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
-		str += '<img src="'+url+data+'&h=300&w=500"/></td></tr>';
+		str += '<img src="'+url+data+'&h=300&w=500"/></br><input type="radio" name="radiobasval" value="'+data+'"/>base</br><input type="radio" name="radiothumval" value="'+data+'"/>Thumnail Image</br></td></tr>';
 		$('tbody.gallery-table').last().append(str);		
 		
 	},
@@ -592,7 +595,15 @@ $('.edit-form form').submit(function(){
 						</script>
 						<div class="images-tab tab-content" style="display:none">
 							<div class="images-tab tab-content" style="display:none">
-
+<table>
+											<thead>
+												<th>Image</th>
+			<!-- <th>Base Image</th>
+			<th>Thumbnail</th> -->
+		</thead>
+		<tbody class="gallery-table">
+		</tbody>
+		</table>
 	<div id="mulitplefileuploader">Upload</div>
 	<input type="hidden" name="gallery_images" id="image_names"/>
 <script>
@@ -606,12 +617,10 @@ $('.edit-form form').submit(function(){
 	{
 		var val = $('#image_names').val();
 		$('#image_names').val(data+','+val);
-		var rel =<?php echo $image['gid']?>;
-		var str = '</tr><tr><td>';
+		var str = '<tr><td>';
 		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
-		str += '<img src="'+url+data+'&h=300&w=500"/></td>';
-		str += '<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="'+rel+'">Remove Image</a></td></tr>';
-		$('tbody.gallery-table').last().append(str);		
+		str += '<img src="'+url+data+'&h=300&w=500"/><input type="radio" name="radiobasval" value="'+data+'"/>Base<input type="radio" name="radiothumval" value="'+data+'"/>Thumnail Image</td></tr>';
+		$('tbody.gallery-table').last().append(str);
 		
 	},
 	onError: function(files,status,errMsg)
@@ -767,6 +776,8 @@ $("#mulitplefileuploader").uploadFile(settings);
 					<!-- <td><input type="radio" name="base_image" <?php echo ($image['is_base_image'])?'class="checked"':null?>/></td>
 					<td><input type="radio" name="thumbnail" <?php echo ($image['is_thumbnail_image'])?'class="checked"':null?>/></td> -->
 					<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="<?php echo $image['gid']?>">Remove Image</a>
+					<input type="radio" name="radiobasval"  value="<?php echo $image['value']; ?>"<?php if($image['is_base_image']==1){?> checked<?php }?> />base</br>
+					<input type="radio" name="radiothumval" value="<?php echo $image['value']; ?>"<?php if($image['is_thumbnail_image']==1){?> checked<?php }?>/>Thumnail Image</br>
 					</tr>
 				<?php endforeach;?>
 			<?php endif;?>
@@ -799,7 +810,7 @@ $("#mulitplefileuploader").uploadFile(settings);
 		var rel =<?php echo $image['gid']?>;
 		var str = '</tr><tr><td>';
 		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
-		str += '<img src="'+url+data+'&h=300&w=500"/></td>';
+		str += '<img src="'+url+data+'&h=300&w=500"/></br><input type="radio" name="radiobasval" value="'+data+'"/>base</br><input type="radio" name="radiothumval" value="'+data+'"/>Thumnail Image</br></td>';
 		str += '<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="'+rel+'">Remove Image</a></td></tr>';
 		$('tbody.gallery-table').last().append(str);		
 		
