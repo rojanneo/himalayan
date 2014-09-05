@@ -8,19 +8,19 @@
                     <div class="contactForm">
                         <form method = "post" action = "<?php echo URL.'contacts/messagePost'?>">
                             <fieldset>
-                                <label for ="sender_name">name</label>
+                                <label for ="sender_name"><b>name</b></label>
 								<input type="text" class="input-box required text-validation" name="sender_name"/>
                             </fieldset>
                             <fieldset>
-                               <label for = "sender_email">email</label>
+                               <label for = "sender_email"><b>email</b></label>
 								<input type="text" class="input-box required email-validation" name="sender_email"/>
                             </fieldset>
                             <fieldset>
-                                <label for ="message_nature">nature of inquiry</label>
+                                <label for ="message_nature"><b>nature of inquiry</b></label>
 								<input type="text" class="input-box required text-validation" name="message_nature"/>
                             </fieldset>
                             <fieldset>
-                               <label for ="message">message</label>
+                               <label for ="message"><b>message</b></label>
 								<textarea name="message" class="input-box required text-validation" rows="10" cols="60"></textarea>
 								
                             </fieldset>
@@ -41,8 +41,10 @@
                     <div class="contactDetail">
                         <a href="<?php echo URL.'faq'?>" class="btn btn-blue btn-large">our FAQs</a>
                         <h1><?php echo getModel('configuration')->getConfigValue('company_name');?></h1>
+                        <div class="middlepart">
                         <p><?php echo getModel('configuration')->getConfigValue('address_1');?></p>
                         <p><?php echo getModel('configuration')->getConfigValue('address_2');?>, <?php echo getModel('configuration')->getConfigValue('state');?> <?php echo getModel('configuration')->getConfigValue('zip');?></p>
+                        </div>
                         <div class="bottompart">
                             <p><b class="normal">toll-free :</b> <?php echo getModel('configuration')->getConfigValue('telephone');?></p>
                             <p style="margin-bottom:20px;"><b class="normal">fax :</b> <?php echo getModel('configuration')->getConfigValue('fax');?></p>

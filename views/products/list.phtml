@@ -18,7 +18,7 @@
 
 				</div>
 				<div class="actions">
-						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">what to do with end pieces</a>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">what to do<br>with end pieces</a>
 					</div>
 			</div>
 
@@ -27,11 +27,11 @@
 					<div class="product-list-header">
 					<?php $dog_size = getModel('products')->getProductAttributeByCode($view_products[0]['pid'], 'dog_size'); 
 					if($dog_size!='All'):?>
-						<span class="left" >For Dogs Under</span>
+						<span class="left" >FOR DOGS<br> UNDER</span>
 					<?php else:?>
-						<span class="left" >For All Dog Sizes</span>
+						<span class="left" >FOR DOGS<br> ALL DOG SIZES</span>
 					<?php endif;?>
-					<span class="right"><a href="<?php echo URL.'products/categories'?>">back to creations</a></span>
+					<span class="right"><a href="<?php echo URL.'products/categories'?>">&lt;back to creations</a></span>
 					</div>
 					<?php if(count($view_products) > 1):?>
 						<div class="categoryContainer <?php echo (strtolower($view_category['cat_slug']) == 'yaky-yams')?'yakyyam':null?>">
@@ -98,21 +98,21 @@
 												<?php if(!$productModel->isConfigurable($product_id)):?>
 													<?php $ing = $productModel->getProductAttributeByCode($product_id,'ingredients');?>
 													<?php if($ing):?>
-														<p class="test">Ingredients:<span><?php echo $ing?></span></p>
+														<p class="test">Ingredients :<span><?php echo $ing?></span></p>
 													<?php endif;?>
 													<?php $gua = $productModel->getProductAttributeByCode($product_id,'guarantee');?>
 													<?php if($gua):?>
-														<p class="test">Guaranteed Analysis:<span><?php echo $gua?></span></p>
+														<p class="test">Guaranteed Analysis :<span><?php echo $gua?></span></p>
 													<?php endif;?>
 												<?php else:?>
 													<?php $variations = $productModel->getVariations($product_id);?>
 													<?php $ing = $productModel->getProductAttributeByCode($variations[0],'ingredients');?>
 													<?php if($ing):?>
-														<p class="test">Ingredients:<span><?php echo $ing?></span></p>
+														<p class="test">Ingredients :<span><?php echo $ing?></span></p>
 													<?php endif;?>
 													<?php $gua = $productModel->getProductAttributeByCode($variations[0],'guarantee');?>
 													<?php if($gua):?>
-														<p class="test">Guaranteed Analysis:<span><?php echo $gua?></span></p>
+														<p class="test">Guaranteed Analysis :<span><?php echo $gua?></span></p>
 													<?php endif;?>
 												<?php endif;?>
 											</div>
@@ -166,7 +166,7 @@
 			<?php if(isset($view_products)):?>
 				<div class="rightBody">
 					<div class="product-list-header">
-						<span class="left">For Dogs Under</span><span class="right"><a href="<?php echo URL.'products/categories'?>">back to creations</a></span>
+						<span class="left">FOR DOGS<br> UNDER</span><span class="right"><a href="<?php echo URL.'products/categories'?>">&lt;back to creations</a></span>
 					</div>
 					<?php if(count($view_products) > 0):?>
 						<div class="categoryContainer yakystick">

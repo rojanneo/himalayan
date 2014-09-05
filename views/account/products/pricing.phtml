@@ -2,6 +2,9 @@
 <?php $session = Session::getCurrentSession();
 $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 <?php $image_array = array();?>
+<script type="text/javascript">
+	$('.account-menu ul li a.pricing').addClass('active');
+</script>
 <div class="pricing-products">
 	<ul class="slides">
 		<?php foreach($view_products as $product):?>

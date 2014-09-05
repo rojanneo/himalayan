@@ -10,23 +10,28 @@
  //if(isset($view_loginchecks)){ echo $view_loginchecks; }
 
 ?>
+<script>
+ $('li.signin').addClass('active');
+</script>
 <div class="wrapper">
-<a href="<?php echo URL.'login/register'?>" class="btn btn-blue">Sign Up</a>
-<?php Session::showErrorMessages();?>
+<div class="loginform">
+<a href="<?php echo URL.'login/register'?>" class="btn btn-blue">join</a>
 <div class="contactForm login-form">
+<?php Session::showErrorMessages();?>
 <form method = "post" action = "<?php echo URL.'login/loginto'?>">
 <fieldset>		
-<label for="username">Email</label>
+<label for="username"><b>email</b></label>
 <input type="text" name="username" size="40">
 </fieldset>
 <fieldset>
-<label for="password">Password</label>
+<label for="password"><b>password</b></label>
 <input type="password" name="password" size="40">	
 </fieldset> 
 <fieldset class="align-right">
- <button class="btn btn-blue" onclick="$('.login-form form').submit();">Signin</button>
+ <button class="btn btn-blue" onclick="$('.login-form form').submit();">sign in</button>
 </fieldset>
  </form>
+ </div>
  </div>
 </div>
 

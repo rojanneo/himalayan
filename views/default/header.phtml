@@ -3,9 +3,9 @@
 <div class="floatingMenu">
         <ul class="nav">
         <li class="testimonials"><a href="<?php echo URL.'testimonials'?>">Testimonials</a></li>
-        <li class="photogallery"><a href="<?php echo URL.'photogallery'?>">Photogallery</a></li>
+        <li class="photogallery"><a href="<?php echo URL.'photogallery'?>">Photo gallery</a></li>
         <?php if(!Session::isLoggedIn()):?>
-            <li class="signin"><a href="<?php echo URL.'login'?>">Signin</a></li>
+            <li class="signin"><a href="<?php echo URL.'login'?>">Sign in</a></li>
         <?php else:?>
             <li class="signin"><a href="<?php echo URL.'account'?>">CPanel</a></li>
         <?php endif;?>

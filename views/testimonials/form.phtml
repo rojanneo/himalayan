@@ -1,26 +1,30 @@
 <?php require_once('system/recaptchalib.php');
 $error = null;
 ?>
+
+<script>
+ $('li.testimonials').addClass('active');
+</script>
 <div class="wrapper">
 <form method = "post" action ="<?php echo URL.'testimonials/testimonialPost'?>">
 <div class="testimonials-form contactForm">
 	<div class="half">
 		<input type="hidden" value="<?php echo date('Y-m-d H:i:s');?>" name="t_dt"/>
 		<fieldset>
-			<label for = "t_name">Name</label>
+			<label for = "t_name"><b>Name</b></label>
 			<input type="text" name="t_name" class="input-box required"/>
 		</fieldset>
 		<fieldset>
-			<label for = "t_email">Email</label>
+			<label for = "t_email"><b>Email</b></label>
 			<input type="text" name="t_email" class="input-box required email-validation"/>
 		</fieldset>
 		<fieldset>
-			<label for = "t_add">city & state</label>
+			<label for = "t_add"><b>city & state</b></label>
 			<input type="text" name="t_add" class="input-box required"/>
 		</fieldset>
 		<fieldset>
-			<label for = "t_comment">testimonial</label>
-			<input type="text" name="t_comment" class="input-box required"/>
+			<label for = "t_comment" style="margin-top:10px;"><b>testimonial</b></label>
+			<textarea name="t_comment" class="input-box required"></textarea>
 		</fieldset>
 	</div>
 	<div class="half">
@@ -30,6 +34,7 @@ $error = null;
 </div>
 <div class="testimonial-otherhalf">
 	<a href="<?php echo URL.'testimonials/show'?>" class="btn btn-blue">See what people are saying about our creations</a>
+	<div class="testimonial-message"><p>We never delete any comments made by our customers on our website. We only delete those that we believe are spam, such as ones with unverifiable geographical location or that were submitted by automated processes.</p></div>
 	<div class="captcha">
 	<?php echo recaptcha_get_html(CAPTCHA_PUBLIC_KEY, $error);?>
 	</div>
