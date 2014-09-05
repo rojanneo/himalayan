@@ -17,13 +17,15 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 					<img src="<?php echo URL.'timthumb.php?src='.$base.'&h=300&w=500&a=t'?>"/>
 				</div>
 				<div class="product-info">
+				<div class="productTitle">
 					<p class="product-name"><?php echo $product['pname']?></p>
-						<div class="desc">
-							<?php $dog_size = $productModel->getProductAttributeByCode($product_id,'dog_size');?>
+					<?php $dog_size = $productModel->getProductAttributeByCode($product_id,'dog_size');?>
 							<?php $caption = $productModel->getProductAttributeByCode($product_id,'caption_text');?>
 							<?php if($dog_size):?>
 								<p>For Dogs Under <?php echo $dog_size?></p>
 							<?php endif;?>
+				</div>
+						<div class="desc">			
 							<?php $min_pieces = $productModel->getProductAttributeByCode($product_id,'min_pieces');
 							$max_pieces = $productModel->getProductAttributeByCode($product_id, 'max_pieces');?>
 							<?php $min_cal = $productModel->getProductAttributeByCode($product_id, 'min_cal'); 
@@ -60,16 +62,15 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 							<?php endif;?>
 						<?php endif;?></p>
 					<?php endif;?>
-					<?php if($role != 'customer'):?>
+				</div>
+				<div class="productPricing">
+									<?php if($role != 'customer'):?>
 						<?php $price = $productModel->getProductAttributeByCode($product_id,'price');?>
 						<?php if($price):?>
 							<?php echo $price;?>
 						<?php endif;?>
-<!-- 						<p>Wholesale price: <span>$5.15</span></p>
-						<p>Discounted price: <span>$5.00</span></p>
-						<p>MSRP price: <span>$9.99</span></p>
- -->
  					<?php endif;?>
+
 				</div>
 				</div>
 				</div>
@@ -86,11 +87,13 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 					<img src="<?php echo $base?>"/>
 				</div>
 				<div class="product-info">
+				<div class="productTitle">
 					<p class="product-name"><?php echo $product['pname']?></p>
-						<div class="desc">
-
+				</div>
+						
 				<?php $variations = $productModel->getVariations($product_id);?>
 				<?php foreach($variations as $variation_id):?>
+					<div class="desc">
 					<?php $caption = $productModel->getProductAttributeByCode($variation_id,'caption_text');?>
 					<?php $variation = getModel('products')->getProduct($variation_id);?>
 					<?php $box_size_crunch = $productModel->getProductAttributeByCode($variation_id, 'box_size_crunch');?>
@@ -140,14 +143,17 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 							<?php endif;?>
 						<?php endif;?>
 					</p>
-					<?php if($role != 'customer'):?>
+				</div>
+				<div class="productPricing">
+				<?php if($role != 'customer'):?>
 						<?php $price = $productModel->getProductAttributeByCode($variation_id,'price');?>
 						<?php if($price):?>
 							<?php echo $price;?>
 						<?php endif;?>
 					<?php endif;?>
-				<?php endforeach;?>
 				</div>
+					
+				<?php endforeach;?>
 				</div>
 				</div>
 				<?php if($caption):?>
@@ -480,48 +486,9 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 	<ul class="slides">
 		<?php foreach($image_array as $image):?>
 			<li>
-				<img src="<?php echo $image?>" width="100" height="100"/>
+				<img src="<?php echo URL.'timthumb.php?src='.$image.'&h=85&w=120'?>"/>
 			</li>
 		<?php endforeach;?>
-<!-- 	<li>
-	<img src="<?php echo ASSET_URL.'images/bag_blue.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/bag_gray.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/bag_green.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/bag_red.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/bag_yellow.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/seasoning.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/yaky_crunch.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/yaky_nuggets.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/yPuff2.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/yaky_stick_6_box.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/fruity_fruit_box.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/lotsa_chicken_box.jpg'?>" width="100" height="100"/>
-	</li>
-	<li>
-	<img src="<?php echo ASSET_URL.'images/very_veggie_box.jpg'?>" width="100" height="100"/>
-</li> -->
 </ul>
 </div>
 
@@ -529,18 +496,6 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 
 <script>
 	$(document).ready(function(){
-// $('.products-thumbs').flexslider({
-// 	animation:"slide",
-// 	asNavFor:".pricing-products",
-// 	itemWidth:100,
-// });
-
-// $('.products-thumbs').flexslider({
-//     animation: "slide",
-//     controlNav:true,
-//     directionNav:true,
-//   });
-
 	$('.products-thumbs').flexslider({
 		animation: "slide",
 		controlNav: false,

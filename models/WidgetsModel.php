@@ -38,7 +38,7 @@ class WidgetsModel extends Model
 		}
 		else
 		{
-			$sql="INSERT INTO `widgets`(`widget_name`, `widget_identifier`, `widget_title`, `widget_content`) VALUES ('".$wname."','".$widentifier."','".$wtitle."','".$wcontent ."')";
+			$sql="INSERT INTO `widgets`(`widget_name`, `widget_identifier`, `widget_title`, `widget_content`) VALUES ('".$wname."','".$widentifier."','".$wtitle."','".mysql_escape_string($wcontent) ."')";
 			return $this->connection->InsertQuery($sql);
 		}	
 			
@@ -48,7 +48,7 @@ class WidgetsModel extends Model
 	{
 		$now=date('Y-m-d H:i:s'); 
 		if($post_data) extract($post_data);	
-		$sql="UPDATE `widgets` SET `widget_name`='".$wname."',`widget_identifier`='".$widentifier."',`widget_title`='".$wtitle."',`widget_content`='".$wcontent."',`widget_revised`='".$now."' WHERE `widget_id`='".$w_id."'";
+		$sql="UPDATE `widgets` SET `widget_name`='".$wname."',`widget_identifier`='".$widentifier."',`widget_title`='".$wtitle."',`widget_content`='".mysql_escape_string($wcontent)."',`widget_revised`='".$now."' WHERE `widget_id`='".$w_id."'";
 		return $this->connection->UpdateQuery($sql);
 	}
 

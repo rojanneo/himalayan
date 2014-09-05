@@ -35,24 +35,26 @@
     <?php } ?>
         
 
+        <!-- TODO MAKE THIS DYNAMIC -->
         <div class="faqInformation">
-<div class="faq-search">
-        <form method="get" action = "<?php echo URL.'faq/search'?>">
-            <fieldset>
-            <input type = "text" class="required input-box" name="faq-search-query" <?php if(isset($_GET['faq-search-query'])){ ?> value="<?php echo $_GET['faq-search-query']; ?>"<?php }?>/>
-            </fieldset>
-            <fieldset>
-            <input type ="submit" value = "Search" class="btn btn-blue" /> 
-            </fieldset>
-        </form>
-   
-    </div>
+            <div class="faq-search">
+                <form method="get" action = "<?php echo URL.'faq/search'?>">
+                    <fieldset>
+                    <input type = "text" class="required input-box" name="faq-search-query" <?php if(isset($_GET['faq-search-query'])){ ?> value="<?php echo $_GET['faq-search-query']; ?>"<?php }?>/>
+                    </fieldset>
+                    <fieldset>
+                    <input type ="submit" value = "Search" class="btn btn-blue" /> 
+                    </fieldset>
+                </form>
+       
+            </div>
 
             <p>As with any dog treat, please supervise your dog(s) when feeding our treats and be cautious to discard when any potential hazard presents itself.</p>
             <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'contacts'; ?>" class="btn btn-blue">back</a>
         </div>
     </div>
     <div class="clearfix"></div>
+     <!-- TODO MAKE THIS DYNAMIC -->
     
 </div>
 

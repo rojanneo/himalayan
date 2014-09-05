@@ -2,35 +2,42 @@
 $error = null;
 ?>
 <div class="wrapper">
-<div class="testimonials-form contactForm">
 <form method = "post" action ="<?php echo URL.'testimonials/testimonialPost'?>">
-<input type="hidden" value="<?php echo date('Y-m-d H:i:s');?>" name="t_dt"/>
-<fieldset>
-	<label for = "t_name">Name</label>
-	<input type="text" name="t_name" class="input-box required"/>
-</fieldset>
-<fieldset>
-	<label for = "t_email">Email</label>
-	<input type="text" name="t_email" class="input-box required email-validation"/>
-</fieldset>
-<fieldset>
-	<label for = "t_add">city & state</label>
-	<input type="text" name="t_add" class="input-box required"/>
-</fieldset>
-<fieldset>
-	<label for = "t_comment">testimonial</label>
-	<input type="text" name="t_comment" class="input-box required"/>
-</fieldset>
-<div class="captcha">
+<div class="testimonials-form contactForm">
+	<div class="half">
+		<input type="hidden" value="<?php echo date('Y-m-d H:i:s');?>" name="t_dt"/>
+		<fieldset>
+			<label for = "t_name">Name</label>
+			<input type="text" name="t_name" class="input-box required"/>
+		</fieldset>
+		<fieldset>
+			<label for = "t_email">Email</label>
+			<input type="text" name="t_email" class="input-box required email-validation"/>
+		</fieldset>
+		<fieldset>
+			<label for = "t_add">city & state</label>
+			<input type="text" name="t_add" class="input-box required"/>
+		</fieldset>
+		<fieldset>
+			<label for = "t_comment">testimonial</label>
+			<input type="text" name="t_comment" class="input-box required"/>
+		</fieldset>
+	</div>
+	<div class="half">
+		
+	</div>
+
+</div>
+<div class="testimonial-otherhalf">
+	<a href="<?php echo URL.'testimonials/show'?>" class="btn btn-blue">See what people are saying about our creations</a>
+	<div class="captcha">
 	<?php echo recaptcha_get_html(CAPTCHA_PUBLIC_KEY, $error);?>
 	</div>
-<fieldset>
-<label></label>
+	<fieldset>
 	<button class="btn btn-blue" onclick="$('.testimonials-form form').submit();">Submit</button>
-</fieldset>
-</form>
-<a href="<?php echo URL.'testimonials/show'?>" class="btn btn-blue">See what people are saying about our creations</a>
+	</fieldset>
 </div>
+</form>
 <script>
 $('.testimonials-form form').submit(function(){
 	return $(this).validate('input-box');

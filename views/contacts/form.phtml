@@ -37,18 +37,21 @@
                             <?php endif;?>
                         </form>
                     </div>
+	                <!-- TODO MAKE THIS DYNAMIC -->
                     <div class="contactDetail">
                         <a href="<?php echo URL.'faq'?>" class="btn btn-blue btn-large">our FAQs</a>
                         <h1><?php echo getModel('configuration')->getConfigValue('company_name');?></h1>
                         <p><?php echo getModel('configuration')->getConfigValue('address_1');?></p>
                         <p><?php echo getModel('configuration')->getConfigValue('address_2');?>, <?php echo getModel('configuration')->getConfigValue('state');?> <?php echo getModel('configuration')->getConfigValue('zip');?></p>
-                        <p>toll-free : <?php echo getModel('configuration')->getConfigValue('telephone');?></p>
-                        <p>fax : <?php echo getModel('configuration')->getConfigValue('fax');?></p>
-                        <p><b>Sales/Orders/Returns</b> : <?php echo getModel('configuration')->getConfigValue('sales_email');?></p>
-                        <p><b>Vendors</b> : <?php echo getModel('configuration')->getConfigValue('vendor_email');?></p>
-                        <p><b>Marketing/Donations</b> : <?php echo getModel('configuration')->getConfigValue('marketing_email');?></p>
-                        <p><b>Employment/HR</b> : <?php echo getModel('configuration')->getConfigValue('employment_email');?></p>
-                        <p><b>General Inquiries</b> : <?php echo getModel('configuration')->getConfigValue('general_email');?></p>
+                        <div class="bottompart">
+                            <p><b class="normal">toll-free :</b> <?php echo getModel('configuration')->getConfigValue('telephone');?></p>
+                            <p style="margin-bottom:20px;"><b class="normal">fax :</b> <?php echo getModel('configuration')->getConfigValue('fax');?></p>
+                            <p><b>Sales/Orders/Returns :</b> <?php echo getModel('configuration')->getConfigValue('sales_email');?></p>
+                            <p><b>Vendors :</b> <?php echo getModel('configuration')->getConfigValue('vendor_email');?></p>
+                            <p><b>Marketing/Donations :</b> <?php echo getModel('configuration')->getConfigValue('marketing_email');?></p>
+                            <p><b>Employment/HR :</b> <?php echo getModel('configuration')->getConfigValue('employment_email');?></p>
+                            <p><b>General Inquiries :</b> <?php echo getModel('configuration')->getConfigValue('general_email');?></p>
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix"></div>

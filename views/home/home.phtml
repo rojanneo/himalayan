@@ -2,7 +2,8 @@
 	$('.nav ul li.mission').attr('id','mission-active');
 </script>
 <div class="wrapper home-wrapper">
-<div class="leftBody half">
+<div class="clearfix" style="position:relative;">
+<div class="half">
 <?php Widget::render('mission_vision');?>
 <?php $images = array();?>
 <?php foreach (glob("assets/uploads/cms/home/*.*") as $image)
@@ -11,21 +12,29 @@
 		}
 ?>
 </div>
-<div class="rightBody">
+<div class="half bulletin">
 <div class="announcements">
 	<div class="annoucement-header product-list-header">
 	<h2>the barking bulletin</h2>
 	</div>
-	<div class="announcement">
-	<?php Widget::render('announcement');?>
+	<div class="announcement scroll">
+	<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+        <div class="viewport">
+	        <div class="overview">
+			<?php Widget::render('announcement');?>
+			</div>
+		</div>
 	</div>
+</div>
 </div>
 </div>
 <div class="home-slider">
 <ul class="slides">
+<?php foreach (glob("assets/uploads/cms/home/*.*") as $image):?>
 <li>
 	<img src="<?php echo URL.$image?>"/>
 </li>
+<?php endforeach;?>
 </ul>
 </div>
 
@@ -39,5 +48,11 @@
         directionNav: false,
         animationLoop: true,
         slideshow: true,
+        slideshowSpeed: 3000,
       });
 </script>
+<script type="text/javascript">
+                                $(document).ready(function(){
+                                    $('.scroll').tinyscrollbar();
+                                });
+                            </script>

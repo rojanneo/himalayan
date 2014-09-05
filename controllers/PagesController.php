@@ -19,6 +19,21 @@ class PagesController extends Controller
 		}
 	}
 
+	public function privacyPolicyAction()
+	{
+		$this->view->render('pages/privacy-policy.phtml');
+	}
+
+	public function webusageAction()
+	{
+		$this->view->render('pages/webusage.phtml');		
+	}
+	
+	public function endPiecesAction()
+	{
+		$this->view->render('pages/end-pieces.phtml');
+	}
+
 
 	// public function homeAction()
 	// {

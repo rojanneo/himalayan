@@ -7,6 +7,84 @@
 		</div>
 		<div class="register-retailer-form">
 			<form method = "post" action = "<?php echo URL.'login/registerPost'?>">
+				<div class="half">
+					<fieldset>
+					<label for ="name">Name</label>
+					<input type="text" class="input-box required text-validation" name="mname"/>
+					</fieldset>
+					<fieldset>
+					<label for ="name">Email</label>
+					<input type="text" class="input-box required email-validation" name="memail"/>
+					</fieldset>
+					<fieldset>
+					<label for ="name">Password</label>
+					<input type="password" class="input-box required text-validation" name="mpass"/>
+					</fieldset>
+					<fieldset>
+					<label for ="name">Address</label>
+					<input type="text" class="input-box required text-validation" name="madd"/>
+					</fieldset>
+					<fieldset>
+					<label for ="name">Apt/Ste</label>
+					<input type="text" class="input-box text-validation" name="madd2"/>
+					</fieldset>
+					<fieldset>
+					<label for ="name">City</label>
+					<input type="text" class="input-box required text-validation" name="mcity"/>
+					</fieldset>
+					<fieldset>
+					<label for ="name">State</label>
+					<input type="text" class="input-box required text-validation" name="mstate"/>
+					</fieldset>
+					<fieldset>
+					<label for ="name">Zip</label>
+					<input type="text" class="input-box required text-validation" name="mzip"/>
+					</fieldset>
+				</div>
+				<div class="half">
+					<fieldset>
+					<label for ="name">Phone</label>
+					<input type="text" class="input-box required text-validation" name="mtel"/>
+					</fieldset>
+					<fieldset>
+					<label for ="name">Fax</label>
+					<input type="text" class="input-box required text-validation" name="mfax"/>
+					</fieldset>
+					<fieldset>
+					<label for ="name">Company/store</label>
+					<input type="text" class="input-box required text-validation" name="mcompany"/>
+					</fieldset>
+					<fieldset>
+					<label for ="name">Website</label>
+					<input type="text" class="input-box required text-validation" name="mwebsite"/>
+					</fieldset>
+					<!-- <label for ="name">Website</label>
+					<input type="text" class="input-box required text-validation" name="mein"/>
+					 -->
+					 <fieldset>
+					<label for ="name">EIN(tax ID)</label>
+					<input type="text" class="input-box required text-validation" name="mein"/>
+					</fieldset>
+					<fieldset>
+					<label></label>
+					<input type="hidden" value="retailer" name="mtype"/>
+					<input type="checkbox" class="input-box required" checkboxname="privacy-policy"/><p>I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">privacy policy</a></p>
+					</fieldset>
+					<fieldset>
+					<label></label>
+					<input type="submit" value="Submit" class="btn btn-blue" />
+					</fieldset>
+				</div>
+				
+				
+
+			</form>
+		</div>
+
+
+	<div class="register-consumer-form" style="display:none">
+		<form method = "post" action = "<?php echo URL.'login/registerPost'?>">
+			<div class="half">
 				<fieldset>
 				<label for ="name">Name</label>
 				<input type="text" class="input-box required text-validation" name="mname"/>
@@ -27,6 +105,8 @@
 				<label for ="name">Apt/Ste</label>
 				<input type="text" class="input-box text-validation" name="madd2"/>
 				</fieldset>
+			</div>
+			<div class="half">
 				<fieldset>
 				<label for ="name">City</label>
 				<input type="text" class="input-box required text-validation" name="mcity"/>
@@ -47,95 +127,29 @@
 				<label for ="name">Fax</label>
 				<input type="text" class="input-box required text-validation" name="mfax"/>
 				</fieldset>
-				<fieldset>
+				<!-- <fieldset>
 				<label for ="name">Company/store</label>
 				<input type="text" class="input-box required text-validation" name="mcompany"/>
-				</fieldset>
-				<fieldset>
-				<label for ="name">Website</label>
-				<input type="text" class="input-box required text-validation" name="mwebsite"/>
-				</fieldset>
+				</fieldset> -->
 				<!-- <label for ="name">Website</label>
 				<input type="text" class="input-box required text-validation" name="mein"/>
 				 -->
-				 <fieldset>
+				<!--  <fieldset>
 				<label for ="name">EIN(tax ID)</label>
 				<input type="text" class="input-box required text-validation" name="mein"/>
+				</fieldset> -->
+				<fieldset>
+				<label></label>
+				<input type="hidden" value="customer" name="mtype"/>
+				<input type="checkbox" class="input-box required" checkboxname="privacy-policy"/><p>I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">privacy policy</a></p>
 				</fieldset>
 				<fieldset>
 				<label></label>
-				<input type="hidden" value="retailer" name="mtype"/>
-				<input type="checkbox" class="input-box required" checkboxname="privacy-policy"/><p>I have read the privacy policy</p>
-				</fieldset>
-				<fieldset>
 				<input type="submit" value="Submit" class="btn btn-blue" />
 				</fieldset>
-
-			</form>
-		</div>
-
-
-	<div class="register-consumer-form" style="display:none">
-		<form method = "post" action = "<?php echo URL.'login/registerPost'?>">
-			<fieldset>
-			<label for ="name">Name</label>
-			<input type="text" class="input-box required text-validation" name="mname"/>
-			</fieldset>
-			<fieldset>
-			<label for ="name">Email</label>
-			<input type="text" class="input-box required email-validation" name="memail"/>
-			</fieldset>
-			<fieldset>
-			<label for ="name">Password</label>
-			<input type="password" class="input-box required text-validation" name="mpass"/>
-			</fieldset>
-			<fieldset>
-			<label for ="name">Address</label>
-			<input type="text" class="input-box required text-validation" name="madd"/>
-			</fieldset>
-			<fieldset>
-			<label for ="name">Apt/Ste</label>
-			<input type="text" class="input-box text-validation" name="madd2"/>
-			</fieldset>
-			<fieldset>
-			<label for ="name">City</label>
-			<input type="text" class="input-box required text-validation" name="mcity"/>
-			</fieldset>
-			<fieldset>
-			<label for ="name">State</label>
-			<input type="text" class="input-box required text-validation" name="mstate"/>
-			</fieldset>
-			<fieldset>
-			<label for ="name">Zip</label>
-			<input type="text" class="input-box required text-validation" name="mzip"/>
-			</fieldset>
-			<fieldset>
-			<label for ="name">Phone</label>
-			<input type="text" class="input-box required text-validation" name="mtel"/>
-			</fieldset>
-			<fieldset>
-			<label for ="name">Fax</label>
-			<input type="text" class="input-box required text-validation" name="mfax"/>
-			</fieldset>
-			<!-- <fieldset>
-			<label for ="name">Company/store</label>
-			<input type="text" class="input-box required text-validation" name="mcompany"/>
-			</fieldset> -->
-			<!-- <label for ="name">Website</label>
-			<input type="text" class="input-box required text-validation" name="mein"/>
-			 -->
-			<!--  <fieldset>
-			<label for ="name">EIN(tax ID)</label>
-			<input type="text" class="input-box required text-validation" name="mein"/>
-			</fieldset> -->
-			<fieldset>
-			<label></label>
-			<input type="hidden" value="customer" name="mtype"/>
-			<input type="checkbox" class="input-box required" checkboxname="privacy-policy"/><p>I have read the privacy policy</p>
-			</fieldset>
-			<fieldset>
-			<input type="submit" value="Submit" class="btn btn-blue" />
-			</fieldset>
+			</div>
+			
+			
 		</form>
 
 	</div>

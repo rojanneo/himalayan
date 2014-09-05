@@ -18,7 +18,7 @@
 
 				</div>
 				<div class="actions">
-						<a href="#" class="btn btn-blue">what to do with end pieces</a>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">what to do with end pieces</a>
 					</div>
 			</div>
 
@@ -139,11 +139,11 @@
 							</ul>
 						</div>
 						<script>
-							$('.products .slides li').hide();
-							$('.products .slides li').first().show();
+							$('.products .slides > li').hide();
+							$('.products .slides > li').first().show();
 							$('ul.list li a').click(function(){
 								var class_name = ($(this).parent().attr('class'));
-								$('.products .slides li').hide();
+								$('.products .slides > li').hide();
 								$('.products .slides .'+class_name).show();
 							});
 						</script>
@@ -159,16 +159,16 @@
 		<div class="dog-chews">
 			<div class="leftBody">
 				<div class="description">
-					<h3><?php echo $view_category['category_name']?></h3>
+					<h1><?php echo $view_category['category_name']?></h1>
 					<?php echo $view_category['category_description'];?>
 				</div>
 			</div>
 			<?php if(isset($view_products)):?>
 				<div class="rightBody">
 					<div class="product-list-header">
-						<span class="left">For Dogs Under</span><span class="right"><a href="#">back to creations</a></span>
+						<span class="left">For Dogs Under</span><span class="right"><a href="<?php echo URL.'products/categories'?>">back to creations</a></span>
 					</div>
-					<?php if(count($view_products) > 1):?>
+					<?php if(count($view_products) > 0):?>
 						<div class="categoryContainer yakystick">
 							<div class="product-list">
 								<ul class="list">
@@ -236,13 +236,13 @@
 					<?php endif;?>
 				</div>
 				<script>
-					$('.products .slides li').hide();
-					$('.products .slides li').first().show();
+					$('.products .slides > li').hide();
+					$('.products .slides > li').first().show();
 					$('ul.list li a').click(function(){
 						$('ul.list li a').removeClass('active');
 						var class_name = ($(this).parent().attr('class'));
 						$(this).addClass('active');
-						$('.products .slides li').hide();
+						$('.products .slides > li').hide();
 						$('.products .slides .'+class_name).show();
 					});
 				</script>
@@ -251,8 +251,10 @@
 
 <?php endif;?>
 <?php else:?>
-	<div>
-	<h3>No Products in this category</h3>
+	<div class="wrapper">
+		<div class="noproduct">
+			<h3>No Products in this category</h3>
+		</div>
 	</div>
 <?php endif;?>
 

@@ -2,12 +2,27 @@
 <div class="wrapper">
                 <div class="faq">
                     <div class="faqLeft">
-                        <h1>Frequently asked questions</h1>
-                        <h2><?php echo $view_faq['faq_question'];?></h2>
-                        <p><?php echo $view_faq['faq_answer'];?></p>
-                        <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'faq'; ?>" class="faqback">back to FAQs</a>
-                        <a href="<?php echo URL.'contacts?from='.CurrentURL()?>" class="faqback">Contact Us Regarding This Issue</a>
-                    </div>
+                        
+                            
+                                <h1>Frequently asked questions</h1>
+                                <h2><?php echo $view_faq['faq_question'];?></h2>
+                                <div class="scroll">
+                                <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                                <div class="viewport">
+                                <div class="overview">
+                                <p><?php echo $view_faq['faq_answer'];?></p>
+                                </div>
+                                </div>
+                                <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'faq'; ?>" class="faqback">back to FAQs</a>
+                                <a href="<?php echo URL.'contacts?from='.CurrentURL()?>" class="btn btn-blue">Contact Us Regarding This Issue</a>
+                            </div>
+                            <script type="text/javascript">
+                                $(document).ready(function(){
+                                    $('.scroll').tinyscrollbar();
+                                });
+                            </script>
+                        </div>
+                    
                 </div>
                 <div class="clearfix"></div>
             </div>

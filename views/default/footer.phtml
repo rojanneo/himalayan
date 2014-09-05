@@ -17,7 +17,7 @@
                     <ul>
                         <li><?php echo getModel('configuration')->getConfigValue('telephone');?></li>
                         <li>|</li>
-                        <li class="last"><?php echo getModel('configuration')->getConfigValue('general_email');?></li>
+                        <li class="last"><a href="mailto:<?php echo getModel('configuration')->getConfigValue('general_email');?>" target="_top"><?php echo getModel('configuration')->getConfigValue('general_email');?></a></li>
                     </ul>
                 </div>
             </div>

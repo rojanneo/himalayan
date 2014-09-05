@@ -43,8 +43,8 @@ class TestimonialsController extends Controller
 		$first = ($page-1) * $limit;
 		$testimonials = getModel('testimonials')->getTestimonials($first, $limit);
 		$data['testimonials'] = $testimonials;
-		$count = getModel('testimonials')->getTestimonialsCount()[0];
-		$data['pagination_num'] = ceil($count["COUNT(*)"]/$limit);
+		$count = getModel('testimonials')->getTestimonialsCount();
+		$data['pagination_num'] = ceil($count/$limit);
 		$this->view->render('testimonials/list.phtml',$data);
 	} 
 }

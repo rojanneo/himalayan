@@ -1,0 +1,74 @@
+
+<!-- Name for inputs must be same as the database fields -->
+<?php Session::showErrorMessages();?>
+<?php Session::showSuccessMessages();?>
+<?php loadHelper('inputs');?>
+<div class="wrapper">
+                <div class="contactPage">
+                    <div class="contactForm">
+                        <form method = "post" action = "<?php echo URL.'contacts/messagePost'?>">
+                            <fieldset>
+                                <label for ="sender_name">name</label>
+								<input type="text" class="input-box required text-validation" name="sender_name"/>
+                            </fieldset>
+                            <fieldset>
+                               <label for = "sender_email">email</label>
+								<input type="text" class="input-box required email-validation" name="sender_email"/>
+                            </fieldset>
+                            <fieldset>
+                                <label for ="message_nature">nature of inquiry</label>
+								<input type="text" class="input-box required text-validation" name="message_nature"/>
+                            </fieldset>
+                            <fieldset>
+                               <label for ="message">message</label>
+								<textarea name="message" class="input-box required text-validation" rows="10" cols="60"></textarea>
+								
+                            </fieldset>
+                            <fieldset class="align-right">
+                            	<!-- <input type="submit" value = "Submit" class="submit-button"/> -->
+                                <button class="btn btn-blue" onclick="$('.contactForm form').submit();">submit</button>
+                            </fieldset>
+
+                            <?php if(getParam('from')):?>
+                                <fieldset>
+                                    <label for ="from_url">Related To:</label>
+                                    <input type="text" name="from_url" value="<?php echo getParam('from')?>" readonly/>
+                                </fieldset>
+                            <?php endif;?>
+                        </form>
+                    </div>
+                    <div class="contactDetail">
+                        <a href="<?php echo URL.'faq'?>" class="btn btn-blue btn-large">our FAQs</a>
+                        <h1><?php echo getModel('configuration')->getConfigValue('company_name');?></h1>
+                        <p><?php echo getModel('configuration')->getConfigValue('address_1');?></p>
+                        <p><?php echo getModel('configuration')->getConfigValue('address_2');?>, <?php echo getModel('configuration')->getConfigValue('state');?> <?php echo getModel('configuration')->getConfigValue('zip');?></p>
+                        <p>toll-free : <?php echo getModel('configuration')->getConfigValue('telephone');?></p>
+                        <p>fax : <?php echo getModel('configuration')->getConfigValue('fax');?></p>
+                        <p><b>Sales/Orders/Returns</b> : <?php echo getModel('configuration')->getConfigValue('sales_email');?></p>
+                        <p><b>Vendors</b> : <?php echo getModel('configuration')->getConfigValue('vendor_email');?></p>
+                        <p><b>Marketing/Donations</b> : <?php echo getModel('configuration')->getConfigValue('marketing_email');?></p>
+                        <p><b>Employment/HR</b> : <?php echo getModel('configuration')->getConfigValue('employment_email');?></p>
+                        <p><b>General Inquiries</b> : <?php echo getModel('configuration')->getConfigValue('general_email');?></p>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+<!-- <div class="contact-form">
+	<form method = "post" action = "<?php echo URL.'contacts/messagePost'?>">
+		<label for ="sender_name">Name:</label>
+		<input type="text" class="input-box required text-validation" name="sender_name"/>
+		<label for = "sender_email">Email:</label>
+		<input type="text" class="input-box required email-validation" name="sender_email"/>
+		<label for ="message_nature">Nature</label>
+		<input type="text" class="input-box required number-validation" name="message_nature"/>
+		<label for ="message">Nature</label>
+		<textarea name="message" class="input-box required text-validation" rows="10" cols="60"></textarea>
+		<input type="submit" value = "Submit" class="submit-button"/>
+	</form>
+</div> -->
+<script>
+$('.contactForm form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>
