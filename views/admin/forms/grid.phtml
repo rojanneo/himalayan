@@ -1,0 +1,31 @@
+<div class="page-wrapper">
+<div class="actions">
+<a class="button" href="<?php echo ADMIN_URL.'form/add'?>">Add New Form</a>
+</div>
+<?php if(isset($view_forms)):?>
+<table class="grid">
+	<thead>
+		<th>Form ID</th>
+		<th>Form Name</th>
+		<th width="12.5%">Actions</th>
+	</thead>
+	<tbody>
+		<?php foreach($view_forms as $form):?>
+			<tr>
+				<td><a href="<?php echo ADMIN_URL.'form/edit/'.$form['form_id']?>"><?php echo $form['form_id']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'form/edit/'.$form['form_id']?>"><?php echo $form['form_name']?></a></td>
+				<td><a class="button" href="<?php echo ADMIN_URL.'form/delete/'.$form['form_id']?>">Delete</a></td>
+			</tr>
+		<?php endforeach;?>
+	</tbody>
+</table>
+<div class="pagination-bottom">
+<?php
+$page = getParam('p');
+if(!$page) $page = 1;
+loadHelper('pagination');
+showPagination($page, $view_pagination_num, 'admin/form/index');
+?>
+</div>
+<?php endif;?>
+</div>

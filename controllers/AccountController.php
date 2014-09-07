@@ -19,7 +19,7 @@ class AccountController extends Controller
 
 	public function formsAction()
 	{
-		$forms = getModel('account')->getAllForms();
+		$forms = getModel('form')->getAllForms();
 		$data['forms'] = $forms;
 
 		$this->view->render('account/forms.phtml',$data);

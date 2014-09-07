@@ -7,11 +7,11 @@ class AccountModel extends Model
 		parent::__construct();
 	}
 
-	public function getAllForms()
-	{
-		$query = "SELECT * FROM forms";
-		return $this->connection->Query($query);
-	}
+	// public function getAllForms()
+	// {
+	// 	$query = "SELECT * FROM forms";
+	// 	return $this->connection->Query($query);
+	// }
 
 
 }

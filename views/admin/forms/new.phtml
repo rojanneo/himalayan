@@ -1,0 +1,100 @@
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<?php if(!isset($view_form)):?>
+			<h3>Add New Form</h3>
+		<?php else:?>
+		<h3>Edit Form</h3>
+	<?php endif;?>
+</div>
+
+	<?php if(!isset($view_form)):?>
+	<div class="form">
+	<form method="post" action="<?php echo ADMIN_URL.'form/addpost'?>" enctype="multipart/form-data">
+		<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for = "form_name">Form Name</label>
+				</div>
+				<div class="input">
+					<input name="form_name" class="input-box required" type="text"/>
+				</div></li>
+				<li class="field">
+					<div class="input-title">
+						<label for = "form_description">Form Description</label>
+					</div>
+					<div class="input">
+						<textarea id='form_description' class="input-box required" name="form_description" ></textarea>
+					</div></li>
+				<li class="field">
+					<div class="input-title">
+						<label for = "form">Upload Form</label>
+					</div>
+					<div class="input">
+						<input type="file" name="form"/>
+					</div></li>
+					<li class="field">
+						<div class="input">
+							<input class="button" type="submit" value="save"/>
+						</div></li>
+					</li>
+					</form>
+				</div>
+			<?php else: ?>
+				<div class="form">
+				<form method="post" action="<?php echo ADMIN_URL.'form/editpost'?>" enctype="multipart/form-data">
+				<input type="hidden" name="form_id" value="<?php echo $view_form['form_id']?>"/>
+		<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for = "form_name">Form Name</label>
+				</div>
+				<div class="input">
+					<input name="form_name" class="input-box required" type="text" value="<?php echo $view_form['form_name']?>"/>
+				</div></li>
+				<li class="field">
+					<div class="input-title">
+						<label for = "form_description">Form Description</label>
+					</div>
+					<div class="input">
+						<textarea id='form_description' class="input-box required" name="form_description"><?php echo $view_form['form_description']?></textarea>
+					</div></li>
+					<li class="field">
+					<div class="input-title">
+						<label>Current Form:</label>
+					</div>
+					<div class="input">
+						<a href="<?php echo UPLOADS_URL.$view_form['form_file']?>"><?php echo $view_form['form_file']?></a>
+					</div>
+					</li>
+				<li class="field">
+					<div class="input-title">
+						<label for = "form">Upload Form</label>
+					</div>
+					<div class="input">
+						<input type="file" name="form"/>
+					</div></li>
+					<li class="field">
+						<div class="input">
+							<input class="button" type="submit" value="save"/>
+						</div></li>
+					</li>
+					</form>
+				</div>
+			<?php endif;?>
+				</div>
+			</div>
+
+					<script>
+					$('form').submit(function(){
+						return $(this).validate('input-box');
+					});
+					</script>
