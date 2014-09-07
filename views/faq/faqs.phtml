@@ -48,8 +48,8 @@
                 </form>
        
             </div>
-
-            <p>As with any dog treat, please supervise your dog(s) when feeding our treats and be cautious to discard when any potential hazard presents itself.</p>
+            <div class="extra"></div>
+            <p style="color:red">As with any dog treat, please supervise your dog(s) when feeding our treats and be cautious to discard when any potential hazard presents itself.</p>
             <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'contacts'; ?>" class="btn btn-blue">back</a>
         </div>
     </div>
@@ -64,3 +64,9 @@ $('.faq-search form').submit(function(){
 });
 </script>
 
+            <script>
+            var h1 = $('.search-results').height();
+            if(h1>470){
+                $('.extra').height(h1-532);
+            }
+            </script>

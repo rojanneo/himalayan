@@ -24,6 +24,8 @@ class FaqModel extends Model
 	public function addFaq($post_data)
 	{
 		if(isset($post_data)) extract($post_data);
+		$faq_question = mysql_escape_string($faq_question);
+		$faq_answer = mysql_escape_string($faq_answer);
 		$query = "INSERT INTO `faq`(`faq_question`, `faq_answer`) VALUES ('$faq_question','$faq_answer')";
 		return $this->connection->InsertQuery($query);
 	}
@@ -31,6 +33,8 @@ class FaqModel extends Model
 	public function updateFaq($post_data)
 	{
 		if(isset($post_data)) extract($post_data);
+		$faq_question = mysql_escape_string($faq_question);
+		$faq_answer = mysql_escape_string($faq_answer);
 		$query = "UPDATE `faq` SET `faq_question`='$faq_question',`faq_answer`='$faq_answer' WHERE `faq_id` = $faq_id";
 		return $this->connection->UpdateQuery($query);
 	}
