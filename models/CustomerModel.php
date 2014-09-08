@@ -83,7 +83,7 @@ class CustomerModel extends Model
 			case 'authorized':
 				$sql = "SELECT * FROM members, retailers WHERE members.mid = retailers.rid AND retailers.rauth LIKE '%pur%' LIMIT $first, $limit";
 				break;
-			case 'not-authorized':
+			case 'notauthorized':
 				$sql = "SELECT * FROM members, retailers WHERE members.mid = retailers.rid AND retailers.rauth NOT LIKE '%pur%' LIMIT $first, $limit";
 				break;
 			case 'uncofirmed':
@@ -185,27 +185,46 @@ class CustomerModel extends Model
 		return false;
 	}
 
-	public function allow_disallow_purchase($id)
+	public function disallowPurchase($id)
 	{
 		$sql = "SELECT * FROM retailers WHERE rid = $id";
 		$retailer = $this->connection->Query($sql);
 		if($retailer)
 		{
-			if($retailer[0]['rauth'] == 'pur')
-			{
 				$sql1 = "UPDATE retailers SET rauth = '' WHERE rid = $id";
 				$rshdc = 0;
-			}
-			else
-			{
-				$sql1 = "UPDATE retailers SET rauth = 'pur' WHERE rid = $id";
-				$rshdc = 1;
-			}
-			$sql2 = "UPDATE retstores SET rshdc = '$rshdc' WHERE rid = $id";
-			$result1 = $this->connection->UpdateQuery($sql1);
-			$result2 = $this->connection->UpdateQuery($sql2);
+				$sql2 = "UPDATE retstores SET rshdc = '$rshdc' WHERE rid = $id";
+				$result1 = $this->connection->UpdateQuery($sql1);
+				$result2 = $this->connection->UpdateQuery($sql2);
 
 			return $result1 and $result2;
+		}
+		return false;
+	}
+
+	public function allowPurchase($id)
+	{
+		$sql = "SELECT * FROM retailers,members WHERE members.mid=retailers.rid AND rid = $id";
+		$retailer = $this->connection->Query($sql);
+		$retailer = $retailer[0];
+		if($retailer)
+		{
+				$sql1 = "UPDATE retailers SET rauth = 'pur' WHERE rid = $id";
+				$rshdc = 1;
+				$sql2 = "UPDATE retstores SET rshdc = '$rshdc' WHERE rid = $id";
+				$result1 = $this->connection->UpdateQuery($sql1);
+				$result2 = $this->connection->UpdateQuery($sql2);
+
+				$sql = "SELECT * FROM retstores WHERE rid = $id";
+				$retstores = $this->connection->Query($sql);
+				if(count($retstores)<=0)
+				{
+					$sql = "INSERT INTO `retstores`(`rid`, `rshdc`, `rsnm`, `rsadd`, `rsadd2`, `rscity`, `rsstate`, `rszip`, `rstel`, `rsfax`, `rswebsite`, `rsemail`,`rsdes`) 
+					VALUES (".$id.",'1','".$retailer['rcompany']."','".$retailer['madd']."','".$retailer['madd2']."','".$retailer['mcity']."','".$retailer['mstate']."',".$retailer['mzip'].",".$retailer['mtel'].",".$retailer['mfax'].",'".$retailer['rwebsite']."','".$retailer['memail']."','')";
+					$result3 = $this->connection->InsertQuery($sql);
+				}
+
+			return $result1 and $result2 and $result3;
 		}
 		return false;
 	}
@@ -227,5 +246,78 @@ class CustomerModel extends Model
 			return $this->connection->UpdateQuery($sql);
 		}
 		return false;
+	}
+
+	public function addNewRetailer($post_data)
+	{
+		if(isset($post_data)) extract($post_data);
+		$mdate = date('Y-m-d');
+		$mtype = "retailer";
+		if(!isset($mcompany)) $mcompany='';
+		if(!isset($mein)) $mein = '';
+		if(!isset($rauth)) $rauth = '';
+		$mpass = 'dog123';
+		$query = "INSERT INTO members SET mname = '".mysql_real_escape_string($mname)."', memail = '".mysql_real_escape_string($memail)."',
+		mpass = '".mysql_real_escape_string(md5($mpass))."', madd = '".mysql_real_escape_string($madd)."', madd2 = '".mysql_real_escape_string($madd2)."',
+	    mcity = '".mysql_real_escape_string($mcity)."', mstate = '".mysql_real_escape_string($mstate)."', mzip = '".mysql_real_escape_string($mzip)."',
+	    mtel = '".mysql_real_escape_string($mtel)."', mfax = '".mysql_real_escape_string($mfax)."', mcompany = '".mysql_real_escape_string($mcompany)."',
+	    mein = '".mysql_real_escape_string($mein)."', mdate = '".mysql_real_escape_string($mdate)."', mtype = '".mysql_real_escape_string($mtype)."',
+	    mdes = '', mlist = '1', mconfirm = '1'";
+
+	   if($this->connection->InsertQuery($query))
+	   {
+	   		
+	   			$insert_id = $this->connection->GetInsertID();
+	   			$query = "INSERT INTO `retailers`(`rid`, `rcompany`, `rein`, `rwebsite`, `retailerSellOnline`, 
+	   				`regtype`, `rqual`, `rterm`, `rship`, `rshipqual`, `rauth`, `rinformed`) 
+	   			VALUES (".$insert_id.",'".mysql_real_escape_string($mcompany)."','".mysql_real_escape_string($mein)."','".mysql_real_escape_string($mwebsite)."',
+	   				'','manual','','','0','0','".mysql_real_escape_string($rauth)."','0')";
+				$query2 = "INSERT INTO `member_mtype`(`member_mtype`, `member_id`, `membertype_id`) VALUES ('',".$insert_id.",3)";
+				return $this->connection->InsertQuery($query) && $this->connection->InsertQuery($query2);
+	   		
+	   }
+	   else 
+	   {
+	   	return false;
+	   }
+	}
+
+	public function getRetailer($id)
+	{
+		$sql = "SELECT * FROM retailers, members WHERE members.mid = retailers.rid AND retailers.rid = $id";
+		$retailer = $this->connection->Query($sql);
+		if($retailer)
+			return $retailer[0];
+		else return false;
+	}
+
+	public function updateRetailer($post_data)
+	{
+		if(isset($post_data)) extract($post_data);
+		if(!isset($mcompany)) $mcompany='';
+		if(!isset($mein)) $mein = '';
+		if(!isset($rauth)) $rauth = '';
+		$query = "UPDATE members SET mname = '".mysql_real_escape_string($mname)."', memail = '".mysql_real_escape_string($memail)."',
+		madd = '".mysql_real_escape_string($madd)."', madd2 = '".mysql_real_escape_string($madd2)."',
+	    mcity = '".mysql_real_escape_string($mcity)."', mstate = '".mysql_real_escape_string($mstate)."', mzip = '".mysql_real_escape_string($mzip)."',
+	    mtel = '".mysql_real_escape_string($mtel)."', mfax = '".mysql_real_escape_string($mfax)."', mcompany = '".mysql_real_escape_string($mcompany)."',
+	    mein = '".mysql_real_escape_string($mein)."', mdes = '', mlist = '1', mconfirm = '1' WHERE mid = ".$rid;
+
+	   if($this->connection->InsertQuery($query))
+	   {
+	   		
+	   			$insert_id = $this->connection->GetInsertID();
+	   			$query = "UPDATE `retailers` SET `rcompany`='$mcompany',`rein`=$mein,`rwebsite`='$mwebsite', `rauth`='$rauth' WHERE `rid` = $rid";
+	   			// $query = "INSERT INTO `retailers`(`rid`, `rcompany`, `rein`, `rwebsite`, `retailerSellOnline`, 
+	   			// 	`regtype`, `rqual`, `rterm`, `rship`, `rshipqual`, `rauth`, `rinformed`) 
+	   			// VALUES (".$insert_id.",'".mysql_real_escape_string($mcompany)."','".mysql_real_escape_string($mein)."','".mysql_real_escape_string($mwebsite)."',
+	   			// 	'','manual','','','0','0','".mysql_real_escape_string($rauth)."','0')";
+				return $this->connection->InsertQuery($query);
+	   		
+	   }
+	   else 
+	   {
+	   	return false;
+	   }
 	}
 }

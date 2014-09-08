@@ -33,7 +33,7 @@
 			<option <?php echo ($status == 'manual')?'selected':null?> value="manual">Manual Registrations</option>
 			<option <?php echo ($status == 'sellers')?'selected':null?> value="sellers">Current Sellers</option>
 			<option <?php echo ($status == 'authorized')?'selected':null?> value="authorized">Authorized</option>
-			<option <?php echo ($status == 'not-authorized')?'selected':null?> value="not-authorized">Not Authorized</option>
+			<option <?php echo ($status == 'notauthorized')?'selected':null?> value="not-authorized">Not Authorized</option>
 			<option <?php echo ($status == 'uncofirmed')?'selected':null?> value="uncofirmed">UnConfirmed</option>
 		</select>
 		<input type="submit" value="Filter"/>
@@ -72,7 +72,8 @@
 				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['mfax']?></a></td>
 				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['rein']?></a></td>
 				<td><a class="button" href="<?php echo ADMIN_URL.'retailers/confirm/'.$retailer['rid']?>"><?php echo ($retailer['mconfirm'] == 1)?'Reject':'Confirm'?></a>
-					<a class="button" href="<?php echo ADMIN_URL.'retailers/purchase/'.$retailer['rid']?>"><?php echo ($retailer['rauth'])?'Disallow Purchase':'Allow Purchase'?></a>
+					<?php if($retailer['rauth'] == 'pur') $url = 'retailers/disallowpurchase/'; else $url = 'retailers/allowpurchase/';?>
+					<a class="button" href="<?php echo ADMIN_URL.$url.$retailer['rid']?>"><?php echo ($retailer['rauth'])?'Disallow Purchase':'Allow Purchase'?></a>
 					<a class="button" href="<?php echo ADMIN_URL.'retailers/online/'.$retailer['rid']?>"><?php echo ($retailer['retailerSellOnline'] == 1)?'No Online Sale':'Sells Online'?></a>
 					<a class="button" href="<?php echo ADMIN_URL.'retailers/delete/'.$retailer['rid']?>">Delete</a>
 				</td>

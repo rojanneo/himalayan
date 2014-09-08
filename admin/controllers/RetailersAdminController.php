@@ -53,15 +53,49 @@ class RetailersAdminController extends Controller
 		redirect('admin/retailers');
 	}
 
-	public function purchaseAction($id)
+	public function allowpurchaseAction($id)
 	{
-		getModel('customer')->allow_disallow_purchase($id);
+		getModel('customer')->allowPurchase($id);
 		redirect('admin/retailers');
 	}
+
+	public function disallowpurchaseAction($id)
+	{
+		getModel('customer')->disallowPurchase($id);
+		redirect('admin/retailers');
+	}
+
 
 	public function onlineAction($id)
 	{
 		getModel('customer')->online($id);
+		redirect('admin/retailers');
+	}
+
+	public function addAction()
+	{
+		$this->view->renderAdmin('customers/retaileradd.phtml');
+	}
+
+	public function addPostAction()
+	{
+		loadHelper('inputs');
+		$post_data = getPost();
+		getModel('customer')->addNewRetailer($post_data);
+		redirect('admin/retailers');
+	}
+
+	public function editAction($id)
+	{
+		$data['retailer'] = getModel('customer')->getRetailer($id);
+		$this->view->renderAdmin('customers/retaileradd.phtml',$data);
+	}
+
+	public function editPostAction()
+	{
+		loadHelper('inputs');
+		$post_data = getPost();
+		getModel('customer')->updateRetailer($post_data);
 		redirect('admin/retailers');
 	}
 }

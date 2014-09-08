@@ -1,0 +1,269 @@
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<?php if(!isset($view_retailer)):?>
+			<h3>Add New Retailer</h3>
+		<?php else:?>
+		<h3>Edit Retailer</h3>
+	<?php endif;?>
+</div>
+	<?php $states = getModel('customer')->getAllStates();?>
+	<?php if(!isset($view_retailer)):?>
+	<div class="form">
+	<form method="post" action="<?php echo ADMIN_URL.'retailers/addpost'?>">
+		<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Name</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mname"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Email</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required email-validation" name="memail"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Address</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="madd"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Apt/Ste</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box text-validation" name="madd2"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">City</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mcity"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">State</label>
+				</div>
+				<div class="input">
+					<select name="mstate" class="input-box">
+						<?php foreach($states as $state):?>
+							<option value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
+						<?php endforeach;?>
+					</select>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Zip</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mzip"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Phone</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mtel"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Fax</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mfax"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Company/store</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mcompany"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Website</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mwebsite"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">EIN(tax ID)</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mein"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Authorize Purchase</label>
+				</div>
+				<div class="input">
+					<input type="checkbox" value = 'pur' class="input-box required text-validation" name="rauth"/>
+				</div>
+			</li>
+
+			<li class="field">
+				<div class="input">
+					<input class="button" type="submit" value="save"/>
+				</div>
+			</li>
+		</ul>
+		</form>
+		</div>
+	<?php else:?>
+<div class="form">
+	<form method="post" action="<?php echo ADMIN_URL.'retailers/editpost'?>">
+		<input type="hidden" name="rid" value="<?php echo $view_retailer['rid']?>"/>
+		<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Name</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mname" value="<?php echo $view_retailer['mname']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Email</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required email-validation" name="memail" value="<?php echo $view_retailer['memail']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Address</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="madd" value="<?php echo $view_retailer['madd']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Apt/Ste</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box text-validation" name="madd2" value="<?php echo $view_retailer['madd2']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">City</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mcity" value="<?php echo $view_retailer['mcity']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">State</label>
+				</div>
+				<div class="input">
+					<select name="mstate" class="input-box">
+						<?php foreach($states as $state):?>
+							<option value="<?php echo $state['abb']?>" <?php echo ($state['abb'] == $view_retailer['mstate'])?'selected':null ?>><?php echo $state['stt_nm']?></option>
+						<?php endforeach;?>
+					</select>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Zip</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mzip" value="<?php echo $view_retailer['mzip']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Phone</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mtel" value="<?php echo $view_retailer['mtel']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Fax</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mfax" value="<?php echo $view_retailer['mfax']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Company/store</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mcompany"  value="<?php echo $view_retailer['rcompany']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Website</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mwebsite" value="<?php echo $view_retailer['rwebsite']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">EIN(tax ID)</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="mein" value="<?php echo $view_retailer['rein']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Authorize Purchase</label>
+				</div>
+				<div class="input">
+					<input type="checkbox" <?php echo ($view_retailer['rauth'] == 'pur')?'checked':null;?> value = 'pur' class="input-box required text-validation" name="rauth"/>
+				</div>
+			</li>
+
+			<li class="field">
+				<div class="input">
+					<input class="button" type="submit" value="save"/>
+				</div>
+			</li>
+		</ul>
+		</form>
+		</div> 					<?php endif;?>
+				</div>
+			</div>
+
+					<script>
+					$('form').submit(function(){
+						return $(this).validate('input-box');
+					});
+					</script>
