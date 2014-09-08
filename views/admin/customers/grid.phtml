@@ -1,0 +1,95 @@
+<?php //var_dump($view_retailers);?>
+<?php if($view_retailers):?>
+<?php
+	$status = getParam('status');
+	$state_filter = getParam('state');
+	$city_filter = getParam('city');
+?>
+<div class="page-wrapper">
+	<div class="toolbar">
+		<form method="get" action="<?php echo ADMIN_URL.'retailers/index'?>">
+		<label for = "state">State</label>
+		<select name="state">
+			<option value="all">All</option>
+			<?php if($view_states):?>
+				<?php foreach($view_states as $state):?>
+					<option value = "<?php echo strtolower($state['abb'])?>" <?php echo (strtolower($state['abb']) == $state_filter)?'selected':null?>><?php echo $state['stt_nm']?></option>
+				<?php endforeach;?>
+			<?php endif;?>
+		</select>
+		<label for = "city">City</label>
+		<select name="city">
+			<option value="all">All</option>
+			<?php if($view_cities):?>
+				<?php foreach($view_cities as $city):?>
+				<option value = "<?php echo $city['mcity']?>" <?php echo ($city['mcity'] == $city_filter)?'selected':null?>><?php echo $city['mcity']?></option>
+				<?php endforeach;?>
+			<?php endif;?>
+		</select>
+		<label>Status</label>
+		<select name="status">
+			<option <?php echo ($status == 'all')?'selected':null?> value="all">All</option>
+			<option <?php echo ($status == 'web')?'selected':null?> value="web">Web Registrations</option>
+			<option <?php echo ($status == 'manual')?'selected':null?> value="manual">Manual Registrations</option>
+			<option <?php echo ($status == 'sellers')?'selected':null?> value="sellers">Current Sellers</option>
+			<option <?php echo ($status == 'authorized')?'selected':null?> value="authorized">Authorized</option>
+			<option <?php echo ($status == 'not-authorized')?'selected':null?> value="not-authorized">Not Authorized</option>
+			<option <?php echo ($status == 'uncofirmed')?'selected':null?> value="uncofirmed">UnConfirmed</option>
+		</select>
+		<input type="submit" value="Filter"/>
+	</form>
+	</div>
+<div class="actions">
+
+<a class="button" href="<?php echo ADMIN_URL.'retailers/add'?>">Add New Retailer</a>
+</div>
+<?php if(isset($view_retailers)):?>
+<table class="grid" style="width:100%">
+	<thead>
+		<th>Company</th>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Address</th>
+		<th>City</th>
+		<th>State</th>
+		<th>Zip</th>
+		<th>Tel</th>
+		<th>Fax</th>
+		<th width="12%">EIN</th>
+		<th width="18%">Actions</th>
+	</thead>
+	<tbody>
+		<?php foreach($view_retailers as $retailer):?>
+			<tr>
+				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['rcompany']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['mname']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['memail']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['madd']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['mcity']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['mstate']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['mzip']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['mtel']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['mfax']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailers/edit/'.$retailer['rid']?>"><?php echo $retailer['rein']?></a></td>
+				<td><a class="button" href="<?php echo ADMIN_URL.'retailers/confirm/'.$retailer['rid']?>"><?php echo ($retailer['mconfirm'] == 1)?'Reject':'Confirm'?></a>
+					<a class="button" href="<?php echo ADMIN_URL.'retailers/purchase/'.$retailer['rid']?>"><?php echo ($retailer['rauth'])?'Disallow Purchase':'Allow Purchase'?></a>
+					<a class="button" href="<?php echo ADMIN_URL.'retailers/online/'.$retailer['rid']?>"><?php echo ($retailer['retailerSellOnline'] == 1)?'No Online Sale':'Sells Online'?></a>
+					<a class="button" href="<?php echo ADMIN_URL.'retailers/delete/'.$retailer['rid']?>">Delete</a>
+				</td>
+			</tr>
+		<?php endforeach;?>
+	</tbody>
+</table>
+<div class="pagination-bottom">
+<?php
+$page = getParam('p');
+if(!$page) $page = 1;
+loadHelper('pagination');
+showPaginationWithGet($page, $view_pagination_num, $view_pagination_url);
+?>
+</div>
+<?php endif;?>
+</div>
+<?php else:?>
+	<p>NO Retailers Found</p>
+<?php endif;?>
