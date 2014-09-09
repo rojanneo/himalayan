@@ -1,0 +1,270 @@
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<?php if(!isset($view_stores)):?>
+			<h3>Add New Retailer Store</h3>
+		<?php else:?>
+		<h3>Edit Retailer Store</h3>
+	<?php endif;?>
+</div>
+	<?php $states = getModel('customer')->getAllStates();?>
+	<?php $retailers = getModel('customer')->getAllRetailers();?>
+	<?php if(!isset($view_store)):?>
+	<div class="form">
+	<form method="post" action="<?php echo ADMIN_URL.'retailerstores/addpost'?>">
+		<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Retailer</label>
+				</div>
+				<div class="input">
+					<select name="rid">
+						<?php foreach($retailers as $retailer):?>
+							<option value = "<?php echo $retailer['rid']?>"><?php echo $retailer['rcompany']?></option>
+						<?php endforeach;?>
+					</select>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Name</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rsnm"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Email</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required email-validation" name="rsemail"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Address</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rsadd"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store City</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rscity"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store State</label>
+				</div>
+				<div class="input">
+					<select name="rsstate" class="input-box">
+						<?php foreach($states as $state):?>
+							<option value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
+						<?php endforeach;?>
+					</select>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Zip</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rszip"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Phone</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rstel"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Fax</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rsfax"/>
+				</div>
+			</li>
+			
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Website</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rswebsite"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Description</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rsdes"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Sells HDC</label>
+				</div>
+				<div class="input">
+					<select name="rshdc">
+						<option value = "1">Yes</option>
+						<option value = "0">No</option>
+					</select>
+				</div>
+			</li>
+
+			<li class="field">
+				<div class="input">
+					<input class="button" type="submit" value="save"/>
+				</div>
+			</li>
+		</ul>
+		</form>
+		</div>
+	<?php else:?>
+<div class="form">
+	<form method="post" action="<?php echo ADMIN_URL.'retailerstores/editpost'?>">
+		<input type="hidden" name="rsid" value="<?php echo $view_store['rsid']?>"/>
+		<ul>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Retailer</label>
+				</div>
+				<div class="input">
+					<select name="rid">
+						<?php foreach($retailers as $retailer):?>
+							<option <?php echo ($retailer['rid'] == $view_store['rid'])?'selected':null;?> value = "<?php echo $retailer['rid']?>"><?php echo $retailer['rcompany']?></option>
+						<?php endforeach;?>
+					</select>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Name</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rsnm" value="<?php echo $view_store['rsnm']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Email</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required email-validation" name="rsemail" value="<?php echo $view_store['rsemail']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Address</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rsadd" value="<?php echo $view_store['rsadd']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store City</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rscity" value="<?php echo $view_store['rscity']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store State</label>
+				</div>
+				<div class="input">
+					<select name="rsstate" class="input-box">
+						<?php foreach($states as $state):?>
+							<option <?php echo ($state['abb'] ==$view_store['rsstate'])?'selected':null?> value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
+						<?php endforeach;?>
+					</select>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Zip</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rszip" value="<?php echo $view_store['rszip']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Phone</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rstel" value="<?php echo $view_store['rstel']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Fax</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rsfax" value="<?php echo $view_store['rsfax']?>"/>
+				</div>
+			</li>
+			
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Website</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rswebsite" value="<?php echo $view_store['rswebsite']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Store Description</label>
+				</div>
+				<div class="input">
+					<input type="text" class="input-box required text-validation" name="rsdes" value="<?php echo $view_store['rsdes']?>"/>
+				</div>
+			</li>
+			<li class="field">
+				<div class="input-title">
+					<label for ="name">Sells HDC</label>
+				</div>
+				<div class="input">
+					<select name="rshdc">
+						<option <?php if($view_store['rshdc'] == 1) echo 'selected'?> value = "1">Yes</option>
+						<option <?php if($view_store['rshdc'] == 0) echo 'selected'?> value = "0">No</option>
+					</select>
+				</div>
+			</li>
+
+			<li class="field">
+				<div class="input">
+					<input class="button" type="submit" value="save"/>
+				</div>
+			</li>
+		</ul>
+		</form>
+		</div> 					<?php endif;?>
+				</div>
+			</div>
+
+					<script>
+					$('form').submit(function(){
+						return $(this).validate('input-box');
+					});
+					</script>

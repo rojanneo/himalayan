@@ -163,7 +163,7 @@ class CustomerModel extends Model
 
 	public function getAllRetailers()
 	{
-		$sql = "SELECT * FROM members, retailers WHERE members.mid = retailers.rid";
+		$sql = "SELECT * FROM members, retailers WHERE members.mid = retailers.rid ORDER BY retailers.rid ASC";
 		return $this->connection->Query($sql);		
 	}
 

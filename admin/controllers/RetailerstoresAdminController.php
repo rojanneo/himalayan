@@ -30,4 +30,32 @@ class RetailerstoresAdminController extends Controller
 		getModel('store')->togglePurchaseStatus($store_id);
 		redirect('admin/retailerstores');
 	}
+
+	public function addAction()
+	{
+		$this->view->renderAdmin('customers/addstore.phtml');
+	}
+
+	public function addPostAction()
+	{
+		loadHelper('inputs');
+		$post_data = getPost();
+		getModel('store')->addNewStore($post_data);
+		redirect('admin/retailerstores');
+	}
+
+	public function editAction($id)
+	{
+		$retailer = getModel('store')->getStore($id);
+		$data['store'] = $retailer[0];
+		$this->view->renderAdmin('customers/addstore.phtml',$data);
+	}
+
+	public function editPostAction()
+	{
+		loadHelper('inputs');
+		$post_data = getPost();
+		getModel('store')->updateStore($post_data);
+		redirect('admin/retailerstores');
+	}
 }

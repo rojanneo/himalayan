@@ -101,4 +101,46 @@ class StoreModel extends Model
 			$sql1 = "UPDATE retstores SET rshdc = '1' WHERE rsid = $id";
 		return $this->connection->UpdateQuery($sql1);
 	}
+
+	public function addNewStore($post_data)
+	{
+		if(isset($post_data)) extract($post_data);
+		$query = "INSERT INTO retstores SET 
+		rid = '".mysql_real_escape_string($rid)."',
+		rshdc = '".mysql_real_escape_string($rshdc)."',
+		rsnm = '".mysql_real_escape_string($rsnm)."',
+		rsadd = '".mysql_real_escape_string($rsadd)."',
+		rscity = '".mysql_real_escape_string($rscity)."', 
+		rsstate = '".mysql_real_escape_string($rsstate)."', 
+		rszip = '".mysql_real_escape_string($rszip)."',
+	    rstel = '".mysql_real_escape_string($rstel)."', 
+	    rsfax = '".mysql_real_escape_string($rsfax)."', 
+	    rswebsite = '".mysql_real_escape_string($rswebsite)."',
+	    rsemail = '".mysql_real_escape_string($rsemail)."',
+	    rsdes = '".mysql_real_escape_string($rsdes)."'";
+
+	   return $this->connection->InsertQuery($query);
+	}
+
+	public function updateStore($post_data)
+	{
+		if(isset($post_data)) extract($post_data);
+
+		$query = "UPDATE `retstores` SET 
+		`rid`='".mysql_real_escape_string($rid)."',
+		`rshdc`='".mysql_real_escape_string($rshdc)."',
+		`rsnm`='".mysql_real_escape_string($rsnm)."',
+		`rsadd`='".mysql_real_escape_string($rsadd)."',
+		`rscity`='".mysql_real_escape_string($rscity)."',
+		`rsstate`='".mysql_real_escape_string($rsstate)."',
+		`rszip`='".mysql_real_escape_string($rszip)."',
+		`rstel`='".mysql_real_escape_string($rstel)."',
+		`rsfax`='".mysql_real_escape_string($rsfax)."',
+		`rswebsite`='".mysql_real_escape_string($rswebsite)."',
+		`rsemail`='".mysql_real_escape_string($rsemail)."',
+		`rsdes`='".mysql_real_escape_string($rsdes)."'
+		WHERE `rsid` = '$rsid'";
+
+		return $this->connection->UpdateQuery($query);
+	}
 }
