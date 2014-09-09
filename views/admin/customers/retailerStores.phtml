@@ -1,18 +1,25 @@
 <?php //var_dump($view_retailers);?>
 <?php loadHelper('view');?>
+<?php $retailer_filter = getParam('retailer');
+if(!$retailer_filter) $retailer_filter = 'all';
+?>
 <div class="page-wrapper">
-	<!-- <div class="toolbar">
-		<form method="get" action="<?php echo ADMIN_URL.'retailers/index'?>">
-		<label for = "state">State</label>
-		<select name="state">
+	<div class="toolbar">
+		<form method="get" action="<?php echo ADMIN_URL.'retailerstores/index'?>">
+		<?php $retailers = getModel('customer')->getAllRetailers();?>
+		<label for = "retailer">Retailer</label>
+		<select name="retailer">
 			<option value="all">All</option>
-			<?php if($view_states):?>
-				<?php foreach($view_states as $state):?>
-					<option value = "<?php echo strtolower($state['abb'])?>" <?php echo (strtolower($state['abb']) == $state_filter)?'selected':null?>><?php echo $state['stt_nm']?></option>
+			<?php if($retailers):?>
+				<?php foreach($retailers as $retailer):?>
+					<option <?php echo ($retailer_filter == $retailer['rid'])?'selected':null?> value = "<?php echo $retailer['rid']?>"><?php echo $retailer['rcompany']?></option>
 				<?php endforeach;?>
 			<?php endif;?>
 		</select>
-		<label for = "city">City</label>
+		<input type="submit" value="Filter"/>
+	</form>
+	</div>
+		<!-- <label for = "city">City</label>
 		<select name="city">
 			<option value="all">All</option>
 			<?php if($view_cities):?>
@@ -31,9 +38,7 @@
 			<option <?php echo ($status == 'notauthorized')?'selected':null?> value="not-authorized">Not Authorized</option>
 			<option <?php echo ($status == 'uncofirmed')?'selected':null?> value="uncofirmed">UnConfirmed</option>
 		</select>
-		<input type="submit" value="Filter"/>
-	</form>
-	</div> -->
+		 -->
 <div class="actions">
 
 <a class="button" href="<?php echo ADMIN_URL.'retailerstores/add'?>">Add New Retailer Store</a>
@@ -69,10 +74,13 @@
 </table>
 <div class="pagination-bottom">
 <?php
-$page = getParam('p');
-if(!$page) $page = 1;
-loadHelper('pagination');
-showPagination($page, $view_pagination_num, $view_pagination_url);
+if($retailer_filter == 'all')
+{
+	$page = getParam('p');
+	if(!$page) $page = 1;
+	loadHelper('pagination');
+	showPagination($page, $view_pagination_num, $view_pagination_url);
+}
 ?>
 </div>
 </div>

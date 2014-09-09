@@ -19,10 +19,25 @@ class RetailerstoresAdminController extends Controller
 		if(!$page) $page = 1;
 		$limit = 100;
 		$first = ($page-1) * $limit;
+
+		$retailer = getParam('retailer');
+		if(!$retailer) $retailer = 'all';
+
+		if($retailer == 'all')
+		{
+
 		$data['stores'] = getModel('store')->getStores($first,$limit);
 		$data['pagination_url'] = 'admin/retailerstores/index';
 		$data['pagination_num'] = ceil(getModel('store')->getStoreCount()/$limit);
 		$this->view->renderAdmin('customers/retailerStores.phtml',$data);
+
+		}
+
+		else
+		{
+			$data['stores'] = getModel('store')->getStores($first,$limit,$retailer);
+			$this->view->renderAdmin('customers/retailerStores.phtml',$data);			
+		}
 	}
 
 	public function togglesellerAction($store_id)
