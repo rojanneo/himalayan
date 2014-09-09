@@ -124,7 +124,7 @@ class AccountController extends Controller
 		if(!$page) $page = 1;
 		$limit = 10;
 		$first = ($page-1) * $limit;
-		$stores = getModel('store')->getStores($retailer_id,$first,$limit);
+		$stores = getModel('store')->getStores($first,$limit,$retailer_id);
 		$data = array();
 		if(count($stores) > 0)
 			$data['stores'] = $stores;

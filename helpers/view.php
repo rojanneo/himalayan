@@ -30,3 +30,13 @@ if(!function_exists('convertRequiredIdToText'))
 		else return 'Invalid Required ID';
 	}
 }
+
+if(!function_exists('convertStoreStatusToText'))
+{
+	function convertStoreStatusToText($id)
+	{
+		if($id == 0) return 'Not Selling';
+		else if($id == 1) return 'Selling';
+		else return 'Invalid Status';
+	}
+}

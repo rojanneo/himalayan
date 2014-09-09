@@ -1,0 +1,81 @@
+<?php //var_dump($view_retailers);?>
+<?php loadHelper('view');?>
+<div class="page-wrapper">
+	<!-- <div class="toolbar">
+		<form method="get" action="<?php echo ADMIN_URL.'retailers/index'?>">
+		<label for = "state">State</label>
+		<select name="state">
+			<option value="all">All</option>
+			<?php if($view_states):?>
+				<?php foreach($view_states as $state):?>
+					<option value = "<?php echo strtolower($state['abb'])?>" <?php echo (strtolower($state['abb']) == $state_filter)?'selected':null?>><?php echo $state['stt_nm']?></option>
+				<?php endforeach;?>
+			<?php endif;?>
+		</select>
+		<label for = "city">City</label>
+		<select name="city">
+			<option value="all">All</option>
+			<?php if($view_cities):?>
+				<?php foreach($view_cities as $city):?>
+				<option value = "<?php echo $city['mcity']?>" <?php echo ($city['mcity'] == $city_filter)?'selected':null?>><?php echo $city['mcity']?></option>
+				<?php endforeach;?>
+			<?php endif;?>
+		</select>
+		<label>Status</label>
+		<select name="status">
+			<option <?php echo ($status == 'all')?'selected':null?> value="all">All</option>
+			<option <?php echo ($status == 'web')?'selected':null?> value="web">Web Registrations</option>
+			<option <?php echo ($status == 'manual')?'selected':null?> value="manual">Manual Registrations</option>
+			<option <?php echo ($status == 'sellers')?'selected':null?> value="sellers">Current Sellers</option>
+			<option <?php echo ($status == 'authorized')?'selected':null?> value="authorized">Authorized</option>
+			<option <?php echo ($status == 'notauthorized')?'selected':null?> value="not-authorized">Not Authorized</option>
+			<option <?php echo ($status == 'uncofirmed')?'selected':null?> value="uncofirmed">UnConfirmed</option>
+		</select>
+		<input type="submit" value="Filter"/>
+	</form>
+	</div> -->
+<div class="actions">
+
+<a class="button" href="<?php echo ADMIN_URL.'retailerstores/add'?>">Add New Retailer Store</a>
+</div>
+<?php if(isset($view_stores)):?>
+<table class="grid" style="width:100%">
+	<thead>
+		<th>Store Name</th>
+		<th>Status</th>
+		<th>Address</th>
+		<th>City</th>
+		<th>State</th>
+		<th>Zip</th>
+		<th>Tel</th>
+		<th width="18%">Actions</th>
+	</thead>
+	<tbody>
+		<?php foreach($view_stores as $store):?>
+			<tr>
+				<td><a href="<?php echo ADMIN_URL.'retailerstores/edit/'.$store['rsid']?>"><?php echo $store['rsnm']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailerstores/edit/'.$store['rsid']?>"><?php echo convertStoreStatusToText($store['rshdc'])?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailerstores/edit/'.$store['rsid']?>"><?php echo $store['rsadd']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailerstores/edit/'.$store['rsid']?>"><?php echo $store['rscity']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailerstores/edit/'.$store['rsid']?>"><?php echo $store['rsstate']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailerstores/edit/'.$store['rsid']?>"><?php echo $store['rszip']?></a></td>
+				<td><a href="<?php echo ADMIN_URL.'retailerstores/edit/'.$store['rsid']?>"><?php echo $store['rstel']?></a></td>
+				<td><a class="button" href="<?php echo ADMIN_URL.'retailerstores/toggleseller/'.$store['rsid']?>"><?php echo ($store['rshdc'] == 1)?'Disallow Sale':'Allow Sale'?></a>
+				<a class="button" href="<?php echo ADMIN_URL.'retailerstores/delete/'.$store['rsid']?>">Delete</a>
+				</td>
+			</tr>
+		<?php endforeach;?>
+	</tbody>
+</table>
+<div class="pagination-bottom">
+<?php
+$page = getParam('p');
+if(!$page) $page = 1;
+loadHelper('pagination');
+showPagination($page, $view_pagination_num, $view_pagination_url);
+?>
+</div>
+</div>
+<?php else:?>
+	<p>NO Retailers Found</p>
+<?php endif;?>

@@ -7,19 +7,36 @@ class StoreModel extends Model
 		parent::__construct();
 	}
 
-	public function getStores($retailer_id, $first=0, $limit=10)
+	public function getStores($first=0, $limit=10,$retailer_id = false)
 	{
-
-		$query = "SELECT * FROM `retstores` WHERE rid=".$retailer_id."  ORDER BY `rsid` DESC LIMIT ".$first.",".$limit;
-		$stores = $this->connection->Query($query);
-		return $stores;
+		if($retailer_id != false)
+		{
+			$query = "SELECT * FROM `retstores` WHERE rid=".$retailer_id."  ORDER BY `rsid` DESC LIMIT ".$first.",".$limit;
+			$stores = $this->connection->Query($query);
+			return $stores;
+		}
+		else
+		{
+			$query = "SELECT * FROM `retstores` ORDER BY `rsid` DESC LIMIT ".$first.",".$limit;
+			$stores = $this->connection->Query($query);
+			return $stores;			
+		}
 	}
 
-	public function getStoreCount($retailer_id)
+	public function getStoreCount($retailer_id = false)
 	{
-		$query = 'SELECT COUNT(*) FROM retstores WHERE rid='.$retailer_id;
-		$count = $this->connection->Query($query);
-		return $count;
+		if($retailer_id != false)
+		{
+			$query = 'SELECT COUNT(*) FROM retstores WHERE rid='.$retailer_id;
+			$count = $this->connection->Query($query);
+			return $count;
+		}
+		else
+		{
+			$query = 'SELECT COUNT(*) FROM retstores';
+			$count = $this->connection->Query($query);
+			return $count[0]['COUNT(*)'];			
+		}
 	}
 
 	public function deleteStore($store_id)
@@ -72,5 +89,16 @@ class StoreModel extends Model
 	{
 		$query = "SELECT * FROM retstores WHERE rsid = ".$store_id;
 		return $this->connection->Query($query);
+	}
+
+	public function togglePurchaseStatus($id)
+	{
+		$sql = "SELECT rshdc FROM retstores WHERE rsid = $id";
+		$store = $this->connection->Query($sql);
+		if($store and $store[0]['rshdc'] == 1)
+			$sql1 = "UPDATE retstores SET rshdc = '0' WHERE rsid = $id";
+		if($store and $store[0]['rshdc'] == 0)
+			$sql1 = "UPDATE retstores SET rshdc = '1' WHERE rsid = $id";
+		return $this->connection->UpdateQuery($sql1);
 	}
 }
