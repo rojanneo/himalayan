@@ -1,6 +1,8 @@
 
 <!-- FOR CATEGORY DOG CHEWS -->
-
+<script type="text/javascript">
+	$('.nav ul li.creation').attr('id','creation-active');
+</script>
 
 <?php if($view_category_id == 1):?>
 	<div class="wrapper creationDetail">
@@ -35,7 +37,7 @@
 								<div class="product">
 									<!-- TODO MAKE THIS DYNAMIC -->
 
-									<img src="<?php echo ASSET_URL.'images/chews.png'?>"/>
+									<img src="<?php echo URL.'timthumb.php?src='.ASSET_URL.'images/chews.png&w=627&h=368'?>"/>
 								</div>
 								<div class="category-detail clearfix">
 									<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
@@ -44,9 +46,10 @@
 							</li>
 							<li class="red" style="display:none">
 								<div class="product">
-									<img src="<?php echo ASSET_URL.'images/bag_red.jpg'?>"/>
+									<!-- <img src="<?php echo ASSET_URL.'images/bag_red.jpg'?>"/> -->
+									<img src="<?php echo URL.'timthumb.php?src='.ASSET_URL.'images/bag_red.jpg&w=627&h=368'?>"/>
 								</div>
-								<div class="category-detai clearfix">
+								<div class="category-detail clearfix">
 									<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
 									<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
 								</div>
@@ -323,61 +326,79 @@
 				</div>
 			</div>
 			<div class="rightBody">
-				<div class="product-list">
-					<ul class="list">
-						<li class="lotsa-chicken"><a href="#">Yaky Yams Lotsa Chicken</a><li>
-							<li class="very-veggy"><a href="#">Yaky Yams Very Veggy</a><li>
-								<li class="fruity-fruit"><a href="#">Yaky Yams Fruity Fruit</a><li>
-								</ul>
+				<div class="product-list-header">
+					<span class="left">For Dogs Under</span><span class="right"><a href="#">back to creations</a></span>
+				</div>
+				<div class="categoryContainer yakyyam">
+					<div class="product-list">
+						<ul class="list">
+							<li class="lotsa-chicken"><a href="javascript:;">Lotsa Chicken</a></li>
+							<li class="very-veggy"><a href="javascript:;">Very Veggy</a></li>
+							<li class="fruity-fruit"><a href="javascript:;">Fruity Fruit</a></li>
+						</ul>
+					</div>
+					<div class="products">
+						<ul class="slides">
+						<li class="no-color">
+							<div class="product">
+								<img src="<?php echo ASSET_URL.'images/very_veggie_box.jpg'?>"/>
 							</div>
-							<div class="products">
-								<ul class="slides">
-									<li class="lotsa-chicken"  style="display:none">
-										<div class="product">
-											<!-- TODO MAKE THIS DYNAMIC -->
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Carrot, Garbanzo Flour, Cabbage, Broccoli, Celery, Green Bean, Flax Seed, Salt and Lime Juice</span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 35.10%.
+									Crude Fat Min 15.90%.
+									Dietary fiber max 5.80%.
+									Moisture Max 7.90%.
+									Ash Max 3.60% </span></p>
+							</div>
+						</li>
+						<li class="lotsa-chicken"  style="display:none">
+							<div class="product">
+								<!-- TODO MAKE THIS DYNAMIC -->
 
-											<img src="<?php echo ASSET_URL.'images/lotsa_chicken_box.jpg'?>"/>
-										</div>
-										<div class="category-detail">
-											<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Chicken Powder, Brown Rice flour, Chicken Broth, Salt and Lime Juice</span></p>
-											<p>Guaranteed Analysis:<span>Crude Protein Min 35.10%.
-												Crude Fat Min 15.90%.
-												Dietary fiber max 5.80%.
-												Moisture Max 7.90%.
-												Ash Max 3.60%</span></p>
-											</div>
-										</li>
-										<li class="very-veggy" style="display:none">
-											<div class="product">
-												<img src="<?php echo ASSET_URL.'images/very_veggie_box.jpg'?>"/>
-												<div class="category-detail">
-													<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Carrot, Garbanzo Flour, Cabbage, Broccoli, Celery, Green Bean, Flax Seed, Salt and Lime Juice</span></p>
-													<p>Guaranteed Analysis:<span>Crude Protein Min 35.10%.
-														Crude Fat Min 15.90%.
-														Dietary fiber max 5.80%.
-														Moisture Max 7.90%.
-														Ash Max 3.60% </span></p>
-													</div>
-												</div>
-											</li>
-											<li class="fruity-fruit" style="display:none">
-												<div class="product">
-													<img src="<?php echo ASSET_URL.'images/fruity_fruit_box.jpg'?>"/>
-													<div class="category-detail">
-														<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Banana, Garbanzo Flour, Apple, Pear, Blueberries, Flax Seed, Salt and Lime Juice</span></p>
-														<p>Guaranteed Analysis:<span>Crude Protein Min 30.1%.
-															Crude Fat Min 5.8%.
-															Dietary fiber max 1.3%.
-															Moisture Max 16.7%.
-															Ash Max 3.80% 
-														</span></p>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
+								<img src="<?php echo ASSET_URL.'images/lotsa_chicken_box.jpg'?>"/>
 							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Chicken Powder, Brown Rice flour, Chicken Broth, Salt and Lime Juice</span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 35.10%.
+									Crude Fat Min 15.90%.
+									Dietary fiber max 5.80%.
+									Moisture Max 7.90%.
+									Ash Max 3.60%</span></p>
+							</div>
+						</li>
+						<li class="very-veggy" style="display:none">
+							<div class="product">
+							<img src="<?php echo ASSET_URL.'images/very_veggie_box.jpg'?>"/>
+							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Carrot, Garbanzo Flour, Cabbage, Broccoli, Celery, Green Bean, Flax Seed, Salt and Lime Juice</span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 35.10%.
+									Crude Fat Min 15.90%.
+									Dietary fiber max 5.80%.
+									Moisture Max 7.90%.
+									Ash Max 3.60% </span></p>
+							</div>
+						</li>
+						<li class="fruity-fruit" style="display:none">
+							<div class="product">
+								<img src="<?php echo ASSET_URL.'images/fruity_fruit_box.jpg'?>"/>
+							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Banana, Garbanzo Flour, Apple, Pear, Blueberries, Flax Seed, Salt and Lime Juice</span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 30.1%.
+									Crude Fat Min 5.8%.
+									Dietary fiber max 1.3%.
+									Moisture Max 16.7%.
+									Ash Max 3.80% 
+								</span></p>
+							</div>
+						</li>
+						</ul>
+					</div>
+				</div>
+				</div>
+			</div>
 						</div>
 						<script>
 							$('ul.list li a').click(function(){
@@ -414,38 +435,53 @@
 									</div>
 								</div>
 								<div class="rightBody">
-									<div class="product-list">
-										<ul class="list">
-											<li class="stick-6"><a href="#">6" Yaky Sticks</a></li>
-											<li class="stick-12"><a href="#">12" Yaky Sticks</a></li>
-										</ul>
+									<div class="product-list-header">
+										<span class="left">For Dogs Under</span><span class="right"><a href="#">back to creations</a></span>
 									</div>
-									<div class="products">
-										<ul class="slides">
-											<li class="stick-6"  style="display:none">
-												<div class="product">
-													<!-- TODO MAKE THIS DYNAMIC -->
-
-													<img src="<?php echo ASSET_URL.'images/yaky_stick_6_box.jpg'?>"/>
-													<div class="category-detail">
+									<div class="categoryContainer yakystick">
+										<div class="product-list">
+											<ul class="list">
+												<li class="stick-6"><a href="javascript:;">25 lbs</a></li>
+												<li class="stick-12"><a href="javascript:;">50 lbs</a></li>
+											</ul>
+										</div>
+										<div class="products">
+											<ul class="slides">
+												<li class="no-color">
+													<div class="product">
+														<!-- TODO MAKE THIS DYNAMIC -->
+														<img src="<?php echo ASSET_URL.'images/yaky_stick_12_box.jpg'?>"/>
+													</div>
+													<div class="category-detail clearfix">
 														<p>Ingredients:<span>100% Yak and Cow Milk, Beef, Salt and Lime Juice. </span></p>
 														<p>Guaranteed Analysis:<span>Crude Protein Min 78.7%. Crude Fat Min 5.7%. Crude Fiber Max 1.0%. Ash Max 3.4%. Moisture Max 10.2% 
 														</span></p>
 													</div>
-												</div>
-											</li>
-											<li class="stick-12" style="display:none">
-												<div class="product">
-													<img src="<?php echo ASSET_URL.'images/yaky_stick_12_box.jpg'?>"/>
-													<div class="category-detail">
+												</li>
+												<li class="stick-6"  style="display:none">
+													<div class="product">
+														<!-- TODO MAKE THIS DYNAMIC -->
+														<img src="<?php echo ASSET_URL.'images/yaky_stick_6_box.jpg'?>"/>
+													</div>
+													<div class="category-detail clearfix">
+														<p>Ingredients:<span>100% Yak and Cow Milk, Beef, Salt and Lime Juice. </span></p>
+														<p>Guaranteed Analysis:<span>Crude Protein Min 78.7%. Crude Fat Min 5.7%. Crude Fiber Max 1.0%. Ash Max 3.4%. Moisture Max 10.2% 
+														</span></p>
+													</div>
+												</li>
+												<li class="stick-12" style="display:none">
+													<div class="product">
+														<img src="<?php echo ASSET_URL.'images/yaky_stick_12_box.jpg'?>"/>
+													</div>
+													<div class="category-detail clearfix">
 														<p>Ingredients:<span>100% Yak and Cow Milk, Beef, Salt and Lime Juice. 
 														</span></p>
 														<p>Guaranteed Analysis:<span>Crude Protein Min 78.7%. Crude Fat Min 5.7%. Crude Fiber Max 1.0%. Ash Max 3.4%. Moisture Max 10.2% 
 														</span></p>
 													</div>
-												</div>
-											</li>
-										</ul>
+												</li>
+											</ul>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -453,6 +489,8 @@
 						<script>
 							$('ul.list li a').click(function(){
 								var class_name = ($(this).parent().attr('class'));
+								$('ul.list li a').removeClass('active');
+								$(this).addClass('active');
 								$('.products .slides li').hide();
 								$('.products .slides .'+class_name).show();
 							});

@@ -48,9 +48,17 @@ class StoreModel extends Model
 	public function saveStore($post_data)
 	{
 		if(isset($post_data)) extract($post_data);
+
+		$sql = "SELECT * FROM retailers WHERE rid = $rid";
+		$rshdc = 0;
+		$retailer = $this->connection->Query($sql);
+		if($retailer) $retailer = $retailer[0];
+		if($retailer['rauth'] == 'pur') $rshdc = 1;
+
 		$query = "INSERT INTO retstores SET 
 		rid = '".mysql_real_escape_string($rid)."',
 		rsnm = '".mysql_real_escape_string($rsnm)."',
+		rshdc = '".mysql_real_escape_string($rshdc)."',
 		rsadd = '".mysql_real_escape_string($rsadd)."',
 		rscity = '".mysql_real_escape_string($rscity)."', 
 		rsstate = '".mysql_real_escape_string($rsstate)."', 
@@ -67,9 +75,14 @@ class StoreModel extends Model
 	public function updateStoreInfo($post_data)
 	{
 		if(isset($post_data)) extract($post_data);
-
+$sql = "SELECT * FROM retailers WHERE rid = $rid";
+		$rshdc = 0;
+		$retailer = $this->connection->Query($sql);
+		if($retailer) $retailer = $retailer[0];
+		if($retailer['rauth'] == 'pur') $rshdc = 1;
 		$query = "UPDATE `retstores` SET 
 		`rid`='".mysql_real_escape_string($rid)."',
+		`rshdc` = '".mysql_real_escape_string($rshdc)."',
 		`rsnm`='".mysql_real_escape_string($rsnm)."',
 		`rsadd`='".mysql_real_escape_string($rsadd)."',
 		`rscity`='".mysql_real_escape_string($rscity)."',

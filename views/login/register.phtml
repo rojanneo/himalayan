@@ -1,4 +1,5 @@
 	<?php Session::showErrorMessages();?>
+	<?php $states = getModel('customer')->getAllStates();?>
 	<div class="wrapper signup">
 		<div class="register-choice">
 		<label></label>
@@ -35,7 +36,12 @@
 					</fieldset>
 					<fieldset>
 					<label for ="name">State</label>
-					<input type="text" class="input-box required text-validation" name="mstate"/>
+					<select name="mstate" class="input-box" style="width:64%;height: 46px;border: none;border-radius: 10px;">
+						<?php foreach($states as $state):?>
+							<option value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
+						<?php endforeach;?>
+					</select>
+					<!-- <input type="text" class="input-box required text-validation" name="mstate"/> -->
 					</fieldset>
 					<fieldset>
 					<label for ="name">Zip</label>
@@ -114,7 +120,12 @@
 				</fieldset>
 				<fieldset>
 				<label for ="name">State</label>
-				<input type="text" class="input-box required text-validation" name="mstate"/>
+				<select name="mstate" class="input-box" style="width:64%;height: 46px;border: none;border-radius: 10px;">
+						<?php foreach($states as $state):?>
+							<option value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
+						<?php endforeach;?>
+					</select>
+				<!-- <input type="text" class="input-box required text-validation" name="mstate"/> -->
 				</fieldset>
 				<fieldset>
 				<label for ="name">Zip</label>

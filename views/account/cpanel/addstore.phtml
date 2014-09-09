@@ -1,3 +1,4 @@
+<?php $states = getModel('customer')->getAllStates();?>
 <div class="wrapper">
 	<div class="add-store-form">
 		<form method="post" action="<?php echo (isset($view_store)?URL.'account/editStorePost':URL.'account/addStorePost')?>">
@@ -17,7 +18,12 @@
 			</fieldset>
 			<fieldset>
 			<label for = "rsstate">State:</label>
-			<input type="text" name="rsstate" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rsstate']:null) ?>"/>
+			<select name="rsstate" class="input-box" style="width:368px;height: 46px;border: none;border-radius: 10px;">
+						<?php foreach($states as $state):?>
+							<option <?php echo (isset($view_store) and $view_store['rsstate'] == $state['abb'])?'selected':null?> value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
+						<?php endforeach;?>
+					</select>
+			<!-- <input type="text" name="rsstate" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rsstate']:null) ?>"/> -->
 			</fieldset>
 			<fieldset>
 			<label for = "rszip">Zip:</label>

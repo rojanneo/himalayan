@@ -4,6 +4,7 @@ echo Session::showSuccessMessages();?>
 $customer = getModel('customer')->getCustomer($session['user_id']);
 extract($customer);
 ?>
+<?php $states = getModel('customer')->getAllStates();?>
 <div class="wrapper account-edit">
 	<div class="edit-retailer-form">
 	<form method = "post" action = "<?php echo URL.'account/editPost'?>">
@@ -30,7 +31,12 @@ extract($customer);
 	</fieldset>
 	<fieldset>
 	<label for ="name">State</label>
-	<input type="text" class="input-box required text-validation" name="mstate" value="<?php echo $mstate?>"/>
+	<select name="mstate" class="input-box" style="width:368px;height: 46px;border: none;border-radius: 10px;">
+						<?php foreach($states as $state):?>
+							<option <?php echo (isset($mstate) and $mstate == $state['abb'])?'selected':null?> value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
+						<?php endforeach;?>
+					</select>
+	<!-- <input type="text" class="input-box required text-validation" name="mstate" value="<?php echo $mstate?>"/> -->
 	</fieldset>
 	<fieldset>
 	<label for ="name">Zip</label>
