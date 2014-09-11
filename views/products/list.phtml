@@ -18,25 +18,31 @@
 
 				</div>
 				<div class="actions">
+				<?php if($view_category['cat_slug'] == 'dog-chews'):?>
 						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">what to do<br>with end pieces</a>
-					</div>
+				<?php elseif($view_category['cat_slug'] == 'yaky-nugget'):?>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">microwaving tutorial</a>
+				<?php endif;?>
+				</div>
 			</div>
 
 			<?php if(isset($view_products)):?>
 				<div class="rightBody">
 					<div class="product-list-header">
 					<?php $dog_size = getModel('products')->getProductAttributeByCode($view_products[0]['pid'], 'dog_size'); 
-					if($dog_size!='All'):?>
+					if($view_category['cat_slug'] == 'dog-chews'):?>
 						<span class="left" >FOR DOGS<br> UNDER</span>
 					<?php else:?>
 						<span class="left" >FOR DOGS<br> ALL DOG SIZES</span>
 					<?php endif;?>
-					<span class="right"><a href="<?php echo URL.'products/categories'?>">&lt;back to creations</a></span>
+					<span class="right"><a href="<?php echo URL.'products/categories'?>">&lt; back to creations</a></span>
 					</div>
 					<?php if(count($view_products) > 1):?>
 						<div class="categoryContainer <?php echo (strtolower($view_category['cat_slug']) == 'yaky-yams')?'yakyyam':null?>">
 							<div class="product-list">
 								<ul class="list">
+								<?php $display_name_array = array()?>
+								<?php $product_sku_array = array()?>
 									<?php foreach($view_products as $product):?>
 										<?php $product_id = $product['pid'];?>
 										<?php $productModel = getModel('products');?>
@@ -44,18 +50,57 @@
 										<?php if($displayName == false) $displayName = $product['pname'];?>
 										<?php
 										$class = null;
-										if($displayName == '15 lbs') $class = 'blue';
-										if($displayName == '75 lbs') $class="grey";
-										if($displayName == '35 lbs') $class = "green";
-										if($displayName == '55 lbs') $class = "red";
-										if($displayName == '65 lbs') $class = "yellow";
-
-										if(strtolower($product['pname']) == 'lotsa chicken') $class="lotsa-chicken";
-										if(strtolower($product['pname']) == 'very veggie') $class="very-veggy";
-										if(strtolower($product['pname']) == 'fruity fruit') $class="fruity-fruit";
+										array_push($display_name_array, $displayName);
+										array_push($product_sku_array, $product['psku']);
 										?>
-										<li class="<?php echo $class?>"><a href="javascript:;"><?php echo $displayName?></a></li>
 									<?php endforeach;?>
+									<?php if($view_category['cat_slug'] != 'yaky-yams'):?>
+										<?php sort($display_name_array, SORT_STRING);?>
+										<?php $count = 0;?>
+										<?php foreach ($display_name_array as $displayName):?>
+											<?php
+												if($displayName == '15 lbs') $class = 'blue';
+												if($displayName == '75 lbs') $class="grey";
+												if($displayName == '35 lbs') $class = "green";
+												if($displayName == '55 lbs') $class = "red";
+												if($displayName == '65 lbs') $class = "yellow";
+												if(strtolower($product_sku_array[$count]) == 'yaky_yam_lotsa_chicken') $class="lotsa-chicken";
+												else if(strtolower($product_sku_array[$count]) == 'yaky_yam_very_veggie') $class="very-veggy";
+												else if(strtolower($product_sku_array[$count]) == 'yaky_yam_fruity_fruit') $class="fruity-fruit";
+												$count++;
+											?>										
+											<li class="<?php echo $class?>"><a href="javascript:;"><?php echo $displayName?></a></li>
+										<?php endforeach;?>
+									<?php else:?>
+										<?php $yaky_yam_array = array();?>
+										<?php $yaky_sku_array = array();?>
+										<?php $count = 0;?>
+										<?php $yam_count = 3;?>
+										<?php foreach($display_name_array as $displayName):?>
+											<?php if(strtolower($product_sku_array[$count] == 'yaky_yam_lotsa_chicken')) 
+											{
+												$yaky_yam_array[0] = $displayName;
+												$yaky_sku_array[0] = 'lotsa-chicken';
+											}
+											else if(strtolower($product_sku_array[$count] == 'yaky_yam_very_veggie')) 
+												{
+													$yaky_yam_array[1] = $displayName;
+													$yaky_sku_array[1] = 'very-veggy';
+												}
+											else if(strtolower($product_sku_array[$count] == 'yaky_yam_fruity_fruit')) 
+												{
+												$yaky_yam_array[2] = $displayName;
+												$yaky_sku_array[2] = 'fruity-fruit';
+												}
+											else $yaky_yam_array[$yam_count++] = $displayName;
+											$count++;
+											?>
+										<?php endforeach;?>
+										<?php $count = 0;?>
+										<?php for($i = 0; $i<count($yaky_yam_array); $i++):?>
+											<li class="<?php echo $yaky_sku_array[$i]?>"><a href="javascript:;"><?php echo $yaky_yam_array[$i]?></a></li>
+										<?php endfor;?>
+									<?php endif;?>
 								</ul>
 							</div>
 						<?php endif;?>
@@ -65,7 +110,7 @@
 									<li class="no-color">
 										<div class="product">
 											<?php $cat_image = getModel('category')->getCategoryBySlug('yaky-yams')['category_image'];?>
-											<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=627&h=368'?>"/>
+											<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=681&h=358'?>"/>
 											<div class="category-detail clearfix">
 											<p class="test"></p>
 											</div>
@@ -89,11 +134,28 @@
 									if(strtolower($product['pname']) == 'very veggie') $class="very-veggy";
 									if(strtolower($product['pname']) == 'fruity fruit') $class="fruity-fruit";
 									?>
-
+									<?php if(count($view_products>1)):?>
+											<li class="no-color" style="display: list-item;">
+										<div class="product">
+										<?php $cat_image = $view_category['category_image'];?>
+											<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=681&h=358'?>">
+											<div class="category-detail clearfix">
+											<?php $ing = $productModel->getProductAttributeByCode($view_products[0]['pid'],'ingredients');?>
+													<?php if($ing):?>
+														<p class="test">Ingredients :<span><?php echo $ing?></span></p>
+													<?php endif;?>
+													<?php $gua = $productModel->getProductAttributeByCode($view_products[0]['pid'],'guarantee');?>
+													<?php if($gua):?>
+														<p class="test">Guaranteed Analysis :<span><?php echo $gua?></span></p>
+													<?php endif;?>
+											</div>
+										</div>
+									</li>
+										<?php endif;?>
 									<li class="<?php echo $class?>">
 										<div class="product">
 											<?php $thumb = getModel('products')->getThumbnailImage($product_id);?>
-											<img src = "<?php echo URL.'timthumb.php?src='.$thumb.'&w=627&h=368'?>"/>
+											<img src = "<?php echo URL.'timthumb.php?src='.$thumb.'&w=681&h=358'?>"/>
 											<div class="category-detail clearfix">
 												<?php if(!$productModel->isConfigurable($product_id)):?>
 													<?php $ing = $productModel->getProductAttributeByCode($product_id,'ingredients');?>
@@ -166,7 +228,7 @@
 			<?php if(isset($view_products)):?>
 				<div class="rightBody">
 					<div class="product-list-header">
-						<span class="left">FOR DOGS<br> UNDER</span><span class="right"><a href="<?php echo URL.'products/categories'?>">&lt;back to creations</a></span>
+						<span class="left">FOR DOGS<br> UNDER</span><span class="right"><a href="<?php echo URL.'products/categories'?>">&lt; back to creations</a></span>
 					</div>
 					<?php if(count($view_products) > 0):?>
 						<div class="categoryContainer yakystick">
@@ -193,7 +255,20 @@
 								<?php $cat_image = getModel('category')->getCategoryBySlug('yaky-sticks')['category_image'];?>
 								<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=627&h=368'?>"/>
 								<div class="category-detail clearfix">
-								<p class="test"></p>
+								<?php $variation = false;?>
+								<?php foreach($view_products as $product):?>
+									<?php $variation = getModel('products')->getVariations($product['pid'])[0]?>
+								<?php endforeach;?>
+								<?php if($variation):?>
+									<?php $ing = $productModel->getProductAttributeByCode($variation,'ingredients');?>
+									<?php if($ing):?>
+										<p class="test">Ingredients:<span><?php echo $ing?></span></p>
+									<?php endif;?>
+									<?php $gua = $productModel->getProductAttributeByCode($variation,'guarantee');?>
+									<?php if($gua):?>
+										<p class="test">Guaranteed Analysis::<span><?php echo $gua?></span></p>
+									<?php endif;?>
+								<?php endif;?>
 								</div>
 								</div>
 							</li>
@@ -205,6 +280,7 @@
 										<?php $variation = $productModel->getProduct($variation);?>
 										<?php $class = $variation['psku']?>
 										<?php $thumb = getModel('products')->getThumbnailImage($variation['pid']);?>
+
 										<li class = "<?php echo $class?>">
 											<div class="product">
 												<img src = "<?php echo URL.'timthumb.php?src='.$thumb.'&w=627&h=368'?>"/>

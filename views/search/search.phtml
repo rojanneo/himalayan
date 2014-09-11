@@ -42,7 +42,12 @@
 
 			
         	<br />
-        </div></div>
+        	<?php $form = getModel('form')->getForm(2);?>
+<a href="<?php echo UPLOAD_URL.$form['form_file']?>" class="btn btn-blue">HDC Request Form</a>
+        </div>
+
+        </div>
+
         </td>
 </tr>
 <tr><td>&nbsp;</td></tr>
@@ -52,4 +57,5 @@
 	</td>   
 </tr>
 </table>
+
 </div>
