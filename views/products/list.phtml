@@ -134,7 +134,7 @@
 									if(strtolower($product['pname']) == 'very veggie') $class="very-veggy";
 									if(strtolower($product['pname']) == 'fruity fruit') $class="fruity-fruit";
 									?>
-									<?php if(count($view_products>1)):?>
+									<?php if(count($view_products)>1):?>
 											<li class="no-color" style="display: list-item;">
 										<div class="product">
 										<?php $cat_image = $view_category['category_image'];?>
@@ -182,18 +182,20 @@
 										<?php if(!$productModel->isConfigurable($product_id)):?>
 											<?php $desc = $productModel->getProductAttributeByCode($product_id, 'short_description');?>
 											<?php if($desc):?>
-												<div class="product-detail">
+												<!-- PRODUCT DETAIL COMMENT-->
+												<!-- <div class="product-detail">
 													<?php echo $desc;?>
-												</div>
+												</div> -->
 											<?php endif;?>
 										<?php else:?>
 											<?php $variations = $productModel->getVariations($product_id);?>
 											<?php $desc = $productModel->getProductAttributeByCode($variations[0], 'short_description');?>
 											<?php if($desc):?>
-												<div class="product-detail">
+												<!-- PRODUCT DETAIL COMMENT-->
+<!-- 												<div class="product-detail">
 													<?php echo $desc;?>
 												</div>
-											<?php endif;?>
+ -->											<?php endif;?>
 										<?php endif;?>
 
 									</li>
@@ -297,9 +299,10 @@
 											</div>
 											<?php $desc = $productModel->getProductAttributeByCode($variation['pid'], 'short_description');?>
 											<?php if($desc):?>
-												<div class="product-detail">
+												<!-- PRODUCT DETAIL COMMENT-->
+												<!-- <div class="product-detail">
 													<?php echo $desc;?>
-												</div>
+												</div> -->
 											<?php endif;?>
 										</li>
 
