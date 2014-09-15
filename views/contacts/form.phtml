@@ -8,19 +8,19 @@
                     <div class="contactForm">
                         <form method = "post" action = "<?php echo URL.'contacts/messagePost'?>">
                             <fieldset>
-                                <label for ="sender_name"><b>name</b></label>
+                                <label for ="sender_name">name</label>
 								<input type="text" class="input-box required text-validation" name="sender_name"/>
                             </fieldset>
                             <fieldset>
-                               <label for = "sender_email"><b>email</b></label>
+                               <label for = "sender_email">email</label>
 								<input type="text" class="input-box required email-validation" name="sender_email"/>
                             </fieldset>
                             <fieldset>
-                                <label for ="message_nature"><b>nature of inquiry</b></label>
+                                <label for ="message_nature">nature of inquiry</label>
 								<input type="text" class="input-box required text-validation" name="message_nature"/>
                             </fieldset>
                             <fieldset>
-                               <label for ="message"><b>message</b></label>
+                               <label for ="message" style="margin-top:10px;">message</label>
 								<textarea name="message" class="input-box required text-validation" rows="10" cols="60"></textarea>
 								
                             </fieldset>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="bottompart">
                             <p><b class="normal">toll-free :</b> <?php echo getModel('configuration')->getConfigValue('toll_free');?></p>
-                            <p style="margin-bottom:20px;"><b class="normal">fax :</b> <?php echo getModel('configuration')->getConfigValue('fax');?></p>
+                            <p style="margin-bottom:30px;"><b class="normal">fax :</b> <?php echo getModel('configuration')->getConfigValue('fax');?></p>
                             <p><b>Sales/Orders/Returns :</b><a href="mailto:<?php echo getModel('configuration')->getConfigValue('sales_email');?>" target="_top"><?php echo getModel('configuration')->getConfigValue('sales_email');?></a></p>
                             <p><b>Vendors :</b><a href="mailto:<?php echo getModel('configuration')->getConfigValue('vendor_email');?>" target="_top"><?php echo getModel('configuration')->getConfigValue('vendor_email');?></a></p>
                             <p><b>Marketing/Donations :</b> <a href="mailto:<?php echo getModel('configuration')->getConfigValue('marketing_email');?>" target="_top"><?php echo getModel('configuration')->getConfigValue('marketing_email');?></a></p>

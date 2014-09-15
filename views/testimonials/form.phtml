@@ -8,29 +8,23 @@ $error = null;
 <div class="wrapper">
 <form method = "post" action ="<?php echo URL.'testimonials/testimonialPost'?>">
 <div class="testimonials-form contactForm">
-	<div class="half">
 		<input type="hidden" value="<?php echo date('Y-m-d H:i:s');?>" name="t_dt"/>
 		<fieldset>
-			<label for = "t_name"><b>Name</b></label>
+			<label for = "t_name">Name</label>
 			<input type="text" name="t_name" class="input-box required"/>
 		</fieldset>
 		<fieldset>
-			<label for = "t_email"><b>Email</b></label>
+			<label for = "t_email">Email</label>
 			<input type="text" name="t_email" class="input-box required email-validation"/>
 		</fieldset>
 		<fieldset>
-			<label for = "t_add"><b>city & state</b></label>
+			<label for = "t_add">city & state</label>
 			<input type="text" name="t_add" class="input-box required"/>
 		</fieldset>
 		<fieldset>
-			<label for = "t_comment" style="margin-top:10px;"><b>testimonial</b></label>
+			<label for = "t_comment" style="margin-top:10px;">testimonial</label>
 			<textarea name="t_comment" class="input-box required"></textarea>
 		</fieldset>
-	</div>
-	<div class="half">
-		
-	</div>
-
 </div>
 <div class="testimonial-otherhalf">
 	<a href="<?php echo URL.'testimonials/show'?>" class="btn btn-blue">See what people are saying about our creations</a>

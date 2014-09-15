@@ -12,12 +12,13 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 			<?php array_push($image_array, $base);?>
 			<?php $product_id = $product['pid'];?>
 			<?php $productModel = getModel('products');?>
-		
+			<?php if($product['psku'] !='yaky_sticks'):?>
+				<?php if($product['psku'] == 'hdc_seasoning') $zc = "&zc=2"; else $zc = null?>
 					<?php if(!$productModel->isConfigurable($product_id)):?>
 				<li>
 				<div class="clearfix pricing-slider">
 				<div class="product">
-					<img src="<?php echo URL.'timthumb.php?src='.$base.'&h=300&w=500&a=t'?>"/>
+					<img src="<?php echo URL.'timthumb.php?src='.$base.'&h=300&w=500&a=t'.$zc?>"/>
 				</div>
 				<div class="product-info">
 				<div class="productTitle">
@@ -87,14 +88,24 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 				<li>
 				<div class="clearfix pricing-slider">
 						<div class="product">
-					<img src="<?php echo $base?>"/>
+					<img src="<?php echo URL.'timthumb.php?src='.$base.'&h=300&w=500&a=t'.$zc?>"/>
 				</div>
 				<div class="product-info">
 				<div class="productTitle">
 					<p class="product-name"><?php echo $product['pname']?></p>
 				</div>
-						
+				
 				<?php $variations = $productModel->getVariations($product_id);?>
+				<?php
+								$dog_size = $productModel->getProductAttributeByCode($variations[0],'dog_size');?>
+							<?php if($dog_size):?>
+								<?php if($dog_size == 'All'):?>
+									<p>For all dog size</p>
+								<?php else:?>
+									<p>For dogs under <?php echo $dog_size?></p>
+								<?php endif;?>
+							<?php endif;?>
+	
 				<?php foreach($variations as $variation_id):?>
 					<div class="desc">
 					<?php $caption = $productModel->getProductAttributeByCode($variation_id,'caption_text');?>
@@ -166,6 +177,52 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 				<?php endif;?>
 				</li>
 			<?php endif;?>
+		<?php else:?>
+			<li>
+			<?php $variations = $productModel->getVariations($product['pid']);?>
+				<?php $caption = null;?>
+				<div class= "clearfix pricing-slider">
+				<div class="product">
+				<img src="<?php echo URL.'timthumb.php?src='.$base.'&h=300&w=500&a=t'.$zc?>"/>
+				</div>
+				<div class="product-info stick-info">
+					<?php foreach($variations as $variation_id):?>
+						<?php $variation = $productModel->getProduct($variation_id);?>
+						<div class="productTitle">
+							<p class="product-name"><?php echo $variation['pname']?></p>
+						</div>
+						<div class="desc">
+						<?php $caption = $productModel->getProductAttributeByCode($variation_id,'caption_text');?>
+						<?php
+							$dog_size = $productModel->getProductAttributeByCode($variation_id,'dog_size');?>
+							<?php if($dog_size):?>
+								<?php if($dog_size == 'All'):?>
+									<p>For all dog size</p>
+								<?php else:?>
+									<p>For dogs under <?php echo $dog_size?></p>
+								<?php endif;?>
+							<?php endif;?>
+							<?php $pieces_per_box = $productModel->getProductAttributeByCode($variation_id,'pieces_per_box');?>
+							<?php $calories = $productModel->getProductAttributeByCode($variation_id, 'min_cal');?>
+							<?php if($pieces_per_box):?>
+								<?php echo 'box of '.$pieces_per_box.' pieces : '.$calories.' cal per stick'?>
+							<?php endif;?>
+							<?php $price = $productModel->getProductAttributeByCode($variation_id, 'price');?>
+							<?php if($price):?>
+								<?php echo $price;?>
+							<?php endif;?>
+							</div>
+
+					<?php endforeach;?>					
+				</div>
+				</div>
+				<?php if($caption):?>
+					<div class="caption">
+					<?php echo $caption;?>
+					</div>
+				<?php endif;?>
+			</li>
+		<?php endif;?>
 		
 <?php endforeach;?>
 <!-- <li>
@@ -505,10 +562,10 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 		directionNav: true,
 		animationLoop: false,
 		slideshow: false,
-		itemWidth: 150,
-		itemHeight:200,
-		itemMargin: 5,
-		move:1,
+		itemWidth: 79,
+		itemHeight:48,
+		itemMargin: 7,
+		move:3,
 		asNavFor: '.pricing-products'
 	});
 

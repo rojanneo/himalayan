@@ -1,41 +1,41 @@
 	<?php Session::showErrorMessages();?>
 	<?php $states = getModel('customer')->getAllStates();?>
-	<div class="wrapper signup">
+	<div class="wrapper signup clearfix">
 		<div class="register-choice">
 		<label></label>
-		<input type="radio" class="registration css-checkbox" name="registration-type" checked id="registration-retailer"/><label  for = "registration-retailer" class="css-label radGroup1 radGroup2">Retailer</label>
-		<input type="radio" class="registration css-checkbox" name="registration-type" id="registration-consumer"/><label  for = "registration-consumer" class="css-label radGroup1 radGroup2">Consumer</label>
+		<input type="radio" class="registration css-checkbox" name="registration-type" checked id="registration-retailer"/><label  for = "registration-retailer" class="css-label radGroup1 radGroup2">retailer</label>
+		<input type="radio" class="registration css-checkbox" name="registration-type" id="registration-consumer"/><label  for = "registration-consumer" class="css-label radGroup1 radGroup2">consumer</label>
 
 		</div>
 		<div class="register-retailer-form">
 			<form method = "post" action = "<?php echo URL.'login/registerPost'?>">
 				<div class="half">
 					<fieldset>
-					<label for ="name">Name</label>
+					<label for ="name">name</label>
 					<input type="text" class="input-box required text-validation" name="mname"/>
 					</fieldset>
 					<fieldset>
-					<label for ="name">Email</label>
+					<label for ="name">email</label>
 					<input type="text" class="input-box required email-validation" name="memail"/>
 					</fieldset>
 					<fieldset>
-					<label for ="name">Password</label>
+					<label for ="name">password</label>
 					<input type="password" class="input-box required text-validation" name="mpass"/>
 					</fieldset>
 					<fieldset>
-					<label for ="name">Address</label>
+					<label for ="name">address</label>
 					<input type="text" class="input-box required text-validation" name="madd"/>
 					</fieldset>
 					<fieldset>
-					<label for ="name">Apt/Ste</label>
+					<label for ="name">apt/ste</label>
 					<input type="text" class="input-box text-validation" name="madd2"/>
 					</fieldset>
 					<fieldset>
-					<label for ="name">City</label>
+					<label for ="name">city</label>
 					<input type="text" class="input-box required text-validation" name="mcity"/>
 					</fieldset>
 					<fieldset>
-					<label for ="name">State</label>
+					<label for ="name">state</label>
 					<select name="mstate" class="input-box" style="width:64%;height: 46px;border: none;border-radius: 10px;">
 						<?php foreach($states as $state):?>
 							<option value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
@@ -44,25 +44,25 @@
 					<!-- <input type="text" class="input-box required text-validation" name="mstate"/> -->
 					</fieldset>
 					<fieldset>
-					<label for ="name">Zip</label>
+					<label for ="name">zip</label>
 					<input type="text" class="input-box required text-validation" name="mzip"/>
 					</fieldset>
 				</div>
 				<div class="half">
 					<fieldset>
-					<label for ="name">Phone</label>
+					<label for ="name">phone</label>
 					<input type="text" class="input-box required text-validation" name="mtel"/>
 					</fieldset>
 					<fieldset>
-					<label for ="name">Fax</label>
+					<label for ="name">fax</label>
 					<input type="text" class="input-box required text-validation" name="mfax"/>
 					</fieldset>
 					<fieldset>
-					<label for ="name">Company/store</label>
+					<label for ="name">company/store</label>
 					<input type="text" class="input-box required text-validation" name="mcompany"/>
 					</fieldset>
 					<fieldset>
-					<label for ="name">Website</label>
+					<label for ="name">website</label>
 					<input type="text" class="input-box required text-validation" name="mwebsite"/>
 					</fieldset>
 					<!-- <label for ="name">Website</label>
@@ -75,7 +75,7 @@
 					<fieldset>
 					<label></label>
 					<input type="hidden" value="retailer" name="mtype"/>
-					<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG1"/><label for="checkboxG1" class="css-label radGroup1">I have read the</label><a href="<?php echo URL.'pages/privacypolicy'?>">privacy policy</a>
+					<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG1"/><label for="checkboxG1" class="css-label radGroup1">I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">privacy policy</a> and <a href="<?php echo URL.'pages/webusage'?>">Web Usage Agreement</a></label>
 					</fieldset>
 					<fieldset>
 					<label></label>
@@ -93,33 +93,33 @@
 		<form method = "post" action = "<?php echo URL.'login/registerPost'?>">
 			<div class="half">
 				<fieldset>
-				<label for ="name">Name</label>
+				<label for ="name">name</label>
 				<input type="text" class="input-box required text-validation" name="mname"/>
 				</fieldset>
 				<fieldset>
-				<label for ="name">Email</label>
+				<label for ="name">email</label>
 				<input type="text" class="input-box required email-validation" name="memail"/>
 				</fieldset>
 				<fieldset>
-				<label for ="name">Password</label>
+				<label for ="name">password</label>
 				<input type="password" class="input-box required text-validation" name="mpass"/>
 				</fieldset>
 				<fieldset>
-				<label for ="name">Address</label>
+				<label for ="name">address</label>
 				<input type="text" class="input-box required text-validation" name="madd"/>
 				</fieldset>
 				<fieldset>
-				<label for ="name">Apt/Ste</label>
+				<label for ="name">apt/ste</label>
 				<input type="text" class="input-box text-validation" name="madd2"/>
 				</fieldset>
 			</div>
 			<div class="half">
 				<fieldset>
-				<label for ="name">City</label>
+				<label for ="name">city</label>
 				<input type="text" class="input-box required text-validation" name="mcity"/>
 				</fieldset>
 				<fieldset>
-				<label for ="name">State</label>
+				<label for ="name">state</label>
 				<select name="mstate" class="input-box" style="width:64%;height: 46px;border: none;border-radius: 10px;">
 						<?php foreach($states as $state):?>
 							<option value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
@@ -128,15 +128,15 @@
 				<!-- <input type="text" class="input-box required text-validation" name="mstate"/> -->
 				</fieldset>
 				<fieldset>
-				<label for ="name">Zip</label>
+				<label for ="name">zip</label>
 				<input type="text" class="input-box required text-validation" name="mzip"/>
 				</fieldset>
 				<fieldset>
-				<label for ="name">Phone</label>
+				<label for ="name">phone</label>
 				<input type="text" class="input-box required text-validation" name="mtel"/>
 				</fieldset>
 				<fieldset>
-				<label for ="name">Fax</label>
+				<label for ="name">fax</label>
 				<input type="text" class="input-box required text-validation" name="mfax"/>
 				</fieldset>
 				<!-- <fieldset>
@@ -153,7 +153,7 @@
 				<fieldset>
 				<label></label>
 				<input type="hidden" value="customer" name="mtype"/>
-				<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG2"/><label for="checkboxG2" class="css-label radGroup1">I have read the</label><a href="<?php echo URL.'pages/privacypolicy'?>">privacy policy</a>
+				<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG2"/><label for="checkboxG2" class="css-label radGroup1">I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">privacy policy</a> and <a href="<?php echo URL.'pages/webusage'?>">Web Usage Agreement</a></label>
 				</fieldset>
 				<fieldset>
 				<label></label>

@@ -33,7 +33,7 @@
 					if($view_category['cat_slug'] == 'dog-chews'):?>
 						<span class="left" >FOR DOGS<br> UNDER</span>
 					<?php else:?>
-						<span class="left" >FOR DOGS<br> ALL DOG SIZES</span>
+						<span class="left" >FOR ALL<br>DOG SIZES</span>
 					<?php endif;?>
 					<span class="right"><a href="<?php echo URL.'products/categories'?>">&lt; back to creations</a></span>
 					</div>
@@ -102,6 +102,46 @@
 										<?php endfor;?>
 									<?php endif;?>
 								</ul>
+								
+								<?php if($view_category['cat_slug'] == 'yaky-yams'):?>
+									<ul class="list small-list" style="display:none">
+										<?php $yaky_yam_array = array();?>
+										<?php $yaky_sku_array = array();?>
+										<?php $count = 0;?>
+										<?php $yam_count = 3;?>
+										<?php foreach($display_name_array as $displayName):?>
+											<?php if(strtolower($product_sku_array[$count] == 'yaky_yam_lotsa_chicken')) 
+											{
+												$yaky_yam_array[0] = $displayName;
+												$yaky_sku_array[0] = 'lotsa-chicken';
+											}
+											else if(strtolower($product_sku_array[$count] == 'yaky_yam_very_veggie')) 
+												{
+													$yaky_yam_array[1] = $displayName;
+													$yaky_sku_array[1] = 'very-veggy';
+												}
+											else if(strtolower($product_sku_array[$count] == 'yaky_yam_fruity_fruit')) 
+												{
+												$yaky_yam_array[2] = $displayName;
+												$yaky_sku_array[2] = 'fruity-fruit';
+												}
+											else $yaky_yam_array[$yam_count++] = $displayName;
+											$count++;
+											?>
+										<?php endforeach;?>
+										<?php $count = 0;?>
+										<?php for($i = 0; $i<count($yaky_yam_array); $i++):?>
+											<li class="<?php echo $yaky_sku_array[$i]?>"><a href="javascript:;"><?php echo $yaky_yam_array[$i]?></a></li>
+										<?php endfor;?>
+									</ul>
+									<script>
+									$('ul.list li').click(function(){
+										$('ul.list').hide();
+										$('ul.small-list').show();
+									});
+								</script>
+								<?php endif;?>
+
 							</div>
 						<?php endif;?>
 						<div class="products">
@@ -255,7 +295,7 @@
 							<li class="no-color">
 								<div class="product">
 								<?php $cat_image = getModel('category')->getCategoryBySlug('yaky-sticks')['category_image'];?>
-								<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=627&h=368'?>"/>
+								<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=681&h=358'?>"/>
 								<div class="category-detail clearfix">
 								<?php $variation = false;?>
 								<?php foreach($view_products as $product):?>
@@ -285,7 +325,7 @@
 
 										<li class = "<?php echo $class?>">
 											<div class="product">
-												<img src = "<?php echo URL.'timthumb.php?src='.$thumb.'&w=627&h=368'?>"/>
+												<img src = "<?php echo URL.'timthumb.php?src='.$thumb.'&w=681&h=358'?>"/>
 												<div class="category-detail clearfix">
 													<?php $ing = $productModel->getProductAttributeByCode($variation['pid'],'ingredients');?>
 													<?php if($ing):?>
