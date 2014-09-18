@@ -93,7 +93,7 @@
 	    						{
 	    							$('p.'+className+name).remove();
 										
-									$('<p class = "error '+className+name+'">'+errormsg+'</p>').insertAfter($(input));
+									$('<p class = "error '+className+name+'">'+errormsg+'</p>').insertAfter($(input).next('label'));
 	    						}
 	    						else
 	    						{

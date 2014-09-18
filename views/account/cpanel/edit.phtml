@@ -1,8 +1,11 @@
+<?php loadView('account/account-menu.phtml');?>
 <?php echo Session::showErrorMessages();
 echo Session::showSuccessMessages();?>
 <?php $session = Session::getCurrentSession();
 $customer = getModel('customer')->getCustomer($session['user_id']);
 extract($customer);
+$retailer = getModel('customer')->getRetailer($session['user_id']);
+extract($retailer);
 ?>
 <?php $states = getModel('customer')->getAllStates();?>
 <div class="wrapper account-edit">
@@ -54,9 +57,9 @@ extract($customer);
 	<label for ="name">Company/store</label>
 	<input type="text" class="input-box required text-validation" name="mcompany" value="<?php echo $mcompany?>"/>
 	</fieldset>
-	<!-- <label for ="name">Website</label>
-	<input type="text" class="input-box required text-validation" name="mein"/>
-	 -->
+	<label for ="name">Website</label>
+	<input type="text" class="input-box required text-validation" name="mwebsite" value="<?php echo $rwebsite?>"/>
+	
 	 <fieldset>
 	 <label></label>
 	<input type="submit" value="Submit" class="btn btn-blue"/>

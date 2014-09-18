@@ -4,7 +4,9 @@ $word_in_a_line = 12;
 
 $lines = ceil($word_count/$word_in_a_line);
 ?>
-
+<script type="text/javascript">
+    $('.nav ul li.contact').attr('id','contact-active');
+</script>
 <div class="wrapper">
                 <div class="faq">
                     <div class="faqLeft">
@@ -18,7 +20,6 @@ $lines = ceil($word_count/$word_in_a_line);
                                 <h2><?php echo $view_faq['faq_question'];?></h2>
                                 <p><?php echo $view_faq['faq_answer'];?></p>
                                 <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'faq'; ?>" class="faqback">&lt;back to FAQs</a>
-                                <a href="<?php echo URL.'contacts?from='.CurrentURL()?>" class="btn btn-blue">Contact Us Regarding This Issue</a>
                                 </div>
                                 </div>
 
@@ -32,6 +33,9 @@ $lines = ceil($word_count/$word_in_a_line);
                     
                 </div>
                 <div class="clearfix"></div>
+            </div>
+            <div class="faqRight">
+                <a href="<?php echo URL.'contacts?from='.CurrentURL()?>" class="btn btn-blue">Contact Us Regarding This Issue</a>
             </div>
 
 

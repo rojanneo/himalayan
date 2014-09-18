@@ -38,7 +38,11 @@ class CustomerModel extends Model
 		`mfax`='".mysql_real_escape_string($mfax)."',
 		`mcompany`='".mysql_real_escape_string($mcompany)."'
 		WHERE `mid` = '$mid'";
-		return $this->connection->UpdateQuery($query);
+
+		$query1 = "UPDATE `retailers` SET `rcompany`='$mcompany',`rwebsite`='$mwebsite' WHERE `rid`='3951'";
+
+
+		return $this->connection->UpdateQuery($query) and $this->connection->UpdateQuery($query1);
 	}
 
 	public function checkPassword($customerId, $pass)
@@ -178,7 +182,7 @@ class CustomerModel extends Model
 		$member = $this->connection->Query($sql);
 		if($member)
 		{
-		if($member[0]['mconfirm'] ==  0) $sql = "UPDATE `members` SET `mconfirm` = '1' WHERE `mid` = 3950";
+		if($member[0]['mconfirm'] ==  0) $sql = "UPDATE `members` SET `mconfirm` = '1' WHERE `mid` = $id";
 		else $sql = "UPDATE members SET mconfirm = '0' WHERE mid = $id";			
 		return $this->connection->UpdateQuery($sql);
 		}

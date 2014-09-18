@@ -105,6 +105,8 @@ background: #91e593; /* Old browsers */
     background: linear-gradient(to bottom, #91e593 0%,#f9f5a3 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#91e593', endColorstr='#f9f5a3',GradientType=0 ); /* IE6-8 */}
 h1, .heading { color: #595959; text-transform: uppercase; font-size: 22px; margin: 0px; font-family:'MyriadProBold'; }
+
+
 h2, h3, h4 { font-family:'MyriadProBold'; color: #595959;}
 p { color: #595959; font-size: 13px; line-height: 20px; margin: 5px 0;}
 ul li { color: #595959; font-size: 13px;}
@@ -169,7 +171,9 @@ body { font-family: 'MyriadProRegular'; margin: 0px !important;
 .floatingMenu { width: 1024px; margin: 0 auto; position: relative; z-index: 9999;}
 .floatingMenu ul { list-style: none; padding: 0; margin: 0px;}
 .floatingMenu ul li { position: absolute;}
-.floatingMenu ul li a { text-align: center; width: 100%; display: block; text-decoration: none; font-size: 16px; color: #40c2bc; font-family: 'MyriadProBold';}
+/* Changed*/
+.floatingMenu ul li a { text-align: center; width: 100%; display: block; text-decoration: none; font-size: 16px; color: #40c2bc; font-family: 'MyriadProRegular';}
+/* End Changed*/
 .floatingMenu ul li:hover a, .floatingMenu ul li.active a { color: #fff;}
 .floatingMenu ul li.testimonials { top: 8px; left: 48px; background: url(../images/cloud1.png) no-repeat center center; width: 440px; height: 103px;}
 .floatingMenu ul li.photogallery { top: 20px; left: 520px; background: url(../images/cloud2.png) no-repeat center center; width: 164px; height: 55px;}
@@ -345,7 +349,9 @@ div.productInfo2 { padding: 0px !important;}
 }
 .account-menu ul li a:hover, .account-menu ul li a.active { background: #FCF288; color: #00AFA6;}
 /*forms*/
-.forms h1 { text-align: center; margin: 40px 0; font-size: 20px;}
+/*Changes*/
+.forms h1 { text-align: center; margin: 40px 0; font-size: 20px; text-transform: none}
+/*End Changes*/
 .forms ul li { float: left; width: 50%; display: block; margin: 20px 0; text-align: center;}
 .forms ul li a { background: #00BF63; padding: 15px 30px; text-decoration: none; font-size: 20px; font-weight: 700; color: #fff; width: 300px; display: block; text-align: center; margin: 0 auto;
 	border-radius: 10px;
@@ -447,8 +453,9 @@ height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none
 
 /*extra*/
 .captcha { margin: 10px 0;}
-.guarantee { background: rgba(255,255,255,0.8); padding: 20px; width: 70%; margin: 40px auto; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;}
-
+/*Changes*/
+.guarantee { background: rgba(255,255,255,0.8); padding: 20px; width: 70%; margin: 24px auto; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;}
+/*End Changes*/
 /*buttons*/
 .btn { padding: 15px 60px; font-size: 18px; border-radius: 10px; display: inline-block; text-decoration: none; transition: all linear 0.2s; margin: 10px 0; border: none; text-align: center; font-weight: 700;}
 .btn:hover { box-shadow: 2px 2px 6px rgba(0,0,0,0.5);}
