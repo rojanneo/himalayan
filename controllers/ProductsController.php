@@ -10,8 +10,8 @@ class ProductsController extends Controller
 	public function categoriesAction()
 	{
 		$model = getModel('category');
-		$categories = $model->getCategories();
-		$data['categories'] = $categories;
+		$categories = $model->getCategoryBySlug('our-creations');
+		$data['category'] = $categories;
 		$this->view->render('products/categories.phtml', $data);
 	}
 

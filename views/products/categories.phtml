@@ -2,11 +2,10 @@
 <div class="rightBody"><img src="<?php echo ASSET_URL.'/images/creation-main.png'?>"></div>
 <div class="leftBody">
 <ul class="category-list">
-<?php foreach($view_categories as $category):?>
-	<?php if(!$category['is_root']):?>
-		<li><a href="<?php echo URL.'products/list/'.$category['category_id']?>"><?php echo $category['category_name']?></a></li>
-	<?php endif;?>
-<?php endforeach;?>
+	<?php $categories = getModel('category')->getChildrenCategories($view_category['category_id']);?>
+	<?php foreach($categories as $category):?>
+	<li><a href="<?php echo URL.'products/list/'.$category['category_id']?>"><?php echo $category['category_name']?></a></li>
+	<?php endforeach;?>
 </ul>
 </div>
 </div>

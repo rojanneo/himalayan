@@ -149,4 +149,12 @@ class CategoryModel extends Model
 		}
 		return true;
 	}
+
+	public function getChildrenCategories($parent_id)
+	{
+		$sql = "SELECT * FROM `categories` WHERE `parent_id` = $parent_id";
+		$categories = $this->connection->Query($sql);
+		if($categories) return $categories;
+		return false;
+	}
 }
