@@ -7,8 +7,8 @@
 	<?php $name = $category['category_display_name'];?>
 	<?php if(!$name) $name = $category['category_name'];?>
 	<?php if(getModel('category')->hasChildren($category['category_id'])):?>
-		<li><a href="javascript:void(0)"><?php echo $name?></a></li>
-		<ul>
+		<li><a href="javascript:void(0)" id="<?php echo $category['category_id']?>" class="sub-cat"><?php echo $name?></a></li>
+		<ul style="display:none" class="sub-cat-<?php echo $category['category_id']?> hidden-cat">
 			<?php $level2 = getModel('category')->getChildrenCategories($category['category_id']);?>
 			<?php foreach($level2 as $level2_cat):?>
 				<?php $name1 = $level2_cat['category_display_name'];?>
@@ -23,3 +23,10 @@
 </ul>
 </div>
 </div>
+<script>
+$('a.sub-cat').click(function(){
+	var id = $(this).attr('id');
+	$('ul.hidden-cat').hide();
+	$('ul.sub-cat-'+id).show();
+});
+</script>
