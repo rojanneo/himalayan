@@ -157,4 +157,12 @@ class CategoryModel extends Model
 		if($categories) return $categories;
 		return false;
 	}
+
+	public function hasChildren($cat_id)
+	{
+		$sql = "SELECT * FROM categories WHERE parent_id = $cat_id";
+		$children = $this->connection->Query($sql);
+		if($children) return true;
+		else return false;
+	}
 }

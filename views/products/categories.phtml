@@ -2,9 +2,19 @@
 <div class="rightBody"><img src="<?php echo ASSET_URL.'/images/creation-main.png'?>"></div>
 <div class="leftBody">
 <ul class="category-list">
-	<?php $categories = getModel('category')->getChildrenCategories($view_category['category_id']);?>
-	<?php foreach($categories as $category):?>
-	<li><a href="<?php echo URL.'products/list/'.$category['category_id']?>"><?php echo $category['category_name']?></a></li>
+	<?php $level1 = getModel('category')->getChildrenCategories($view_category['category_id']);?>
+	<?php foreach($level1 as $category):?>
+	<?php if(getModel('category')->hasChildren($category['category_id'])):?>
+		<li><a href="javascript:void(0)"><?php echo $category['category_name']?></a></li>
+		<ul>
+			<?php $level2 = getModel('category')->getChildrenCategories($category['category_id']);?>
+			<?php foreach($level2 as $level2_cat):?>
+				<li><a href="<?php echo URL.'products/list/'.$level2_cat['category_id']?>"><?php echo $level2_cat['category_name']?></a></li>
+			<?php endforeach;?>
+		</ul>
+	<?php else:?>
+		<li><a href="<?php echo URL.'products/list/'.$category['category_id']?>"><?php echo $category['category_name']?></a></li>
+	<?php endif;?>	
 	<?php endforeach;?>
 </ul>
 </div>
