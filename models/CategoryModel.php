@@ -23,7 +23,7 @@ class CategoryModel extends Model
 			$category='<ul>';
 			foreach ($cat_hier as $cat_hier)
 			{
-				$category.=$this->cat_ul($cat_hier['category_name'],$cat_hier['category_id']);
+				$category.=$this->cat_ul($cat_hier['category_name'],$cat_hier['category_id'],$cat_hier['sort_order']);
 			}
 			$category.='</ul>';
 			return $category;
@@ -32,17 +32,17 @@ class CategoryModel extends Model
 
 	}
 
-	public function cat_ul($category_name,$category_id)
+	public function cat_ul($category_name,$category_id, $sort_order)
 	{
-		$category='<li><a href="javascript:void(0)" class="expand"><img width="15px" src="'.ASSET_URL.'images/expand.gif'.'"/></a><a href="'.ADMIN_URL.'category/editcat/'.$category_id.'">'.$category_name.'</a> <a href="'.ADMIN_URL.'category/deletecat/'.$category_id.'">DELETE</a></li>';
-			$query1='SELECT * FROM `categories` WHERE `parent_id`='.$category_id.'';
+		$category='<li><a href="javascript:void(0)" class="expand"><img width="15px" src="'.ASSET_URL.'images/expand.gif'.'"/></a><a href="'.ADMIN_URL.'category/editcat/'.$category_id.'">'.$category_name.'</a> <a href="'.ADMIN_URL.'category/deletecat/'.$category_id.'">DELETE</a><input type="text" name="position['.$category_id.']" value="'.$sort_order.'"/></li>';
+			$query1='SELECT * FROM `categories` WHERE `parent_id`='.$category_id.' order by sort_order ASC';
 			$cat_hier1=$this->connection->Query($query1);
 			if(!empty($cat_hier1))
 			{
 				$category.='<ul style="display:none">';
 				foreach ($cat_hier1 as $cat_hier1) 
 				{
-					$category.=$this->cat_ul($cat_hier1['category_name'],$cat_hier1['category_id']);
+					$category.=$this->cat_ul($cat_hier1['category_name'],$cat_hier1['category_id'],$cat_hier1['sort_order']);
 				}
 				$category.='</ul>';
 			}
@@ -56,11 +56,11 @@ class CategoryModel extends Model
 		if(!isset($category_image)) $category_image = null;
 		if($ctype==0)
 		{ 
-			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_description`,`category_image`, `parent_id`, `is_root`) VALUES ('".mysql_escape_string($cname)."','".$cslug."','".mysql_escape_string($cdescription)."', '".$category_image."',0,1)";
+			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_display_name`,`category_description`,`category_image`, `parent_id`, `is_root`) VALUES ('".mysql_escape_string($cname)."','".$cslug."','".mysql_escape_string($cdname)."','".mysql_escape_string($cdescription)."', '".$category_image."',0,1)";
 		}
 		else
 		{
-			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_description`,`category_image`, `parent_id`, `is_root`) VALUES ('".mysql_escape_string($cname)."','".$cslug."','".mysql_escape_string($cdescription)."','".$category_image."','".$ctype."',0)";
+			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_description`,`category_image`, `parent_id`, `is_root`) VALUES ('".mysql_escape_string($cname)."','".$cslug."','".mysql_escape_string($cdname)."','".mysql_escape_string($cdescription)."','".$category_image."','".$ctype."',0)";
 		}
 		$result1 = $this->connection->InsertQuery($sql);
 		$this->deleteUnnecessaryImages();
@@ -87,14 +87,15 @@ class CategoryModel extends Model
 	public function updatecatval($post_data)
 	{
 		if($post_data) extract($post_data);	
-		if(!isset($category_image)) $category_image = null;
+		$category = $this->getcategoryById($attribute_id);
+		if(!isset($category_image)) $category_image = $category[0]['category_image'];
 		if($ctype==0)
 		{
-			$sql="UPDATE `categories` SET `category_name`='".mysql_escape_string($cname)."',`category_description`='".mysql_escape_string($cdescription)."',`category_image` = '".$category_image."',`parent_id`=0,`is_root`= 1 WHERE `category_id`='".$attribute_id."'";
+			$sql="UPDATE `categories` SET `category_name`='".mysql_escape_string($cname)."',`category_display_name`='".mysql_escape_string($cdname)."',`category_description`='".mysql_escape_string($cdescription)."',`category_image` = '".$category_image."',`parent_id`=0,`is_root`= 1 WHERE `category_id`='".$attribute_id."'";
 		}
 		else
 		{	
-		$sql="UPDATE `categories` SET `category_name`='".mysql_escape_string($cname)."',`category_description`='".mysql_escape_string($cdescription)."',`category_image` = '".$category_image."',`parent_id`='".$ctype."',`is_root`=0 WHERE `category_id`='".$attribute_id."'";
+		$sql="UPDATE `categories` SET `category_name`='".mysql_escape_string($cname)."',`category_display_name`='".mysql_escape_string($cdname)."',`category_description`='".mysql_escape_string($cdescription)."',`category_image` = '".$category_image."',`parent_id`='".$ctype."',`is_root`=0 WHERE `category_id`='".$attribute_id."'";
 		}
 		$this->connection->UpdateQuery($sql);
 		$this->deleteUnnecessaryImages();
@@ -152,7 +153,7 @@ class CategoryModel extends Model
 
 	public function getChildrenCategories($parent_id)
 	{
-		$sql = "SELECT * FROM `categories` WHERE `parent_id` = $parent_id";
+		$sql = "SELECT * FROM `categories` WHERE `parent_id` = $parent_id order by sort_order ASC";
 		$categories = $this->connection->Query($sql);
 		if($categories) return $categories;
 		return false;
@@ -164,5 +165,21 @@ class CategoryModel extends Model
 		$children = $this->connection->Query($sql);
 		if($children) return true;
 		else return false;
+	}
+
+	public function saveSortOrder($post_data)
+	{
+		if(isset($post_data)) extract($post_data);
+
+		if(isset($position))
+		{
+			foreach($position as $id=>$value)
+			{
+				$sql = "UPDATE categories SET sort_order = $value WHERE category_id = $id";
+				$this->connection->UpdateQuery($sql);
+			}
+			return true;
+		}
+		return false;
 	}
 }

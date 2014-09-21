@@ -12,6 +12,15 @@ class CategoryAdminController extends Controller
 		}
 	}
 
+	public function testAction()
+	{
+		loadHelper('inputs');
+		$post_data = getPost();
+		getModel('category')->saveSortOrder($post_data);
+		redirect('admin/category');
+		var_dump($post_data);die;
+	}
+
 	public function indexAction()
 	{
 		$model=getModel('category');
