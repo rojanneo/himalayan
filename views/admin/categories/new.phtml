@@ -19,7 +19,7 @@ echo AdminSession::showSuccessMessages();?>
 	<input type="text" name="cname" class="input-box required text-validation" value="<?php echo (isset($view_category))?$view_category['category_name']:null?>"/>
 
 	<label for name="ccode">CATEGORY Display Name</label>
-	<input type="text" name="cdname" class="input-box required text-validation" value="<?php echo (isset($view_category))?$view_category['category_display_name']:null?>"/>
+	<input type="text" name="cdname" class="input-box text-validation" value="<?php echo (isset($view_category))?$view_category['category_display_name']:null?>"/>
 
 	<label for name="cname">CATEGORY Description</label>
 	<textarea class = "editor" name="cdescription"><?php echo (isset($view_category))?$view_category['category_description']:null?></textarea>
