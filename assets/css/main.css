@@ -206,7 +206,7 @@ body { font-family: 'MyriadProRegular'; margin: 0px !important;
 
 /*footer*/
 .footer.wrapper { min-height: 50px;}
-.footer div { display: inline-block; width: 33%;}
+.footer div { display: inline-block; width: 33%;vertical-align: bottom;}
 .footer ul { list-style: none; padding: 0;}
 .footer ul li { display: inline-block; margin-right: 8px;} 
 .footer ul li.last { margin-right: 0px;}

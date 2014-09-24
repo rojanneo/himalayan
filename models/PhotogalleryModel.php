@@ -44,7 +44,7 @@ class PhotogalleryModel extends Model
 	public function updategallery($post_data)
 	{
 		if($post_data) extract($post_data);
-		$query="UPDATE `photo_gallery` SET `photo_image`='".$photo."',`photo_image_resized`='".$photo."',`photo_caption`='".$pcaption."',`photo_status`=".$pstatus." WHERE `photo_id`='".$gallery_id."'";
+		$query="UPDATE `photo_gallery` SET `photo_image`='".$photo."',`photo_image_resized`='".$photo."',`photo_caption`='".mysql_escape_string($pcaption)."',`photo_status`=".$pstatus." WHERE `photo_id`='".$gallery_id."'";
 		return $this-> connection->UpdateQuery($query);
 	}
 
@@ -64,7 +64,7 @@ class PhotogalleryModel extends Model
 	public function addNewphoto($post_data)
 	{
 		if($post_data) extract($post_data);		
-		$sql="INSERT INTO `photo_gallery`(`photo_image`, `photo_image_resized`, `photo_caption`, `photo_status`) VALUES ('".$photo."','".$photo."','".$pcaption."',".$pstatus.")";
+		$sql="INSERT INTO `photo_gallery`(`photo_image`, `photo_image_resized`, `photo_caption`, `photo_status`) VALUES ('".$photo."','".$photo."','".mysql_escape_string($pcaption)."',".$pstatus.")";
 		return $this->connection->InsertQuery($sql);
 	}
 }

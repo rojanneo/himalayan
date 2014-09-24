@@ -13,11 +13,11 @@ echo AdminSession::showSuccessMessages();?>
 		<tbody>
 			<?php foreach($view_testimonials as $testimonial):?>
 				<tr>
-					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['t_id']?>"><?php echo $testimonial['t_id']?></a></td>
-					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['t_id']?>"><?php echo $testimonial['t_name']?></a></td>
-					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['t_id']?>"><?php echo $testimonial['t_email']?></a></td>
-					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['t_id']?>"><?php echo $testimonial['t_add']?></a></td>
-					<td><a class="button" href="<?php echo ADMIN_URL.'testimonials/delete/'.$testimonial['t_id']?>" class="confirm">Delete</a></td>
+					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['testimonial_id']?>"><?php echo $testimonial['testimonial_id']?></a></td>
+					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['testimonial_id']?>"><?php echo $testimonial['testimonial_name']?></a></td>
+					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['testimonial_id']?>"><?php echo $testimonial['testimonial_email']?></a></td>
+					<td><a href="<?php echo ADMIN_URL.'testimonials/view/'.$testimonial['testimonial_id']?>"><?php echo $testimonial['testimonial_address']?></a></td>
+					<td><a class="button" href="<?php echo ADMIN_URL.'testimonials/delete/'.$testimonial['testimonial_id']?>" class="confirm">Delete</a></td>
 				</tr>
 			<?php endforeach;?>
 		</tbody>

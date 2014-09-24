@@ -1,6 +1,6 @@
 <?php
-
-class FaqController extends Controller
+require_once('system/recaptchalib.php');
+class TestimonialforumController extends Controller
 {
 	public function __construct()
 	{
@@ -9,43 +9,54 @@ class FaqController extends Controller
 
 	public function indexAction()
 	{
-		// $text = "Although Himalayan Dog Chew rarely goes bad, please stop feeding the dog and call us immediately if you see fibrous white light or green blue spots on the chew. This is a sign of mold growth and is hazardous. We would appreciate these chews to be placed in a zipper bag and sent to us for testing. In replacement we can send you a replacement chew right away.";
-		// $words = $this->extractCommonWords($text);
-		// echo implode(',', array_keys($words));
-
-		$faqs = getModel('faq')->getAllFaqs();
-		$data['faqs'] = $faqs;
-		$this->view->render('faq/faqs.phtml',$data);
+		$this->view->render('testimonials/form.phtml');
 	}
 
-	public function viewAction($faq_id)
+	public function testimonialPostAction()
 	{
-		$faq = getModel('faq')->loadFaq($faq_id);
-		$data['faq'] = $faq[0];
-		$this->view->render('faq/view.phtml',$data);
+		loadHelper('inputs');
+		loadHelper('url');
+		$post_data = getPost();
+		$response_field = getPost("recaptcha_response_field");
+		$recaptcha_challenge = getPost("recaptcha_challenge_field");
+	 	$resp = recaptcha_check_answer (CAPTCHA_PRIVATE_KEY,
+                                        $_SERVER["REMOTE_ADDR"],
+                                        $recaptcha_challenge,
+                                        $response_field);
+	 	if($resp->is_valid)
+	 	{
+	 		getModel('testimonials')->saveTestimonial($post_data);
+	 		redirect('testimonials');
+	 	}
+	 	else
+	 	{
+	 		redirect('testimonials');
+	 	}
 	}
+
+	public function showAction()
+	{
+		loadHelper('inputs');
+		$page = getParam('p');
+		if(!$page) $page = 1;
+		$limit = 1;
+		$first = ($page-1) * $limit;
+		$testimonials = getModel('testimonials')->getAllTestimonials();
+		$data['testimonials'] = $testimonials;
+		$count = getModel('testimonials')->getTestimonialsCount();
+		$data['pagination_num'] = ceil($count/$limit);
+		$this->view->render('testimonials/list.phtml',$data);
+	} 
 
 	public function searchAction()
 	{
 		loadHelper('inputs');
-		//var_dump($_GET['faq-search-query']); die();
-		//$query = getPost("faq-search-query");
-		$query=getParam('faq-search-query');
+		$query=getParam('testimonial_search_query');
 		$keywords = $this->extractCommonWords($query);
-		$results = getModel('faq')->searchFaq($keywords);
-		if(!empty($query))
-		{ 		
-		$data['search_results'] = $results;		
-		}
-		else
-		{ 
-			loadHelper('url');
-			//$data['nopostdata']=1;
-			redirect('faq');
-		}
-		$faqs = getModel('faq')->getAllFaqs();
-		$data['faqs'] = $faqs;
-		$this->view->render('faq/faqs.phtml',$data);
+		$testimonials = getModel('testimonials')->searchTestimonials($keywords);
+		$data['testimonials'] = $testimonials;
+		$this->view->render('testimonials/list.phtml',$data);
+
 	}
 
 	private function extractCommonWords($string)
@@ -80,6 +91,4 @@ class FaqController extends Controller
       $wordCountArr = array_slice($wordCountArr, 0, 10);
       return $wordCountArr;
 	}
-
-
 }

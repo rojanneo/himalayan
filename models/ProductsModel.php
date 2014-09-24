@@ -49,6 +49,7 @@ class ProductsModel extends Model
 		return false;
 	}
 
+
 	public function getVariations($product_id)
 	{
 		$sql = "SELECT associate_pid FROM `product_associations` WHERE `parent_pid` = $product_id";
@@ -142,6 +143,18 @@ class ProductsModel extends Model
 		}
 		else
 		return false;
+	}
+
+	public function getSmallImage($product_id)
+	{
+		$sql = "SELECT * FROM `product_attribute_values_gallery` WHERE `pavg_pid` = $product_id AND `is_small_image` = 1";
+		$small = $this->connection->Query($sql);
+		if($small)
+		{
+			return UPLOAD_URL.$small[0]['value'];
+		}
+		else
+		return false;		
 	}
 
 	public function getGalleryImages($product_id)
@@ -295,6 +308,7 @@ class ProductsModel extends Model
 		if($post_data) extract($post_data);
 		$baseimage=$radiobasval;
 		$thumbimage=$radiothumval;
+		$smallimage=$radiosmallval;
 		if(!isset($quantity)) $quantity = 0;
 		if(!isset($in_stock)) $in_stock = 1;		
 		if(!isset($is_variation))
@@ -356,7 +370,8 @@ class ProductsModel extends Model
 			{
 				if($gallery_image==$baseimage){ $i=1; }else{ $i=0; }
 				if($gallery_image==$thumbimage){ $j=1; }else{ $j=0; }
-				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image) VALUES(".$pid.",'".$gallery_image."', ".$i.", ".$j.")";
+				if($gallery_image==$smallimage){ $k=1; }else{ $k=0; }
+				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image,is_small_image) VALUES(".$pid.",'".$gallery_image."', ".$i.", ".$j.",".$k.")";
 				$result3 = $this->connection->InsertQuery($sql);
 			}
 		}
@@ -433,6 +448,7 @@ class ProductsModel extends Model
 		if(isset($post_data)) extract($post_data);
 		$baseimage=$radiobasval;
 		$thumbimage=$radiothumval;
+		$smallimage=$radiosmallval;
 		if(!isset($quantity)) $quantity = 0;
 		if(!isset($in_stock)) $in_stock = 0;
 		$sql = "UPDATE products_simple SET pname = '".$name."', psku = '".$sku."', ptype='".$product_type."', product_asid = '".$attribute_set."',
@@ -511,6 +527,20 @@ class ProductsModel extends Model
 		$setthumb="UPDATE `product_attribute_values_gallery` SET `is_thumbnail_image`=1 WHERE `value`='".$thumbimage."' AND `pavg_pid`= ".$product_id." ";
 		$this->connection->UpdateQuery($setthumb);
 		//end of thumb image
+
+		//for previously set iamges as small images been changed
+		$previmagtobesmall="SELECT * FROM `product_attribute_values_gallery` WHERE `is_small_image`=1 AND `pavg_pid`=$product_id";
+		$prevsmall=$this->connection->Query($previmagtobesmall);
+		if($prevsmall)
+		{
+			$sqlsmall="UPDATE `product_attribute_values_gallery` SET `is_small_image`=0 WHERE `pavg_pid`= ".$prevsmall[0]['pavg_pid']."";
+			$this->connection->UpdateQuery($sqlsmall);
+		}
+
+		$setsmall="UPDATE `product_attribute_values_gallery` SET `is_small_image`=1 WHERE `value`='".$smallimage."' AND `pavg_pid`= ".$product_id." ";
+		$this->connection->UpdateQuery($setsmall);
+		//end of small image
+		
 		if(isset($gallery_images))
 		{
 			$gallery_images = rtrim($gallery_images,',');
@@ -518,7 +548,8 @@ class ProductsModel extends Model
 			foreach($gallery_images as $gallery_image){
 				if($gallery_image==$baseimage){ $i=1; }else{ $i=0; }
 				if($gallery_image==$thumbimage){ $j=1; }else{ $j=0; }
-				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image) VALUES(".$product_id.",'".$gallery_image."', ".$i.", ".$j.")";
+				if($gallery_image==$smallimage){ $k=1; }else{ $k=0; }
+				$sql = "INSERT INTO product_attribute_values_gallery(pavg_pid,value,is_base_image,is_thumbnail_image,is_small_image) VALUES(".$product_id.",'".$gallery_image."', ".$i.", ".$j.",".$k.")";
 				$result3 = $this->connection->InsertQuery($sql);
 			}
 		}

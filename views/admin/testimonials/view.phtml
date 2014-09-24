@@ -8,14 +8,14 @@
 				<ul>
 					<li class="field">
 						<div class="input">
-							<input class="button" type="button" onclick="location.href='<?php echo ADMIN_URL.'testimonials/delete/'.$view_testimonial['t_id']?>'" value="Delete"/>
+							<input class="button" type="button" onclick="location.href='<?php echo ADMIN_URL.'testimonials/delete/'.$view_testimonial['testimonial_id']?>'" value="Delete"/>
 
 						</div></li>		<li class="field">
 						<div class="input-title">
 							<label for = "nature">Name</label>
 						</div>
 						<div class="input">
-							<input type="text" class="input-box" name="nature" value="<?php echo $view_testimonial['t_name'];?>" readonly/>
+							<input type="text" class="input-box" name="nature" value="<?php echo $view_testimonial['testimonial_name'];?>" readonly/>
 						</div>
 					</li>
 
@@ -24,7 +24,7 @@
 							<label for = "sender-email">Email</label>
 						</div>
 						<div class="input">
-							<input type="text" class="input-box" name="sender-email" value="<?php echo $view_testimonial['t_email'];?>" readonly/>
+							<input type="text" class="input-box" name="sender-email" value="<?php echo $view_testimonial['testimonial_email'];?>" readonly/>
 						</div>
 					</li>
 					<li class="field">
@@ -32,7 +32,7 @@
 							<label for = "sender-email">Address</label>
 						</div>
 						<div class="input">
-							<input type="text" class="input-box" name="sender-email" value="<?php echo $view_testimonial['t_add'];?>" readonly/>
+							<input type="text" class="input-box" name="sender-email" value="<?php echo $view_testimonial['testimonial_address'];?>" readonly/>
 						</div>
 					</li>
 					<li class="field">
@@ -40,7 +40,7 @@
 							<label for="message">Comment</label>
 						</div>
 						<div class="input">
-							<textarea name="message" class="input-box" readonly><?php echo $view_testimonial['t_comment'];?></textarea>
+							<textarea name="message" class="input-box" readonly><?php echo $view_testimonial['testimonial'];?></textarea>
 						</div>
 					</li>
 					<li class="field">

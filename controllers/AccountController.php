@@ -37,6 +37,11 @@ class AccountController extends Controller
 		$this->view->render('account/cpanel/cpanel.phtml');
 	}
 
+	public function distributorsAction()
+	{
+		$this->view->render('default/under-construction.phtml');
+	}
+
 	public function editAction()
 	{
 		$this->view->render('account/cpanel/edit.phtml');

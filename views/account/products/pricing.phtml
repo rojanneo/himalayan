@@ -9,7 +9,8 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 	<ul class="slides">
 		<?php foreach($view_products as $product):?>
 			<?php $base = getModel('products')->getBaseImage($product['pid']);?>
-			<?php array_push($image_array, $base);?>
+			<?php $small = getModel('products')->getSmallImage($product['pid']);?>
+			<?php array_push($image_array, $small);?>
 			<?php $product_id = $product['pid'];?>
 			<?php $productModel = getModel('products');?>
 			<?php if($product['psku'] !='yaky_sticks'):?>

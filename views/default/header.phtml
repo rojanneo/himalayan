@@ -7,7 +7,8 @@
         <?php if(!Session::isLoggedIn()):?>
             <li class="signin"><a href="<?php echo URL.'login'?>">sign in</a></li>
         <?php else:?>
-            <li class="signin"><a href="<?php echo URL.'account'?>">cpanel</a></li>
+            <!-- <li class="signin"><a href="<?php echo URL.'account'?>">cpanel</a></li> -->
+            <li class="signin"><a href="<?php echo URL.'account/logout'?>">sign out</a></li>
         <?php endif;?>
 
         </ul>

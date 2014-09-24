@@ -40,9 +40,9 @@
         <!-- TODO MAKE THIS DYNAMIC -->
         <div class="faqInformation">
             <div class="faq-search">
-                <form method="get" action = "<?php echo URL.'faq/search'?>">
+                <form method="get" action = "<?php echo URL.'testimonialforum/search'?>">
                     <fieldset>
-                    <input type = "text" class="required input-box" name="faq-search-query" <?php if(isset($_GET['faq-search-query'])){ ?> value="<?php echo $_GET['faq-search-query']; ?>"<?php }?>/>
+                    <input type = "text" class="required input-box" name="testimonial_search_query" <?php if(isset($_GET['testimonial_search_query'])){ ?> value="<?php echo $_GET['testimonial_search_query']; ?>"<?php }?>/>
                     </fieldset>
                     <fieldset>
                     <input type ="submit" value = "Search" class="btn btn-blue" /> 
