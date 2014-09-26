@@ -59,6 +59,48 @@ class TestimonialforumController extends Controller
 
 	}
 
+	public function loadCommentsAction($id)
+	{
+		$comments = getModel('testimonials')->getTestimonialComments($id);
+		$data['comments'] = $comments;
+		$this->view->render('testimonials/comments.phtml', $data, false, false, false);
+	}
+
+	public function addCommentAction()
+	{
+		loadHelper('inputs');
+		$post_data = getPost();
+		$id = getModel('testimonials')->addComment($post_data);
+		if($id)
+		{
+			$comment = getModel('testimonials')->getComment($id);
+			print '<div class="comment_user">'.$comment['comment_message'].'</div>';
+		}
+	}
+
+	public function makeHelpfulAction($id)
+	{
+		if(getModel('testimonials')->makeHelpful($id))
+		{
+			print 'true';
+		}
+		else
+		{
+			print 'false';
+		}
+	}
+	public function notHelpfulAction($id)
+	{
+		if(getModel('testimonials')->notHelpful($id))
+		{
+			print 'true';
+		}
+		else
+		{
+			print 'false';
+		}
+	}
+
 	private function extractCommonWords($string)
 	{
       $stopWords = array('i','a','about','an','and','are','as','at','be','by','com','de','en','for','from','how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will','with','und','the','www');

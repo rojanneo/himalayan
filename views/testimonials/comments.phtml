@@ -1,0 +1,13 @@
+<?php if($view_comments):?>
+					<?php foreach($view_comments as $comment):?>
+						<?php if($comment['comment_from'] == 'hdc'):?>
+							<div class="comment_hdc">
+								<?php echo $comment['comment_message']?>
+							</div>
+						<?php else:?>
+							<div class="comment_user">
+								<?php echo $comment['comment_message']?>
+							</div>
+						<?php endif;?>
+					<?php endforeach;?>
+				<?php endif;?>

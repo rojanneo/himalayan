@@ -25,6 +25,27 @@ class TestimonialsAdminController extends Controller
 		$this->view->renderAdmin('testimonials/grid.phtml', $data);
 	}
 
+	public function addCommentAction()
+	{
+		loadHelper('inputs');
+		$post_data = getPost();
+		getModel('testimonials')->addComment($post_data);
+		redirect('admin/testimonials/view/'.$post_data['comment_testimonial_id']);
+	}
+
+	public function deleteCommentAction($id)
+	{
+		$comment = getModel('testimonials')->getComment($id);
+		if($comment)
+		{
+			getModel('testimonials')->deleteComment($id);
+			print 'true';
+		}
+		else
+			print 'false';
+
+	}
+
 	public function deleteAction($id)
 	{
 		if(getModel('testimonials')->deleteTestimonial($id))

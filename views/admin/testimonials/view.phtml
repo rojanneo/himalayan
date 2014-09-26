@@ -4,13 +4,22 @@
 			<div class="page-head">
 				<h3>Message</h3>
 			</div>
+			<div class="actions">
+				<div class="tabs">
+					<a href="#" class="tab" id="testimonial">Testimonial</a>
+					<a href="#" class="tab" id="comments">Comments</a>
+				</div>
+			</div>
 			<div class="form">
 				<ul>
+					
+					<div class="testimonial tab-content">
 					<li class="field">
 						<div class="input">
 							<input class="button" type="button" onclick="location.href='<?php echo ADMIN_URL.'testimonials/delete/'.$view_testimonial['testimonial_id']?>'" value="Delete"/>
 
-						</div></li>		<li class="field">
+						</div></li>		
+					<li class="field">
 						<div class="input-title">
 							<label for = "nature">Name</label>
 						</div>
@@ -44,6 +53,52 @@
 						</div>
 					</li>
 					<li class="field">
+						<div class="input-title">
+							<label for="message">Rating</label>
+						</div>
+						<div class="input">
+							<textarea name="message" class="input-box" readonly><?php echo $view_testimonial['testimonial_rating'];?></textarea>
+						</div>
+					</li>
+					</div>
+					<div class="comments tab-content" style="display:none">
+					<?php $comments = getModel('testimonials')->getTestimonialComments($view_testimonial['testimonial_id']);?>
+					<?php if($comments):?>
+					<table style="width:98%">
+					<?php foreach($comments as $comment):?>
+						<tr>
+						<?php if($comment['comment_from']=='hdc'):?>
+							<td width="50%">
+							</td>
+							<td width="50%">
+							<div class="comment_hdc" style="background-color:#6CC049">
+							<?php echo $comment['comment_message']?>
+							<a href="javascript:void(0)" class="delete-comment" rel="<?php echo $comment['comment_id']?>">Delete Comment</a>
+							</div>
+							</td>
+						<?php else:?>
+							<td width="50%">
+							<div class="comment_user" style="background-color:#00AFA6">
+							<?php echo $comment['comment_message'];?>
+							<a href="javascript:void(0)" class="delete-comment" rel="<?php echo $comment['comment_id']?>">Delete Comment</a>
+							</div>
+							</td>
+							<td width="50%">
+							</td>
+						<?php endif;?>
+						</tr>
+					<?php endforeach;?>
+					</table>
+				<?php endif;?>
+						<form class="comment-form" method="post" action="<?php echo ADMIN_URL.'testimonials/addComment'?>" style="width:95%">
+							<input type="hidden" name="comment_testimonial_id" value="<?php echo $view_testimonial['testimonial_id']?>"/>
+							<input type="hidden" name="comment_from" value="hdc"/>
+							<label for = "comment">Comment: </label>
+							<input type="text" name="comment_message" class="input-box required editor"/>
+							<input type="submit" value="Add Comment"/>
+						</form>
+					</div>
+					<li class="field">
 						<div class="input">
 							<input class="button" type="button" onclick="location.href='<?php echo ADMIN_URL.'testimonials'?>'" value="Back To Testimonials"/>
 							
@@ -54,3 +109,29 @@
 	</div>
 </div>
 <?php endif;?>
+<script>
+$(document).ready(function()
+		{
+
+		$('.tabs a').click(function(){
+			var id = $(this).attr('id');
+			$('.tab-content').hide();
+			$('.'+id).show();
+
+		});
+
+		$('a.delete-comment').click(function(){
+			var rel = $(this).attr('rel');
+			$a = $(this);
+			$.ajax({url:'<?php echo ADMIN_URL."testimonials/deleteComment/"?>'+rel,success:function(result){
+    			if(result == 'true')
+			    {
+			    	$a.parent().parent().parent().remove();
+			    }
+			}});
+		});
+
+
+	});
+
+</script>
