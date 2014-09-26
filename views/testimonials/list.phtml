@@ -86,7 +86,7 @@
 	<script type="text/javascript">
 	$('.comment-link').click(function(){$(this).parent().parent().parent().find('.comment-form').show()});
 	$('.add-comment').click(function(){
-		$cf = $(this).parent().parent().find('.comments');
+		$cf = $(this).parent().parent().parent().find('.comments');
 		var id = $(this).parent().find('input[name=comment_testimonial_id]').val();
 		var datas = {
 			'comment_testimonial_id': $(this).parent().find('input[name=comment_testimonial_id]').val(),
@@ -102,6 +102,7 @@
 				$.get('<?php echo URL?>testimonialforum/loadComments/'+id, function(data){
 					$cf.html(data);
 					$cf.parent().find('.comment-form').find("input[name=comment_message]").val('');
+					
 				});
 			}
 
