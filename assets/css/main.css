@@ -175,13 +175,13 @@ body { font-family: 'MyriadProRegular'; margin: 0px !important;
 .floatingMenu ul li a { text-align: center; width: 100%; display: block; text-decoration: none; font-size: 16px; color: #40c2bc; font-family: 'MyriadProRegular';}
 /* End Changed*/
 .floatingMenu ul li:hover a, .floatingMenu ul li.active a { color: #fff;}
-.floatingMenu ul li.testimonials { top: 8px; left: 48px; background: url(../images/cloud1.png) no-repeat center center; width: 440px; height: 103px;}
+.floatingMenu ul li.testimonials-nav { top: 8px; left: 48px; background: url(../images/cloud1.png) no-repeat center center; width: 440px; height: 103px;}
 .floatingMenu ul li.photogallery { top: 20px; left: 520px; background: url(../images/cloud2.png) no-repeat center center; width: 164px; height: 55px;}
 .floatingMenu ul li.signin { background: url(../images/cloud3.png) no-repeat center center; width: 122px; height: 49px; top: 13px; left: 705px;}
-.floatingMenu ul li.testimonials:hover, .floatingMenu ul li.testimonials.active { background: url(../images/cloud1hover.png) no-repeat center center;}
+.floatingMenu ul li.testimonials-nav:hover, .floatingMenu ul li.testimonials-nav.active { background: url(../images/cloud1hover.png) no-repeat center center;}
 .floatingMenu ul li.photogallery:hover, .floatingMenu ul li.photogallery.active { background: url(../images/cloud2hover.png) no-repeat center center;}
 .floatingMenu ul li.signin:hover, .floatingMenu ul li.signin.active { background: url(../images/cloud3hover.png) no-repeat center center; }
-.floatingMenu ul li.testimonials a { margin-top: 50px;}
+.floatingMenu ul li.testimonials-nav a { margin-top: 50px;}
 .floatingMenu ul li.photogallery a { margin-top: 20px;}
 .floatingMenu ul li.signin a { margin-top: 16px;}
 
@@ -201,7 +201,7 @@ body { font-family: 'MyriadProRegular'; margin: 0px !important;
 /*about*/
 .aboutteam ul { padding: 0;}
 .aboutteam ul li { color: #00747c; list-style: none; text-align: center;}
-.aboutteam ul li.teamHeader { font-weight: 700; font-size: 16px; text-transform: uppercase;}
+.aboutteam ul li.teamHeader { font-family: 'MyriadProBold'; font-size: 16px; text-transform: uppercase;}
 .aboutteam .btn { float: right;}
 
 /*footer*/
@@ -216,7 +216,8 @@ body { font-family: 'MyriadProRegular'; margin: 0px !important;
 .footer div.contact { color: #7d7d7d; font-size: 13px; text-align: center;}
 
 /*faq*/
-.faq .faqLeft { width: 402px;  margin-left: 196px; display: inline-block; /*background: rgba(255,255,255,0.8);*/ border-radius: 10px; padding: 20px 0;}
+.faq { display: inline-block;}
+.faq .faqLeft { width: 424px;  margin-left: 190px; display: inline-block; /*background: rgba(255,255,255,0.8);*/ border-radius: 10px; padding: 20px 0;}
 .faq .ffaqLeftsearch { width: 45%; margin-left: 50px; display: inline-block; border-radius: 10px;}
 .faq .faqLeft h1 { padding: 20px 20px 0; color: #00afa6;}
 .faq .faqLeft h2 { padding: 0px 20px 0; font-size: 13px; font-weight: 700; color: #595959; margin-bottom: 10px;}
@@ -228,7 +229,8 @@ body { font-family: 'MyriadProRegular'; margin: 0px !important;
 .faq .faqInformation { width: 40%; display: inline-block; margin-left: 30px;}
 .faq .faqInformation p { text-align: center; color: #00652e; font-size: 13px;}
 .faq .faqLeft .btn-blue { float: right; margin-right: 5px; padding: 15px 20px;}
-.faq .faqLeft .scroll .viewport { background: rgba(255,255,255,0.9); border-radius: 10px; width: 94%; height: 300px; max-height: 440px;}
+.faq .faqLeft .scroll .viewport { background: rgba(255,255,255,0.9); border-radius: 10px; width: 402px; height: 300px; max-height: 440px;}
+.faqRight { display: inline-block; float: right; margin-right: 40px; margin-top: 108px;}
 
 .faq-search { margin-top: 17px; margin-bottom: 250px;}
 .faq-search fieldset { width: 100%;}
@@ -253,7 +255,7 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; widt
 .contactDetail .bottompart { text-align: left;}
 .contactDetail .bottompart p { margin: 8px 0;}
 .contactDetail .bottompart p a { color: #595959; text-decoration: none;}
-.contactDetail .middlepart { padding-left: 80px; margin: 0 0 30px;}
+.contactDetail .middlepart { padding-left: 80px; margin: 0 0 20px;}
 .contactDetail .middlepart p { margin: 3px 0; font-size: 14px;}
 .contactDetail p b { width: 130px; text-align: right; display: inline-block; margin-right: 4px; font-family: 'MyriadProSemibold'; font-weight: 400;}
 .contactDetail p b.normal { font-weight: 400;}
@@ -266,9 +268,19 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; widt
 .loginform .contactForm fieldset label { width: 96px; margin-right: 15px;}
 .loginform .contactForm fieldset.align-right { margin-right: 85px;}
 /*categories*/
-.body .category-list { padding: 0px; list-style: none;}
+.body .category-list { padding: 0px; list-style: none; position: relative; margin-top: 160px;}
 .body .category-list li { padding: 10px 0px 10px 40px;}
-.body .category-list li a { text-decoration: none; color: #F38600; font-size: 20px; font-weight: 700;}
+.body .category-list li a { text-decoration: none; color: #FFF685; font-size: 20px; font-family: 'MyriadProBold';}
+.body .category-list li a.active { color: #fff;}
+.body .category-list li p { color: #F38600; font-size: 21px; font-family: 'MyriadProBold';}
+
+.body .category-list li ul { display: block; position: absolute; right: -213px; list-style: none; padding: 0; width: 248px; height: 483px; top:-160px;}
+.body .category-list li.dog-chews ul { background: #F37021;}
+.body .category-list li.hdc_treats ul { background: #9E0B0F;}
+.body .category-list li.hdc_toys ul { background: #FAA61A;}
+.body .category-list li ul .menu-category { position: relative; top: 50%; transform: translateY(-50%);}
+.body .category-list li ul li a { color: #fff; font-size: 16px; font-family: 'MyriadProBold';}
+
 .creation .leftBody { background: #632800; margin-left: -4px;}
 .creation .rightBody img { width: 100%;}
 .dog-chews .description { background: rgba(255,255,255,0.8); border-radius: 10px; padding: 20px 12px 20px 15px;}
@@ -304,7 +316,7 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; widt
 .product-detail h2, .product-detail p { padding: 0 20px;}
 .products .slides li .product-detail ul li { margin: 6px 0;}
 .noproduct { text-align: center;}
-.creation .leftBody { margin-right: 0px; width: 294px; min-height: 484px; padding-left: 0px;}
+.creation .leftBody { margin-right: 0px; width: 294px; min-height: 483px; padding-left: 0px;}
 .creation .rightBody { width: 730px;}
 .dog-chews .leftBody { width: 315px; padding-left: 0px; margin-right: 15px;}
 .dog-chews .rightBody { width: 681px;}
@@ -316,18 +328,31 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; widt
 div.productInfo2 { padding: 0px !important;}
 
 /*search*/
-.productInfoM { color: #595959; text-decoration: none;}
+.productInfoM { color: #595959; text-decoration: none; margin-left: 50px;}
 .productInfoM a { color: #595959; text-decoration: none;}
 .productInfoM input[type="text"] { height: 46px; background: rgba(255,255,255,0.8); border: none; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 98%; margin-bottom: 10px; padding: 0 5%;}
 .productInfoM .btn { padding: 15px 30px; font-size: 18px; color: #fff !important;}
-.productInfoM .btn.btn-blue { width: 312px; height: 52px; line-height: 52px; padding: 0px;}
+.productInfoM .btn.btn-blue { width: 324px; height: 52px; line-height: 52px; padding: 0px;}
 .productInfoM select { width: 100% !important; height: 46px; border: none; border-radius: 10px;}
+.store-search-result { padding-left: 136px; margin-bottom: 20px;}
 .mainBody2, .mainBody2 a { color: #595959 !important; font-size: 12px;}
 .mainBody2 a { margin-top: 10px; display: inline-block;}
-.mainBody2 strong { color: #595959 !important; text-transform: uppercase; font-size: 18px !important; font-weight: 700; margin: 0px;}
+.mainBody2 strong { color: #595959 !important; font-size: 18px !important; font-weight: 700; margin: 0px; text-align: center;}
 .mainBody2 hr { background: #595959 !important; border: none;}
-.mainBody2 td.productInfo2 { background: rgba(255,255,255,0.8);}
-.mainBody2 td.productInfo2 strong { color: #595959 !important; text-transform: uppercase; font-size: 15px !important; font-weight: 700; margin: 0px;}
+.mainBody2 td.productInfo2 { background: rgba(255,255,255,0.8); font-size: 13px;}
+.mainBody2 td.productInfo2 strong { color: #00AFA6 !important; text-transform: uppercase; font-size: 15px !important; font-weight: 700; margin: 0px;}
+.mainBody2 td.productInfo2 p { display: inline-block; font-size: 14px; font-weight: 700;}
+.mainBody2 td.productInfo2 span { display: inline-block; padding-left: 35px; line-height: 12px;}
+.mainBody2 td.productInfo2 span a { text-decoration: none;}
+.productInfoM2 { padding: 0px !important;}
+.productInfoM2 p { text-align: center; font-size: 12px;}
+.productInfoM2 p strong { font-size: 16px !important; font-family: 'MyriadProBold';}
+
+.actual-search-title {background: rgba(255,255,255,0.8); margin-bottom: 12px; padding: 16px 20px; width: 413px;}
+.actual-search-title p { font-size: 12px;}
+.actual-search-title strong { font-size: 16px; font-family: 'MyriadProSemibold'; color: #656565;}
+.store-search-result .scroll .viewport { width: 444px;}
+.store-search-result .scroll .viewport .overview { width: 100%;}
 
 /*register*/
 .signup .half { float: left; width: 50%;}
@@ -342,7 +367,7 @@ div.productInfo2 { padding: 0px !important;}
 .account-menu { margin-left: 46px; margin-bottom: 26px; position: relative; z-index: 9999; display: inline-block;}
 .account-menu ul { list-style: none;}
 .account-menu ul li { float: left; display: block; margin-right: 10px;}
-.account-menu ul li a { background:#00AFA6; padding: 10px 15px; display: inline-block; color: #fff; text-decoration: none; font-size: 16px; font-family: 'MyriadProSemibold';
+.account-menu ul li a { background:#00AFA6; padding: 10px 0px; width: 104px; text-align: center; display: inline-block; color: #fff; text-decoration: none; font-size: 16px; font-family: 'MyriadProSemibold';
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
@@ -350,14 +375,18 @@ div.productInfo2 { padding: 0px !important;}
 .account-menu ul li a:hover, .account-menu ul li a.active { background: #FCF288; color: #00AFA6;}
 /*forms*/
 /*Changes*/
-.forms h1 { text-align: center; margin: 40px 0; font-size: 20px; text-transform: none}
+.forms { width: 800px; margin: 0 auto;}
+.forms h1 { text-align: center; margin: 40px 0; font-size: 19px; text-transform: none}
 /*End Changes*/
+.forms ul { padding: 0;}
 .forms ul li { float: left; width: 50%; display: block; margin: 20px 0; text-align: center;}
-.forms ul li a { background: #00BF63; padding: 15px 30px; text-decoration: none; font-size: 20px; font-weight: 700; color: #fff; width: 300px; display: block; text-align: center; margin: 0 auto;
+.forms ul li a { background: #00BF63; width: 312px; height: 52px;line-height: 52px; text-decoration: none; font-size: 20px; font-weight: 700; color: #fff; width: 300px; display: block; text-align: center; margin: 0 auto;
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
+.forms p { color: #656565; font-size: 18px; text-align: center; margin-top: 25px; margin-bottom: 30px; font-family: 'MyriadProBold';}
+.forms p a { color: #656565; text-decoration: none;}
 
 /*pricing*/
 .pricing-products { margin-top: -70px;}
@@ -416,28 +445,82 @@ div.productInfo2 { padding: 0px !important;}
 .yakystick .product-list .list li a:hover, .yakystick .product-list .list li a.active { background:#FCF288; color: #00A89B; border: 2px solid #00A89B;}
 
 /*testimonial*/
-.testimonials { width: 600px;}
+.testimonials { width: 600px; padding-left: 45px;}
 .testimonials ul { list-style: none;}
-.testimonials ul li p.title { font-size: 16px; font-weight: 700;}
+.testimonials ul li p.title { font-size: 16px; font-family: 'MyriadProBold';}
 .testimonials ul li p { font-size: 14px;}
-.testimonials .testimonial { margin: 20px 0px; border-bottom: 1px solid #aaa; padding-bottom: 20px;}
+.testimonials .scroll .viewport { width: 554px;}
+.testimonials .scroll .scrollbar { right: 25px;}
 .testimonials .pagination a { margin: 5px; text-decoration: none; padding: 5px; border: 1px solid #aaa; min-width: 20px; height: 20px; display: inline-block; text-align: center;}
+
+/*additional css for testimonial*/
+.testimonials .scroll .overview { width: 100%;}
+.testimonials .scroll .overview .testimonial { background: #fff; border-radius: 10px; padding: 20px 30px;}
+.testimonials .scroll .overview .testimonial p { font-size: 12px; line-height: 18px;}
+.testimonials .scroll .overview .testimonial p.title { font-size: 15px; color: #00AFA6}
+.testimonials .scroll .overview .testimonial .actions { position: relative; z-index: 99; background: url(../images/air-quote.png) no-repeat top left; padding-left: 40px; height: 28px;}
+.testimonials .scroll .overview .testimonial .actions a { color: #00AFA6; font-size: 12px; text-decoration: none; margin-right: 13px; display: inline-block; margin-top: 10px;}
+.testimonials .scroll .overview .testimonial .helpfulornot { position: absolute; bottom: -5px; right: -18px; z-index: 101;}
+.testimonials .scroll .overview .testimonial .helpfulornot p { display: inline-block; font-size: 12px; color: #00AFA6;}
+.testimonials .scroll .overview .testimonial .helpfulornot a { background: url(../images/pawempty.png) no-repeat; width: 32px; height: 32px; display: inline-block; vertical-align: middle; position: relative; margin-left: 14px; margin-right: 0px;margin-top:0px}
+.testimonials .scroll .overview .testimonial .helpfulornot a.active { background: url(../images/pawfull.png) no-repeat;}
+.testimonials .scroll .overview .testimonial .helpfulornot a span { position: absolute; bottom: -10px; width: 32px; text-align: center;}
+.testimonials .scroll .overview .comments { width: 100%;}
+.testimonials .scroll .overview .comments .comment_user, .testimonials .scroll .overview .comments .comment_hdc { width: 452px; background: #00AFA6; padding: 10px 17px; margin: 18px 0 0; float: right; color: #fff; margin-right: 10px;}
+.testimonials .scroll .overview .comments .comment_user p, .testimonials .scroll .overview .comments .comment_hdc p { font-size: 12px;}
+.testimonials .scroll .overview .comments .comment_user, .testimonials .scroll .overview .comments .comment_hdc
+{
+position: relative;
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+min-height: 40px;
+}
+
+.testimonials .scroll .overview .comments .comment_user:after, .testimonials .scroll .overview .comments .comment_hdc:after
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 0 10px 15px;
+border-color: #00AFA6 transparent;
+display: block;
+width: 0;
+z-index: 1;
+top: -15px;
+left: 50px;
+}
+.testimonials .scroll .overview .comments .comment_hdc p { color: #fff;}
+.testimonials ul.flex-direction-nav { display: none;}
+
+.previous-next { width: 590px; margin-top: 31px; margin-bottom: 60px;}
+.previous-next a { background: #00B400; width: 175px; height: 45px; line-height: 45px; border-radius: 10px; text-align: center; color: #fff; font-family: 'MyriadProBold'; font-size: 20px; text-decoration: none; display: block; float: right; margin-left: 37px;}
+
+.new-testimonial-left { width: 600px; float: left; margin-right: 40px;}
+.new-testimonial { width: 380px; float: right;}
+.new-testimonial input[type="text"] { height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none; padding: 0 20px;
+border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 273px;}
+.new-testimonial .search-testimonial .btn { width: 312px; padding: 15px 0; }
+.new-testimonial .message { margin-top: 80px;}
+.new-testimonial .message .btn { width: 312px; padding: 15px 0; background: #00B400;}
+.new-testimonial .message p { color: #005A00; font-size: 12px; width: 312px; margin-bottom: 15px;}
+
 
 /*cpanel*/
 .cpanel-menu ul { list-style: none; padding: 0;}
 .cpanel-menu ul li { float: left; width: 50%; display: block; margin: 20px 0; text-align: center;}
-.cpanel-menu ul li a {  background: #00BF63; padding: 15px 30px; text-decoration: none; font-size: 20px; font-weight: 700; color: #fff; width: 300px; display: block; text-align: center; margin: 0 auto;
+.cpanel-menu ul li a {  background: #00BF63; padding: 15px 30px; text-decoration: none; font-size: 20px; font-family: 'MyriadProBold'; color: #fff; width: 300px; display: block; text-align: center; margin: 0 auto;
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
-.account-edit {}
+.account-edit .half { width: 50%; margin: 0; padding: 0; float: left;}
 .account-edit fieldset, .addRetailerContact fieldset, .add-store-form fieldset { margin: 20px 0;}
-.account-edit label, .addRetailerContact label, .add-store-form label { display: inline-block; width: 180px; margin-right: 20px; text-align: right;}
+.account-edit label, .addRetailerContact label, .add-store-form label { display: inline-block; width: 148px; margin-right: 20px; text-align: right; font-size:18px;}
 .account-edit input[type="text"], .account-edit input[type="password"], .addRetailerContact input[type="text"], .add-store-form input[type="text"] { 
-height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none; padding: 0 20px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 327px; 
+height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none; padding: 0 20px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 300px; 
 }
-.add-store-form textarea { height: 150px; background: rgba(255,255,255,0.8); border: none; padding: 10px 20px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 327px; }
+.add-store-form textarea { height: 150px; background: rgba(255,255,255,0.8); border: none; padding: 10px 20px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 300px; }
 .stores-list ul, .actions ul, .retailercontacts ul { list-style: none; padding: 0px;}
 .stores-list > ul > li, .retailercontacts > ul > li { width: 42%; float: left; text-align: center; border: 1px solid #999; margin: 20px 2%; min-height: 366px; position: relative;}
 .store-action { position: absolute; bottom: 0px; width: 100%; }
@@ -453,11 +536,13 @@ height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none
 
 /*extra*/
 .captcha { margin: 10px 0;}
+
 /*Changes*/
 .guarantee { background: rgba(255,255,255,0.8); padding: 20px; width: 70%; margin: 24px auto; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;}
 /*End Changes*/
+
 /*buttons*/
-.btn { padding: 15px 60px; font-size: 18px; border-radius: 10px; display: inline-block; text-decoration: none; transition: all linear 0.2s; margin: 10px 0; border: none; text-align: center; font-weight: 700;}
+.btn { padding: 15px 60px; font-size: 18px; border-radius: 10px; display: inline-block; text-decoration: none; transition: all linear 0.2s; margin: 10px 0; border: none; text-align: center; font-family: 'MyriadProBold';}
 .btn:hover { box-shadow: 2px 2px 6px rgba(0,0,0,0.5);}
 .btn-blue { color: #fff; background: #00afa6;}
 .btn-large { color: #ffff96; width: 240px; height: 80px; line-height: 80px; padding: 0px;}
@@ -575,8 +660,29 @@ clear: both;
 
 
 
+/*paw*/
+.tuto-cnt{ padding: 0px; -webkit-border-radius:10px; width: 360px; display: inline-block; vertical-align: middle;} 
 
+hr{ margin: 10px 0; border:none; border-top: #ccc 1px dotted;}
 
+/*  First Example with big stars */
+.rate-ex1-cnt{
+    background-color:  none;
+    display: inline-block;
+    margin-right: 20px;
+}
+.rate-ex1-cnt .rate-btn{
+    width: 60px; height:40px;
+    float: left;
+    background: url('../images/pawempty.png') no-repeat center center;
+    cursor: pointer;
+    position: relative;
+}
+.rate-ex1-cnt .rate-btn:hover, .rate-ex1-cnt  .rate-btn-hover, .rate-ex1-cnt  .rate-btn-active{
+    background: url('../images/pawfull.png') no-repeat center center;
+}
+.rate-ex1-cnt .rate-btn span { position: absolute; bottom: -10px; font-size: 12px; color: #00AFA6; width: 100%; text-align: center;}
+.rate-number { display: inline-block; font-size: 25px; color: #00AFA6; vertical-align: top; margin-top: 5px;}
 
 
 

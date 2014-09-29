@@ -4,7 +4,7 @@
 </script>
 <div class="forms clearfix">
 <h1>Feel free to download any of the following:</h1>
-<ul>
+<ul class="clearfix">
 <?php foreach($view_forms as $form):?>
 	<li><a href="<?php echo UPLOAD_URL.$form['form_file']?>"><?php echo $form['form_name']?></a></li>
 <?php endforeach;?>

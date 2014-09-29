@@ -26,10 +26,12 @@ class TestimonialforumController extends Controller
 	 	if($resp->is_valid)
 	 	{
 	 		getModel('testimonials')->saveTestimonial($post_data);
+	 		Session::addSuccessMessage("Your Testimonial has been recorded.");
 	 		redirect('testimonials');
 	 	}
 	 	else
 	 	{
+	 		Session::addErrorMessage("Your Testimonial could not be recorded.");
 	 		redirect('testimonials');
 	 	}
 	}
@@ -52,10 +54,18 @@ class TestimonialforumController extends Controller
 	{
 		loadHelper('inputs');
 		$query=getParam('testimonial_search_query');
+		if($query != '')
+		{
 		$keywords = $this->extractCommonWords($query);
 		$testimonials = getModel('testimonials')->searchTestimonials($keywords);
 		$data['testimonials'] = $testimonials;
 		$this->view->render('testimonials/list.phtml',$data);
+		}
+		else
+		{
+			loadHelper('url');
+			redirect('testimonials/show');
+		}
 
 	}
 

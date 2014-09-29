@@ -36,6 +36,7 @@ class CustomerModel extends Model
 		`mzip`='".mysql_real_escape_string($mzip)."',
 		`mtel`='".mysql_real_escape_string($mtel)."',
 		`mfax`='".mysql_real_escape_string($mfax)."',
+		`mein`='".mysql_real_escape_string($mein)."',
 		`mcompany`='".mysql_real_escape_string($mcompany)."'
 		WHERE `mid` = '$mid'";
 

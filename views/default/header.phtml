@@ -2,7 +2,7 @@
 <div class="header">
 <div class="floatingMenu">
         <ul class="nav">
-        <li class="testimonials"><a href="<?php echo URL.'testimonials'?>">testimonial banner</a></li>
+        <li class="testimonials-nav"><a href="<?php echo URL.'testimonials'?>">testimonial banner</a></li>
         <li class="photogallery"><a href="<?php echo URL.'photogallery'?>">photo gallery</a></li>
         <?php if(!Session::isLoggedIn()):?>
             <li class="signin"><a href="<?php echo URL.'login'?>">sign in</a></li>
@@ -21,8 +21,10 @@
                     <li class="mission"><a href="<?php echo URL?>">our mission</a></li>
                     <li class="about"><a href="<?php echo URL.'pages/view/about-us'?>">about us</a></li>
                     <li class="creation"><a href="<?php echo URL.'products/categories'?>">our creations</a></li>
-                    <li class="find"><a href="<?php echo URL.'search'?>">find us</a></li>
+                    <!-- <li class="find"><a href="<?php echo URL.'search'?>">find us</a></li> -->
+                    <li class="find"><a href="<?php echo URL.'searchnew'?>">find us</a></li>
                     <li class="contact"><a href="<?php echo URL.'contacts'?>">contact us</a></li>
+                    <!-- <li class="find"><a href="<?php echo URL.'searchnew'?>">find us New</a></li> -->
                 </ul>
             </div>
         <div class="logo">

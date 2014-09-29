@@ -65,6 +65,11 @@ class AccountController extends Controller
 				Session::addErrorMessage('Your Information has not been updated.');
 				redirect('account/edit');
 			}
+
+			if($post_data['oldpassword'] and $post_data['newpassword'])
+			{
+				$this->editPasswordAction($post_data['oldpassword'], $post_data['newpassword'], $post_data['newpassword1']);
+			}
 		}
 		else
 		{
@@ -72,7 +77,7 @@ class AccountController extends Controller
 		}
 	}
 
-	public function editPasswordAction()
+	public function editPasswordAction($oldpassword, $newpassword, $newpassword1)
 	{
 		loadHelper('inputs');
 		loadHelper('url');
