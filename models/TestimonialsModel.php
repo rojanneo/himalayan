@@ -54,7 +54,10 @@ class TestimonialsModel extends Model
 	public function deleteTestimonial($id)
 	{
 		$sql = "DELETE FROM testimonial_new WHERE testimonial_id = $id";
-		return $this->connection->DeleteQuery($sql);
+		$result1 = $this->connection->DeleteQuery($sql);
+		$sql = "DELETE FROM testimonial_comment WHERE comment_testimonial_id = $id";
+		$result2 = $this->connection->DeleteQuery($sql);
+		return $result1 and $result2;
 	}
 
 	public function getTestimonial($id)

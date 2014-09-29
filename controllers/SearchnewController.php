@@ -57,7 +57,6 @@ public function csearchconsumersnew()
 			$gstatesval=getModel('searchnew')->srchsGstateNgcity($requestZipCode);
 			if($gstatesval)
 			{ 
-				echo $gstatesval; 
 				loadHelper('url');
 				redirect($gstatesval);
 			}

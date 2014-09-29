@@ -3,8 +3,10 @@
 echo Session::showSuccessMessages();?>
 <?php $session = Session::getCurrentSession();
 $customer = getModel('customer')->getCustomer($session['user_id']);
+if($customer)
 extract($customer);
 $retailer = getModel('customer')->getRetailer($session['user_id']);
+if($retailer)
 extract($retailer);
 ?>
 <?php $states = getModel('customer')->getAllStates();?>
