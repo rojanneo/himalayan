@@ -48,3 +48,8 @@ var test;
 });
 </script>
 <div class="body">
+<?php $session = Session::getCurrentSession();
+$role = getModel('customer')->getCustomerRole($session['user_id']);?>
+<?php if($role == 'retailer'):?>
+<?php loadView('account/account-menu.phtml');?>
+<?php endif;?>

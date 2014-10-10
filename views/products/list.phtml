@@ -19,10 +19,17 @@
 				</div>
 				<div class="actions">
 				<?php if($view_category['cat_slug'] == 'dog-chews'):?>
-						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">what to do<br>with end pieces</a>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue" style="padding:15px 0px; margin-top:-2px">what to do<br>with end pieces</a>
 				<?php elseif($view_category['cat_slug'] == 'yaky-nugget'):?>
-						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">microwaving tutorial</a>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">microwaving<br>tutorial</a>
 				<?php endif;?>
+				<?php $session = Session::getCurrentSession();?>
+				<?php if($session):?>
+				<?php $retailer = getModel('customer')->getRetailer($session['user_id']);?>
+				<?php if($retailer):?>
+					<a href="<?php echo URL.'account'?>" class="btn btn-blue retailer-menu">&lt; back to retailer menu</a>
+				<?php endif;?>
+			<?php endif;?>
 				</div>
 			</div>
 
@@ -266,12 +273,31 @@
 					<h1><?php echo $view_category['category_name']?></h1>
 					<?php echo $view_category['category_description'];?>
 				</div>
+				<div class="actions">
+				<?php if($view_category['cat_slug'] == 'dog-chews'):?>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue" style="padding:15px 0px">what to do<br>with end pieces</a>
+				<?php elseif($view_category['cat_slug'] == 'yaky-nugget'):?>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">microwaving<br>tutorial</a>
+				<?php endif;?>
+				<style>
+				.dog-chews .leftBody .actions a.retailer-menu{width: 242px;
+vertical-align: bottom;
+position: absolute;
+bottom: 50px;
+right: 708px;
+background: #00B400;
+/* padding-top: 10px; */
+height: 20px;}
+				</style>
+				<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue retailer-menu">&lt; back to retailer menu</a>
+				</div>
 			</div>
 			<?php if(isset($view_products)):?>
 				<div class="rightBody">
 					<div class="product-list-header">
 						<span class="left">FOR DOGS<br> UNDER</span><span class="right"><a href="<?php echo URL.'products/categories'?>">&lt; back to creations</a></span>
 					</div>
+
 					<?php if(count($view_products) > 0):?>
 						<div class="categoryContainer yakystick">
 							<div class="product-list">

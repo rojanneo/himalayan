@@ -280,17 +280,28 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; widt
 .body .category-list li.hdc_toys ul { background: #FAA61A;}
 .body .category-list li ul .menu-category { position: relative; top: 50%; transform: translateY(-50%);}
 .body .category-list li ul li a { color: #fff; font-size: 16px; font-family: 'MyriadProBold';}
+/*Rojan*/
+.dog-chews .leftBody .actions a.retailer-menu{width: 242px;vertical-align: bottom;position: absolute;bottom: 45px;right: 708px;background: #00B400;height: 20px;}
+/*End Rojan*/
 
 .creation .leftBody { background: #632800; margin-left: -4px;}
+/*Rojan*/
+.creation .rightBody .actions a.retailer-menu{position: absolute;bottom: 10px;left: 60px;padding: 8px 28px;margin: 0px 0px;background: #00B400;border-radius:8px};
+/*End Rojan*/
 .creation .rightBody img { width: 100%;}
-.dog-chews .description { background: rgba(255,255,255,0.8); border-radius: 10px; padding: 20px 12px 20px 15px;}
+
+/*Rojan*/
+.dog-chews .description { background: rgba(255,255,255,0.8); border-radius: 10px; padding: 10px 12px 30px 15px; max-height:317px; overflow:hidden;}
+/*End Rojan*/
 .dog-chews .description h1 { color: #00afa6;}
 .dog-chews .actions { text-align: right; margin-top: 10px;}
-.dog-chews .actions a.btn-blue { width: 175px; line-height: 20px; padding: 15px 0;}
+/*Rojan*/
+.dog-chews .actions a.btn-blue { width: 171px; line-height: 17px; padding: 10px 0; margin-top:0px;}
+/*End Rojan*/
 .product-list-header { background: #00AFA6; border-radius: 10px 10px 0 0; -moz-border-radius: 10px 10px 0 0; -webkit-border-radius: 10px 10px 0 0; position: relative;}
 .product-list-header span { display: inline-block; padding: 5px; color: #fff;}
-.product-list-header span.right { position: absolute; right: 10px; top: 10px;}
-.product-list-header span.left { width: 105px; text-align: center;}
+.product-list-header span.right { position: absolute; right: 10px; top: 5px;}
+.product-list-header span.left { width: 105px; text-align: center; font-size:15px; line-height:1;}
 .product-list-header span a { color: #FFFFC2; text-decoration: none;}
 .categoryContainer { position: relative;}
 .product-list { width: 105px; position: absolute; left: 0px; background: #fff; height: 358px;}
@@ -542,6 +553,7 @@ height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none
 /*End Changes*/
 
 /*buttons*/
+/*Rojan*/
 .btn { padding: 15px 60px; font-size: 18px; border-radius: 10px; display: inline-block; text-decoration: none; transition: all linear 0.2s; margin: 10px 0; border: none; text-align: center; font-family: 'MyriadProBold';}
 .btn:hover { box-shadow: 2px 2px 6px rgba(0,0,0,0.5);}
 .btn-blue { color: #fff; background: #00afa6;}
