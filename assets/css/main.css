@@ -311,6 +311,9 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; widt
 .product-list ul { padding: 0; list-style: none;}
 .product-list .list li { display: block; text-align: center; margin: 15px 0;}
 .product-list .list li a { height: 48px; width: 67px; display: inline-block; line-height: 48px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; text-decoration: none; color: #fff; font-size: 18px; font-weight: 700;}
+/*Rojan*/
+.product-list .list li a.active {color: black;}
+/*End Rojan*/
 .product-list .list li.blue a { background: #00CAFF;}
 .product-list .list li.green a { background: #00E059;}
 .product-list .list li.red a { background: #DE3100;}
@@ -408,12 +411,28 @@ div.productInfo2 { padding: 0px !important;}
 .pricing-products .slides .product-info p { font-size: 18px;}
 .pricing-products .slides .product-info .productTitle p { margin: 0px;}
 .pricing-products .slides .product-info .productTitle .product-name { font-size: 18px; margin-bottom: 10px; font-family: 'MyriadProBold';}
-.pricing-products .slides .product-info .desc { margin: 30px 0;}
+/*.pricing-products .slides .product-info .desc { margin: 30px 0;} alina*/
+.pricing-products .slides .product-info .desc { margin: 15px 0;}
 .pricing-products .slides .product-info .desc p { text-align: left;}
 .pricing-products .slides .product-info .productPricing p { text-align: right; margin: 4px 175px 4px 0;}
 .pricing-products .slides .product-info.stick-info { bottom: 0px;}
 .pricing-products .slides .product-info.stick-info .desc { margin: 0px; margin-bottom: 30px; font-size: 17px;}
+.pricing-products .slides .product-info.stick-info .desc-stick{ margin: 0px; margin-bottom: 18px; font-size: 17px; }/*Alina change*/
 .pricing-products .slides .product-info.stick-info .productTitle .product-name { font-size: 18px; margin-bottom: 6px;}
+
+/*for c1*/
+.pricing-products .slides .product-info-c1 { width: 360px; float: left; position: absolute; bottom: 35px; right: 0px;}
+.pricing-products .slides .product-info-c1 p { font-size: 18px; margin-top: -4px; }
+.pricing-products .slides .product-info-c1 .productTitle p { margin: 0px;}
+.pricing-products .slides .product-info-c1 .productTitle .product-name { font-size: 18px; margin-bottom: 10px; font-family: 'MyriadProBold';}
+.pricing-products .slides .product-info-c1 .desc { margin-top: 15px;}
+.pricing-products .slides .product-info-c1 .desc p { text-align: left;}
+.pricing-products .slides .product-info-c1 .productPricing p { text-align: right; margin: 4px 175px 4px 0;}
+.pricing-products .slides .product-info-c1.stick-info { bottom: 0px;}
+.pricing-products .slides .product-info-c1.stick-info .desc { margin: 0px; margin-bottom: 30px; font-size: 17px;}
+.pricing-products .slides .product-info.stick-info-c1 .desc-stick{ margin: 0px; margin-bottom: 18px; font-size: 17px; }
+.pricing-products .slides .product-info.stick-info-c1 .productTitle .product-name { font-size: 18px; margin-bottom: 6px;}
+/* c1 end*/
 
 .pricing-slider { position: relative;}
 .caption { background: #595959; border-radius: 0 0 10px 10px; -moz-border-radius: 0 0 10px 10px; -webkit-border-radius: 0 0 10px 10px; margin-top: -5px;}

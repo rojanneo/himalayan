@@ -253,6 +253,8 @@
 							$('.products .slides > li').hide();
 							$('.products .slides > li').first().show();
 							$('ul.list li a').click(function(){
+								$('ul.list li a').removeClass('active');
+								$(this).addClass('active');
 								var class_name = ($(this).parent().attr('class'));
 								$('.products .slides > li').hide();
 								$('.products .slides .'+class_name).show();
