@@ -27,15 +27,17 @@
 $(document).ready(function(){
 
       $('.photos-thumbs').flexslider({
-        animation: "slide",
+       animation: "slide",
         controlNav: false,
         directionNav: true,
         animationLoop: false,
         slideshow: false,
-        itemWidth: 150,
-        itemHeight:200,
-        itemMargin: 5,
-        move:1,
+        itemWidth: 79,
+        itemHeight:48,
+        itemMargin: 7,
+        minItems:10,
+        maxItems:10,
+        move:3,
         asNavFor: '.photos'
       });
 
@@ -45,7 +47,7 @@ $(document).ready(function(){
         directionNav: false,
         animationLoop: false,
         slideshow: false,
-        itemWidth: 1920,
+        itemWidth: 1024,
         itemHeight:200,
         sync: ".photos-thumbs",
       });

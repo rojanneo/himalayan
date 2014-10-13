@@ -18,7 +18,9 @@ class CustomerModel extends Model
 	{
 		$query = "SELECT * FROM members WHERE mid = '$customerId'";
 		$customer = $this->connection->Query($query);
+		if($customer)
 		return $customer[0];
+		else return false;
 	}
 
 	public function editInformation($post_data)

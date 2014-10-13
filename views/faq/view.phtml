@@ -14,8 +14,10 @@ $lines = ceil($word_count/$word_in_a_line);
                             
                                 <div class="scroll">
                                 <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
-                                <div class="viewport" style="height:<?php echo $lines * 255?>px">
-                                <div class="overview">
+                                <?php $height = ($lines - 1)* 30;?>
+                                <?php if($height<440) $style="height:".($height+150)."px"; else $style='height:440px';?>
+                                <div class="viewport" style="<?php echo $style?>">
+                                <div class="overview" style="<?php echo $style?>">
                                 <h1>Frequently asked questions</h1>
                                 <h2><?php echo $view_faq['faq_question'];?></h2>
                                 <p><?php echo $view_faq['faq_answer'];?></p>
@@ -26,7 +28,10 @@ $lines = ceil($word_count/$word_in_a_line);
 
                             <script type="text/javascript">
                                 $(document).ready(function(){
+                                    $(window).resize();
                                     $('.scroll').tinyscrollbar();
+                                    $(window).resize();
+                                    if($('.viewport').css('height') == '150px') $('.scrollbar').addClass('disable');
                                 });
                             </script>
                         </div>
@@ -37,6 +42,9 @@ $lines = ceil($word_count/$word_in_a_line);
             <div class="faqRight">
                 <a href="<?php echo URL.'contacts?from='.CurrentURL()?>" class="btn btn-blue">Contact Us Regarding This Issue</a>
             </div>
+            <script>
+             $(window).resize();
+            </script>
 
 
    
