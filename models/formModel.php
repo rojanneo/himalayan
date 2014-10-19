@@ -8,7 +8,7 @@ class FormModel extends Model
 
 	public function getAllForms()
 	{
-		$query = "SELECT * FROM forms";
+		$query = "SELECT * FROM forms ORDER BY form_order";
 		return $this->connection->Query($query);
 	}
 
@@ -72,7 +72,7 @@ class FormModel extends Model
 		{
 		$form_file = $this->uploadForm();
     	extract($post_data);
-    	$sql = "INSERT INTO `forms`(`form_name`, `form_description`, `form_file`) VALUES ('$form_name','$form_description','$form_file')";
+    	$sql = "INSERT INTO `forms`(`form_name`, `form_description`, `form_file`,`form_order`) VALUES ('$form_name','$form_description','$form_file','$form_order')";
     	return $this->connection->InsertQuery($sql);
 
 		}
@@ -85,11 +85,11 @@ class FormModel extends Model
 			if(!empty($_FILES['form']['name']))
 			{
 				$form_file = $this->uploadForm();
-				$sql = "UPDATE `forms` SET `form_name`='$form_name',`form_description`='$form_description',`form_file`='$form_file' WHERE form_id = $form_id";
+				$sql = "UPDATE `forms` SET `form_name`='$form_name',`form_description`='$form_description',`form_file`='$form_file',`form_order`='$form_order' WHERE form_id = $form_id";
 			}
 			else
 			{
-				$sql = "UPDATE `forms` SET `form_name`='$form_name',`form_description`='$form_description' WHERE form_id = $form_id";
+				$sql = "UPDATE `forms` SET `form_name`='$form_name',`form_description`='$form_description',`form_order`='$form_order' WHERE form_id = $form_id";
 			}
 			return $this->connection->UpdateQuery($sql);
 	}

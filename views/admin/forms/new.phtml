@@ -37,6 +37,14 @@
 					<div class="input">
 						<input type="file" name="form"/>
 					</div></li>
+				<li class="field">
+					<div class="input-title">
+					<label for = "form_order">Form Order</label>
+					</div>
+					<div class="input">
+					<input name="form_order" class="input-box required" type="number"/>
+					</div>
+				</li>
 					<li class="field">
 						<div class="input">
 							<input class="button" type="submit" value="save"/>
@@ -82,6 +90,14 @@
 					<div class="input">
 						<input type="file" name="form"/>
 					</div></li>
+				<li class="field">
+					<div class="input-title">
+					<label for = "form_order">Form order</label>
+					</div>
+					<div class="input">
+					<input name="form_order" class="input-box required" type="number" value="<?php echo $view_form['form_order']?>"/>
+					</div>
+				</li>
 					<li class="field">
 						<div class="input">
 							<input class="button" type="submit" value="save"/>

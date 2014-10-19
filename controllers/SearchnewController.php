@@ -36,7 +36,10 @@ public function indexAction()
 		//$data['search']=$this->csearchconsumers(); 
 		$data['search']=$this->csearchconsumersnew();
 	}
-
+	else
+	{
+		$data['search']=$this->consumermain();
+	}
 	//$data['canadian']=$this->distinctcountryname();
 	$this->view->render('searchnew/search.phtml', $data);
 			
@@ -532,7 +535,7 @@ public function consumermain()
         					<div class="productInfoM2" >        
 								<!--<strong style="font-size: 14px; color: #0066cc;">Consumer Information</strong>
         						<hr align="left" style="background-color: #0066cc; width:100%; " /> <br /><br />-->
-        						<strong style=\"font-size: 14px; color: #0066cc;\">Our products are available in following regions of the World</strong>
+        						<strong style=\"font-size: 14px; color: #0066cc;\">Our products are available in the following regions of the world<br></strong>We recommend calling stores for availability before visiting them.
         						<hr align=\"left\" style=\"background-color: #0066cc; width:100%; \" >
         			';
     $state_sql=getModel('searchnew')->state_query(null);
@@ -557,7 +560,7 @@ public function consumermain()
 		foreach ($city_sql as $city_sql)
 		{
 			$cityName = $city_sql['rscity'];
-			$consumermain.="				<td>&nbsp;&gt;&gt; <a href=\"".URL."searchnew/?input=consumers&&value=findStore&&gstate=$st_abb&&gcity=$cityName\">".$cityName."</a>
+			$consumermain.="				<td><a href=\"".URL."searchnew/?input=consumers&&value=findStore&&gstate=$st_abb&&gcity=$cityName\">".$cityName."</a>
 						   					</td>
 						   ";
 			if($cnt % 3 == 0 && $cnt != $total_cities) $consumermain.="

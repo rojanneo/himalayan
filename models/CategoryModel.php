@@ -56,11 +56,11 @@ class CategoryModel extends Model
 		if(!isset($category_image)) $category_image = null;
 		if($ctype==0)
 		{ 
-			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_display_name`,`category_description`,`category_image`, `parent_id`, `is_root`) VALUES ('".mysql_escape_string($cname)."','".$cslug."','".mysql_escape_string($cdname)."','".mysql_escape_string($cdescription)."', '".$category_image."',0,1)";
+			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_display_name`,`category_description`,`category_image`, `parent_id`, `is_root`,`sort_order`) VALUES ('".mysql_escape_string($cname)."','".$cslug."','".mysql_escape_string($cdname)."','".mysql_escape_string($cdescription)."', '".$category_image."',0,1,0)";
 		}
 		else
 		{
-			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_description`,`category_image`, `parent_id`, `is_root`) VALUES ('".mysql_escape_string($cname)."','".$cslug."','".mysql_escape_string($cdname)."','".mysql_escape_string($cdescription)."','".$category_image."','".$ctype."',0)";
+			$sql="INSERT INTO `categories`(`category_name`, `cat_slug`, `category_display_name`,`category_description`,`category_image`, `parent_id`, `is_root`,`sort_order`) VALUES ('".mysql_escape_string($cname)."','".$cslug."','".mysql_escape_string($cdname)."','".mysql_escape_string($cdescription)."','".$category_image."','".$ctype."',0,0)";
 		}
 		$result1 = $this->connection->InsertQuery($sql);
 		$this->deleteUnnecessaryImages();
