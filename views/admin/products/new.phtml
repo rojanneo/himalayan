@@ -133,7 +133,7 @@
 				<?php foreach ($view_catlist as $view_catlist) { ?>	
 				<li>
 					<input type="checkbox" id="pc<?php echo $i; ?>" name="pccheck_list[<?php echo $i; ?>]" value="<?php echo $view_catlist['category_id']; ?>" />
-					<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_name']; ?></label>
+					<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_display_name']; ?></label>
 					<?php $i++;}?>
 				</li>
 				<?php } ?>
@@ -361,7 +361,7 @@ $("#mulitplefileuploader").uploadFile(settings);
 										<li>
 											<input type="checkbox" id="pc<?php echo $i; ?>" name="pccheck_list[<?php echo $i; ?>]" value="<?php echo $view_catlist['category_id']; ?>" 
 											<?php if(is_array($view_CatInList) and in_array($view_catlist['category_id'], $view_CatInList)) { echo'checked'; }?> />
-											<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_name']; ?></label></li>
+											<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_display_name']; ?></label></li>
 											<?php $i++;}?>
 										</ul>
 									</div>
@@ -574,7 +574,7 @@ $('.edit-form form').submit(function(){
 								<?php foreach ($view_catlist as $view_catlist) { ?>	
 								<li>
 									<input type="checkbox" id="pc<?php echo $i; ?>" name="pccheck_list[<?php echo $i; ?>]" value="<?php echo $view_catlist['category_id']; ?>" />
-									<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_name']; ?></label>
+									<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_display_name']; ?></label>
 									<?php $i++;}?>
 								</li>
 								<?php } ?>
@@ -742,7 +742,7 @@ $("#mulitplefileuploader").uploadFile(settings);
 										<li>
 											<input type="checkbox" id="pc<?php echo $i; ?>" name="pccheck_list[<?php echo $i; ?>]" value="<?php echo $view_catlist['category_id']; ?>" 
 											<?php if(is_array($view_CatInList) and in_array($view_catlist['category_id'], $view_CatInList)) { echo'checked'; }?> />
-											<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_name']; ?></label></li>
+											<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_display_name']; ?></label></li>
 											<?php $i++;}?>
 										</ul>
 									</div>

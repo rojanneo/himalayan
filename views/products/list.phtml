@@ -18,10 +18,10 @@
 
 				</div>
 				<div class="actions">
-				<?php if($view_category['cat_slug'] == 'dog-chews'):?>
+				<?php if($view_category['cat_slug'] == 'dog-chews' or $view_category['cat_slug'] == 'chews-red' or $view_category['cat_slug'] == 'chews-green' or $view_category['cat_slug'] == 'chews-blue' or $view_category['cat_slug'] == 'chews-yellow' or $view_category['cat_slug'] == 'chews-gray'):?>
 						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue" style="padding:15px 0px; margin-top:-2px">what to do<br>with end pieces</a>
 				<?php elseif($view_category['cat_slug'] == 'yaky-nugget'):?>
-						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">microwaving<br>tutorial</a>
+						<a href="<?php echo URL.'pages/microwave'?>" class="btn btn-blue">microwaving<br>tutorial</a>
 				<?php endif;?>
 				<?php $session = Session::getCurrentSession();?>
 				<?php if($session):?>
@@ -37,8 +37,8 @@
 				<div class="rightBody">
 					<div class="product-list-header">
 					<?php $dog_size = getModel('products')->getProductAttributeByCode($view_products[0]['pid'], 'dog_size'); 
-					if($view_category['cat_slug'] == 'dog-chews'):?>
-						<span class="left" >FOR DOGS<br> UNDER</span>
+					if($view_category['cat_slug'] == 'dog-chews' or $view_category['cat_slug'] == 'chews-red' or $view_category['cat_slug'] == 'chews-green' or $view_category['cat_slug'] == 'chews-blue' or $view_category['cat_slug'] == 'chews-yellow' or $view_category['cat_slug'] == 'chews-gray'):?>
+						<span class="left" >FOR DOGS<br> UNDER <span class="dog-size"><?php echo $dog_size?></span></span>
 					<?php else:?>
 						<span class="left" >FOR ALL<br>DOG SIZES</span>
 					<?php endif;?>
@@ -110,44 +110,7 @@
 									<?php endif;?>
 								</ul>
 								
-								<?php if($view_category['cat_slug'] == 'yaky-yams'):?>
-									<ul class="list small-list" style="display:none">
-										<?php $yaky_yam_array = array();?>
-										<?php $yaky_sku_array = array();?>
-										<?php $count = 0;?>
-										<?php $yam_count = 3;?>
-										<?php foreach($display_name_array as $displayName):?>
-											<?php if(strtolower($product_sku_array[$count] == 'yaky_yam_lotsa_chicken')) 
-											{
-												$yaky_yam_array[0] = $displayName;
-												$yaky_sku_array[0] = 'lotsa-chicken';
-											}
-											else if(strtolower($product_sku_array[$count] == 'yaky_yam_very_veggie')) 
-												{
-													$yaky_yam_array[1] = $displayName;
-													$yaky_sku_array[1] = 'very-veggy';
-												}
-											else if(strtolower($product_sku_array[$count] == 'yaky_yam_fruity_fruit')) 
-												{
-												$yaky_yam_array[2] = $displayName;
-												$yaky_sku_array[2] = 'fruity-fruit';
-												}
-											else $yaky_yam_array[$yam_count++] = $displayName;
-											$count++;
-											?>
-										<?php endforeach;?>
-										<?php $count = 0;?>
-										<?php for($i = 0; $i<count($yaky_yam_array); $i++):?>
-											<li class="<?php echo $yaky_sku_array[$i]?>"><a href="javascript:;"><?php echo $yaky_yam_array[$i]?></a></li>
-										<?php endfor;?>
-									</ul>
-									<script>
-									$('ul.list li').click(function(){
-										$('ul.list').hide();
-										$('ul.small-list').show();
-									});
-								</script>
-								<?php endif;?>
+								
 
 							</div>
 						<?php endif;?>
@@ -249,6 +212,7 @@
 								<?php endforeach;?>
 							</ul>
 						</div>
+						<?php if(!$view_category['cat_slug'] =='yaky-yams'):?>
 						<script>
 							$('.products .slides > li').hide();
 							$('.products .slides > li').first().show();
@@ -260,6 +224,22 @@
 								$('.products .slides .'+class_name).show();
 							});
 						</script>
+						<?php else:?>
+						<script>
+							$('.products .slides > li').hide();
+							$('.products .slides > li').first().show();
+							$('ul.list li a').click(function(){
+								$('ul.list li a').removeClass('active');
+								$(this).addClass('active');
+								$('ul.list li').css('opacity',1);
+								$class_name = $(this).parent().attr('class');
+								$('ul.list li.'+$class_name).css('opacity',0);
+								var class_name = ($(this).parent().attr('class'));
+								$('.products .slides > li').hide();
+								$('.products .slides .'+class_name).show();
+							});
+						</script>
+						<?php endif;?>
 
 						<?php if(count($view_products) > 1):?>
 						</div>
@@ -276,7 +256,7 @@
 					<?php echo $view_category['category_description'];?>
 				</div>
 				<div class="actions">
-				<?php if($view_category['cat_slug'] == 'dog-chews'):?>
+				<?php if($view_category['cat_slug'] == 'dog-chews' or $view_category['cat_slug'] == 'chews-red' or $view_category['cat_slug'] == 'chews-green' or $view_category['cat_slug'] == 'chews-blue' or $view_category['cat_slug'] == 'chews-yellow' or $view_category['cat_slug'] == 'chews-gray'):?>
 						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue" style="padding:15px 0px">what to do<br>with end pieces</a>
 				<?php elseif($view_category['cat_slug'] == 'yaky-nugget'):?>
 						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">microwaving<br>tutorial</a>

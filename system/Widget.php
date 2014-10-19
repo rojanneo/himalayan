@@ -33,6 +33,12 @@
 		return self::GetInstance()->connection->Query($sql)[0];
 	}
 
+	public function getTitle($identifier)
+	{
+		$widget = self::getWidgetFromIdentifier($identifier);
+		return $widget['widget_title'];
+	}
+
 	public function render($identifier)
 	{
 		$widget = self::getWidgetFromIdentifier($identifier);

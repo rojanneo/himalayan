@@ -31,9 +31,15 @@ class PagesController extends Controller
 	
 	public function endPiecesAction()
 	{
-		$this->view->render('pages/end-pieces.phtml');
+		$data['url'] = 'chews';
+		$this->view->render('pages/end-pieces.phtml',$data);
 	}
 
+	public function microwaveAction()
+	{
+		$data['url'] = 'nuggets';
+		$this->view->render('pages/end-pieces.phtml',$data);
+	}
 
 	// public function homeAction()
 	// {

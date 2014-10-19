@@ -38,7 +38,7 @@ class WidgetsModel extends Model
 		}
 		else
 		{
-			$sql="INSERT INTO `widgets`(`widget_name`, `widget_identifier`, `widget_title`, `widget_content`) VALUES ('".$wname."','".$widentifier."','".$wtitle."','".mysql_escape_string($wcontent) ."')";
+			$sql="INSERT INTO `widgets`(`widget_name`, `widget_identifier`, `widget_title`, `widget_content`) VALUES ('".$wname."','".$widentifier."','".mysql_escape_string($wtitle)."','".mysql_escape_string($wcontent) ."')";
 			return $this->connection->InsertQuery($sql);
 		}	
 			

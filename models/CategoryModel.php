@@ -42,7 +42,9 @@ class CategoryModel extends Model
 				$category.='<ul style="display:none">';
 				foreach ($cat_hier1 as $cat_hier1) 
 				{
-					$category.=$this->cat_ul($cat_hier1['category_name'],$cat_hier1['category_id'],$cat_hier1['sort_order']);
+					if($cat_hier1['category_display_name']) $name=$cat_hier1['category_display_name'];
+					else $name=$cat_hier1['category_display_name'];
+					$category.=$this->cat_ul($name,$cat_hier1['category_id'],$cat_hier1['sort_order']);
 				}
 				$category.='</ul>';
 			}

@@ -233,11 +233,22 @@ body { font-family: 'MyriadProRegular'; margin: 0px !important;
 .faqRight { display: inline-block; float: right; margin-top: 108px; margin-right:60px;}
 .faq-search { margin-top: 17px; margin-bottom: 250px;}
 .faq-search fieldset { width: 100%;}
-.faq-search input[type="text"] { height: 54px; width: 465px; border: none; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; margin-right: 20px; padding: 0 10px;}
-.search-results { display: inline-block; width: 500px; vertical-align: top;}
+.faq-search input[type="text"] { height: 54px; width: 292px; border: none; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; margin-right: 20px; padding: 0 10px;}
+/*.search-results { display: inline-block; width: 500px; vertical-align: top;}
 .search-results ul { list-style: none; padding: 0;}
 .search-results ul li { display: block; font-size: 16px; padding: 15px 0px 15px 40px; background: rgba(255,255,255,0.8) url(../images/plus.png) no-repeat 10px center; border-radius: 10px; line-height: 24px; width: 92%;}
-.search-results ul li a { text-decoration: none; color: #00afa6;}
+*/
+.faq .search-results { display: inline-block;  vertical-align: top;width: 402px;border-radius: 10px;-moz-border-radius: 10px; -webkit-border-radius: 10px;background-color: #ffffff;height: 356px;margin-left:190px; padding:21px 5px 0px 15px; margin-right:10px;}
+.faq .faqInformation{width:314px;}
+.faq .faqInformation p{margin-bottom:110px; width:275px; text-align: left}
+.faq .faqInformation a.btn{width:51px;}
+.faq .search-results ul{padding-left:15px;}
+.faq-search{margin-top:75px; margin-bottom:0;}
+.faq-search input[type="submit"]{width:312px;}
+.search-results h1{color: #00afa6;}
+.search-results ul li{font-family: myriadprobold; margin-top:10px;}
+.search-results ul li:hover,.search-results ul li a:hover{color:#00AFA6;}
+.search-results ul li a { text-decoration: none; color: #595959;}
 
 /*contact*/
 
@@ -500,7 +511,7 @@ div.productInfo2 { padding: 0px !important;}
 .testimonials .scroll .overview .testimonial .helpfulornot p { display: inline-block; font-size: 12px; color: #00AFA6;}
 .testimonials .scroll .overview .testimonial .helpfulornot a { background: url(../images/pawempty.png) no-repeat; width: 32px; height: 32px; display: inline-block; vertical-align: middle; position: relative; margin-left: 14px; margin-right: 0px;margin-top:0px}
 .testimonials .scroll .overview .testimonial .helpfulornot a.active { background: url(../images/pawfull.png) no-repeat;}
-.testimonials .scroll .overview .testimonial .helpfulornot a span { position: absolute; bottom: -10px; width: 32px; text-align: center;}
+.testimonials .scroll .overview .testimonial .helpfulornot a span { position: absolute; bottom: -17px; width: 32px; text-align: center;}
 .testimonials .scroll .overview .comments { width: 100%;}
 .testimonials .scroll .overview .comments .comment_user, .testimonials .scroll .overview .comments .comment_hdc { width: 452px; background: #00AFA6; padding: 10px 17px; margin: 18px 0 0; float: right; color: #fff; margin-right: 10px;}
 .testimonials .scroll .overview .comments .comment_user p, .testimonials .scroll .overview .comments .comment_hdc p { font-size: 12px;}
@@ -528,9 +539,10 @@ left: 50px;
 }
 .testimonials .scroll .overview .comments .comment_hdc p { color: #fff;}
 .testimonials ul.flex-direction-nav { display: none;}
+.testimonial .helpful-count{margin-left:233px;}
 
 .previous-next { width: 590px; margin-top: 31px; margin-bottom: 60px;}
-.previous-next a { background: #00B400; width: 175px; height: 45px; line-height: 45px; border-radius: 10px; text-align: center; color: #fff; font-family: 'MyriadProBold'; font-size: 20px; text-decoration: none; display: block; float: right; margin-left: 37px;}
+.previous-next a { background: #50DCC8; width: 175px; height: 45px; line-height: 45px; border-radius: 10px; text-align: center; color: #fff; font-family: 'MyriadProBold'; font-size: 20px; text-decoration: none; display: block; float: right; margin-left: 37px;}
 
 .new-testimonial-left { width: 600px; float: left; margin-right: 40px;}
 .new-testimonial { width: 380px; float: right;}
@@ -587,7 +599,7 @@ height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none
 
 
 .faqRight a.btn{width:260px; padding:15px 26px;}
-
+.faqRight p{width:275px;}
 
 /*new policy page*/
 
@@ -615,6 +627,9 @@ height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none
 
 .flex-viewport ul { padding: 0px;}
 
+
+/*.faq .viewport { display: inline-block;  vertical-align: top;width: 402px;border-radius: 10px;-moz-border-radius: 10px; -webkit-border-radius: 10px;background-color: #ffffff;height: 356px;margin-left:190px; padding:21px 5px 0px 15px; margin-right:10px;}
+*/
 
 
 /*shipping*/
