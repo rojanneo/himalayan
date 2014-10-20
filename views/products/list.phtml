@@ -36,9 +36,9 @@
 			<?php if(isset($view_products)):?>
 				<div class="rightBody">
 					<div class="product-list-header">
-					<?php $dog_size = getModel('products')->getProductAttributeByCode($view_products[0]['pid'], 'dog_size'); 
+					<?php $dog_size = getModel('products')->getProductAttributeByCode($view_products[0]['pid'], 'dog_size');
 					if($view_category['cat_slug'] == 'dog-chews' or $view_category['cat_slug'] == 'chews-red' or $view_category['cat_slug'] == 'chews-green' or $view_category['cat_slug'] == 'chews-blue' or $view_category['cat_slug'] == 'chews-yellow' or $view_category['cat_slug'] == 'chews-gray'):?>
-						<span class="left" >FOR DOGS<br> UNDER <span class="dog-size"><?php echo $dog_size?></span></span>
+						<span class="left dogchews-left" >FOR DOGS UNDER <span class="dog-size"><?php echo $dog_size?></span></span>
 					<?php else:?>
 						<span class="left" >FOR ALL<br>DOG SIZES</span>
 					<?php endif;?>

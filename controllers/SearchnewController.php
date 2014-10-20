@@ -528,15 +528,14 @@ public function ptelForm($tel)
 
 public function consumermain()
 {
-	$consumermain='<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	$consumermain='<div class="search-title"><strong style=\"font-size: 14px; color: #0066cc;\">Our products are available in the following regions of the world<br></strong><p>We recommend calling stores for availability before visiting them.</p></div>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
 					 <tr>
-						<td valign="top"  colspan="2" style="padding: 10px 10px 0px 10px;" > 
-        					<div class="productInfoM">
+						<td valign="top"  colspan="2" > 
+        					<div class="productInfoM1">
         					<div class="productInfoM2" >        
 								<!--<strong style="font-size: 14px; color: #0066cc;">Consumer Information</strong>
         						<hr align="left" style="background-color: #0066cc; width:100%; " /> <br /><br />-->
-        						<strong style=\"font-size: 14px; color: #0066cc;\">Our products are available in the following regions of the world<br></strong>We recommend calling stores for availability before visiting them.
-        						<hr align=\"left\" style=\"background-color: #0066cc; width:100%; \" >
         			';
     $state_sql=getModel('searchnew')->state_query(null);
     $consumermain.="    <table cellspacing='5' cellpadding='0' align='center' valign='middle' width='100%'>";
@@ -547,9 +546,8 @@ public function consumermain()
 		$st_abb = $statesql['rsstate'];
 
 		$consumermain.="	<tr>
-								<td class='productInfo2' width='100%' valign='middle' style=\"padding: 15px 15px 15px 15px;\">
+								<td class='productInfo21' width='100%' valign='middle' style=\"padding: 15px 15px 15px 20px;\">
 									<strong \">".$state."</strong>
-									<hr align='left'>
 						";
 		$city_sql=getModel('searchnew')->city_query($st_abb);
 

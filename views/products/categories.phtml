@@ -42,6 +42,8 @@
 </div>
 <script>
 $('a.sub-cat').click(function(){
+	$(this).parent().parent().parent().css('width','213px');
+	$(this).parent().parent().css('margin-right', '40px');
 	$('a.active').removeClass('active');
 	$(this).addClass('active');
 	var id = $(this).attr('id');

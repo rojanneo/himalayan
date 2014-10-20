@@ -29,6 +29,14 @@
  			</div>
  			<div class="events">
 				<h2>Upcoming Events</h2>
+				<?php $events = getModel('events')->getAllEvents();?>
+				<?php foreach($events as $event):?>
+					<div class="event">
+					<p class="event-date"><?php echo $event['eventDateBegin'];?></p>
+					<p class="event-name"><?php echo $event['eventName'];?></p>
+					<p class="event-address"><?php echo $event['eventDateEnd'];?></p>
+					</div>
+				<?php endforeach;?>
  				<div class="event">
 		 			<p class="event-date">October 2</p>
 		 			<p class="event-name">Animal Supply Open House</p>

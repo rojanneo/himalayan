@@ -12,6 +12,11 @@ class EventsModel extends Model
 		$query = "Select * from event ORDER BY event_id DESC LIMIT $first, $limit";		
 		return $this->connection->Query($query);
 	}
+	public function getAllEvents()
+	{
+		$query = "Select * from event ORDER BY event_id DESC";		
+		return $this->connection->Query($query);
+	}
 
 	public function getEventCount()
 	{
