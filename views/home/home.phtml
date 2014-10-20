@@ -21,6 +21,26 @@
 	<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
         <div class="viewport">
 	        <div class="overview">
+<!-- 	        <h2>Total Organizations</h2>
+	        <p>that we've donated to this year:<br>for humans: <span class="organization-count">3</span><br>for animals: <span class="organization-count">51</span></p>
+ -->
+ 			<div class="organizations">
+ 			<?php Widget::render('organization-count');?>
+ 			</div>
+ 			<div class="events">
+				<h2>Upcoming Events</h2>
+ 				<div class="event">
+		 			<p class="event-date">October 2</p>
+		 			<p class="event-name">Animal Supply Open House</p>
+		 			<p class="event-address">Tacoma, WA</p>
+	 			</div>
+	 			<div class="event">
+		 			<p class="event-date">October 16-17</p>
+		 			<p class="event-name">Lone Pet Supply Open House</p>
+		 			<p class="event-address">Houston, TX</p>
+	 			</div>
+
+ 			</div>
 			<?php Widget::render('announcement');?>
 			</div>
 		</div>

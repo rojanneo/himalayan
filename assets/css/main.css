@@ -190,10 +190,18 @@ body { font-family: 'MyriadProRegular'; margin: 0px !important;
 .home-wrapper .half.bulletin { width: 382px; margin-left: 26px;}
 .home-wrapper .half .announcements { padding: 0;}
 .home-wrapper .half .announcements .product-list-header { text-align: center; padding: 8px 0;}
-.home-wrapper .half .announcements .product-list-header h2 { margin: 0px; color: #FFFF89; font-family: 'MyriadProRegular'; font-size: 22px;}
+.home-wrapper .half .announcements .product-list-header h2 { margin: 0px; color: #FFFF89; font-family: 'MyriadProRegular'; font-size: 22px; margin-right:20px;}
 .home-wrapper .half .announcements .announcement { background: url(../images/homebulletin.png) repeat-x bottom #fff; padding: 20px 0;}
 .home-wrapper .half .announcements .announcement p { padding: 0 10px 0 40px; margin-top: 0px; color: #007C74; font-size: 13px; line-height: 22px;}
 .home-wrapper .half .announcements .announcement.scroll .viewport { height: 227px !important;}
+.home-wrapper .half .announcements .announcement .viewport,.home-wrapper .half .announcements .announcement .viewport .overview{text-align:center;}
+.home-wrapper .half .announcements .announcement h2{padding: 0px;margin: 0px;font-size: 20px;color: #51c231; padding-bottom:20px;}
+.home-wrapper .half .announcements .announcement .viewport .overview .organizations,.home-wrapper .half .announcements .announcement .viewport .overview .events{margin-left:15px; margin-bottom:15px;}
+.home-wrapper .half .announcements .announcement .viewport .overview .events .event{margin-bottom:20px;}
+.home-wrapper .half .announcements .announcement .viewport .overview .events .event p.event-date{font-family:myriadprobold; font-size:18px;}
+.home-wrapper .half .announcements .announcement .viewport .overview .events .event p.event-name{font-family:myriadprobold; font-size:12px;}
+.home-wrapper .half .announcements .announcement .viewport .overview .events .event p.event-address{font-size:12px;}
+.home-wrapper .half .announcements .announcement .viewport .overview p{padding:0px;}
 .home-slider ul { padding: 0px;}
 .home-slider ul li { margin-top: 0px;}
 
@@ -562,12 +570,26 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; widt
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
-.account-edit .half { width: 50%; margin: 0; padding: 0; float: left;}
+.account-edit .half { width: 50%; margin: 0; padding: 0; float: left; margin-left:-50px;}
+.add-store-form .half{width:50%; float:left;}
+.account-edit .right-half{margin-left:20px;}
+.account-edit .right-half .btn{padding:15px 57px;}
+.account-edit .right-half .btn-left{margin-right:55px;}
+.addRetailerContact .half, .add-store-form .half{width:52%; margin:0; padding:0; float:left;}
+.addRetailerContact h1,.add-store-form h1{margin-left:112px;}
+.addRetailerContact .left-half, .add-store-form .left-half{margin-left:-60px;}
 .account-edit fieldset, .addRetailerContact fieldset, .add-store-form fieldset { margin: 20px 0;}
 .account-edit label, .addRetailerContact label, .add-store-form label { display: inline-block; width: 148px; margin-right: 20px; text-align: right; font-size:18px;}
 .account-edit input[type="text"], .account-edit input[type="password"], .addRetailerContact input[type="text"], .add-store-form input[type="text"] { 
-height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none; padding: 0 20px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 300px; 
+height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none; padding: 0 20px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 260px; 
 }
+.addRetailerContact input[type="text"], .add-store-form input[type="text"]{width:320px;}
+.addRetailerContact .css-label, .add-store-form .css-label{width:385px;margin-left: 115px;padding-left: 30px !important; font-size:15px !important;}
+.addRetailerContact .btn, .add-store-form .btn{padding:15px 47px;}
+.addRetailerContact .left-btn, .add-store-form .left-btn{margin-right:50px;}
+.addRetailerContact .right-btn, .add-store-form .right-btn{padding: 15px 56px;}
+
+
 .add-store-form textarea { height: 150px; background: rgba(255,255,255,0.8); border: none; padding: 10px 20px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 300px; }
 .stores-list ul, .actions ul, .retailercontacts ul { list-style: none; padding: 0px;}
 .stores-list > ul > li, .retailercontacts > ul > li { width: 42%; float: left; text-align: center; border: 1px solid #999; margin: 20px 2%; min-height: 366px; position: relative;}

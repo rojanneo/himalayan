@@ -1,68 +1,86 @@
-<?php //loadView('account/account-menu.phtml');?>
-<div class="wrapper addRetailerContact">
+<?php echo Session::showErrorMessages();
+echo Session::showSuccessMessages();?>
+
+<script type="text/javascript">
+	$('.account-menu ul li a.cpanel').addClass('active');	
+</script>
+<div class="wrapper addRetailerContact clearfix">
 	<h1> Add Retailer Contact</h1>
 	<?php $session = Session::getCurrentSession();?>
 	<form method = "post" action = "<?php echo (isset($view_contact))?URL.'account/editRetailerContactPost':URL.'account/addRetailerContactPost'?>">
-			<input type="hidden" name="rid" value="<?php echo $session['user_id']?>"/>
+		<input type="hidden" name="rid" value="<?php echo $session['user_id']?>"/>
 		<?php if(isset($view_contact)):?>
 			<input type="hidden" name="mid" value="<?php echo $view_contact['mid']?>"/>
 			<input type="hidden" name="retailer_contact_id" value="<?php echo $view_contact['retailer_contact_id']?>"/>
 		<?php endif;?>
-		<fieldset>
-			<label for ="name">Post</label>
-			<input type="text" class="input-box required text-validation" name="mpost" value="<?php echo (isset($view_contact))?$view_contact['retailer_designation']:null?>"/>
-		</fieldset>
-		<fieldset>
-			<label for ="name">Name</label>
-			<input type="text" class="input-box required text-validation" name="mname" value="<?php echo (isset($view_member))?$view_member['mname']:null?>"/>
-		</fieldset>
-		<fieldset>
-			<label for ="name">Email</label>
-			<input type="text" class="input-box required email-validation" name="memail" value="<?php echo (isset($view_member))?$view_member['memail']:null?>"/>
-		</fieldset>
+		<div class="half left-half">
+			<fieldset>
+				<label for ="name">name</label>
+				<input type="text" class="input-box required text-validation" name="mname" value="<?php echo (isset($view_member))?$view_member['mname']:null?>"/>
+			</fieldset>
+			<fieldset>
+				<label for ="name">title</label>
+				<input type="text" class="input-box required text-validation" name="mpost" value="<?php echo (isset($view_contact))?$view_contact['retailer_designation']:null?>"/>
+			</fieldset>
+			<fieldset>
+				<label for ="name">email</label>
+				<input type="text" class="input-box required email-validation" name="memail" value="<?php echo (isset($view_member))?$view_member['memail']:null?>"/>
+			</fieldset>
 	<!-- <label for ="name">Password</label>
 	<input type="password" class="input-box required text-validation" name="mpass"/>
 -->
-<fieldset>
-	<label for ="name">Address</label>
-	<input type="text" class="input-box required text-validation" name="madd" value="<?php echo (isset($view_member))?$view_member['madd']:null?>"/>
-</fieldset>
-<fieldset>
-	<label for ="name">Apt/Ste</label>
-	<input type="text" class="input-box text-validation" name="madd2" value="<?php echo (isset($view_member))?$view_member['madd2']:null?>"/>
-</fieldset>
-<fieldset>
-	<label for ="name">City</label>
-	<input type="text" class="input-box required text-validation" name="mcity" value="<?php echo (isset($view_member))?$view_member['mcity']:null?>"/>
-</fieldset>
-<fieldset>
-	<label for ="name">State</label>
-	<input type="text" class="input-box required text-validation" name="mstate" value="<?php echo (isset($view_member))?$view_member['mstate']:null?>"/>
-</fieldset>
-<fieldset>
-	<label for ="name">Zip</label>
-	<input type="text" class="input-box required text-validation" name="mzip" value="<?php echo (isset($view_member))?$view_member['mzip']:null?>"/>
-</fieldset>
-<fieldset>
-	<label for ="name">Phone</label>
-	<input type="text" class="input-box required text-validation" name="mtel" value="<?php echo (isset($view_member))?$view_member['mtel']:null?>"/>
-</fieldset>
-<fieldset>
-	<label for ="name">Fax</label>
-	<input type="text" class="input-box required text-validation" name="mfax" value="<?php echo (isset($view_member))?$view_member['mfax']:null?>"/>
-</fieldset>
-	<!-- <label for ="name">Company/store</label>
-	<input type="text" class="input-box required text-validation" name="mcompany"/>
-	 --><!-- <label for ="name">Website</label>
-	<input type="text" class="input-box required text-validation" name="mein"/>
--->
-	<!-- <label for ="name">EIN(tax ID)</label>
-	<input type="text" class="input-box required text-validation" name="mein"/>
--->
-<fieldset>
-	<label></label>
-	<input type="hidden" value="customer" name="mtype"/>
-	<input type="submit" value="Submit" class="btn btn-blue" />
-</fieldset>
+			<fieldset>
+				<label for ="name">address</label>
+				<input type="text" class="input-box required text-validation" name="madd" value="<?php echo (isset($view_member))?$view_member['madd']:null?>"/>
+			</fieldset>
+			<fieldset>
+				<label for ="name">apt/ste</label>
+				<input type="text" class="input-box text-validation" name="madd2" value="<?php echo (isset($view_member))?$view_member['madd2']:null?>"/>
+			</fieldset>
+</div>
+<div class="half right-half">
+	<fieldset>
+		<label for ="name">city</label>
+		<input type="text" class="input-box required text-validation" name="mcity" value="<?php echo (isset($view_member))?$view_member['mcity']:null?>"/>
+	</fieldset>
+	<fieldset>
+		<label for ="name">state</label>
+		<input type="text" class="input-box required text-validation" name="mstate" value="<?php echo (isset($view_member))?$view_member['mstate']:null?>"/>
+	</fieldset>
+	<fieldset>
+		<label for ="name">zip</label>
+		<input type="text" class="input-box required text-validation" name="mzip" value="<?php echo (isset($view_member))?$view_member['mzip']:null?>"/>
+	</fieldset>
+	<fieldset>
+		<label for ="name">phone</label>
+		<input type="text" class="input-box required text-validation" name="mtel" value="<?php echo (isset($view_member))?$view_member['mtel']:null?>"/>
+	</fieldset>
+	<fieldset>
+		<label for ="name">fax</label>
+		<input type="text" class="input-box required text-validation" name="mfax" value="<?php echo (isset($view_member))?$view_member['mfax']:null?>"/>
+	</fieldset>
+
+	<fieldset>
+		<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG1"/><label for="checkboxG1" class="css-label radGroup1">I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">privacy policy</a> and <a href="<?php echo URL.'pages/webusage'?>">Web Usage Agreement</a></label>
+	</fieldset>
+	<fieldset>
+		<label></label>
+		<input type="hidden" value="customer" name="mtype"/>
+		<input type="submit" value="submit" class="btn btn-blue left-btn" />
+		<input type="button" value="clear" class="btn btn-blue right-btn" onclick="clearForm();" />
+	</fieldset>
+</div>
+	
 </form>
 </div>
+<script type="text/javascript">
+	$('.addRetailerContact form').submit(function(){
+		return $(this).validate('input-box');
+	});
+	function clearForm()
+	{
+		$('.addRetailerContact form').find('input[type=text]').val('');
+		$('.left-btn').val('submit');
+		$('.right-btn').val('clear');
+	}
+</script>

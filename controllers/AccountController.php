@@ -203,7 +203,7 @@ class AccountController extends Controller
 		}
 		else
 		{
-			Session::addSuccessMessage("Unable to update store information");
+			Session::addErrorMessage("Unable to update store information");
 			redirect('account/stores');			
 		}
 	}

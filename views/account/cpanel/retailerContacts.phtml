@@ -1,3 +1,10 @@
+<?php echo Session::showErrorMessages();
+echo Session::showSuccessMessages();?>
+
+<script type="text/javascript">
+	$('.account-menu ul li a.cpanel').addClass('active');	
+</script>
+
 <div class="wrapper retailercontacts">
 <a href="<?php echo URL.'account/addRetailerContact'?>" class="btn btn-blue" >Add New Contact</a>
 <?php if(isset($view_contacts)):?>

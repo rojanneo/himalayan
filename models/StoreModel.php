@@ -60,6 +60,7 @@ class StoreModel extends Model
 		rsnm = '".mysql_real_escape_string($rsnm)."',
 		rshdc = '".mysql_real_escape_string($rshdc)."',
 		rsadd = '".mysql_real_escape_string($rsadd)."',
+		rsadd2 = '".mysql_real_escape_string($rsadd2)."',
 		rscity = '".mysql_real_escape_string($rscity)."', 
 		rsstate = '".mysql_real_escape_string($rsstate)."', 
 		rszip = '".mysql_real_escape_string($rszip)."',
@@ -85,6 +86,7 @@ $sql = "SELECT * FROM retailers WHERE rid = $rid";
 		`rshdc` = '".mysql_real_escape_string($rshdc)."',
 		`rsnm`='".mysql_real_escape_string($rsnm)."',
 		`rsadd`='".mysql_real_escape_string($rsadd)."',
+		`rsadd2`='".mysql_real_escape_string($rsadd2)."',
 		`rscity`='".mysql_real_escape_string($rscity)."',
 		`rsstate`='".mysql_real_escape_string($rsstate)."',
 		`rszip`='".mysql_real_escape_string($rszip)."',
@@ -95,7 +97,7 @@ $sql = "SELECT * FROM retailers WHERE rid = $rid";
 		`rsdes`='".mysql_real_escape_string($rsdes)."'
 		WHERE `rsid` = '$rsid'";
 
-		return $this->connection->Query($query);
+		return $this->connection->UpdateQuery($query);
 	}
 
 	public function getStore($store_id)
@@ -129,8 +131,7 @@ $sql = "SELECT * FROM retailers WHERE rid = $rid";
 	    rstel = '".mysql_real_escape_string($rstel)."', 
 	    rsfax = '".mysql_real_escape_string($rsfax)."', 
 	    rswebsite = '".mysql_real_escape_string($rswebsite)."',
-	    rsemail = '".mysql_real_escape_string($rsemail)."',
-	    rsdes = '".mysql_real_escape_string($rsdes)."'";
+	    rsemail = '".mysql_real_escape_string($rsemail)."'";
 
 	   return $this->connection->InsertQuery($query);
 	}
@@ -151,7 +152,6 @@ $sql = "SELECT * FROM retailers WHERE rid = $rid";
 		`rsfax`='".mysql_real_escape_string($rsfax)."',
 		`rswebsite`='".mysql_real_escape_string($rswebsite)."',
 		`rsemail`='".mysql_real_escape_string($rsemail)."',
-		`rsdes`='".mysql_real_escape_string($rsdes)."'
 		WHERE `rsid` = '$rsid'";
 
 		return $this->connection->UpdateQuery($query);

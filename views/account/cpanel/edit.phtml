@@ -10,6 +10,9 @@ if($retailer)
 extract($retailer);
 ?>
 <?php $states = getModel('customer')->getAllStates();?>
+<script type="text/javascript">
+	$('.account-menu ul li a.cpanel').addClass('active');	
+</script>
 <div class="wrapper account-edit clearfix">
 	<div class="edit-retailer-form">
 	<form method = "post" action = "<?php echo URL.'account/editPost'?>">
@@ -41,7 +44,7 @@ extract($retailer);
 		</fieldset>
 		<fieldset>
 		<label for ="name">state</label>
-		<select name="mstate" class="input-box" style="width:280px;height: 46px;border: none;border-radius: 10px; background: rgba(255,255,255,0.8); padding: 0 20px;">
+		<select name="mstate" class="input-box" style="width:300px;height: 46px;border: none;border-radius: 10px; background: rgba(255,255,255,0.8); padding: 0 20px;">
 							<?php foreach($states as $state):?>
 								<option <?php echo (isset($mstate) and $mstate == $state['abb'])?'selected':null?> value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
 							<?php endforeach;?>
@@ -50,10 +53,10 @@ extract($retailer);
 		</fieldset>
 		<fieldset>
 		<label for ="name">zip</label>
-		<input type="text" class="input-box required text-validation" name="mzip" value="<?php echo $mzip?>" style=" width:240px;"/>
+		<input type="text" class="input-box required text-validation" name="mzip" value="<?php echo $mzip?>" style=" width:260px;"/>
 		</fieldset>												
 	</div>
-	<div class="half">
+	<div class="half right-half">
 		<fieldset>
 		<label for ="name">phone</label>
 		<input type="text" class="input-box required text-validation" name="mtel" value="<?php echo $mtel?>"/>
@@ -81,9 +84,10 @@ extract($retailer);
 		<label for = "newpassword1" style="width:200px">retype new password</label>
 		<input type="password" name="newpassword1" class="input-box"/>
 		</fieldset>
-		<fieldset style=" text-align: center;">
+		<fieldset style="width:700px;margin-top: -20px;">
 		<label></label>
-		<input type="submit" value="save" class="btn btn-blue" style="margin:0px;" />
+		<input type="submit" value="save" class="btn btn-blue btn-left" />
+		<input type="button" value="clear" class="btn btn-blue btn-right" onclick="clearForm();"/>
 		</fieldset>
 	</div>
 
@@ -123,5 +127,12 @@ $('.password-form form').submit(function(){
 	return $(this).validate('input-box');
 });
 
-})
+});
+function clearForm()
+	{
+		$('.account-edit form').find('input[type=text]').val('');
+		$('.btn-left').val('save');
+		$('.btn-right').val('clear');
+	}
+
 </script>
