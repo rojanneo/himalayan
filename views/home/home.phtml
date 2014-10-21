@@ -15,7 +15,7 @@
 <div class="half bulletin">
 <div class="announcements">
 	<div class="annoucement-header product-list-header">
-	<h2>the barking bulletin</h2>
+	<h2><?php echo getModel('configuration')->getConfigValue('barking-bulletin-header');?></h2>
 	</div>
 	<div class="announcement scroll">
 	<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
@@ -27,17 +27,36 @@
  			<div class="organizations">
  			<?php Widget::render('organization-count');?>
  			</div>
+ 			<?php
+	 			$monthNum  = 10;
+				$monthName = date('M', mktime(0, 0, 0, $monthNum, 1));
+ 			?>
  			<div class="events">
 				<h2>Upcoming Events</h2>
 				<?php $events = getModel('events')->getAllEvents();?>
 				<?php foreach($events as $event):?>
 					<div class="event">
-					<p class="event-date"><?php echo $event['eventDateBegin'];?></p>
-					<p class="event-name"><?php echo $event['eventName'];?></p>
-					<p class="event-address"><?php echo $event['eventDateEnd'];?></p>
+					<?php if($event['eventDateBegin'] != '0000-00-00' and $event['eventDateEnd'] != '0000-00-00'):?>
+						<?php $startDate = $event['eventDateBegin']; $endDate = $event['eventDateEnd'];?>
+						<?php $startDate = explode('-',$startDate); $endDate = explode('-',$endDate);?>
+						<?php $startMonth = date('F', mktime(0, 0, 0, $startDate[1], 1)); $endMonth = date('F', mktime(0, 0, 0, $endDate[1], 1));?>
+						<?php $startDay = $startDate[2]; $endDay = $endDate[2];?>
+						<p class="event-date"><?php echo $startMonth.' '.$startDay.' - '.$endMonth.' '.$endDay;?>
+					<?php else :?>
+						<?php if($event['eventDateBegin'] != '0000-00-00'):?>
+							<?php $startDate = $event['eventDateBegin'];?>
+							<?php $startDate = explode('-',$startDate);?>
+							<?php $startMonth = date('F', mktime(0, 0, 0, $startDate[1], 1));?>
+							<?php $startDay = $startDate[2];?>
+							<p class="event-date"><?php echo $startMonth.' '.$startDay;?>
+						<?php endif;?>
+					<?php endif;?>
+<!-- 					<p class="event-date"><?php echo $event['eventDateBegin'];?></p>
+ -->					<p class="event-name"><?php echo $event['eventName'];?></p>
+					<p class="event-address"><?php echo $event['eventAddress'];?></p>
 					</div>
 				<?php endforeach;?>
- 				<div class="event">
+ 				<!-- <div class="event">
 		 			<p class="event-date">October 2</p>
 		 			<p class="event-name">Animal Supply Open House</p>
 		 			<p class="event-address">Tacoma, WA</p>
@@ -46,7 +65,7 @@
 		 			<p class="event-date">October 16-17</p>
 		 			<p class="event-name">Lone Pet Supply Open House</p>
 		 			<p class="event-address">Houston, TX</p>
-	 			</div>
+	 			</div> -->
 
  			</div>
 			<?php Widget::render('announcement');?>

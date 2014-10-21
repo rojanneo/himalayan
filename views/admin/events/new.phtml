@@ -43,6 +43,13 @@ echo AdminSession::showSuccessMessages();?>
 						<input type="text" name="eurl"  value="<?php echo (isset($view_event))?$view_event['eventUrl']:null?>"/></div>
 					</li>
 					<li class="field">
+					<div class="input-title">
+						<label for name="eadd"><strong>Event Address</strong></label>
+					</div>
+					<div class="input">
+						<input type="text" name="eadd"  value="<?php echo (isset($view_event))?$view_event['eventAddress']:null?>"/></div>
+					</li>
+					<li class="field">
 						<div class="input-title">
 							<label for name="estatusl"><strong>Event Type</strong></label>
 						</div>

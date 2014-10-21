@@ -11,6 +11,7 @@ if(!function_exists('getModel'))
 {
 	function getModel($filename)
 	{
+    $filename = lcfirst($filename);
 		require_once('models/'.$filename.'Model.php');
 		$modelName = $filename.'Model';
 		$model = new $modelName();

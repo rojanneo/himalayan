@@ -13,9 +13,10 @@
 <div class="leftBody">
 <ul class="category-list">
 	<?php $level1 = getModel('category')->getChildrenCategories($view_category['category_id']);?>
-
+<?php $ourCreation = getModel('category')->getCategoryBySlug('our-creations');?>
+<?php $ourCreationName = ($ourCreation['category_display_name'] != null)?$ourCreation['category_display_name']:$ourCreation['category_name'];?>
 		<li>
-			<p>Our creations:</p>
+			<p><?php echo $ourCreationName?></p>
 		</li>
 	<?php foreach($level1 as $category):?>
 	<?php $name = $category['category_display_name'];?>

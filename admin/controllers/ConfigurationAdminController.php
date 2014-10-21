@@ -40,7 +40,7 @@ class ConfigurationAdminController extends Controller
 		if(!$page) $page = 1;
 		$limit = 10;
 		$first = ($page-1) * $limit;
-		$data['groups'] = getModel('Configuration')->getConfigGroups($first,$limit);
+		$data['groups'] = getModel('configuration')->getConfigGroups($first,$limit);
 
 		$data['pagination_num'] = ceil(getModel('Configuration')->getConfigGroupsCount()/$limit);
 
@@ -63,7 +63,7 @@ class ConfigurationAdminController extends Controller
 	{
 		loadHelper('inputs');
 		$post_data = getPost();
-		if(getModel('Configuration')->addConfigGroup($post_data))
+		if(getModel('configuration')->addConfigGroup($post_data))
 		{
 			redirect('admin/configuration/grouplist');
 		}
@@ -77,7 +77,7 @@ class ConfigurationAdminController extends Controller
 	{
 		loadHelper('inputs');
 		$post_data = getPost();
-		if(getModel('Configuration')->updateConfigGroup($post_data))
+		if(getModel('configuration')->updateConfigGroup($post_data))
 		{
 			redirect('admin/configuration/grouplist');
 		}
@@ -89,7 +89,7 @@ class ConfigurationAdminController extends Controller
 
 	public function deleteGroupAction($id)
 	{
-		if(getModel('Configuration')->deleteConfigGroup($id))
+		if(getModel('configuration')->deleteConfigGroup($id))
 		{
 			redirect('admin/configuration/grouplist');
 		}

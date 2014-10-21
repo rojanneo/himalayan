@@ -19,7 +19,7 @@ class EventsAdminController extends Controller
 		if(!$page) $page = 1;
 		$limit = 10;
 		$first = ($page-1) * $limit;
-		$data['eventlist']=getModel('Events')->getEvents($first,$limit);
+		$data['eventlist']=getModel('events')->getEvents($first,$limit);
 		$data['pagination_num'] = ceil(getModel('events')->getEventCount()/$limit);
 		$this->view->renderAdmin('events/events_view.phtml',$data);
 	}

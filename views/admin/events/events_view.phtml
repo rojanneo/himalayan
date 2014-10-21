@@ -13,6 +13,7 @@
     <th>Events Ends In </th> 
     <th>Events Description</th> 
     <th>Events Url</th>
+    <th>Events Address</th>
     <th> Delete </th>
   </tr>
   <?php foreach ($view_eventlist as $view_eventlist) { ?>
@@ -24,6 +25,7 @@
     <td><a href="<?php echo ADMIN_URL.'events/editEvent/'.$view_eventlist['event_id']; ?>"><?php echo $view_eventlist['eventDateEnd']; ?></a></td>
     <td><a href="<?php echo ADMIN_URL.'events/editEvent/'.$view_eventlist['event_id']; ?>"><?php echo strip_tags(substr($view_eventlist['eventDesc'],0,15));  //$view_eventlist['eventDesc']; ?></a></td>
     <td><a href="http://<?php echo $view_eventlist['eventUrl']; ?>"><?php echo $view_eventlist['eventUrl']; ?></a></td>
+    <td><a href="<?php echo ADMIN_URL.'events/editEvent/'.$view_eventlist['event_id']; ?>"><?php echo $view_eventlist['eventAddress'];?></a></td>
 <!--     <td><a href="<?php echo ADMIN_URL.'events/editEvent/'.$view_eventlist['event_id']; ?>">View More</a></td>
  -->
      <td><a class="button" href="<?php echo ADMIN_URL.'events/deleteEvent/'.$view_eventlist['event_id']; ?>" class="confirm">Delete</a>

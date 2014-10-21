@@ -14,7 +14,7 @@ class EventsModel extends Model
 	}
 	public function getAllEvents()
 	{
-		$query = "Select * from event ORDER BY event_id DESC";		
+		$query = "Select * from event Where eventDateBegin > now() ORDER BY eventDateBegin ASC ";		
 		return $this->connection->Query($query);
 	}
 
@@ -44,7 +44,7 @@ class EventsModel extends Model
 		{			
 			$eventslug=$eventslug.uniqid();
 		}	
-			$sql="INSERT INTO `event`(`eventName`, `eventslug`, `eventDateBegin`, `eventDateEnd`, `eventDesc`, `eventUrl`, `eventstatus`, `event_feature_image`) VALUES ('".$ename."','".$eventslug."','".$ebegindate."','".$eendndate ."','".$econtent."','".$eventguid."','".$estatus."','".$efimage."')";
+			$sql="INSERT INTO `event`(`eventName`, `eventslug`, `eventDateBegin`, `eventDateEnd`, `eventDesc`, `eventUrl`, `eventstatus`, `event_feature_image`,`eventAddress`) VALUES ('".$ename."','".$eventslug."','".$ebegindate."','".$eendndate ."','".$econtent."','".$eurl."','".$estatus."','".$efimage."','".$eadd."')";
 			return $this->connection->InsertQuery($sql);
 	}
 
@@ -58,7 +58,7 @@ class EventsModel extends Model
 			$eurl=$eurl;
 		}
 		else{ $eurl=URL.$eventslug; }*/
-		$sql="UPDATE `event` SET `eventName`='".$ename."',`eventDateBegin`='".$ebegindate."',`eventDateEnd`='".$eendndate."',`eventDesc`='".$econtent."',`eventUrl`='".$eurl."',`eventstatus`='".$estatus."',`event_feature_image`='".$efimage."',`event_revised_date`='".$now."' WHERE `event_id`='".$event_id."'";
+		$sql="UPDATE `event` SET `eventName`='".$ename."',`eventDateBegin`='".$ebegindate."',`eventDateEnd`='".$eendndate."',`eventDesc`='".$econtent."',`eventUrl`='".$eurl."',`eventstatus`='".$estatus."',`event_feature_image`='".$efimage."',`event_revised_date`='".$now."',`eventAddress`='".$eadd."' WHERE `event_id`='".$event_id."'";
 		return $this->connection->UpdateQuery($sql);
 	}
 
