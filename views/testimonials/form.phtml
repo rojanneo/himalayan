@@ -49,8 +49,9 @@ echo Session::showSuccessMessages();?>
 		
 </div>
 <div class="testimonial-otherhalf">
-	<a href="<?php echo URL.'testimonialforum/show'?>" class="btn btn-blue">See what people are saying about our creations</a>
-	<div class="testimonial-message"><p>We never delete any comments made by our customers on our website. We only delete those that we believe are spam, such as ones with unverifiable geographical location or that were submitted by automated processes.</p></div>
+<?php $link_text = getModel('configuration')->getConfigValue('testimonial_link');?>
+	<a href="<?php echo URL.'testimonialforum/show'?>" class="btn btn-blue"><?php echo $link_text?></a>
+	<div class="testimonial-message"><?php Widget::render('testimonial_sidebar_text');?></div>
 	<div class="captcha">
 	<?php echo recaptcha_get_html(CAPTCHA_PUBLIC_KEY, $error);?>
 	</div>

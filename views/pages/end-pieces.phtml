@@ -1,3 +1,4 @@
+<?php $back_to_creations = getModel('configuration')->getConfigValue('back_to_creation');?>
 <div class="wrapper creationDetail">
 	<div class="dog-chews microwave">
 		<div class="leftBody">
@@ -10,12 +11,11 @@
 				<?php Widget::render('microwave_nugget');?>
 			<?php endif;?>
 			</div>
-			<a class="btn btn-blue" href="<?php echo URL.'products/list/3'?>"> &lt; back to Yaky Nugget</a>
+			<a class="btn btn-blue" href="<?php echo URL.'products/list/3'?>"> &lt; back</a>
 		</div>
 		<div class="rightBody">
 			<div class="product-list-header clearfix">
-				<span class="left">what to do with end pieces</span>
-				<span class="right"><a href="<?php echo URL.'products/categories'?>">&lt;back to creations</a></span>
+				<span class="right"><a href="<?php echo URL.'products/categories'?>"><?php echo $back_to_creations?></a></span>
 			</div>
 
 			<div class="products">

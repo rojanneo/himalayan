@@ -111,6 +111,7 @@ public function cwhereActionnew()
 
 public function storebyregionsnew($gstate)
 {
+	$find_us_default_line2 = getModel('configuration')->getConfigValue('find_us_default_line2');
 	if(isset($_GET['gcity']))		{ 	$gcity = $_GET['gcity'];		}
 	if(isset($_GET['gstore']))		{ 	$gstore = $_GET['gstore'];		}
 	$model = getModel('searchnew');
@@ -119,7 +120,7 @@ public function storebyregionsnew($gstate)
 	$storebyregionsval.=		 $model->getState($gstate);
 	$storebyregionsval.=		 "</strong>";
 
-	$storebyregionsval.=		 "<p>We recommend calling stores for availability before visiting them.</p></div>";
+	$storebyregionsval.=		 "<p>".$find_us_default_line2."</p></div>";
 	if(isset($gcity))
 	{
 		if(isset($gstore))
@@ -264,12 +265,13 @@ public function cwhereAction()
 
 public function clistforzipAction($gzipcode)
 {
+	$find_us_default_line2 = getModel('configuration')->getConfigValue('find_us_default_line2');
 	$model = getModel('searchnew');
 	$zipCityval = $model->zipCity($gzipcode);
 	$data['clistfor']=		"<div class='search-title'><strong>";
 	$data['clistfor'].= 	"stores near  ".$zipCityval." $gzipcode";
 	$data['clistfor'].= 	"</strong>"; 
-	$data['clistfor'].= 	"<p>We recommend calling stores for availability before visiting them.</p></div>";
+	$data['clistfor'].= 	"<p>".$find_us_default_line2."</p></div>";
 	
 	$sql=$model->allretailzip();	 
 	$l=$model->findLatlon(substr($gzipcode, 0,5)); 
@@ -443,6 +445,7 @@ public function distinctcountryname()
 
 public function storebyregions($gstate)
 {
+	$find_us_default_line2 = getModel('configuration')->getConfigValue('find_us_default_line2');
 	if(isset($_GET['gcity']))		{ 	$gcity = $_GET['gcity'];		}
 	$model = getModel('searchnew');
 	$storebyregionsval= 		"<div class='search-title'><strong>";
@@ -450,7 +453,7 @@ public function storebyregions($gstate)
 	$storebyregionsval.=		 $model->getState($gstate);
 	$storebyregionsval.=		 "</strong>";
 
-	$storebyregionsval.=		 "<p>We recommend calling stores for availability before visiting them.</p></div>";
+	$storebyregionsval.=		 "<p>".$find_us_default_line2."</p></div>";
 	if(isset($gcity))
 	{
 		$cquery=$model->searchbycountystatecity($gcity,$gstate);
@@ -528,7 +531,9 @@ public function ptelForm($tel)
 
 public function consumermain()
 {
-	$consumermain='<div class="search-title"><strong style=\"font-size: 14px; color: #0066cc;\">Our products are available in the following regions of the world<br></strong><p>We recommend calling stores for availability before visiting them.</p></div>
+	$find_us_default_line1 = getModel('configuration')->getConfigValue('find_us_default_line1');
+	$find_us_default_line2 = getModel('configuration')->getConfigValue('find_us_default_line2');
+	$consumermain='<div class="search-title"><strong style=\"font-size: 14px; color: #0066cc;\">'.$find_us_default_line1.'<br></strong><p>'.$find_us_default_line2.'</p></div>
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 					 <tr>
 						<td valign="top"  colspan="2" > 

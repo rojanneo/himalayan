@@ -320,7 +320,7 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; widt
 .product-list-header { background: #00AFA6; border-radius: 10px 10px 0 0; -moz-border-radius: 10px 10px 0 0; -webkit-border-radius: 10px 10px 0 0; position: relative; min-height:40px;}
 .product-list-header span { display: inline-block; padding: 5px; color: #fff;}
 .product-list-header span.right { position: absolute; right: 10px; top: 5px;}
-.product-list-header span.left { width: 105px; text-align: center; font-size:15px; line-height:1;}
+.product-list-header span.left { width: 85px; text-align: center; font-size:15px; line-height:1;margin-left: 10px;}
 .product-list-header span.dogchews-left { width: 215px; text-align: center; font-size:15px; line-height:1; font-family: MyriadProSemibold; font-size:15px; margin-top: 5px;margin-left: -27px;}
 .product-list-header span.dog-size{font-size:32px;position: absolute;top: 5px; color:#FFF685;}
 .product-list-header span a { color: #FFFFC2; text-decoration: none;}

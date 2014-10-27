@@ -75,10 +75,7 @@
 
 			
         	<br />
-            <p><strong> Can’t find us in your favorite place to shop?  </strong></br>
-                Fill out the request form below and drop it off or email <br>
-                it to any store that does not carry HDC products.
-             </p>
+            <?php Widget::render('find_us_sidebar_text');?>
         	<?php $form = getModel('form')->getForm(2);?>
 <a href="<?php echo UPLOAD_URL.$form['form_file']?>" class="btn btn-blue">HDC Request Form</a>
         </div>

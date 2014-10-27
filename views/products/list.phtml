@@ -3,6 +3,11 @@
 <script type="text/javascript">
 	$('.nav ul li.creation').attr('id','creation-active');
 </script>
+<?php $for_dogs_under = getModel('configuration')->getConfigValue('for_dogs_under');?>
+<?php $for_all_dog_sizes = getModel('configuration')->getConfigValue('for_all_dog_sizes');?>
+<?php $back_to_creations = getModel('configuration')->getConfigValue('back_to_creation');?>
+<?php $end_pieces = getModel('configuration')->getConfigValue('what_to_do_with_end_pieces');?>
+<?php $microwaving_tutorial = getModel('configuration')->getConfigValue('microwaving_tutorial');?>
 <?php if(count($view_products)>0):?>
 <?php if($view_category['cat_slug'] != 'yaky-sticks'):?>
 	<div class="wrapper creationDetail">
@@ -19,15 +24,15 @@
 				</div>
 				<div class="actions">
 				<?php if($view_category['cat_slug'] == 'dog-chews' or $view_category['cat_slug'] == 'chews-red' or $view_category['cat_slug'] == 'chews-green' or $view_category['cat_slug'] == 'chews-blue' or $view_category['cat_slug'] == 'chews-yellow' or $view_category['cat_slug'] == 'chews-gray'):?>
-						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue" style="padding:15px 0px; margin-top:-2px">what to do<br>with end pieces</a>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue" style="padding:15px 0px; margin-top:-2px"><?php echo $end_pieces?></a>
 				<?php elseif($view_category['cat_slug'] == 'yaky-nugget'):?>
-						<a href="<?php echo URL.'pages/microwave'?>" class="btn btn-blue">microwaving<br>tutorial</a>
+						<a href="<?php echo URL.'pages/microwave'?>" class="btn btn-blue"><?php echo $microwaving_tutorial?></a>
 				<?php endif;?>
 				<?php $session = Session::getCurrentSession();?>
 				<?php if($session):?>
 				<?php $retailer = getModel('customer')->getRetailer($session['user_id']);?>
 				<?php if($retailer):?>
-					<a href="<?php echo URL.'account'?>" class="btn btn-blue retailer-menu">&lt; back to retailer menu</a>
+					<!-- <a href="<?php echo URL.'account'?>" class="btn btn-blue retailer-menu">&lt; back to retailer menu</a> -->
 				<?php endif;?>
 			<?php endif;?>
 				</div>
@@ -38,11 +43,11 @@
 					<div class="product-list-header">
 					<?php $dog_size = getModel('products')->getProductAttributeByCode($view_products[0]['pid'], 'dog_size');
 					if($view_category['cat_slug'] == 'dog-chews' or $view_category['cat_slug'] == 'chews-red' or $view_category['cat_slug'] == 'chews-green' or $view_category['cat_slug'] == 'chews-blue' or $view_category['cat_slug'] == 'chews-yellow' or $view_category['cat_slug'] == 'chews-gray'):?>
-						<span class="left dogchews-left" >FOR DOGS UNDER <span class="dog-size"><?php echo $dog_size?></span></span>
+						<span class="left dogchews-left" ><?php echo $for_dogs_under?> <span class="dog-size"><?php echo $dog_size?></span></span>
 					<?php else:?>
-						<span class="left" >FOR ALL<br>DOG SIZES</span>
+						<span class="left" ><?php echo $for_all_dog_sizes?></span>
 					<?php endif;?>
-					<span class="right"><a href="<?php echo URL.'products/categories'?>">&lt; back to creations</a></span>
+					<span class="right"><a href="<?php echo URL.'products/categories'?>"><?php echo $back_to_creations?></a></span>
 					</div>
 					<?php if(count($view_products) > 1):?>
 						<div class="categoryContainer <?php echo (strtolower($view_category['cat_slug']) == 'yaky-yams')?'yakyyam':null?>">
@@ -261,23 +266,13 @@
 				<?php elseif($view_category['cat_slug'] == 'yaky-nugget'):?>
 						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">microwaving<br>tutorial</a>
 				<?php endif;?>
-				<style>
-				.dog-chews .leftBody .actions a.retailer-menu{width: 242px;
-vertical-align: bottom;
-position: absolute;
-bottom: 50px;
-right: 708px;
-background: #00B400;
-/* padding-top: 10px; */
-height: 20px;}
-				</style>
-				<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue retailer-menu">&lt; back to retailer menu</a>
+				
 				</div>
 			</div>
 			<?php if(isset($view_products)):?>
 				<div class="rightBody">
 					<div class="product-list-header">
-						<span class="left">FOR DOGS<br> UNDER</span><span class="right"><a href="<?php echo URL.'products/categories'?>">&lt; back to creations</a></span>
+						<span class="left">FOR DOGS UNDER</span><span class="right"><a href="<?php echo URL.'products/categories'?>"><?php echo $back_to_creations?></a></span>
 					</div>
 
 					<?php if(count($view_products) > 0):?>
