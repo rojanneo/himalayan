@@ -1,0 +1,30 @@
+<script>
+    var _jaJobsSettings = {
+        key: "au1_m4dekffdzgxerjeahjn5u4co5e",
+  
+        jobSearchSettings: {
+            showSearchForm: true,
+            classificationsToExclude: [15099,15100],
+   showLabels: false,
+            searchButtonText: "Search"
+        },
+        applicationFormSettings: {
+            useExternalApplicationForm: true,
+            showExternalApplicationFormInNewWindow: false
+        }
+    };
+   
+        
+
+</script><div id="ja-jobs-widget"></div>
+<script src="//jobadder.com/widgets/v1/jobs.min.js"></script>
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+	jQuery(document).on('DOMNodeInserted', function(e) {
+  if (e.target.id == 'ja-jobs-widget') {
+//alert(1);
+if(jQuery('.ja-job-search .test	').length == 0)
+jQuery(".ja-job-search ").prepend('<h1 class="test">Search Jobs</h1>');
+}
+});
+</script>
