@@ -83,7 +83,7 @@ class RetailercontactModel extends Model
 		if(isset($retailer_id))
 		{
 			$query = "SELECT * FROM(SELECT members.mid, members.mname, members.memail, members.madd, members.madd2, members.mcity, members.mstate, members.mzip, members.mtel, members.mfax, retailer_contacts.retailer_contact_id,retailer_contacts.rid, retailer_contacts.retailer_designation 
-				FROM members JOIN retailer_contacts ON members.mid = retailer_contacts.rid) as contacts WHERE rid = ".$retailer_id;
+				FROM members JOIN retailer_contacts ON members.mid = retailer_contacts.mid) as contacts WHERE rid = ".$retailer_id;
 			$contacts = $this->connection->query($query);
 			return $contacts;
 		}

@@ -1,37 +1,55 @@
 <?php //loadView('account/account-menu.phtml');?>
 <?php echo Session::showErrorMessages();
 echo Session::showSuccessMessages();?>
-<div class="wrapper">
-	<div class="actions">
-		<ul>
-			<li><a href="<?php echo URL.'account/addStore'?>" class="btn btn-blue" >Add A New Store</a></li>
-		</ul>
-	</div>
+
 	<?php if(isset($view_stores)):?>
-	<div class="stores-list">
-		<ul class="clearfix">
+	<div class="stores-list clearfix">
+	<a href="<?php echo URL.'account/addStore'?>" class="btn btn-blue" >Add A New Store</a>
+	<div class="left-half">
+	<div class="scroll">
+    <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+    <div class="viewport" style="height:340px">
+    <div class="overview" style="height:315px">
+		<ul class="stores">
 			<?php foreach($view_stores as $store):?>
 				<li>
 					<div class="store">
-						<p><?php echo $store['rsnm']?></p>
-						<p><?php echo $store['rsadd']?></p>
-						<p><?php echo $store['rsadd2']?></p>
-						<p><?php echo $store['rscity']?></p>
-						<p><?php echo $store['rsstate']?></p>
-						<p><?php echo $store['rstel']?></p>
-						<p><?php echo $store['rsfax']?></p>
-						<p><?php echo $store['rswebsite']?></p>
-						<p><?php echo $store['rsemail']?></p>
-					</div>
+						<div class="title">
+							<p><span class="name"><?php echo $store['rsnm']?></span> &gt;&gt;<span class="phone"><?php echo $store['rstel']?></span></p>
+						</div>
 					<div class="store-action">
 						<ul>
-							<li><a href="<?php echo URL.'account/editStore/'.$store['rsid']?>" class="btn btn-blue">Edit</a></li>
-							<li><a href="<?php echo URL.'account/deleteStore/'.$store['rsid']?>" class="btn btn-blue">Delete</a></li>
+							<li><a href="<?php echo URL.'account/editStore/'.$store['rsid']?>">edit</a></li>
+							<li>|</li>
+							<li><a href="<?php echo URL.'account/deleteStore/'.$store['rsid']?>">delete</a></li>
 						</ul>
+					</div>
+						<div class="info">
+							<p><?php echo $store['rsadd']?>, <?php echo $store['rsadd2']?>, <?php echo $store['rscity']?>, <?php echo $store['rsstate']?>, <?php echo $store['rszip']?></p>
+							<p><?php echo $store['rswebsite']?></p>
+							<p><?php echo $store['rsemail']?></p>
+							<p><?php echo $store['rsfax']?></p>
+						</div>
 					</div>
 				</li>
 			<?php endforeach;?>
 		</ul>
+		</div>
+		</div>
+		<script>
+	 $(document).ready(function(){
+            $(window).resize();
+            $('.scroll').tinyscrollbar();
+            $(window).resize();
+        });
+	</script>
+		</div>
+		</div>
+		<div class="right-half clearfix">
+<div class="right-content">
+<p style="font-size:13px"><strong style="font-family:MyriadProBold; font-size:16px"> Can’t find the store you’re looking for? </strong><br>Click the button below if your contact(s) does <br>not show in the box to the left. </p>
+<a href="<?php echo URL.'contacts'?>" class="btn btn-blue contacts">contact us regarding this issue</a>
+</div>
 	</div>
 </div>
 <?php else:?>
@@ -45,3 +63,4 @@ if(!$page) $page = 1;
 loadHelper('pagination');
 showPagination($page, $view_pagination_num, 'account/stores');
 }
+?>

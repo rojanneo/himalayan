@@ -1,13 +1,22 @@
 <?php loadHelper('inputs');?>
 <?php $pid = getParam('pid');?>
 <?php if($pid):?>
-	<?php $associated = getModel('products')->getAssociatedProducts($pid);?>
+	<?php $associated = getModel('products')->getAssociatedProductsSort($pid);?>
+	
+	<?php 
+	$arr1 = array_map(function($a) {    return $a['associate_pid']; 	}, $associated);	
+	$associated_array = array(); 
+	foreach($associated as $item) { $associated_array[$item['associate_pid']] = $item['product_variation_sort_order']; 	}		
+	?>
 	<?php if(($view_variations)):?>
 	<ul>
 	<?php foreach($view_variations as $variation):?>
-	<li>
-		<input type="checkbox" name="variations[]" value="<?php echo $variation['pid']?>" <?php echo (in_array($variation['pid'], $associated))?'checked':null?>/>
+		<li>
+	
+		<input type="checkbox" name="variations[]" value="<?php echo $variation['pid']?>" <?php echo (in_array($variation['pid'],$arr1))?'checked':null?>/>
 		<label for ="variations"><?php echo $variation['pname'];?></label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Product Sort Variation </label>
+		<input type="number" id="product_variation_sort_order_<?php echo $variation['pid']?>" name="product_variation_sort_order[<?php echo $variation['pid']?>]" value="<?php echo (in_array($variation['pid'],$arr1))?$associated_array[$variation['pid']]:null?>"/>//Yo baki cha
 		
 	</li>
 <?php endforeach;?>
@@ -19,9 +28,11 @@
 	<?php if(($view_variations)):?>
 	<ul>
 	<?php foreach($view_variations as $variation):?>
-	<li>
+<li>
 		<input type="checkbox" name="variations[]" value="<?php echo $variation['pid']?>"/>
 			<label for ="variations"><?php echo $variation['pname'];?></label>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Product Sort Variation </label>
+		<input type="number" id="product_variation_sort_order_<?php echo $variation['pid']?>" name="product_variation_sort_order[<?php echo $variation['pid']?>]"/>
 			
 		</li>
 	<?php endforeach;?>

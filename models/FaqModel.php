@@ -18,7 +18,8 @@ class FaqModel extends Model
 	{
 		$query = "SELECT * FROM faq WHERE faq_id='".$faq_id."'";
 		$faq = $this->connection->Query($query);
-		return $faq;
+		if($faq)		return $faq;
+		else return false;
 	}
 
 	public function addFaq($post_data)
@@ -71,4 +72,131 @@ class FaqModel extends Model
 		$sql = "SELECT * FROM faq";
 		return count($this->connection->Query($sql));
 	}
+
+	public function getfaq($id)
+	{
+		$sql = "SELECT * FROM faq WHERE faq_id = $id";
+		$t = $this->connection->Query($sql);
+		return $t[0];
+	}
+
+	public function makeHelpful($id)
+	{
+		$faq = $this->getfaq($id);
+		$count = ++$faq['faq_helpful_count'];
+		$sql = "UPDATE `faq` SET `faq_helpful_count`=$count WHERE `faq_id` = $id";
+		return $this->connection->UpdateQuery($sql);
+	}
+
+	public function notHelpful($id)
+	{
+		$faq = $this->getfaq($id);
+		$count = ++$faq['faq_not_helpful_count'];
+		$sql = "UPDATE `faq` SET `faq_not_helpful_count`=$count WHERE `faq_id` = $id";
+		return $this->connection->UpdateQuery($sql);
+	}
+
+	public function addComment($post_data)
+	{
+
+		if($post_data) extract($post_data);
+		$now = new DateTime();
+		$now=$now->format('Y-m-d H:i:s');
+		if(empty($comment_parent))
+		{
+			$sql="INSERT INTO `comment`(`comment_post_ID`, `comment_date`, `comment_content`, `comment_approved`, `comment_parent`, `user_id`, `comment_category`)
+		 VALUES ('$comment_post_ID','$now','".mysql_escape_string($comment_content)."','1','0','$user_id','faq')";
+		}
+		else
+		{
+			$sql="INSERT INTO `comment`(`comment_post_ID`, `comment_date`, `comment_content`, `comment_approved`, `comment_parent`, `user_id`, `comment_category`)
+		 VALUES ('$comment_post_ID','$now','".mysql_escape_string($comment_content)."','1','$comment_parent','$user_id','faq')";
+		}
+		/*$sql = "INSERT INTO `comment`(`comment_post_ID`,`comment_date`,`comment_content`,`comment_approved`,`comment_parent`,`user_id`,`comment_category`) 
+		VALUES ($comment_post_ID,$now,'".mysql_escape_string($comment_content)."','1','0',$user_id','faq'";
+
+			*/
+		/*$sql=INSERT INTO `comment`(`comment_post_ID`, `comment_date`, `comment_content`, `comment_approved`, `comment_parent`, `user_id`, `comment_category`)
+		 VALUES ('24','2014-10-20 00:00:00','asdfajh','1','0','3951','faq');
+		 */
+
+		$result = $this->connection->InsertQuery($sql);
+		if($result) return $this->connection->GetInsertID();
+		else return false;
+	}
+
+	public function getfaqComments($comment_post_id)
+	{
+		/*$sql = "SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content` FROM `comment` WHERE `comment_post_ID` = '$comment_post_id' ORDER BY comment_ID ASC";
+		$comments = $this->connection->Query($sql);
+		if($comments)
+		return $comments;
+		else return false;*/
+
+		//$comments=getModel('comment')->get_comment($comment_post_id,'faq','0');
+		$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content` FROM `comment` WHERE `comment_post_ID` = '$comment_post_id' AND `comment_parent`='0' AND `comment_category`='faq' ORDER BY comment_ID ASC";
+		$comments = $this->connection->Query($sql);
+		$comentval=$comments;
+		/*$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content` FROM `comment` WHERE `comment_post_ID` = '$comment_post_id' AND `comment_parent`='0' AND `comment_category`='faq' ORDER BY comment_ID ASC";
+		$comments = $this->connection->Query($sql);	*/	
+		if($comments)
+		{
+			
+			$comments_html='<ul>';
+			foreach ($comments as $comments)
+			{
+				$comments_html.=$this->commentloop($comments['comment_post_ID'],'faq',$comments['comment_ID'],$comments['comment_content']);
+			}
+			$comments_html.='</ul>';
+							
+			}	
+			else
+			{
+				return false;
+			}
+
+		//return $comentval;
+         return $comments_html;
+		
+		
+	}
+
+	public function commentloop($comment_post_ID,$faq,$comment_ID,$comment_content)
+	{
+
+			$comments_html='<li class="comment_hdc">'.$comment_content.'</li>';
+			 $comments_html.='<div class="actions">
+                                    <a href="javascript:void(0)" class="reply-comment-link1">reply with quote</a>
+                                    <a href="javascript:;"> | </a>
+                                    <a href="javascript:void(0)" class="comment-link1">comment</a>
+                                     <div class="helpfulornot">
+                                     <input type="hidden" name="faq_id_actions" value="'.$comment_post_ID.'"/>  
+                                     <input type="hidden" name="faq_id_actions_parent" value="'.$comment_ID.'"/>                                      
+                                    </div>
+            </div>';
+
+			$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content` FROM `comment` WHERE `comment_post_ID` = '$comment_post_ID' AND `comment_parent`='$comment_ID' AND `comment_category`='faq' ORDER BY comment_ID ASC";
+			$comments = $this->connection->Query($sql);	
+			if($comments)
+			{
+				$comments_html.='<ul>';
+				foreach ($comments as $comments) 
+				{					
+					$comments_html.=$this->commentloop($comments['comment_post_ID'],'faq',$comments['comment_ID'],$comments['comment_content']);
+				}
+				$comments_html.='</ul>';
+			}
+		return $comments_html;	
+
+	}
+
+	public function getComment($id)
+	{
+		$sql = "SELECT * FROM comment WHERE `comment_post_ID` = '$id'";
+		$comment = $this->connection->Query($sql);
+		if($comment) return $comment[0];
+		else return false;
+	}
+
+
 }

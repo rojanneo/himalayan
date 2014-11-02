@@ -603,13 +603,26 @@ height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none
 .addRetailerContact .left-btn, .add-store-form .left-btn{margin-right:50px;}
 .addRetailerContact .right-btn, .add-store-form .right-btn{padding: 15px 56px;}
 
-
+.retailercontacts, .stores-list{margin-left: 135px;position: relative;margin-bottom: 66px}
+.retailercontacts a.btn, .stores-list a.btn{float:left;width: 192px;}
+.retailercontacts a.contacts, .stores-list a.contacts{padding: 15px 26px;width: 261px;}
+.retailercontacts  .left-half, .stores-list .left-half{width:488px;float:left;clear: left;margin-right:30px;}
+.retailercontacts  .right-half,.stores-list .right-half{width:315px; float:left;}
+.retailercontacts  .right-half .right-content, .stores-list .right-half .right-content{position:absolute; bottom:5px; text-align: center}
+.retailercontacts .left-half ul.contacts li, .stores-list .left-half ul.stores li{margin:0;border-bottom: 3px solid #D1EF9D;padding:23px 5px 10px 22px;}
+.retailercontacts .left-half .store-action ul li, .stores-list .left-half .store-action ul li{border-bottom:0; padding:0; color:#00AFA6;}
+.retailercontacts .left-half .store-action ul li a, .stores-list .left-half .store-action ul li a{text-decoration:none; color:#00AFA6;}
+.retailercontacts .left-half ul.contacts li .title, .stores-list .left-half ul.stores li .title{float:left;}
+.retailercontacts .left-half ul.contacts li .info, .stores-list .left-half ul.stores li .info{clear:left;margin-left: 30px;}
+.retailercontacts .left-half ul.contacts li p, .stores-list .left-half ul.stores li p{margin:0;font-family: MyriadProRegular;font-size: 13px;}
+.retailercontacts .left-half ul.contacts li span.name,.retailercontacts .left-half ul.contacts li span.phone, .stores-list .left-half ul.stores li span.phone, .stores-list .left-half ul.stores li span.name{font-family: MyriadProBold;font-size: 14px;}
+.retailercontacts .left-half ul.contacts li span.name,.stores-list .left-half ul.stores li span.name{color:#00AFA6;}
 .add-store-form textarea { height: 150px; background: rgba(255,255,255,0.8); border: none; padding: 10px 20px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 300px; }
 .stores-list ul, .actions ul, .retailercontacts ul { list-style: none; padding: 0px;}
 .stores-list > ul > li, .retailercontacts > ul > li { width: 42%; float: left; text-align: center; border: 1px solid #999; margin: 20px 2%; min-height: 366px; position: relative;}
-.store-action { position: absolute; bottom: 0px; width: 100%; }
-.store-action ul li { display: inline-block; width: 49%;}
-
+.store-action { bottom: 0px;width: 75px;float: right;}
+.store-action ul li { display: inline-block;}
+.retailercontacts ul.contacts li, .stores-list ul.stores li{background-color:#ffffff;}
 .account-menu ul { padding: 0;}
 
 /*error class*/
@@ -662,7 +675,9 @@ height: 46px; line-height: 46px; background: rgba(255,255,255,0.8); border: none
 .noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }
 
 .flex-viewport ul { padding: 0px;}
-
+.retailercontacts  .left-half .scroll .scrollbar, .stores-list .left-half .scroll .scrollbar{width:24px;}
+.retailercontacts  .left-half .scroll .viewport, .stores-list  .left-half .scroll .viewport{width:95%;}
+.retailercontacts  .left-half .scroll .viewport .overview, .stores-list .left-half .scroll .viewport .overview{width:100%;}
 
 /*.faq .viewport { display: inline-block;  vertical-align: top;width: 402px;border-radius: 10px;-moz-border-radius: 10px; -webkit-border-radius: 10px;background-color: #ffffff;height: 356px;margin-left:190px; padding:21px 5px 0px 15px; margin-right:10px;}
 */

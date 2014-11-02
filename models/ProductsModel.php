@@ -21,7 +21,7 @@ class ProductsModel extends Model
 
 	public function getActiveProducts()
 	{
-		$query = "SELECT * FROM products_simple WHERE status = 1 AND is_variation = 0";
+		$query = "SELECT * FROM products_simple WHERE status = 1 AND is_variation = 0 ORDER BY product_sort_order";
 		return $this->connection->Query($query);		
 	}
 
@@ -52,7 +52,7 @@ class ProductsModel extends Model
 
 	public function getVariations($product_id)
 	{
-		$sql = "SELECT associate_pid FROM `product_associations` WHERE `parent_pid` = $product_id";
+		$sql = "SELECT associate_pid FROM `product_associations` WHERE `parent_pid` = $product_id ORDER BY product_variation_sort_order ASC";
 		$variations = $this->connection->Query($sql);
 		$variation_array = array();
 		foreach($variations as $variation)
@@ -306,32 +306,36 @@ class ProductsModel extends Model
 	public function addNewProduct($post_data)
 	{
 		if($post_data) extract($post_data);
+		
 		$baseimage=$radiobasval;
 		$thumbimage=$radiothumval;
 		$smallimage=$radiosmallval;
+		
 		if(!isset($quantity)) $quantity = 0;
-		if(!isset($in_stock)) $in_stock = 1;		
+		if(!isset($in_stock)) $in_stock = 1;
+
 		if(!isset($is_variation))
 		{
-			$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`) VALUES 
-			('$name','$sku','$product_type','$attribute_set','$quantity','$in_stock','$status')";
+			$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`,`product_sort_order`) VALUES 
+			('$name','$sku','$product_type','$attribute_set','$quantity','$in_stock','$status','$product_sort_order')";
 		}
 		else
 		{
-			$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`, `is_variation`) VALUES 
-			('$name','$sku','$product_type','$attribute_set','$quantity','$in_stock','$status',$is_variation)";			
+			$sql = "INSERT INTO `products_simple`(`pname`, `psku`, `ptype`, `product_asid`, `quantity`, `in_stock`,`status`, `is_variation`,`product_sort_order`) VALUES 
+			('$name','$sku','$product_type','$attribute_set','$quantity','$in_stock','$status',$is_variation,'$product_sort_order')";			
 		}
 		$result1 = $this->connection->InsertQuery($sql);
 
+		
 		$pid = $this->connection->GetInsertID();
 		if(isset($pccheck_list))
 		{
 		foreach ($pccheck_list as $pccheck_list) 
-		{
+			{
 			$sql1="INSERT INTO `product_cat`(`pid`, `category_id`) VALUES ('".$pid."','".$pccheck_list."')";
 			$this->connection->InsertQuery($sql1);
-		}		
-	}
+			}		
+		}
 
 
 		$attributeTable = 'product_attribute_values_';
@@ -382,11 +386,13 @@ class ProductsModel extends Model
 		{
 			foreach($variations as $variation)
 			{
-				$sql = "INSERT INTO `product_associations`(`parent_pid`, `associate_pid`) VALUES ($pid, $variation)";
-				$this->connection->InsertQuery($sql);				
+				$product_variation_sort_order_variation	= $product_variation_sort_order[$variation] ;
+				$sql = "INSERT INTO `product_associations`(`parent_pid`, `associate_pid`,`product_variation_sort_order`) VALUES ($pid, $variation,$product_variation_sort_order_variation)";
+				$this->connection->InsertQuery($sql);
+								
 			}
 		}
-
+		
 		return $result1 and $result2 and $result3;
 	}
 
@@ -452,7 +458,7 @@ class ProductsModel extends Model
 		if(!isset($quantity)) $quantity = 0;
 		if(!isset($in_stock)) $in_stock = 0;
 		$sql = "UPDATE products_simple SET pname = '".$name."', psku = '".$sku."', ptype='".$product_type."', product_asid = '".$attribute_set."',
-		 quantity = '".$quantity."', in_stock = '".$in_stock."', status = '".$status."' WHERE pid = '".$product_id."'";
+		 quantity = '".$quantity."', in_stock = '".$in_stock."', status = '".$status."', product_sort_order='".$product_sort_order."' WHERE pid = '".$product_id."'";
 		$result = $this->connection->UpdateQuery($sql);
 		$result2 = true;
 		$getProductInCatval=$this->getProductInCat($product_id);
@@ -563,8 +569,8 @@ class ProductsModel extends Model
 			$this->connection->DeleteQuery($sql);
 			foreach($variations as $variation)
 			{
-
-				$sql = "INSERT INTO `product_associations`(`parent_pid`, `associate_pid`) VALUES ($product_id, $variation)";
+				$product_variation_sort_order_variation	= $product_variation_sort_order[$variation] ;
+				$sql = "INSERT INTO `product_associations`(`parent_pid`, `associate_pid`,`product_variation_sort_order`) VALUES ($product_id, $variation,'".$product_variation_sort_order_variation."')";
 				$this->connection->InsertQuery($sql);				
 			}
 		}
@@ -611,6 +617,15 @@ class ProductsModel extends Model
 		}
 		return $associated;
 	}
+	//for sort order
+
+	public function getAssociatedProductsSort($pid)
+	{
+		$sql= "SELECT `associate_pid`,`product_variation_sort_order` FROM `product_associations` WHERE `parent_pid`=$pid";
+		$associated=$this->connection->Query($sql);		
+		return $associated;
+	}
+
 
 	public function toggleStatus($id)
 	{

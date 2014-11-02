@@ -90,6 +90,14 @@
 								</select>
 							</div>
 						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "status">Product Sort Order</label>
+							</div>
+							<div class="input">
+								<input type="number" name="product_sort_order" class="product_sort_order">
+							</div>
+						</li>						
 					</div>
 					<div class="attributes tab-content" style="display:none">
 						<?php if(isset($view_attributes)):?>
@@ -318,6 +326,14 @@ $("#mulitplefileuploader").uploadFile(settings);
 													<option value="1" <?php echo ($view_product['status'] == 1)?'selected':null?>><?php echo convertStatusIdToText(1);?></option>
 												</select>
 											</div></li>
+											<li class="field">
+												<div class="input-title">
+												<label for = "status">Product Sort Order</label>
+												</div>
+												<div class="input">
+												<input type="number" name="product_sort_order" class="product_sort_order" value="<?php echo $view_product['product_sort_order']; ?>">
+												</div>
+											</li>											
 										</div>
 										<?php if(isset($view_attributes)):?>
 										
@@ -557,7 +573,15 @@ $('.edit-form form').submit(function(){
 									<option value="0"><?php echo convertStatusIdToText(0);?></option>
 									<option value="1"><?php echo convertStatusIdToText(1);?></option>
 								</select>
-							</div></li>
+							</div></li>						
+						<li class="field">
+							<div class="input-title">
+								<label for = "status">Product Sort Order</label>
+							</div>
+							<div class="input">
+								<input type="number" name="product_sort_order" class="product_sort_order">
+							</div>
+						</li>
 						</div>
 						<div class="variations tab-content" style="display:none">
 							<h3>Variations</h3>
@@ -726,7 +750,16 @@ $("#mulitplefileuploader").uploadFile(settings);
 							<option value="1" <?php echo ($view_product['status'] == 1)?'selected':null?>><?php echo convertStatusIdToText(1);?></option>
 						</select>
 					</div></li>
-					</div>
+					<li class="field">
+							<div class="input-title">
+								<label for = "status">Product Sort Order</label>
+							</div>
+							<div class="input">
+								<input type="number" name="product_sort_order" class="product_sort_order" value="<?php echo $view_product['product_sort_order'] ?>">
+							</div>
+					</li>
+					</div>			
+
 					<div class="variations tab-content" style="display:none">
 						<h3>Variations</h3>
 						<div id="variation-list">

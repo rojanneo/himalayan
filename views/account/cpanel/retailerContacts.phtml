@@ -5,29 +5,53 @@ echo Session::showSuccessMessages();?>
 	$('.account-menu ul li a.cpanel').addClass('active');	
 </script>
 
-<div class="wrapper retailercontacts">
+<div class="wrapper retailercontacts clearfix">
 <a href="<?php echo URL.'account/addRetailerContact'?>" class="btn btn-blue" >Add New Contact</a>
+<div class="left-half">
 <?php if(isset($view_contacts)):?>
-	<ul class="clearfix">
+	<div class="scroll">
+    <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+    <div class="viewport" style="height:340px">
+    <div class="overview" style="height:315px">
+	<ul class="contacts">
 	<?php foreach($view_contacts as $contact):?>
 		<li>
-			<p><?php echo $contact['retailer_designation'];?></p>
-			<p><?php echo $contact['mname'];?></p>
-			<p><?php echo $contact['memail'];?></p>
-			<p><?php echo $contact['madd'];?></p>
-			<p><?php echo $contact['mcity'];?></p>
-			<p><?php echo $contact['mstate'];?></p>
-			<p><?php echo $contact['mzip'];?></p>
-			<p><?php echo $contact['mtel'];?></p>
-			<p><?php echo $contact['mfax'];?></p>
+		<div class="title">
+			<p><span class="name"><?php echo $contact['mname'];?></span> &gt;&gt; <span class="phone"><?php echo $contact['mtel'];?></span></p> 
+		</div>
 			<div class="store-action">
 						<ul>
-							<li><a href="<?php echo URL.'account/editRetailerContact/'.$contact['retailer_contact_id']?>" class="btn btn-blue">Edit</a></li>
-							<li><a href="<?php echo URL.'account/deleteContactAction/'.$contact['retailer_contact_id']?>" class="btn btn-blue">Delete</a></li>
+							<li><a href="<?php echo URL.'account/editRetailerContact/'.$contact['retailer_contact_id']?>" >edit</a></li>
+							<li>|</li>
+							<li><a href="<?php echo URL.'account/deleteContactAction/'.$contact['retailer_contact_id']?>" >delete</a></li>
 						</ul>
 					</div>
+		<div class="info">
+			<p><?php echo $contact['retailer_designation'];?></p>
+			<p><?php echo $contact['madd'];?>, <?php echo $contact['mcity'];?>, <?php echo $contact['mstate'];?> <?php echo $contact['mzip'];?></p>
+			<p><?php echo $contact['memail'];?></p>
+			<p><?php echo $contact['mfax'];?></p>
+		</div>
+			
 		</li>
 	<?php endforeach;?>
 	</ul>
+	</div>
+	<script>
+	 $(document).ready(function(){
+            $(window).resize();
+            $('.scroll').tinyscrollbar();
+             $(window).resize();
+        });
+	</script>
 <?php endif;?>
+</div>
+</div>
+</div>
+<div class="right-half clearfix">
+<div class="right-content">
+<p style="font-size:13px"><strong style="font-family:MyriadProBold; font-size:16px"> Can’t find the store you’re looking for? </strong><br>Click the button below if your contact(s) does <br>not show in the box to the left. </p>
+<a href="<?php echo URL.'contacts'?>" class="btn btn-blue contacts">contact us regarding this issue</a>
+</div>
+</div>
 </div>

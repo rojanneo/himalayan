@@ -563,6 +563,7 @@ public function consumermain()
 		foreach ($city_sql as $city_sql)
 		{
 			$cityName = $city_sql['rscity'];
+			$cityName = ucfirst(strtolower($cityName));
 			$consumermain.="				<td><a href=\"".URL."searchnew/?input=consumers&&value=findStore&&gstate=$st_abb&&gcity=$cityName\">".$cityName."</a>
 						   					</td>
 						   ";
@@ -588,7 +589,6 @@ public function consumermain()
     						</div>
     					</td>
     				 </tr>
-    				 <tr><td>&nbsp;</td></tr>
     				</table>'; 
       
 	return $consumermain;

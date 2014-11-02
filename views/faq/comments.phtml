@@ -1,0 +1,55 @@
+<?php $session = Session::getCurrentSession();
+?>
+<?php if($view_comments):?>
+					
+					<?php echo $view_comments; ?>
+				<?php endif;?>
+		 <script type="text/javascript">
+		 $('.comment-link1').click(function(){
+		
+        var commenter="<?php echo $session['user_id']; ?>";
+        var parentID=$(this).parent().find('input[name=faq_id_actions_parent]').val();              
+        var fad_id=$(this).parent().find('input[name=faq_id_actions]').val();
+        var text = 'hello alina';
+        console.log($(this));
+        if($(this).parent().find('.comment-form-quote').is(":visible"))
+        {
+        $(this).parent().find('.comment-form-quote').toggle();
+        }
+        if($(this).parent().find('.comment-form').length == 0)
+        {
+            $(this).after('<div class="comment-form"><input type="hidden" class="t_id" name="comment_faq_id" value="'+fad_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label> <textarea name="comment_message" id="comment-message" class="input-box required"></textarea><input type="button" value="Add Comment" class="add-comment1"></textarea></div>');
+            
+            $(window).resize();  
+            $('body').append(jjj);
+        }
+		 });
+
+
+		$('.reply-comment-link1').on("click",function(){          
+       
+        var commenter="<?php echo $session['user_id']; ?>";
+        var parentID=$(this).parent().find('input[name=faq_id_actions_parent]').val(); 
+        var quoteval=$(this).parent().prev('li.comment_hdc').html();     
+        console.log(quoteval);         
+        var fad_id=$(this).parent().find('input[name=faq_id_actions]').val();       
+        console.log($(this));
+
+        if($(this).parent().find('.comment-form').is(":visible"))
+        {
+        $(this).parent().find('.comment-form').toggle();
+        }
+        
+       $(this).parent().find('.comment-form-quote').toggle();$(window).resize();
+
+        if($(this).parent().find('.comment-form-quote').length == 0)
+        {
+            $(this).after('<div class="comment-form-quote"><input type="hidden" class="t_id" name="comment_faq_id" value="'+fad_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label><textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "'+quoteval+'"</textarea><textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea><input type="button" value="Add Comment" class="add-comment1"></textarea></div>');
+            
+            $(window).resize();  
+            $('body').append(jjj);
+        }
+    });
+
+
+		</script>

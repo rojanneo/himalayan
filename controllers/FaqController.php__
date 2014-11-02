@@ -81,48 +81,5 @@ class FaqController extends Controller
       return $wordCountArr;
 	}
 
-	public function makeHelpfulAction($id)
-	{
-		if(getModel('faq')->makeHelpful($id))
-		{
-			print 'true';
-		}
-		else
-		{
-			print 'false';
-		}
-	}
-
-	public function notHelpfulAction($id)
-	{
-		if(getModel('faq')->notHelpful($id))
-		{
-			print 'true';
-		}
-		else
-		{
-			print 'false';
-		}
-	}
-
-		public function addCommentAction()
-	{
-		loadHelper('inputs');
-		$post_data = getPost();		
-		$id = getModel('faq')->addComment($post_data);
-		if($id)
-		{
-			$comment = getModel('faq')->getComment($id);
-			print '<div class="comment_user">'.$comment['comment_content'].'</div>';
-		}
-	}
-
-	public function loadCommentsAction($id)
-	{
-		$comments = getModel('faq')->getfaqComments($id);
-		$data['comments'] = $comments;
-		$this->view->render('faq/comments.phtml', $data, false, false, false);
-	}
-
 
 }

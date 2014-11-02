@@ -32,8 +32,8 @@
         <h1>Frequently asked questions</h1>
             <ul>
             <?php foreach($view_faqs as $faq):?>
-				<li><a href="<?php echo URL.'faq/view/'.$faq['faq_id']?>"><?php echo $faq['faq_question'];?></a></li>
-			<?php endforeach;?>
+                <li><a href="<?php echo URL.'faq/view/'.$faq['faq_id']?>"><?php echo $faq['faq_question'];?></a></li>
+            <?php endforeach;?>
             </ul>
         </div>
     <?php } ?>
@@ -66,7 +66,7 @@
 
 <script>
 $('.faq-search form').submit(function(){
-	return $(this).validate('input-box');
+    return $(this).validate('input-box');
 });
 $(document).ready(function(){
      $('.scroll').tinyscrollbar();
