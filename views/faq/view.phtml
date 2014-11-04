@@ -3,6 +3,7 @@
 $word_in_a_line = 12;
 
 $lines = ceil($word_count/$word_in_a_line);
+
 ?>
 
 
@@ -29,15 +30,17 @@ $lines = ceil($word_count/$word_in_a_line);
                             <!--- for logged in User Only---------------------->
                             <?php $session = Session::getCurrentSession();
                             $role = getModel('customer')->getCustomerRole($session['user_id']);?>
-                            <?php if($role == 'retailer'):?>
+                          
 
 
                                 <!--- for comment div action and helpful-content---------------------->
 
                                 <div class="actions">
+                                  <?php if(isset($role)):?> <!--role open---->
                                     <a href="javascript:void(0)" class="reply-comment-link">reply with quote</a>
                                     <a href="javascript:;"> | </a>
                                     <a href="javascript:void(0)" class="comment-link">comment</a>
+                                <?php endif; ?>
                                     <div class="helpfulornot">
                                        <input type="hidden" name="faq_id_actions" value="<?php echo $view_faq['faq_id']?>"/>
                                        <p>Was this helpful?</p>
@@ -94,7 +97,7 @@ $lines = ceil($word_count/$word_in_a_line);
 
 
                             <!---------coment colse for div actiona nd helpful-conten------>
-                        <?php endif;?>
+                       
                         <!-- logged in user end-------------------------->
 
                     </div>
@@ -211,6 +214,7 @@ $('.reply-comment-link').click(function(){
 $('.add-comment').click(function(){
     if($(this).parent().find('#comment-message').val())
     {
+        $resetval=$(this).parent().find('#comment-message');
         $cf = $(this).parent().parent().parent().find('.comments');
         var id = $(this).parent().find('input[name=comment_faq_id]').val();
         var replywithquote = $(this).parent().find('#comment_message-quote1').val();
@@ -232,12 +236,12 @@ $('.add-comment').click(function(){
                     url:urls,
                     data:datas,
                      success:function(result){                                   
-                        $.get('<?php echo URL?>faq/loadComments/'+id, function(data){                                          
-                            console.log(data);
+                        $.get('<?php echo URL?>faq/loadComments/'+id, function(data){                                         
+                            
                             $cf.html(data);                         
                             $(window).resize();
-                            $cf.parent().find('.comment-form').find("#comment-message").val('');
-                            $('.comment-form-quote').toggle("slow");
+                            $resetval.val('');
+                            $('.comment-form-quote').toggle();
 
                             });
         
@@ -270,8 +274,8 @@ $('.add-comment').click(function(){
                             console.log(data);
                             $cf.html(data);                         
                             $(window).resize();
-                            $cf.parent().find('.comment-form').find("#comment-message").val('');
-                            $('.comment-form').toggle("slow");
+                            $resetval.val('');
+                            $('.comment-form').toggle();
 
                             });
         

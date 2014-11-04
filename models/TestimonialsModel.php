@@ -78,9 +78,21 @@ class TestimonialsModel extends Model
 	public function addComment($post_data)
 	{
 		if($post_data) extract($post_data);
-		$sql = "INSERT INTO `testimonial_comment`(`comment_testimonial_id`, `comment_from`, `comment_message`) 
-		VALUES ($comment_testimonial_id,'$comment_from','".mysql_escape_string($comment_message)."')";
-
+		//$sql = "INSERT INTO `testimonial_comment`(`comment_testimonial_id`, `comment_from`, `comment_message`) 
+		//VALUES ($comment_testimonial_id,'$comment_from','".mysql_escape_string($comment_message)."')";
+		$now = new DateTime();
+		$now=$now->format('Y-m-d H:i:s');
+		if(empty($comment_parent))
+		{
+			$sql="INSERT INTO `comment`(`comment_post_ID`, `comment_date`, `comment_content`, `comment_approved`, `comment_parent`, `user_id`, `comment_category`)
+		 VALUES ('$comment_testimonial_id','$now','".mysql_escape_string($comment_message)."','1','0','$user_id','tes')";
+		}
+		else
+		{
+			$sql="INSERT INTO `comment`(`comment_post_ID`, `comment_date`, `comment_content`, `comment_approved`, `comment_parent`, `user_id`, `comment_category`)
+		 VALUES ('$comment_testimonial_id','$now','".mysql_escape_string($comment_message)."','1','$comment_parent','$user_id','tes')";
+		}
+		var_dump($sql);
 		$result = $this->connection->InsertQuery($sql);
 		if($result) return $this->connection->GetInsertID();
 		else return false;
@@ -105,16 +117,133 @@ class TestimonialsModel extends Model
 
 	public function getTestimonialComments($testimonial_id)
 	{
-		$sql = "SELECT `comment_id`, `comment_testimonial_id`, `comment_from`, `comment_message` FROM `testimonial_comment` WHERE `comment_testimonial_id` = $testimonial_id ORDER BY comment_id ASC";
+		/*$sql = "SELECT `comment_id`, `comment_testimonial_id`, `comment_from`, `comment_message` FROM `testimonial_comment` WHERE `comment_testimonial_id` = $testimonial_id ORDER BY comment_id ASC";
 		$comments = $this->connection->Query($sql);
 		if($comments)
 		return $comments;
-		else return false;
+		else return false; */
+		$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content`,`comment_date` FROM `comment` WHERE `comment_post_ID` = '$testimonial_id' AND `comment_parent`='0' AND `comment_category`='tes' ORDER BY comment_ID ASC";
+		$comments = $this->connection->Query($sql);
+		$comentval=$comments;
+		/*if($comments)
+		{
+			
+			$comments_html='<ul>';
+			foreach ($comments as $comments)
+			{
+				$comments_html.=$this->commentloop($comments['comment_post_ID'],'faq',$comments['comment_ID'],$comments['comment_content'],$comments['user_id'],$comments['comment_date']);
+			}
+			$comments_html.='</ul>';
+							
+			}	
+			else
+			{
+				return false;
+			}
+         return $comments_html; 
+         */
+        if($comments) return $comments;
+         else return false;
 	}
+
+
 
 	public function deleteComment($id)
 	{
 		$sql = "DELETE FROM `testimonial_comment` WHERE comment_id=$id";
 		return $this->connection->DeleteQuery($sql);
 	}
+
+
+	public function gettesComments($comment_post_id)
+	{
+		$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content`,`comment_date` FROM `comment` WHERE `comment_post_ID` = '$comment_post_id' AND `comment_parent`='0' AND `comment_category`='tes' ORDER BY comment_ID ASC";
+		$comments = $this->connection->Query($sql);
+		$comentval=$comments;	
+		if($comments)
+		{
+			
+			$comments_html='<ul>';
+			foreach ($comments as $comments)
+			{
+				$comments_html.=$this->commentloop($comments['comment_post_ID'],'tes',$comments['comment_ID'],$comments['comment_content'],$comments['user_id'],$comments['comment_date']);
+			}
+			$comments_html.='</ul>';
+							
+			}	
+			else
+			{
+				return false;
+			}
+         return $comments_html;
+		
+		
+	}
+
+	public function commentloop($comment_post_ID,$faq,$comment_ID,$comment_content,$user,$date)
+	{
+			$usersql="SELECT * FROM `members` WHERE `mid` = '$user'";
+			$usersqlval=$this->connection->Query($usersql);
+			$newDate = date('m/d/y', strtotime($date));
+
+			$session = Session::getCurrentSession();  $role = getModel('customer')->getCustomerRole($session['user_id']);
+			if(!isset($role))
+			{
+			$comments_html='<div class="comment_user"><div class="innercomment"><p class="2"><span>'.$comment_content.'</span> -'.$usersqlval[0]['mname'].' from '.$usersqlval[0]['mcity'].', '.$usersqlval[0]['mstate'].'  | '.$newDate.'</p></div>';
+			$comments_html.='<div class="actions">                                    
+                                     <div class="helpfulornot">
+                                     <input type="hidden" name="tes_id_actions" value="'.$comment_post_ID.'"/>  
+                                     <input type="hidden" name="tes_id_actions_parent" value="'.$comment_ID.'"/>                                      
+                                    </div>
+            </div>';
+			}
+			else
+			{
+			$comments_html='<div class="comment_user"><div class="innercomment"><p class="2"><span>'.$comment_content.'</span> -'.$usersqlval[0]['mname'].' from '.$usersqlval[0]['mcity'].', '.$usersqlval[0]['mstate'].'  | '.$newDate.'</p></div>';
+			$comments_html.='<div class="actions">
+                                    <a href="javascript:void(0)" class="reply-comment-link1">reply with quote</a>
+                                    <a href="javascript:;"> | </a>
+                                    <a href="javascript:void(0)" class="comment-link1" onclick="commentlink1(this)">comment</a>
+                                     <div class="helpfulornot">
+                                     <input type="hidden" name="tes_id_actions" value="'.$comment_post_ID.'"/>  
+                                     <input type="hidden" name="tes_id_actions_parent" value="'.$comment_ID.'"/>                                      
+                                    </div>
+            </div>';
+        	}
+            $comments_html.='</div>';
+
+			$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content`,`comment_date` FROM `comment` WHERE `comment_post_ID` = '$comment_post_ID' AND `comment_parent`='$comment_ID' AND `comment_category`='tes' ORDER BY comment_ID ASC";
+			$comments = $this->connection->Query($sql);	
+			if($comments)
+			{
+				$comments_html.='<ul>';
+				foreach ($comments as $comments) 
+				{
+				if ($user==0) {
+					$comments_html.=$this->commentloop($comments['comment_post_ID'],'tes',$comments['comment_ID'],$comments['comment_content'],0,$comments['comment_date']);
+					
+							}			
+					
+					else{
+					$comments_html.=$this->commentloop($comments['comment_post_ID'],'tes',$comments['comment_ID'],$comments['comment_content'],$comments['user_id'],$comments['comment_date']);
+						}
+				}
+				$comments_html.='</ul>';
+			}
+		return $comments_html;	
+
+	}
+	public function getTestimonialCommentsnew($comment_post_id,$comment_parent)
+	{
+		$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content`,`comment_date` FROM `comment` WHERE `comment_post_ID` = '$comment_post_id' AND `comment_parent`='$comment_parent' AND `comment_category`='tes' ORDER BY comment_ID ASC";
+		$comments = $this->connection->Query($sql);
+		if($comments) return $comments;
+		else return $comments;
+
+	}
+
+
+
+
+
 }

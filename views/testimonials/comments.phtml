@@ -1,13 +1,98 @@
+<?php $session = Session::getCurrentSession(); 
+?>
 <?php if($view_comments):?>
 					<?php foreach($view_comments as $comment):?>
-						<?php if($comment['comment_from'] == 'hdc'):?>
-							<div class="comment_hdc">
-								<?php echo $comment['comment_message']?>
-							</div>
-						<?php else:?>
+				
+							<ul>
 							<div class="comment_user">
-								<?php echo $comment['comment_message']?>
+								<div class="innercomment"><?php echo $comment['comment_content']?></div>
+								<div class="actions">
+                                    <a href="javascript:void(0)" class="reply-comment-link1">reply with quote</a>
+                                    <a href="javascript:;"> | </a>
+                                    <a href="javascript:void(0)" class="comment-link1" onclick="commentlink1(this)">comment</a>
+                                     <div class="helpfulornot">
+                                     <input type="hidden" name="tes_id_actions" value="<?php echo $comment['comment_post_ID']; ?>"/> <!------------------ testimonial ko baki cha ------>
+                                     <input type="hidden" name="tes_id_actions_parent" value="<?php echo $comment['comment_ID']; ?>"/> <!---------------- testimonial ko bako cha ------>                                     
+                                    </div>
+           						</div>
+
 							</div>
-						<?php endif;?>
+
+								<?php $commentsinner =getModel('testimonials')->getTestimonialCommentsnew($comment['comment_post_ID'],$comment['comment_ID']);  ?>
+								<?php 
+								if($commentsinner)
+									{
+										//var_dump( $commentsinner);
+										echo'<ul>';
+											foreach ($commentsinner as $commentsinner) 
+											{					
+												$comments_html=getModel('testimonials')->commentloop($commentsinner['comment_post_ID'],'tes',$commentsinner['comment_ID'],$commentsinner['comment_content'],$commentsinner['user_id'],$commentsinner['comment_date']);
+												if(!empty($comments_html))
+												{
+													echo $comments_html;
+												}
+											}
+										echo'</ul>';
+									}
+
+								?>
+
+							</ul>
+						
 					<?php endforeach;?>
 				<?php endif;?>
+
+<script type="text/javascript">
+  $('.comment-link1').on("click",function(){          
+       
+        var commenter="<?php echo $session['user_id']; ?>";
+        var parentID=$(this).parent().find('input[name=tes_id_actions_parent]').val();              
+        var tes_id=$(this).parent().find('input[name=tes_id_actions]').val();
+             
+        
+        if($(this).parent().find('.comment-form-quote').is(":visible"))
+        {
+        $(this).parent().find('.comment-form-quote').toggle();
+        }
+       $(this).parent().find('.comment-form').toggle();$(window).resize();
+        if($(this).parent().find('.comment-form').length == 0)
+        {
+            $(this).after('<div class="comment-form"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label> <textarea name="comment_message" id="comment-message" class="input-box required"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
+            
+            $(window).resize();  
+            $('body').append(jjj);
+        }
+    });
+
+
+
+
+
+   $('.reply-comment-link1').on("click",function(){          
+       
+        var commenter="<?php echo $session['user_id']; ?>";
+        var parentID=$(this).parent().find('input[name=tes_id_actions_parent]').val(); 
+        var quoteval=$(this).parent().prev('div.innercomment').html();     
+                
+        var tes_id=$(this).parent().find('input[name=tes_id_actions]').val();      
+        
+    
+        
+        console.log($(this));
+
+        if($(this).parent().find('.comment-form').is(":visible"))
+        {
+        $(this).parent().find('.comment-form').toggle();
+        }
+        
+       $(this).parent().find('.comment-form-quote').toggle();$(window).resize();
+
+        if($(this).parent().find('.comment-form-quote').length == 0)
+        {
+            $(this).after('<div class="comment-form-quote"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label><textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "'+quoteval+'"</textarea><textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
+            
+            $(window).resize();  
+            $('body').append(jjj);
+        }
+    });
+</script>

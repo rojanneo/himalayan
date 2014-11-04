@@ -163,12 +163,16 @@ class FaqModel extends Model
 
 	public function commentloop($comment_post_ID,$faq,$comment_ID,$comment_content,$user,$date)
 	{
+			$session = Session::getCurrentSession();
+            $role = getModel('customer')->getCustomerRole($session['user_id']);
 			$usersql="SELECT * FROM `members` WHERE `mid` = '$user'";
 			$usersqlval=$this->connection->Query($usersql);
 			$newDate = date('m/d/y', strtotime($date));
 
 			$comments_html='<li class="comment_hdc">'.$comment_content.' -'.$usersqlval[0]['mname'].' from '.$usersqlval[0]['mcity'].', '.$usersqlval[0]['mstate'].'  | '.$newDate.'</li>';
-			 $comments_html.='<div class="actions">
+			if(isset($role))
+			{
+				$comments_html.='<div class="actions">
                                     <a href="javascript:void(0)" class="reply-comment-link1">reply with quote</a>
                                     <a href="javascript:;"> | </a>
                                     <a href="javascript:void(0)" class="comment-link1">comment</a>
@@ -177,6 +181,16 @@ class FaqModel extends Model
                                      <input type="hidden" name="faq_id_actions_parent" value="'.$comment_ID.'"/>                                      
                                     </div>
             </div>';
+			}
+			{
+			$comments_html.='<div class="actions">
+                                  
+                                     <div class="helpfulornot">
+                                     <input type="hidden" name="faq_id_actions" value="'.$comment_post_ID.'"/>  
+                                     <input type="hidden" name="faq_id_actions_parent" value="'.$comment_ID.'"/>                                      
+                                    </div>
+            </div>';
+        	}
 
 			$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content`,`comment_date` FROM `comment` WHERE `comment_post_ID` = '$comment_post_ID' AND `comment_parent`='$comment_ID' AND `comment_category`='faq' ORDER BY comment_ID ASC";
 			$comments = $this->connection->Query($sql);	
