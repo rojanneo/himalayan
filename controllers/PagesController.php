@@ -31,13 +31,27 @@ class PagesController extends Controller
 	
 	public function endPiecesAction()
 	{
-		$data['url'] = 'chews';
+		if(isset($_SERVER['HTTP_REFERER']))
+		{
+			$ref = $_SERVER['HTTP_REFERER'];
+			$id = explode('/',$ref);
+			$data['url'] = $id[count($id)-1];
+		}
+		else
+		$data['url'] = '15';
 		$this->view->render('pages/end-pieces.phtml',$data);
 	}
 
 	public function microwaveAction()
 	{
-		$data['url'] = 'nuggets';
+		if(isset($_SERVER['HTTP_REFERER']))
+		{
+			$ref = $_SERVER['HTTP_REFERER'];
+			$id = explode('/',$ref);
+			$data['url'] = $id[count($id)-1];
+		}
+		else
+		$data['url'] = '3';
 		$this->view->render('pages/end-pieces.phtml',$data);
 	}
 

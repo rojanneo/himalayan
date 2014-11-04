@@ -114,6 +114,7 @@
 				url:urls,
 				data:datas,
 				success:function(result){
+						alert(1);
 					$.get('<?php echo URL?>testimonialforum/loadComments/'+id, function(data){
 						console.log(data);
 						$cf.html(data);

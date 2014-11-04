@@ -194,7 +194,7 @@ body { font-family: 'MyriadProRegular'; margin: 0px !important;
 .home-wrapper .half .announcements .announcement { background: url(../images/homebulletin.png) repeat-x bottom #fff; padding: 20px 0;}
 .home-wrapper .half .announcements .announcement p { padding: 0 10px 0 40px; margin-top: 0px; color: #007C74; font-size: 13px; line-height: 22px;}
 .home-wrapper .half .announcements .announcement.scroll .viewport { height: 227px !important;}
-.home-wrapper .half .announcements .announcement .viewport,.home-wrapper .half .announcements .announcement .viewport .overview{text-align:center;}
+.home-wrapper .half .announcements .announcement .viewport,.home-wrapper .half .announcements .announcement .viewport .overview{text-align:center;margin-left: 39px;}
 .home-wrapper .half .announcements .announcement h2{padding: 0px;margin: 0px;font-size: 20px;color: #51c231; padding-bottom:20px;}
 .home-wrapper .half .announcements .announcement .viewport .overview .organizations,.home-wrapper .half .announcements .announcement .viewport .overview .events{margin-left:15px; margin-bottom:15px;}
 .home-wrapper .half .announcements .announcement .viewport .overview .events .event{margin-bottom:20px;}

@@ -134,7 +134,7 @@ class FaqModel extends Model
 		else return false;*/
 
 		//$comments=getModel('comment')->get_comment($comment_post_id,'faq','0');
-		$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content` FROM `comment` WHERE `comment_post_ID` = '$comment_post_id' AND `comment_parent`='0' AND `comment_category`='faq' ORDER BY comment_ID ASC";
+		$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content`,`comment_date` FROM `comment` WHERE `comment_post_ID` = '$comment_post_id' AND `comment_parent`='0' AND `comment_category`='faq' ORDER BY comment_ID ASC";
 		$comments = $this->connection->Query($sql);
 		$comentval=$comments;
 		/*$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content` FROM `comment` WHERE `comment_post_ID` = '$comment_post_id' AND `comment_parent`='0' AND `comment_category`='faq' ORDER BY comment_ID ASC";
@@ -145,7 +145,7 @@ class FaqModel extends Model
 			$comments_html='<ul>';
 			foreach ($comments as $comments)
 			{
-				$comments_html.=$this->commentloop($comments['comment_post_ID'],'faq',$comments['comment_ID'],$comments['comment_content']);
+				$comments_html.=$this->commentloop($comments['comment_post_ID'],'faq',$comments['comment_ID'],$comments['comment_content'],$comments['user_id'],$comments['comment_date']);
 			}
 			$comments_html.='</ul>';
 							
@@ -161,10 +161,13 @@ class FaqModel extends Model
 		
 	}
 
-	public function commentloop($comment_post_ID,$faq,$comment_ID,$comment_content)
+	public function commentloop($comment_post_ID,$faq,$comment_ID,$comment_content,$user,$date)
 	{
+			$usersql="SELECT * FROM `members` WHERE `mid` = '$user'";
+			$usersqlval=$this->connection->Query($usersql);
+			$newDate = date('m/d/y', strtotime($date));
 
-			$comments_html='<li class="comment_hdc">'.$comment_content.'</li>';
+			$comments_html='<li class="comment_hdc">'.$comment_content.' -'.$usersqlval[0]['mname'].' from '.$usersqlval[0]['mcity'].', '.$usersqlval[0]['mstate'].'  | '.$newDate.'</li>';
 			 $comments_html.='<div class="actions">
                                     <a href="javascript:void(0)" class="reply-comment-link1">reply with quote</a>
                                     <a href="javascript:;"> | </a>
@@ -175,14 +178,14 @@ class FaqModel extends Model
                                     </div>
             </div>';
 
-			$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content` FROM `comment` WHERE `comment_post_ID` = '$comment_post_ID' AND `comment_parent`='$comment_ID' AND `comment_category`='faq' ORDER BY comment_ID ASC";
+			$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content`,`comment_date` FROM `comment` WHERE `comment_post_ID` = '$comment_post_ID' AND `comment_parent`='$comment_ID' AND `comment_category`='faq' ORDER BY comment_ID ASC";
 			$comments = $this->connection->Query($sql);	
 			if($comments)
 			{
 				$comments_html.='<ul>';
 				foreach ($comments as $comments) 
 				{					
-					$comments_html.=$this->commentloop($comments['comment_post_ID'],'faq',$comments['comment_ID'],$comments['comment_content']);
+					$comments_html.=$this->commentloop($comments['comment_post_ID'],'faq',$comments['comment_ID'],$comments['comment_content'],$comments['user_id'],$comments['comment_date']);
 				}
 				$comments_html.='</ul>';
 			}
