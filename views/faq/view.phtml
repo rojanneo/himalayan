@@ -21,12 +21,12 @@ $lines = ceil($word_count/$word_in_a_line);
                 <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
                 <?php $height = ($lines - 1)* 30;?>
                 <?php if($height<440) $style="height:".($height+150)."px"; else $style='height:440px';?>
-                    <div class="viewport" style="<?php echo $style?>">
-                        <div class="overview" style="<?php echo $style?>">
+                    <div class="viewport" style="min-height:440px">
+                        <div class="overview" style="min-height:440px">
+                            <div class="testimonial">
                             <h1>Frequently asked questions</h1>
                             <h2><?php echo $view_faq['faq_question'];?></h2>
                             <p><?php echo $view_faq['faq_answer'];?></p>
-                            <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'faq'; ?>" class="faqback">&lt;back to FAQs</a>
                             <!--- for logged in User Only---------------------->
                             <?php $session = Session::getCurrentSession();
                             $role = getModel('customer')->getCustomerRole($session['user_id']);?>
@@ -50,25 +50,24 @@ $lines = ceil($word_count/$word_in_a_line);
                                </div>
                                <div class="helpful-count">
                                 <p>This post has helped <?php echo $view_faq['faq_helpful_count']?> people so far!</p>
+                                </div>
                             </div>
-                            <div class="comment-form" style="display:none">
+                            <div class="comment-form-bubble" style="display:none">
                                 <!-- <form method="post" action="<?php echo URL.'faq/addComment'?>">--> 
                                 <input type="hidden" class="t_id" name="comment_faq_id" value="<?php echo $view_faq['faq_id']?>"/>
                                 <input type="hidden" name="comment_from" value="<?php echo $session['user_id']; ?>"/>
-                                <label for = "comment">Comment: </label>
-                                <textarea name="comment_message" id="comment-message" class="input-box required"></textarea>
+                                <textarea name="comment_message" id="comment-message" class="input-box required" placeholder="Write a comment..."></textarea>
                                 <!-- <input type="text" name="comment_message" class="input-box required editor"/>--> 
                                 <input type="button" value="Add Comment" class="add-comment"/>
                                 <!-- /form>  -->
                             </div>
-                             <div class="comment-form-quote" style="display:none">
+                             <div class="comment-form-quote-bubble" style="display:none">
                                 <!-- <form method="post" action="<?php echo URL.'faq/addComment'?>">--> 
                                 <input type="hidden" class="t_id" name="comment_faq_id" value="<?php echo $view_faq['faq_id']?>"/>
                                 <input type="hidden" name="comment_from" value="<?php echo $session['user_id']; ?>"/>
-                                <label for = "comment">Comment: </label>
                                 <textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "<h2><?php echo $view_faq['faq_question'];?></h2>
                             <p><?php echo $view_faq['faq_answer'];?></p>"</textarea>
-                                <textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea>
+                                <textarea name="comment_message-quote" id="comment-message" class="input-box" placeholder="Write a comment..."></textarea>
                                 <!-- <input type="text" name="comment_message" class="input-box required editor"/>--> 
                                 <input type="button" value="Add Comment" class="add-comment"/>
                                 <!-- /form>  -->
@@ -128,12 +127,12 @@ $lines = ceil($word_count/$word_in_a_line);
                 </fieldset>
             </form>
         </div>
-        <p>As with any dog treat, please supervise your dog(s) when feeding our treats and be cautious to discard when any potential hazard presents itself.</p>
+        <?php Widget::render('caution_warning');?>
         <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'contacts'; ?>" class="btn btn-blue">back</a>
 
     </div>
     <script>
-    var jjj="<script id='testScript' type='text/javascript' src='http://alina/himalayan/assets/js/test.js'/>";
+    var jjj="<script id='testScript' type='text/javascript' src='"+JS_BASE_URL+"assets/js/test.js'/>";
 
     </script>
     <script>
@@ -144,20 +143,19 @@ $lines = ceil($word_count/$word_in_a_line);
    <script type="text/javascript">
 
     $('.comment-link1').on("click",function(){          
-       
         var commenter="<?php echo $session['user_id']; ?>";
         var parentID=$(this).parent().find('input[name=faq_id_actions_parent]').val();              
         var fad_id="<?php echo $view_faq['faq_id'] ?>";
         var text = 'hello alina';
         console.log($(this));
-        if($(this).parent().find('.comment-form-quote').is(":visible"))
+        if($(this).parent().parent().find('.comment-form-quote').is(":visible"))
         {
-        $(this).parent().find('.comment-form-quote').toggle();
+        $(this).parent().parent().find('.comment-form-quote').toggle();
         }
-       $(this).parent().find('.comment-form').toggle();$(window).resize();
-        if($(this).parent().find('.comment-form').length == 0)
+       $(this).parent().parent().find('.comment-form').toggle();$(window).resize();
+        if($(this).parent().parent().find('.comment-form').length == 0)
         {
-            $(this).after('<div class="comment-form"><input type="hidden" class="t_id" name="comment_faq_id" value="'+fad_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label> <textarea name="comment_message" id="comment-message" class="input-box required"></textarea><input type="button" value="Add Comment" class="add-comment1"></textarea></div>');
+            $(this).parent().after('<div class="comment-form"><input type="hidden" class="t_id" name="comment_faq_id" value="'+fad_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"> <textarea name="comment_message" id="comment-message" class="input-box required" placeholder="Write a comment..."></textarea><input type="button" value="Add Comment" class="add-comment1"></textarea></div>');
             
             $(window).resize();  
             $('body').append(jjj);
@@ -166,25 +164,25 @@ $lines = ceil($word_count/$word_in_a_line);
 
 
 $('.reply-comment-link1').on("click",function(){          
-       
+      
         var commenter="<?php echo $session['user_id']; ?>";
         var parentID=$(this).parent().find('input[name=faq_id_actions_parent]').val(); 
-        var quoteval=$(this).parent().prev('li.comment_hdc').html();     
+        var quoteval=$(this).parent().prev('div.innercomment').html();     
         console.log(quoteval);         
         var fad_id="<?php echo $view_faq['faq_id'] ?>";
         var text = 'hello alina';
         console.log($(this));
 
-        if($(this).parent().find('.comment-form').is(":visible"))
+        if($(this).parent().parent().find('.comment-form').is(":visible"))
         {
-        $(this).parent().find('.comment-form').toggle();
+        $(this).parent().parent().find('.comment-form').toggle();
         }
         
-       $(this).parent().find('.comment-form-quote').toggle();$(window).resize();
+       $(this).parent().parent().find('.comment-form-quote').toggle();$(window).resize();
 
-        if($(this).parent().find('.comment-form-quote').length == 0)
+        if($(this).parent().parent().find('.comment-form-quote').length == 0)
         {
-            $(this).after('<div class="comment-form-quote"><input type="hidden" class="t_id" name="comment_faq_id" value="'+fad_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label><textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "'+quoteval+'"</textarea><textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea><input type="button" value="Add Comment" class="add-comment1"></textarea></div>');
+            $(this).parent().after('<div class="comment-form-quote"><input type="hidden" class="t_id" name="comment_faq_id" value="'+fad_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "'+quoteval+'"</textarea><textarea name="comment_message-quote" id="comment-message" class="input-box" placeholder="Write a comment..."></textarea><input type="button" value="Add Comment" class="add-comment1"></textarea></div>');
             
             $(window).resize();  
             $('body').append(jjj);
@@ -195,20 +193,20 @@ $('.reply-comment-link1').on("click",function(){
 
 
 $('.comment-link').click(function(){
-     if( $(this).parent().parent().parent().find('.comment-form-quote').is(":visible"))
+     if( $(this).parent().parent().parent().find('.comment-form-quote-bubble').is(":visible"))
    {
-     $(this).parent().parent().parent().find('.comment-form-quote').toggle();
+     $(this).parent().parent().parent().find('.comment-form-quote-bubble').toggle();
    }
-    $(this).parent().parent().parent().find('.comment-form').toggle(); $(window).resize();
+    $(this).parent().parent().parent().find('.comment-form-bubble').toggle(); $(window).resize();
 });
 
 
 $('.reply-comment-link').click(function(){
-   if( $(this).parent().parent().parent().find('.comment-form').is(":visible"))
+   if( $(this).parent().parent().parent().find('.comment-form-bubble').is(":visible"))
    {
-     $(this).parent().parent().parent().find('.comment-form').toggle();
+     $(this).parent().parent().parent().find('.comment-form-bubble').toggle();
    }
-    $(this).parent().parent().parent().find('.comment-form-quote').toggle(); $(window).resize();
+    $(this).parent().parent().parent().find('.comment-form-quote-bubble').toggle(); $(window).resize();
 });
 
 $('.add-comment').click(function(){
@@ -241,7 +239,7 @@ $('.add-comment').click(function(){
                             $cf.html(data);                         
                             $(window).resize();
                             $resetval.val('');
-                            $('.comment-form-quote').toggle();
+                            $('.comment-form-quote-bubble').toggle();
 
                             });
         
@@ -275,7 +273,7 @@ $('.add-comment').click(function(){
                             $cf.html(data);                         
                             $(window).resize();
                             $resetval.val('');
-                            $('.comment-form').toggle();
+                            $('.comment-form-bubble').toggle();
 
                             });
         

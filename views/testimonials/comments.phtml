@@ -3,9 +3,10 @@
 <?php if($view_comments):?>
 					<?php foreach($view_comments as $comment):?>
 				
-							<ul>
+							<ul class="clearfix">
 							<div class="comment_user">
-								<div class="innercomment"><?php echo $comment['comment_content']?></div>
+								<?php $newDate = date('m/d/y', strtotime($comment['comment_date'])); $usersqlval=getModel('testimonials')->findusertes($comment['user_id']);  ?>
+                                <div class="innercomment"><p class="2"><span><?php echo $comment['comment_content']?></span> -<?php echo $usersqlval[0]['mname']; ?> from <?php echo $usersqlval[0]['mcity']; ?> <?php echo $usersqlval[0]['mstate']; ?>  | <?php echo $newDate; ?></p></div>
 								<div class="actions">
                                     <a href="javascript:void(0)" class="reply-comment-link1">reply with quote</a>
                                     <a href="javascript:;"> | </a>
@@ -38,7 +39,7 @@
 								?>
 
 							</ul>
-						
+						<div class="testimonial-border"></div>
 					<?php endforeach;?>
 				<?php endif;?>
 
@@ -50,14 +51,14 @@
         var tes_id=$(this).parent().find('input[name=tes_id_actions]').val();
              
         
-        if($(this).parent().find('.comment-form-quote').is(":visible"))
+        if($(this).parent().parent().find('.comment-form-quote').is(":visible"))
         {
-        $(this).parent().find('.comment-form-quote').toggle();
+        $(this).parent().parent().find('.comment-form-quote').toggle();
         }
-       $(this).parent().find('.comment-form').toggle();$(window).resize();
-        if($(this).parent().find('.comment-form').length == 0)
+       $(this).parent().parent().find('.comment-form').toggle();$(window).resize();
+        if($(this).parent().parent().find('.comment-form').length == 0)
         {
-            $(this).after('<div class="comment-form"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label> <textarea name="comment_message" id="comment-message" class="input-box required"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
+            $(this).parent().after('<div class="comment-form"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"> <textarea name="comment_message" id="comment-message" class="input-box required"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
             
             $(window).resize();  
             $('body').append(jjj);
@@ -80,16 +81,16 @@
         
         console.log($(this));
 
-        if($(this).parent().find('.comment-form').is(":visible"))
+        if($(this).parent().parent().find('.comment-form').is(":visible"))
         {
-        $(this).parent().find('.comment-form').toggle();
+        $(this).parent().parent().find('.comment-form').toggle();
         }
         
-       $(this).parent().find('.comment-form-quote').toggle();$(window).resize();
+       $(this).parent().parent().find('.comment-form-quote').toggle();$(window).resize();
 
-        if($(this).parent().find('.comment-form-quote').length == 0)
+        if($(this).parent().parent().find('.comment-form-quote').length == 0)
         {
-            $(this).after('<div class="comment-form-quote"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label><textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "'+quoteval+'"</textarea><textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
+            $(this).parent().after('<div class="comment-form-quote"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "'+quoteval+'"</textarea><textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
             
             $(window).resize();  
             $('body').append(jjj);

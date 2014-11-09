@@ -109,6 +109,7 @@ class FaqModel extends Model
 		}
 		else
 		{
+			$comment_content=trim($comment_content,'"');
 			$sql="INSERT INTO `comment`(`comment_post_ID`, `comment_date`, `comment_content`, `comment_approved`, `comment_parent`, `user_id`, `comment_category`)
 		 VALUES ('$comment_post_ID','$now','".mysql_escape_string($comment_content)."','1','$comment_parent','$user_id','faq')";
 		}
@@ -142,12 +143,16 @@ class FaqModel extends Model
 		if($comments)
 		{
 			
-			$comments_html='<ul>';
-			foreach ($comments as $comments)
+			$comments_html='<div class="faq-comments">';
+			foreach ($comments as $comment)
 			{
-				$comments_html.=$this->commentloop($comments['comment_post_ID'],'faq',$comments['comment_ID'],$comments['comment_content'],$comments['user_id'],$comments['comment_date']);
+
+				$comments_html.="<ul class='clearfix'>";
+				$comments_html.=$this->commentloop($comment['comment_post_ID'],'faq',$comment['comment_ID'],$comment['comment_content'],$comment['user_id'],$comment['comment_date']);
+				$comments_html.="</ul><div class='faq-border clearfix'></div>";
+				
 			}
-			$comments_html.='</ul>';
+			$comments_html.='</div>';
 							
 			}	
 			else
@@ -163,13 +168,67 @@ class FaqModel extends Model
 
 	public function commentloop($comment_post_ID,$faq,$comment_ID,$comment_content,$user,$date)
 	{
+
+				$session = Session::getCurrentSession();
+            	$role = getModel('customer')->getCustomerRole($session['user_id']);
+            	$a=$user;
+            	$b=$comment_ID;
+            	$c=$comment_post_ID;
+				$usersql="SELECT * FROM `members` WHERE `mid` = '$a'";
+				$usersqlval=$this->connection->Query($usersql);
+				$newDate = date('m/d/y', strtotime($date));
+
+
+				
+				$comments_html='<div class="comment_hdc"><div class="innercomment">'.$comment_content.' -'.$usersqlval[0]['mname'].' from '.$usersqlval[0]['mcity'].', '.$usersqlval[0]['mstate'].'  | '.$newDate.'</div>';
+				if(isset($role))
+				{
+				$comments_html.='<div class="actions">
+                                    <a href="javascript:void(0)" class="reply-comment-link1">reply with quote</a>
+                                    <a href="javascript:;"> | </a>
+                                    <a href="javascript:void(0)" class="comment-link1">comment</a>
+                                     <div class="helpfulornot">
+                                     <input type="hidden" name="faq_id_actions" value="'.$comment_post_ID.'"/>  
+                                     <input type="hidden" name="faq_id_actions_parent" value="'.$comment_ID.'"/>                                      
+                                    </div>
+            	</div>';
+				}
+
+
+
+        		$comments_html.="</div>"; // close of comment_hdc
+
+				$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content`,`comment_date` FROM `comment` WHERE `comment_post_ID` = '$c' AND `comment_parent`='$b' AND `comment_category`='faq' ORDER BY comment_ID ASC";
+				$commentinner = $this->connection->Query($sql);	
+
+
+				if($commentinner)
+				{
+					$comments_html.='<ul>';
+					foreach ($commentinner as $commentinner1) 
+					{					
+					$comments_html.=$this->commentloop($commentinner1['comment_post_ID'],'faq',$commentinner1['comment_ID'],$commentinner1['comment_content'],$commentinner1['user_id'],$commentinner1['comment_date']);
+					}
+					$comments_html.='</ul>';
+				}
+
+
+				
+
+				
+
+
+
+
+
+		/*
 			$session = Session::getCurrentSession();
             $role = getModel('customer')->getCustomerRole($session['user_id']);
 			$usersql="SELECT * FROM `members` WHERE `mid` = '$user'";
 			$usersqlval=$this->connection->Query($usersql);
 			$newDate = date('m/d/y', strtotime($date));
 
-			$comments_html='<li class="comment_hdc">'.$comment_content.' -'.$usersqlval[0]['mname'].' from '.$usersqlval[0]['mcity'].', '.$usersqlval[0]['mstate'].'  | '.$newDate.'</li>';
+			$comments_html='<div class="comment_hdc">'.$comment_content.' -'.$usersqlval[0]['mname'].' from '.$usersqlval[0]['mcity'].', '.$usersqlval[0]['mstate'].'  | '.$newDate.'';
 			if(isset($role))
 			{
 				$comments_html.='<div class="actions">
@@ -182,6 +241,7 @@ class FaqModel extends Model
                                     </div>
             </div>';
 			}
+			else
 			{
 			$comments_html.='<div class="actions">
                                   
@@ -191,6 +251,7 @@ class FaqModel extends Model
                                     </div>
             </div>';
         	}
+        	$comments_html.="</div>"; // close of comment_hdc
 
 			$sql="SELECT `comment_ID`, `comment_post_ID`, `user_id`, `comment_content`,`comment_date` FROM `comment` WHERE `comment_post_ID` = '$comment_post_ID' AND `comment_parent`='$comment_ID' AND `comment_category`='faq' ORDER BY comment_ID ASC";
 			$comments = $this->connection->Query($sql);	
@@ -203,6 +264,10 @@ class FaqModel extends Model
 				}
 				$comments_html.='</ul>';
 			}
+		return $comments_html;	
+
+
+		*/
 		return $comments_html;	
 
 	}

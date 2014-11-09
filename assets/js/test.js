@@ -1,5 +1,4 @@
         $('.add-comment1').click(function(){
-            
           
 
             if($(this).parent().find('#comment-message').val())

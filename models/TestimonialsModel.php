@@ -242,6 +242,15 @@ class TestimonialsModel extends Model
 
 	}
 
+	public function findusertes($user)
+	{
+		$usersql="SELECT * FROM `members` WHERE `mid` = '$user'";
+		$usersqlval=$this->connection->Query($usersql);
+		if($usersqlval) return $usersqlval;
+		else return $usersqlval;
+
+	}
+
 
 
 

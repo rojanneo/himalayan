@@ -36,7 +36,7 @@
 					<li>
 						<div class="scroll scroll-<?php echo $count?>">
 							<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
-							<div class="viewport" style="height:335px">
+							<div class="viewport" style="min-height:415px">
 								<div class="overview">
 									<div class="testimonial">
 										<p class="title"><span><?php echo $testimonial['testimonial_name']?></span> from <span><?php echo $testimonial['testimonial_address']?></span> on <span><?php echo date("M d, Y", strtotime($testimonial['testimonial_date']))?></span></p>
@@ -61,18 +61,18 @@
 										</div>
 									</div>
 									<?php if(isset($role)): ?><!--roleif open-->
-									<div class="comment-form" style="display:none">
+									<div class="comment-form-bubble" style="display:none">
 										<input type="hidden" class="t_id" name="comment_testimonial_id" value="<?php echo $testimonial['testimonial_id']?>"/>
 		<input type="hidden" name="comment_from" value="user"/>
-<label for = "comment">Comment: </label>
+
 <textarea name="comment_message" id="comment-message" class="input-box required"></textarea>
 						<input type="button" value="Add Comment" class="add-comment"/>
 					</div>
-<div class="comment-form-quote" style="display:none">
+<div class="comment-form-quote-bubble" style="display:none">
 	<!-- <form method="post" action="<?php echo URL.'testimonialforum/addComment'?>">--> 
 	<input type="hidden" class="t_id" name="comment_testimonial_id" value="<?php echo $testimonial['testimonial_id']?>"/>
 	<input type="hidden" name="comment_from" value="<?php echo $session['user_id']; ?>"/>
-	<label for = "comment">Comment: </label>
+
 	<textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "<?php echo $testimonial['testimonial']?>"</textarea>
 	<textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea>
 	<!-- <input type="text" name="comment_message" class="input-box required editor"/>--> 
@@ -95,9 +95,10 @@
 									<?php echo $comment['comment_content']?>
 								</div>-->
 								<!--<?php else:?>-->
-								<ul>
+								<ul class="clearfix">
 									<div class="comment_user">
-										<div class="innercomment"><?php echo $comment['comment_content']?></div>
+									<?php $newDate = date('m/d/y', strtotime($comment['comment_date'])); $usersqlval=getModel('testimonials')->findusertes($comment['user_id']);  ?>
+										<div class="innercomment"><p class="2"><span><?php echo $comment['comment_content']?></span> -<?php echo $usersqlval[0]['mname']; ?> from <?php echo $usersqlval[0]['mcity']; ?> <?php echo $usersqlval[0]['mstate']; ?>  | <?php echo $newDate; ?></p></div>
 										<div class="actions">
 										<?php if (isset($role)): ?><!-- roleif open-->
 											<a href="javascript:void(0)" class="reply-comment-link1">reply with quote</a>
@@ -134,8 +135,8 @@
 									}
 
 									?>
-
 								</ul>
+									<div class="testimonial-border"></div>
 								<!--<?php endif;?>-->
 							<?php endforeach;?>
 
@@ -168,14 +169,14 @@
 		var tes_id=$(this).parent().find('input[name=tes_id_actions]').val();
 
 
-		if($(this).parent().find('.comment-form-quote').is(":visible"))
+		if($(this).parent().parent().find('.comment-form-quote').is(":visible"))
 		{
-			$(this).parent().find('.comment-form-quote').toggle();
+			$(this).parent().parent().find('.comment-form-quote').toggle();
 		}
-		$(this).parent().find('.comment-form').toggle();$(window).resize();
-		if($(this).parent().find('.comment-form').length == 0)
+		$(this).parent().parent().find('.comment-form').toggle();$(window).resize();
+		if($(this).parent().parent().find('.comment-form').length == 0)
 		{
-			$(this).after('<div class="comment-form"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label> <textarea name="comment_message" id="comment-message" class="input-box required"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
+			$(this).parent().after('<div class="comment-form"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><textarea name="comment_message" id="comment-message" class="input-box required"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
 
 			$(window).resize();  
 			$('body').append(jjj);
@@ -195,16 +196,16 @@ $('.reply-comment-link1').on("click",function(){
 
 	console.log($(this));
 
-	if($(this).parent().find('.comment-form').is(":visible"))
+	if($(this).parent().parent().find('.comment-form').is(":visible"))
 	{
-		$(this).parent().find('.comment-form').toggle();
+		$(this).parent().parent().find('.comment-form').toggle();
 	}
 
-	$(this).parent().find('.comment-form-quote').toggle();$(window).resize();
+	$(this).parent().parent().find('.comment-form-quote').toggle();$(window).resize();
 
-	if($(this).parent().find('.comment-form-quote').length == 0)
+	if($(this).parent().parent().find('.comment-form-quote').length == 0)
 	{
-		$(this).after('<div class="comment-form-quote"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label><textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "'+quoteval+'"</textarea><textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
+		$(this).parent().after('<div class="comment-form-quote"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "'+quoteval+'"</textarea><textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
 
 		$(window).resize();  
 		$('body').append(jjj);
@@ -217,20 +218,20 @@ $('.reply-comment-link1').on("click",function(){
 
 		//$('.comment-link').click(function(){$(this).parent().parent().parent().find('.comment-form').show(); $(window).resize()});
 		$('.comment-link').click(function(){
-			if( $(this).parent().parent().parent().find('.comment-form-quote').is(":visible"))
+			if( $(this).parent().parent().parent().find('.comment-form-quote-bubble').is(":visible"))
 			{
-				$(this).parent().parent().parent().find('.comment-form-quote').toggle();
+				$(this).parent().parent().parent().find('.comment-form-quote-bubble').toggle();
 			}
-			$(this).parent().parent().parent().find('.comment-form').toggle(); $(window).resize();
+			$(this).parent().parent().parent().find('.comment-form-bubble').toggle(); $(window).resize();
 		});
 
 
 		$('.reply-comment-link').click(function(){
-			if( $(this).parent().parent().parent().find('.comment-form').is(":visible"))
+			if( $(this).parent().parent().parent().find('.comment-form-bubble').is(":visible"))
 			{
-				$(this).parent().parent().parent().find('.comment-form').toggle();
+				$(this).parent().parent().parent().find('.comment-form-bubble').toggle();
 			}
-			$(this).parent().parent().parent().find('.comment-form-quote').toggle(); $(window).resize();
+			$(this).parent().parent().parent().find('.comment-form-quote-bubble').toggle(); $(window).resize();
 		});		
 
 
@@ -265,7 +266,7 @@ $('.reply-comment-link1').on("click",function(){
 								$cf.html(data);
 								$(window).resize();
 								$resetmessage.val('');
-								$('.comment-form-quote').toggle("slow");
+								$('.comment-form-quote-bubble').toggle("slow");
 
 							});
 						}
@@ -291,7 +292,7 @@ $('.reply-comment-link1').on("click",function(){
 								$cf.html(data);
 								$(window).resize();	
 								$resetmessage.val('');						
-								$('.comment-form').toggle();
+								$('.comment-form-bubble').toggle();
 
 							});
 						}
@@ -332,7 +333,7 @@ $('.reply-comment-link1').on("click",function(){
 		</form>
 	</div>
 	<div class="message">
-		<p>As with any dog treat, please supervise your dog(s) when feeding our treats and be cautious to discard when any potential hazard presents itself. </p>
+		<?php Widget::render('caution_warning');?>
 		<a href="<?php echo URL.'testimonialforum'?>" class="btn btn-blue">add your testimonial</a>
 	</div>
 </div>
