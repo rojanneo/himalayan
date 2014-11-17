@@ -2,7 +2,11 @@
     $('.nav ul li.contact').attr('id','contact-active');
 </script>
 <div class="wrapper">
-    <div class="faq">
+    <div class="faq faq-list">
+    <div class="scroll">
+        <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+        <div class="viewport" style="height:370px">
+        <div class="overview" style="height:370px">
       
 <!-- <div class="scroll">
 <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
@@ -10,6 +14,7 @@
     <div class="overview" style="height:350px">
  -->        <?php if(isset($view_search_results)) {?>
         <div class="search-results">
+        
         <h1>Frequently asked questions</h1>
             <?php if($view_search_results):?>
             <ul>
@@ -23,6 +28,8 @@
             </ul>
             <?php endif;?>
         </div>
+        
+
         <?php } else{?>
    
 
@@ -41,6 +48,9 @@
         </div>
         </div>
  -->
+ </div>
+        </div>
+        </div>
         <!-- TODO MAKE THIS DYNAMIC -->
         <div class="faqInformation">
             <div class="faq-search">
@@ -55,7 +65,7 @@
        
             </div>
             <div class="extra"></div>
-            <p>As with any dog treat, please supervise your dog(s) when feeding our treats and be cautious to discard when any potential hazard presents itself.</p>
+            <?php Widget::render('caution_warning');?>
             <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'contacts'; ?>" class="btn btn-blue">back</a>
         </div>
     </div>
@@ -72,5 +82,13 @@ $(document).ready(function(){
      $('.scroll').tinyscrollbar();
 })
 </script>
+<script type="text/javascript">
+                    $(document).ready(function(){
+                        $(window).resize();
+                        $('.scroll').tinyscrollbar();
+                        $(window).resize();
+                      
+                    });
+                </script>
 
             

@@ -18,17 +18,33 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 					<?php if(!$productModel->isConfigurable($product_id)):?>
 				<li>
 				<div class="clearfix pricing-slider">
-				<div class="product">
-					<img src="<?php echo URL.'timthumb.php?src='.$base.'&h=300&w=500&a=t'.$zc?>"/>
+				<?php if($product['psku'] != 'ruff_roots_seedling' and $product['psku'] != 'ruff_roots_sprouts' and $product['psku'] != 'ruff_roots_stump' and $product['psku'] != 'ruff_roots_stalk'):?>
+					<?php $width = 500; $height = 300; $class=null;?>
+				<?php else:?>
+					<?php $width = 617; $height = 297; $class="ruff_roots"?>
+				<?php endif;?>
+				<div class="product <?php echo $class?>">
+					<img src="<?php echo URL.'timthumb.php?src='.$base.'&h='.$height.'&w='.$width.'&a=t'.$zc?>"/>
 				</div>
 				<div class="product-info">
 				<div class="productTitle">
 					<p class="product-name"><?php echo $product['pname']?></p>
-					<?php $dog_size = $productModel->getProductAttributeByCode($product_id,'dog_size');?>
+					
 							<?php $caption = $productModel->getProductAttributeByCode($product_id,'caption_text');?>
-							<?php if($dog_size):?>
-								<p>For Dogs Under <?php echo $dog_size?></p>
-							<?php endif;?>
+							<?php $dog_size = $productModel->getProductAttributeByCode($product_id,'dog_size');?>
+								<?php if($dog_size == 'All'):?>
+									<p>For all dog sizes</p>
+								<?php else:?>
+									<?php if($product['psku'] != 'ruff_roots_seedling' and $product['psku'] != 'ruff_roots_sprouts' and $product['psku'] != 'ruff_roots_stump' and $product['psku'] != 'ruff_roots_stalk'):?>
+										<p>For dogs under <?php echo $dog_size?></p>
+									<?php else:?>
+										<?php if($dog_size != '65 lbs & over'):?>
+											<p>an all-natural dog toy for dogs under <?php echo $dog_size;?></p>
+										<?php else:?>
+											<p>an all-natural dog toy for dogs <?php echo $dog_size;?></p>
+										<?php endif;?>
+									<?php endif;?>
+								<?php endif;?>
 				</div>
 						<div class="desc">			
 							<?php $min_pieces = $productModel->getProductAttributeByCode($product_id,'min_pieces');
@@ -36,6 +52,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 							<?php $min_cal = $productModel->getProductAttributeByCode($product_id, 'min_cal'); 
 							$max_cal = $productModel->getProductAttributeByCode($product_id, 'max_cal');
 							$cal_unit = $productModel->getProductAttributeByCode($product_id,'calorie_type');
+							$weight = $productModel->getProductAttributeByCode($product_id,'weight');
 							if($cal_unit == 'None') $cal_unit = null;
 							?>
 							<?php if($min_pieces != $max_pieces):?>
@@ -43,29 +60,33 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 									<?php echo $min_pieces.' - '.$max_pieces?> pieces 
 								<?php endif;?>
 								<?php if(($min_cal == $max_cal)):?>
-									<?php if($min_cal != false and $max_cal != false):?>
-										| <?php echo $min_cal.' Cal '.$cal_unit?>
+									<?php if($min_cal != false and $max_cal != false):?> &nbsp; | &nbsp; <?php echo $min_cal.' cal '.$cal_unit?>
 									<?php endif;?>
 								<?php else:?>
 									<?php if($min_cal != false and $max_cal != false):?>
-										| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+										 &nbsp; | &nbsp; <?php echo $min_cal.' - '.$max_cal.' cal '.$cal_unit?>
 									<?php endif;?>
 								<?php endif;?>
 							</p>
 						<?php else:?>
+							<?php if($product['psku'] !='hdc_seasoning'):?>
 							<p><?php if($min_pieces != false and $max_pieces!=false):?>
 								<?php if($min_pieces != false and $max_pieces!=false):?>
-									<?php echo $min_pieces?> pieces 
+									<?php if($min_pieces == 1) $pieces_text = 'piece'; else $pieces_text='pieces';?>
+									<?php echo $min_pieces?> <?php echo $pieces_text;?> 
 								<?php endif;?>
 							<?php endif;?><?php if(($min_cal == $max_cal)):?>
 							<?php if($min_cal != false and $max_cal != false):?>
-								| <?php echo $min_cal.' Cal '.$cal_unit?>
+								 &nbsp; | &nbsp; <?php echo $min_cal.' cal '.$cal_unit?>
 							<?php endif;?>
 						<?php else:?>
 							<?php if($min_cal != false and $max_cal != false):?>
-								| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+								 &nbsp; | &nbsp; <?php echo $min_cal.' - '.$max_cal.' cal '.$cal_unit?>
 							<?php endif;?>
 						<?php endif;?></p>
+						<?php else:?>
+							<p><?php echo $weight.' oz bottle';?> &nbsp; | &nbsp; <?php echo $min_cal.' cal '.$cal_unit;?></p>
+						<?php endif;?>
 					<?php endif;?>
 				</div>
 				<div class="productPricing">
@@ -101,7 +122,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 								$dog_size = $productModel->getProductAttributeByCode($variations[0],'dog_size');?>
 							<?php if($dog_size):?>
 								<?php if($dog_size == 'All'):?>
-									<p>For all dog size</p>
+									<p>For all dog sizes</p>
 								<?php else:?>
 									<p>For dogs under <?php echo $dog_size?></p>
 								<?php endif;?>
@@ -135,11 +156,11 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 							<?php endif;?>
 							<?php if(($min_cal == $max_cal)):?>
 								<?php if($min_cal != false and $max_cal != false):?>
-									| <?php echo $min_cal.' Cal '.$cal_unit?>
+									| <?php echo $min_cal.' cal '.$cal_unit?>
 								<?php endif;?>
 							<?php else:?>
 								<?php if($min_cal != false and $max_cal != false):?>
-									| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+									| <?php echo $min_cal.' - '.$max_cal.' cal '.$cal_unit?>
 								<?php endif;?>
 							<?php endif;?>
 
@@ -149,11 +170,11 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 							<?php endif;?>
 							<?php if(($min_cal == $max_cal)):?>
 								<?php if($min_cal != false and $max_cal != false):?>
-									| <?php echo $min_cal.' Cal '.$cal_unit?>
+									| <?php echo $min_cal.' cal '.$cal_unit?>
 								<?php endif;?>
 							<?php else:?>
 								<?php if($min_cal != false and $max_cal != false):?>
-									| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+									| <?php echo $min_cal.' - '.$max_cal.' cal '.$cal_unit?>
 								<?php endif;?>
 							<?php endif;?>
 						<?php endif;?>
@@ -198,7 +219,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 							$dog_size = $productModel->getProductAttributeByCode($variation_id,'dog_size');?>
 							<?php if($dog_size):?>
 								<?php if($dog_size == 'All'):?>
-									<p>For all dog size</p>
+									<p>For all dog sizes</p>
 								<?php else:?>
 									<p>For dogs under <?php echo $dog_size?></p>
 								<?php endif;?>
@@ -206,7 +227,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 							<?php $pieces_per_box = $productModel->getProductAttributeByCode($variation_id,'pieces_per_box');?>
 							<?php $calories = $productModel->getProductAttributeByCode($variation_id, 'min_cal');?>
 							<?php if($pieces_per_box):?>
-								<?php echo 'box of '.$pieces_per_box.' pieces : '.$calories.' cal per stick'?>
+								<p><?php echo 'box of '.$pieces_per_box.' pieces&nbsp;&nbsp;&nbsp;:&nbsp;'.$calories.' cal per stick'?></p>
 							<?php endif;?>
 							<?php $price = $productModel->getProductAttributeByCode($variation_id, 'price');?>
 							<?php if($price):?>
@@ -566,8 +587,8 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 		itemWidth: 79,
 		itemHeight:48,
 		itemMargin: 7,
-		 minItems:10,
-        maxItems:10,
+		minItems:10,
+        maxItems:30,
 		move:3,
 		asNavFor: '.pricing-products'
 	});

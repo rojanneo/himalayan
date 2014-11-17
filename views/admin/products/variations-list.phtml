@@ -16,7 +16,7 @@
 		<input type="checkbox" name="variations[]" value="<?php echo $variation['pid']?>" <?php echo (in_array($variation['pid'],$arr1))?'checked':null?>/>
 		<label for ="variations"><?php echo $variation['pname'];?></label>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Product Sort Variation </label>
-		<input type="number" id="product_variation_sort_order_<?php echo $variation['pid']?>" name="product_variation_sort_order[<?php echo $variation['pid']?>]" value="<?php echo (in_array($variation['pid'],$arr1))?$associated_array[$variation['pid']]:null?>"/>//Yo baki cha
+		<input type="number" id="product_variation_sort_order_<?php echo $variation['pid']?>" name="product_variation_sort_order[<?php echo $variation['pid']?>]" value="<?php echo (in_array($variation['pid'],$arr1))?$associated_array[$variation['pid']]:null?>"/>
 		
 	</li>
 <?php endforeach;?>

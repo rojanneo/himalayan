@@ -1,14 +1,5 @@
 <div class="wrapper creation">
 <div class="rightBody"><img src="<?php echo ASSET_URL.'/images/creation-main.png'?>">
-<div class="actions">
-<?php $session = Session::getCurrentSession();?>
-				<?php if($session):?>
-				<?php $retailer = getModel('customer')->getRetailer($session['user_id']);?>
-				<?php if($retailer):?>
-					<a href="<?php echo URL.'account'?>" class="btn btn-blue retailer-menu">&lt; back to retailer menu</a>
-				<?php endif;?>
-			<?php endif;?>
-				</div>
 </div>
 <div class="leftBody">
 <ul class="category-list">

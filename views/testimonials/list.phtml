@@ -98,7 +98,7 @@
 								<ul class="clearfix">
 									<div class="comment_user">
 									<?php $newDate = date('m/d/y', strtotime($comment['comment_date'])); $usersqlval=getModel('testimonials')->findusertes($comment['user_id']);  ?>
-										<div class="innercomment"><p class="2"><span><?php echo $comment['comment_content']?></span> -<?php echo $usersqlval[0]['mname']; ?> from <?php echo $usersqlval[0]['mcity']; ?> <?php echo $usersqlval[0]['mstate']; ?>  | <?php echo $newDate; ?></p></div>
+										<div class="innercomment"><?php echo $comment['comment_content']?> -<?php echo $usersqlval[0]['mname']; ?> from <?php echo $usersqlval[0]['mcity']; ?> <?php echo $usersqlval[0]['mstate']; ?>  | <?php echo $newDate; ?></div>
 										<div class="actions">
 										<?php if (isset($role)): ?><!-- roleif open-->
 											<a href="javascript:void(0)" class="reply-comment-link1">reply with quote</a>

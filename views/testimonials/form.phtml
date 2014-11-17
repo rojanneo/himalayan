@@ -12,11 +12,11 @@ echo Session::showSuccessMessages();?>
 <div class="testimonials-form contactForm">
 		<input type="hidden" value="<?php echo date('Y-m-d H:i:s');?>" name="t_dt"/>
 		<fieldset>
-			<label for = "t_name">Name</label>
+			<label for = "t_name">name</label>
 			<input type="text" name="t_name" class="input-box required"/>
 		</fieldset>
 		<fieldset>
-			<label for = "t_email">Email</label>
+			<label for = "t_email">email</label>
 			<input type="text" name="t_email" class="input-box required email-validation"/>
 		</fieldset>
 		<fieldset>
@@ -55,7 +55,7 @@ echo Session::showSuccessMessages();?>
 	<?php echo recaptcha_get_html(CAPTCHA_PUBLIC_KEY, $error);?>
 	</div>
 	<fieldset>
-	<button class="btn btn-blue" onclick="$('.testimonials-form form').submit();">Submit</button>
+	<button class="btn btn-blue" onclick="$('.testimonials-form form').submit();">submit</button>
 	</fieldset>
 </div>
 </form>

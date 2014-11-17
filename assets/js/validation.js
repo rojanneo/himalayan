@@ -1,8 +1,8 @@
 (function ( $ , event) {
 	var validation_rules = [
-		{"className":"required", "errormsg":"This field is required", "pattern":"."},
+		{"className":"required", "errormsg":"*required", "pattern":"."},
 		{"className":"number-validation", "errormsg":"Only Numbers Allowed", "pattern":"[0-9]"},
-		{"className":"email-validation", "errormsg":"Please Enter a valid email", "pattern":"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"},
+		{"className":"email-validation", "errormsg":"*invalid email", "pattern":"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"},
 		{"className":"confirm-password", "errormsg":"Passwords must match", "pattern":"equal"},
 		{"className":"password", "errormsg":"", "pattern":"."},
 	];

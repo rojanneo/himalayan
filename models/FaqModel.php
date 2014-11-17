@@ -9,7 +9,7 @@ class FaqModel extends Model
 
 	public function getAllFaqs()
 	{
-		$query = "SELECT * FROM faq";
+		$query = "SELECT * FROM faq ORDER BY faq_id ASC";
 		$faqs = $this->connection->Query($query);
 		return $faqs;
 	}
