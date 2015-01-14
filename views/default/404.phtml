@@ -1,3 +1,23 @@
-<?php loadHelper('url');?>
-<?php echo CurrentURL()?>
-<h1>here</h1><h1>404 Page Not Found</h1>
+<?php loadHelper('head');addCSS('main.css'); addCSS('404.css');?>
+
+<div class="error">
+
+		<div class="up">
+			<div class="ercenter">
+				<h1>ACK! 404 error!</h1>
+				<p class="404text">Sorry, the page you are looking for cannot be found</p><p class="404text">Please go to our homepage or go back to the previous page.</p>
+				<img src="<?php echo ASSET_URL.'images/aero.png'?>"/>
+
+			</div><!--End ercenter-->
+		</div><!--End up-->
+		<div class="yak">
+			<a href="javascript:void(0)">(yak tipping?)</a>
+			<img src="<?php echo ASSET_URL.'images/yak.png'?>"/>
+		</div><!--End Yak-->
+
+	</div><!--End error-->
+
+<div class="bottom">
+	<div class="down">
+	</div><!--End down-->
+</div><!--End bottom-->
