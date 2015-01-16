@@ -42,8 +42,8 @@ p{
 .ercenter{width:635px; height:218px; background:#fff; margin:0 auto; padding: 20px 10px 20px 10px; border-radius: 80px; margin-top:162px;}
 .yak{margin:0 auto; width:1024px; margin-bottom: -60px;}
 .yak a{text-decoration: none; font-size: 20px; color:#63ced6; font-weight: 600; float: left; margin-top: 20px; margin-left: 60px; margin-right: 10px;}
-.bottom{min-width:1024px; margin:0 auto; background:linear-gradient(to top, #fcf5a3, #95e694); padding:10px;}
-.down{width:1024px; height:215px; margin:0 auto;}
+.bottom{min-width:1024px; min-height:375px;margin:0 auto; background:linear-gradient(to top, #fcf5a3, #95e694); padding:10px;}
+.down{width:1024px; margin:0 auto;}
 .yak-container{margin-left: 30px;}
 .yak a{font-weight:100;font-size:15px;}
 
