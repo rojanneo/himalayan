@@ -12,6 +12,6 @@ if (!defined('MYSQL_Password')) {
 }
 
 if (!defined('DATABASE')) {
-	define('DATABASE', '_dog');
+	define('DATABASE', '_hdc');
 }
 ?>
