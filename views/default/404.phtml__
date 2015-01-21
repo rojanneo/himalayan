@@ -15,7 +15,7 @@
 		<div class="up">
 			<div class="ercenter">
 				<h1>ACK! 404 error!</h1>
-				<p class="404text">Sorry, the page you are looking for cannot be found</p><p class="404text">Please go to our <a href="<?php echo URL?>">home page</a> or go back to the <a href="javascript:history.back()">previous page</a>.</p>
+				<p class="404text">Sorry, the page you are looking for cannot be found</p><p class="404text">Please go to our homepage or go back to the previous page.</p>
 				<img src="<?php echo ASSET_URL.'images/aero.png'?>"/>
 
 			</div><!--End ercenter-->
@@ -23,7 +23,7 @@
 		<div class="yak">
 		<div class="yak-container">
 			<a href="javascript:void(0)">(yak tipping?)</a>
-			<img style="margin-left: -80px;" src="<?php echo ASSET_URL.'images/yak.png'?>"/>
+			<img src="<?php echo ASSET_URL.'images/yak.png'?>"/>
 			</div>
 		</div><!--End Yak-->
 
