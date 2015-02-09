@@ -44,9 +44,9 @@
 
 echo UPLOAD_URL;
 die;
-$config['img_path'] = .'http://rojan/himalayan/assets/uploads/cms/'; // Relative to domain name
+$config['img_path'] = .'http://www.himalayandogchew.com/assets/uploads/cms/'; // Relative to domain name
 $config['img_paths'] = '\cms'; // Relative to domain name
-$config['upload_path']='E:\xampp\htdocs\himalayan\assets\uploads'. $config['img_paths'];
+$config['upload_path']='home/public_html/new/assets/uploads'. $config['img_paths'];
 
 /*-------------------------------------------------------------------
 | 

@@ -55,7 +55,7 @@ defined('WEB_BASE') || define('WEB_BASE', 'assets/uploads/cms' );
 //!!!! CHANGE THIS !!!!!!
 //UPLOAD PATH
 defined('UPLOADS_PATH')
-        || define('UPLOADS_PATH', 'E:/xampp/htdocs/himalayan/assets/uploads/cms/');
+        || define('UPLOADS_PATH', 'home/public_html/assets/uploads/cms/');
 
 
 

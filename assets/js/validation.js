@@ -1,6 +1,10 @@
 (function ( $ , event) {
 	var validation_rules = [
 		{"className":"required", "errormsg":"*required", "pattern":"."},
+		{"className":"zip-validation", "errormsg":"*5 digits are needed", "pattern":".{5,}"},
+		{"className":"phone-validation", "errormsg":"*10 digits are needed", "pattern":"^[0-9]{10}$"},
+		{"className":"fax-validation", "errormsg":"*10 digits are needed", "pattern":"^$|\\+?[0-9]{10}$"},
+		{"className":"ein-validation", "errormsg":"*9 digits are needed", "pattern":"^[0-9]{9}$"},
 		{"className":"number-validation", "errormsg":"Only Numbers Allowed", "pattern":"[0-9]"},
 		{"className":"email-validation", "errormsg":"*invalid email", "pattern":"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"},
 		{"className":"confirm-password", "errormsg":"Passwords must match", "pattern":"equal"},
