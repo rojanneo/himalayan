@@ -1,7 +1,11 @@
 <?php //loadView('account/account-menu.phtml');?>
 <?php echo Session::showErrorMessages();
 echo Session::showSuccessMessages();?>
+<script type="text/javascript">
 
+	$('.account-menu ul li a.cpanel').addClass('active');	
+
+</script>
 	<?php if(isset($view_stores)):?>
 	<div class="stores-list clearfix">
 	<a href="<?php echo URL.'account/addStore'?>" class="btn btn-blue" >Add A New Store</a>
@@ -53,7 +57,10 @@ echo Session::showSuccessMessages();?>
 	</div>
 </div>
 <?php else:?>
-	<p>No Stores Found</p>
+	<div class="stores-list clearfix">
+		<a href="<?php echo URL.'account/addStore'?>" class="btn btn-blue" >Add A New Store</a>
+	<h3 style="clear:left">No Stores Found</h3>
+</div>
 <?php endif;?>
 <?php
 if(isset($view_pagination_num))

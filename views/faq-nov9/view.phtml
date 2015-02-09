@@ -1,0 +1,338 @@
+<?php loadHelper('url');?>
+<?php $word_count = str_word_count($view_faq['faq_answer']);
+$word_in_a_line = 12;
+
+$lines = ceil($word_count/$word_in_a_line);
+
+?>
+
+
+
+
+<script type="text/javascript">
+    $('.nav ul li.contact').attr('id','contact-active');
+</script>
+<div class="wrapper">
+    <div class="faq">
+        <div class="faqLeft">
+
+
+            <div class="scroll">
+                <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                <?php $height = ($lines - 1)* 30;?>
+                <?php if($height<440) $style="height:".($height+150)."px"; else $style='height:440px';?>
+                    <div class="viewport" style="<?php echo $style?>">
+                        <div class="overview" style="<?php echo $style?>">
+                            <h1>Frequently asked questions</h1>
+                            <h2><?php echo $view_faq['faq_question'];?></h2>
+                            <p><?php echo $view_faq['faq_answer'];?></p>
+                            <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'faq'; ?>" class="faqback">&lt;back to FAQs</a>
+                            <!--- for logged in User Only---------------------->
+                            <?php $session = Session::getCurrentSession();
+                            $role = getModel('customer')->getCustomerRole($session['user_id']);?>
+                          
+
+
+                                <!--- for comment div action and helpful-content---------------------->
+
+                                <div class="actions">
+                                  <?php if(isset($role)):?> <!--role open---->
+                                    <a href="javascript:void(0)" class="reply-comment-link">reply with quote</a>
+                                    <a href="javascript:;"> | </a>
+                                    <a href="javascript:void(0)" class="comment-link">comment</a>
+                                <?php endif; ?>
+                                    <div class="helpfulornot">
+                                       <input type="hidden" name="faq_id_actions" value="<?php echo $view_faq['faq_id']?>"/>
+                                       <p>Was this helpful?</p>
+                                       <a href="javascript:void(0)" class="helpful action"><span>yes!</span></a>
+                                       <a href="javascript:void(0)" class="not-helpful action"><span>no</span></a>
+                                   </div>
+                               </div>
+                               <div class="helpful-count">
+                                <p>This post has helped <?php echo $view_faq['faq_helpful_count']?> people so far!</p>
+                            </div>
+                            <div class="comment-form" style="display:none">
+                                <!-- <form method="post" action="<?php echo URL.'faq/addComment'?>">--> 
+                                <input type="hidden" class="t_id" name="comment_faq_id" value="<?php echo $view_faq['faq_id']?>"/>
+                                <input type="hidden" name="comment_from" value="<?php echo $session['user_id']; ?>"/>
+                                <label for = "comment">Comment: </label>
+                                <textarea name="comment_message" id="comment-message" class="input-box required"></textarea>
+                                <!-- <input type="text" name="comment_message" class="input-box required editor"/>--> 
+                                <input type="button" value="Add Comment" class="add-comment"/>
+                                <!-- /form>  -->
+                            </div>
+                             <div class="comment-form-quote" style="display:none">
+                                <!-- <form method="post" action="<?php echo URL.'faq/addComment'?>">--> 
+                                <input type="hidden" class="t_id" name="comment_faq_id" value="<?php echo $view_faq['faq_id']?>"/>
+                                <input type="hidden" name="comment_from" value="<?php echo $session['user_id']; ?>"/>
+                                <label for = "comment">Comment: </label>
+                                <textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "<h2><?php echo $view_faq['faq_question'];?></h2>
+                            <p><?php echo $view_faq['faq_answer'];?></p>"</textarea>
+                                <textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea>
+                                <!-- <input type="text" name="comment_message" class="input-box required editor"/>--> 
+                                <input type="button" value="Add Comment" class="add-comment"/>
+                                <!-- /form>  -->
+                            </div>
+                            <?php $comments = getModel('faq')->getfaqComments($view_faq['faq_id']);?>                                
+                            <div class="comments">
+                                <?php echo($comments); ?>
+                                   <!--<?php if($comments):?>                                     
+                                        <?php foreach($comments as $comment):?>
+                                            <?php if($comment['user_id'] == $session['user_id']):?>
+                                            <div class="comment_hdc">
+                                                 <?php echo $comment['comment_content']?>
+                                            </div>
+                                            <?php else:?>
+                                            <div class="comment_user">
+                                                <?php echo $comment['comment_content']?>
+                                            </div>
+                                            <?php endif;?>
+                                        <?php endforeach;?>
+                        
+                                    <?php endif;?>
+                                -->
+
+                            </div>
+
+
+
+                            <!---------coment colse for div actiona nd helpful-conten------>
+                       
+                        <!-- logged in user end-------------------------->
+
+                    </div>
+                </div>
+
+
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $(window).resize();
+                        $('.scroll').tinyscrollbar();
+                        $(window).resize();
+                        if($('.viewport').css('height') == '150px') $('.scrollbar').addClass('disable');
+                    });
+                </script>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="faqRight">
+        <div class="faq-search">
+            <form method="get" action = "<?php echo URL.'faq/search'?>">
+                <fieldset>
+                    <input type = "text" class="input-box" name="faq-search-query" <?php if(isset($_GET['faq-search-query'])){ ?> value="<?php echo $_GET['faq-search-query']; ?>"<?php }?>/>
+                </fieldset>
+                <fieldset>
+                    <input type ="submit" value = "Search" class="btn btn-blue" /> 
+                </fieldset>
+            </form>
+        </div>
+        <p>As with any dog treat, please supervise your dog(s) when feeding our treats and be cautious to discard when any potential hazard presents itself.</p>
+        <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'contacts'; ?>" class="btn btn-blue">back</a>
+
+    </div>
+    <script>
+    var jjj="<script id='testScript' type='text/javascript' src='http://alina/himalayan/assets/js/test.js'/>";
+
+    </script>
+    <script>
+
+       $(window).resize();
+   </script>
+   <!-- for comment form ------>
+   <script type="text/javascript">
+
+    $('.comment-link1').on("click",function(){          
+       
+        var commenter="<?php echo $session['user_id']; ?>";
+        var parentID=$(this).parent().find('input[name=faq_id_actions_parent]').val();              
+        var fad_id="<?php echo $view_faq['faq_id'] ?>";
+        var text = 'hello alina';
+        console.log($(this));
+        if($(this).parent().find('.comment-form-quote').is(":visible"))
+        {
+        $(this).parent().find('.comment-form-quote').toggle();
+        }
+       $(this).parent().find('.comment-form').toggle();$(window).resize();
+        if($(this).parent().find('.comment-form').length == 0)
+        {
+            $(this).after('<div class="comment-form"><input type="hidden" class="t_id" name="comment_faq_id" value="'+fad_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label> <textarea name="comment_message" id="comment-message" class="input-box required"></textarea><input type="button" value="Add Comment" class="add-comment1"></textarea></div>');
+            
+            $(window).resize();  
+            $('body').append(jjj);
+        }
+    });
+
+
+$('.reply-comment-link1').on("click",function(){          
+       
+        var commenter="<?php echo $session['user_id']; ?>";
+        var parentID=$(this).parent().find('input[name=faq_id_actions_parent]').val(); 
+        var quoteval=$(this).parent().prev('li.comment_hdc').html();     
+        console.log(quoteval);         
+        var fad_id="<?php echo $view_faq['faq_id'] ?>";
+        var text = 'hello alina';
+        console.log($(this));
+
+        if($(this).parent().find('.comment-form').is(":visible"))
+        {
+        $(this).parent().find('.comment-form').toggle();
+        }
+        
+       $(this).parent().find('.comment-form-quote').toggle();$(window).resize();
+
+        if($(this).parent().find('.comment-form-quote').length == 0)
+        {
+            $(this).after('<div class="comment-form-quote"><input type="hidden" class="t_id" name="comment_faq_id" value="'+fad_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><label for="comment">Comment: </label><textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "'+quoteval+'"</textarea><textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea><input type="button" value="Add Comment" class="add-comment1"></textarea></div>');
+            
+            $(window).resize();  
+            $('body').append(jjj);
+        }
+    });
+
+
+
+
+$('.comment-link').click(function(){
+     if( $(this).parent().parent().parent().find('.comment-form-quote').is(":visible"))
+   {
+     $(this).parent().parent().parent().find('.comment-form-quote').toggle();
+   }
+    $(this).parent().parent().parent().find('.comment-form').toggle(); $(window).resize();
+});
+
+
+$('.reply-comment-link').click(function(){
+   if( $(this).parent().parent().parent().find('.comment-form').is(":visible"))
+   {
+     $(this).parent().parent().parent().find('.comment-form').toggle();
+   }
+    $(this).parent().parent().parent().find('.comment-form-quote').toggle(); $(window).resize();
+});
+
+$('.add-comment').click(function(){
+    if($(this).parent().find('#comment-message').val())
+    {
+        $resetval=$(this).parent().find('#comment-message');
+        $cf = $(this).parent().parent().parent().find('.comments');
+        var id = $(this).parent().find('input[name=comment_faq_id]').val();
+        var replywithquote = $(this).parent().find('#comment_message-quote1').val();
+        if($(this).parent().find('#comment_message-quote1').val())
+        {
+            //alert($(this).parent().find('#comment_message-quote1').val()+'</br>'+$(this).parent().find('#comment-message').val());
+            var datas = {
+                'comment_post_ID': $(this).parent().find('input[name=comment_faq_id]').val(),
+                'user_id': $(this).parent().find('input[name=comment_from]').val(),
+                'comment_content': $(this).parent().find('#comment_message-quote1').val()+'</br>'+$(this).parent().find('#comment-message').val(),
+                            };
+
+                console.log(datas);
+
+                 var urls = "<?php echo URL.'faq/addComment'?>"; 
+
+                $.ajax({                
+                    type:"POST",
+                    url:urls,
+                    data:datas,
+                     success:function(result){                                   
+                        $.get('<?php echo URL?>faq/loadComments/'+id, function(data){                                         
+                            
+                            $cf.html(data);                         
+                            $(window).resize();
+                            $resetval.val('');
+                            $('.comment-form-quote').toggle();
+
+                            });
+        
+                    }
+
+                });
+
+                $(this).parent().find('.error').remove();
+        }
+       
+        else
+        {
+
+                var datas = {
+                'comment_post_ID': $(this).parent().find('input[name=comment_faq_id]').val(),
+                'user_id': $(this).parent().find('input[name=comment_from]').val(),
+                'comment_content': $(this).parent().find('#comment-message').val(),
+                            };
+
+                console.log(datas);
+
+                 var urls = "<?php echo URL.'faq/addComment'?>"; 
+
+                $.ajax({                
+                    type:"POST",
+                    url:urls,
+                    data:datas,
+                     success:function(result){                                   
+                        $.get('<?php echo URL?>faq/loadComments/'+id, function(data){                                          
+                            console.log(data);
+                            $cf.html(data);                         
+                            $(window).resize();
+                            $resetval.val('');
+                            $('.comment-form').toggle();
+
+                            });
+        
+                    }
+
+                });
+
+                $(this).parent().find('.error').remove();
+        }
+
+
+
+    }
+    else
+    {
+        $(this).parent().append('<p class="error">Comment cannot be empty</p>');
+    }
+});
+</script>
+
+<script>
+    $('a.helpful').click(function(){
+        var id = $(this).parent().find('input[name=faq_id_actions]').val();
+        $a = $(this);
+        console.log($a);
+        $.ajax({
+            url: '<?php echo URL?>faq/makehelpful/'+id,
+            success:function(result)
+            {
+                if(result == 'true')
+                {
+                    $('a.action').removeClass('active');
+                    $a.addClass('active');
+                }
+            }
+        });
+    });
+
+    $('a.not-helpful').click(function(){
+        var id = $(this).parent().find('input[name=faq_id_actions]').val();
+        $a = $(this);
+        console.log($a);
+        $.ajax({
+            url: '<?php echo URL?>faq/nothelpful/'+id,
+            success:function(result)
+            {
+                if(result == 'true')
+                {
+                    $('a.action').removeClass('active');
+                    $a.addClass('active');
+                }
+            }
+        });
+    });
+    $('.flex-next').click(function(){
+        $(window).resize();
+    });
+</script>
+
+

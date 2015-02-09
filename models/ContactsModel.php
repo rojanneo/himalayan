@@ -22,14 +22,14 @@ class ContactsModel extends Model
 		{
 			$this->connection->InsertQuery($query);
 
-			$to      = 'rojan.ku@gmail.com'; // Put appropirate email in this section
+			$to      = 'info@himalayandogchew.com'; // Put appropirate email in this section
 			$subject = 'the subject';
-			$message = 'hello'; // Put mail content here
-			$headers = 'From:  info@himalandogchew.com' . "\r\n" .
+			$message1 = $message; // Put mail content here
+			$headers = 'From:  '.$sender_email. "\r\n" .
 			    'Reply-To: info@himalandogchew.com' . "\r\n" .
 			    'X-Mailer: PHP/' . phpversion();
 		
-			mail($to, $subject, $message, $headers);
+			mail($to, $subject, $message1, $headers);
 			Session::addSuccessMessage("Your Contact Message Has Been Submitted.");
 		}
 		catch(Exception $e)

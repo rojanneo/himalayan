@@ -14,16 +14,32 @@ class RetailerstoresAdminController extends Controller
 
 	public function indexAction()
 	{
+		//if(isset($_POST['storename'])){ echo "hye"; die();}
 		loadHelper('inputs');
 		$page = getParam('p');
 		if(!$page) $page = 1;
 		$limit = 100;
 		$first = ($page-1) * $limit;
-
 		$retailer = getParam('retailer');
 		if(!$retailer) $retailer = 'all';
 
-		if($retailer == 'all')
+		if(isset($_POST['storename']) || isset($_GET['store']))
+		{
+			if(isset($_POST['storename'])) { $storenameval=$_POST['storename'];	 }
+			else {$storenameval=$_GET['store']; 										 }
+		$storeslist	= getModel('store')->getstorebyname($first,$limit,$storenameval,false);
+		if(getModel('store')->getstorebyname($first,$limit,$storenameval,false))
+		{	
+			$data['stores']=$storeslist; 
+				$data['pagination_url'] = 'admin/retailerstores/?store='.$storenameval.'&';
+				$data['pagination_num'] = ceil(getModel('store')->getstorebyname(null,null,$storenameval,'count')/$limit);
+			$this->view->renderAdmin('customers/retailerStores.phtml',$data); 
+
+		}
+		else { $this->view->renderAdmin('customers/retailerStores.phtml'); }
+		}
+
+		elseif($retailer == 'all')
 		{
 
 		$data['stores'] = getModel('store')->getStores($first,$limit);

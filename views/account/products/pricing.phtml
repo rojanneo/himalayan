@@ -23,6 +23,9 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 				<?php else:?>
 					<?php $width = 617; $height = 297; $class="ruff_roots"?>
 				<?php endif;?>
+				<?php if($product['psku'] == 'yaky_charms'):?>
+					<?php $width = 538; $height = 295; $class="yaky_charms"?>
+				<?php endif;?>
 				<div class="product <?php echo $class?>">
 					<img src="<?php echo URL.'timthumb.php?src='.$base.'&h='.$height.'&w='.$width.'&a=t'.$zc?>"/>
 				</div>
@@ -39,14 +42,14 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 										<p>For dogs under <?php echo $dog_size?></p>
 									<?php else:?>
 										<?php if($dog_size != '65 lbs & over'):?>
-											<p>an all-natural dog toy for dogs under <?php echo $dog_size;?></p>
+											<p>an all-natural dog toy for dogs <?php echo $dog_size;?></p>
 										<?php else:?>
 											<p>an all-natural dog toy for dogs <?php echo $dog_size;?></p>
 										<?php endif;?>
 									<?php endif;?>
 								<?php endif;?>
 				</div>
-						<div class="desc">			
+						<div class="desc <?php echo $product['psku']?>">			
 							<?php $min_pieces = $productModel->getProductAttributeByCode($product_id,'min_pieces');
 							$max_pieces = $productModel->getProductAttributeByCode($product_id, 'max_pieces');?>
 							<?php $min_cal = $productModel->getProductAttributeByCode($product_id, 'min_cal'); 
@@ -56,7 +59,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 							if($cal_unit == 'None') $cal_unit = null;
 							?>
 							<?php if($min_pieces != $max_pieces):?>
-								<p><?php if($min_pieces != false and $max_pieces!=false):?>
+								<p class="<?php echo $product['psku']?>"><?php if($min_pieces != false and $max_pieces!=false):?>
 									<?php echo $min_pieces.' - '.$max_pieces?> pieces 
 								<?php endif;?>
 								<?php if(($min_cal == $max_cal)):?>
@@ -69,8 +72,8 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 								<?php endif;?>
 							</p>
 						<?php else:?>
-							<?php if($product['psku'] !='hdc_seasoning'):?>
-							<p><?php if($min_pieces != false and $max_pieces!=false):?>
+							<?php if($product['psku'] !='hdc_seasoning' and $product['psku'] != 'yaky_charms'):?>
+							<p class="<?php echo $product['psku']?>"><?php if($min_pieces != false and $max_pieces!=false):?>
 								<?php if($min_pieces != false and $max_pieces!=false):?>
 									<?php if($min_pieces == 1) $pieces_text = 'piece'; else $pieces_text='pieces';?>
 									<?php echo $min_pieces?> <?php echo $pieces_text;?> 
@@ -85,11 +88,24 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 							<?php endif;?>
 						<?php endif;?></p>
 						<?php else:?>
-							<p><?php echo $weight.' oz bottle';?> &nbsp; | &nbsp; <?php echo $min_cal.' cal '.$cal_unit;?></p>
+							<?php if($product['psku'] == 'hdc_seasoning'):?>
+								<p class="<?php echo $product['psku']?>"><?php echo $weight.' oz bottle';?> &nbsp; | &nbsp; <?php echo $min_cal.' cal '.$cal_unit;?></p>
+							<?php else:?>
+							<?php if($product['psku'] == 'yaky_charms'):?>
+									<?php $cases = $productModel->getProductAttributeByCode($product_id,'case_per_bag');?>
+									<?php if($cases):?>
+										<p class="<?php echo $product['psku']?>">case of <?php echo $cases?> bags
+										<?php $cal = $productModel->getProductAttributeByCode($product_id,'calories');?>
+										<?php $cal_type = $productModel->getProductAttributeByCode($product_id,'calorie_type');?>
+										| <?php echo $cal.' cal '.$cal_type?>
+										</p>
+									<?php endif;?>
+								<?php endif;?>
+								<?php endif;?>
 						<?php endif;?>
 					<?php endif;?>
 				</div>
-				<div class="productPricing">
+				<div class="productPricing <?php echo $product['psku']?>">
 									<?php if($role != 'customer'):?>
 						<?php $price = $productModel->getProductAttributeByCode($product_id,'price');?>
 						<?php if($price):?>
@@ -211,7 +227,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 					<?php foreach($variations as $variation_id):?>
 						<?php $variation = $productModel->getProduct($variation_id);?>
 						<div class="productTitle">
-							<p class="product-name"><?php echo $variation['pname']?></p>
+							<p class="product-name"><?php echo $variation['pname'].'"'?></p>
 						</div>
 						<div class="desc-stick">
 						<?php $caption = $productModel->getProductAttributeByCode($variation_id,'caption_text');?>
@@ -227,7 +243,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 							<?php $pieces_per_box = $productModel->getProductAttributeByCode($variation_id,'pieces_per_box');?>
 							<?php $calories = $productModel->getProductAttributeByCode($variation_id, 'min_cal');?>
 							<?php if($pieces_per_box):?>
-								<p><?php echo 'box of '.$pieces_per_box.' pieces&nbsp;&nbsp;&nbsp;:&nbsp;'.$calories.' cal per stick'?></p>
+								<p style="margin-left:1px"><?php echo 'box of '.$pieces_per_box.' pieces&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;'.$calories.' cal per stick'?></p>
 							<?php endif;?>
 							<?php $price = $productModel->getProductAttributeByCode($variation_id, 'price');?>
 							<?php if($price):?>
@@ -589,7 +605,7 @@ $role = getModel('customer')->getCustomerRole($session['user_id']);?>
 		itemMargin: 7,
 		minItems:10,
         maxItems:30,
-		move:3,
+		move:0,
 		asNavFor: '.pricing-products'
 	});
 

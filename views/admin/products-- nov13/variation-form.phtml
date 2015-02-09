@@ -1,0 +1,205 @@
+
+<?php loadHelper('view');?>
+<?php loadHelper('inputs');?>
+<style>
+
+#cropContainerHeader {
+			width: 500px;
+			height: 300px;
+			position:relative; /* or fixed or absolute */
+		}
+		#cropContainerModal0, #cropContainerModal1, .croppic { width:500px; height:300px; position: relative; border:1px solid #ccc;}
+
+</style>
+<div class="page-wrapper">
+		<div class="page-form">
+			<div class="page-head">
+				<?php if(!isset($view_product)):?>
+				<h3>Add New Product</h3>
+			<?php else:?>
+			<h3>Edit Product</h3>
+		<?php endif;?>
+	</div>
+	<div class="actions">
+		<div class="tabs">
+			<a href="#" class="tab" id="general">General</a>
+			<a href="#" class="tab" id="attributes">Attributes</a>
+			<a href="#" class="tab" id="images-tab">Images</a>
+		</div>
+	</div>
+	<div class="form">
+		<form method="post" enctype="multipart/form-data" action="<?php echo ADMIN_URL.'products/addVariation'?>">
+			<input type="hidden" name="attribute_set" value="<?php echo $view_set?>"/>
+		<input type="hidden" name="product_type" value="1"/>
+		<input type="hidden" name="is_variation" value="1"/>
+			<ul>
+				<li class="field">
+					<div class="input">
+						<input class="button" type="submit" value="save"/>
+					</div></li>
+					<div class="general tab-content">
+						<li class="field">
+							<div class="input-title">
+								<label for = "name">Name</label>
+							</div>
+							<div class="input">
+								<input type="text" class="input-box required text-validation" name="name"/>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "name">Sku</label>
+							</div>
+							<div class="input">
+								<input type="text" class="input-box required text-validation" name="sku"/>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "quantity">Quantity Available</label>
+							</div>
+							<div class="input">
+								<input type="text" class="input-box required text-validation" name="quantity"/>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "in_stock">Product in Stock</label>
+							</div>
+							<div class="input">
+								<select name="in_stock">
+									<option value="0"><?php echo convertStockIdToText(0);?></option>
+									<option value="1"><?php echo convertStockIdToText(1);?></option>
+								</select>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "status">Product Status</label>
+							</div>
+							<div class="input">
+								<select name="status">
+									<option value="0"><?php echo convertStatusIdToText(0);?></option>
+									<option value="1"><?php echo convertStatusIdToText(1);?></option>
+								</select>
+							</div>
+						</li>
+					</div>
+					<div class="attributes tab-content" style="display:none">
+						<?php if(isset($view_attributes)):?>
+						<?php foreach ($view_attributes as $attribute):?>
+						<?php if($attribute['is_required'] == 0) $required = null; else $required = 'input-box required';?>
+						<li class="field">
+							<div class="input-title">
+								<label for = <?php echo $attribute['acode']?>><?php echo $attribute['aname']?></label>
+							</div>
+							<div class="input">
+								<?php switch($attribute['atype']): 
+								case 'int':?>
+								<input class="<?php echo $required?>" type=<?php echo $attribute['atype']?> name="attributes[<?php echo $attribute['acode']?>]"/>
+								<?php break;?>
+								<?php case 'varchar':?>
+								<input class="<?php echo $required?>" type=<?php echo $attribute['atype']?> name="attributes[<?php echo $attribute['acode']?>]"/>
+								<?php break;?>
+								<?php case 'text':?>
+								<textarea class="editor <?php echo $required?>" name="attributes[<?php echo $attribute['acode']?>]" style="width: 400px"></textarea>
+								<?php break;?>
+								<?php case 'select':?>
+								<select class="<?php echo $required?>" name="attributes[<?php echo $attribute['acode']?>]">
+									<?php $options = getModel('attribute')->getAttributeOptions($attribute['aid'])?>
+									<?php foreach($options as $option):?>
+									<option value=<?php echo $option['vid']?>><?php echo $option['value']?></option>
+								<?php endforeach;?>
+							</select>
+							<?php break;?>
+							<?php endswitch;?>
+						</div>
+					</li>
+				<?php endforeach;?>
+			<?php endif;?>
+		</div>
+		<div class="images-tab tab-content" style="display:none">
+<table>
+											<thead>
+												<th>Image</th>
+			<!-- <th>Base Image</th>
+			<th>Thumbnail</th> -->
+		</thead>
+		<tbody class="gallery-table">
+		</tbody>
+		</table>
+	<div id="mulitplefileuploader">Upload</div>
+	<input type="hidden" name="gallery_images" id="image_names"/>
+<script>
+	var settings = {
+	url: "<?php echo ADMIN_URL.'products/ajaxImageUpload'?>",
+	method: "POST",
+	allowedTypes:"jpg,png,gif",
+	fileName: "myfile",
+	multiple: true,
+	onSuccess:function(files,data,xhr)
+	{
+		var val = $('#image_names').val();
+		$('#image_names').val(data+','+val);
+		var str = '<tr><td>';
+		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
+		str += '<img src="'+url+data+'&h=300&w=500"/></td></tr>';
+		$('tbody.gallery-table').last().append(str);
+		
+	},
+	onError: function(files,status,errMsg)
+	{		
+		$("#status").html("<font color='red'>Upload is Failed</font>");
+	}
+}
+$("#mulitplefileuploader").uploadFile(settings);
+</script>
+	</div>
+			<li class="field">
+				<div class="input">
+					<input class="button" type="submit" value="save"/>
+				</div></li>
+			</ul>
+			</form>
+		</div>
+</div>
+</div>
+
+			<script>
+
+			var croppicContainerModalOptions = {
+				uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
+				cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
+				modal:true,
+				imgEyecandyOpacity:0.4,
+				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+				onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+			}
+
+			var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+
+			$('a.add').click(function(){
+				var id = parseInt($(this).attr('id')) + 1;
+				croppicContainerModalOptions.outputUrlId = 'outputUrlId'+id;
+				$('.images').append('<li class="field"><div class="input"><div id="cropContainerModal-'+id+'" class="croppic"></div></div></li><input type="hidden" name="gallery_images[]" id="input-'+id+'"/></div>');
+
+				var script   = document.createElement("script");
+				script.type  = "text/javascript";
+				script.text  = "var cropContainerModal = new Croppic('cropContainerModal-"+id+"', croppicContainerModalOptions);";               // use this for inline script
+				document.body.appendChild(script);
+				$(this).attr('id',id);
+			});
+
+			$('.tabs a').click(function(){
+			var id = $(this).attr('id');
+			$('.tab-content').hide();
+			$('.'+id).show();
+
+		});
+
+			</script>
+<script>
+$('.form form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>

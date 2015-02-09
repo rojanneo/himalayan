@@ -67,6 +67,7 @@ class ProductsAdminController extends Controller
 	{
 		$output_dir = "assets/uploads/products/";
 		$outpurfiledir = 'products/';
+		$uniqid = uniqid();
 
 		if(isset($_FILES["myfile"]))
 		{
@@ -77,8 +78,8 @@ class ProductsAdminController extends Controller
 		    
 		    	if(!is_array($_FILES["myfile"]['name'])) //single file
 		    	{
-		       	 	$fileName = uniqid().'_'.$_FILES["myfile"]["name"];
-		       	 	move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. uniqid().'_'.$_FILES["myfile"]["name"]);
+		       	 	$fileName = $uniqid.'_'.$_FILES["myfile"]["name"];
+		       	 	move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. $uniqid .'_'.$_FILES["myfile"]["name"]);
 		       	 	 //echo "<br> Error: ".$_FILES["myfile"]["error"];
 		       	 	 
 			       	 	 $ret[$fileName]= $output_dir.$fileName;
@@ -88,15 +89,15 @@ class ProductsAdminController extends Controller
 		    	    	$fileCount = count($_FILES["myfile"]['name']);
 		    		  for($i=0; $i < $fileCount; $i++)
 		    		  {
-		    		  	$fileName = uniqid().'_'.$_FILES["myfile"]["name"][$i];
+		    		  	$fileName = $uniqid.'_'.$_FILES["myfile"]["name"][$i];
 			       	 	 $ret[$fileName]= $output_dir.$fileName;
-		    		    move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.uniqid().'_'.$fileName );
+		    		    move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$uniqid .'_'.$fileName );
 		    		  }
 		    	
 		    	}
 		    }
 		    echo $outpurfiledir.$fileName;
-		 
+		   		 
 		}
 	}
 

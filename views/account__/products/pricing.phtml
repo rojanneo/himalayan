@@ -1,0 +1,584 @@
+<?php loadView('account/account-menu.phtml');?>
+<?php $session = Session::getCurrentSession();
+$role = getModel('customer')->getCustomerRole($session['user_id']);?>
+<?php $image_array = array();?>
+<script type="text/javascript">
+	$('.account-menu ul li a.pricing').addClass('active');
+</script>
+<div class="pricing-products">
+	<ul class="slides">
+		<?php foreach($view_products as $product):?>
+			<?php $base = getModel('products')->getBaseImage($product['pid']);?>
+			<?php $small = getModel('products')->getSmallImage($product['pid']);?>
+			<?php array_push($image_array, $small);?>
+			<?php $product_id = $product['pid'];?>
+			<?php $productModel = getModel('products');?>
+			<?php if($product['psku'] !='yaky_sticks'):?>
+				<?php if($product['psku'] == 'hdc_seasoning') $zc = "&zc=2"; else $zc = null?>
+					<?php if(!$productModel->isConfigurable($product_id)):?>
+				<li>
+				<div class="clearfix pricing-slider">
+				<div class="product">
+					<img src="<?php echo URL.'timthumb.php?src='.$base.'&h=300&w=500&a=t'.$zc?>"/>
+				</div>
+				<div class="product-info">
+				<div class="productTitle">
+					<p class="product-name"><?php echo $product['pname']?></p>
+					<?php $dog_size = $productModel->getProductAttributeByCode($product_id,'dog_size');?>
+							<?php $caption = $productModel->getProductAttributeByCode($product_id,'caption_text');?>
+							<?php if($dog_size):?>
+								<p>For Dogs Under <?php echo $dog_size?></p>
+							<?php endif;?>
+				</div>
+						<div class="desc">			
+							<?php $min_pieces = $productModel->getProductAttributeByCode($product_id,'min_pieces');
+							$max_pieces = $productModel->getProductAttributeByCode($product_id, 'max_pieces');?>
+							<?php $min_cal = $productModel->getProductAttributeByCode($product_id, 'min_cal'); 
+							$max_cal = $productModel->getProductAttributeByCode($product_id, 'max_cal');
+							$cal_unit = $productModel->getProductAttributeByCode($product_id,'calorie_type');
+							if($cal_unit == 'None') $cal_unit = null;
+							?>
+							<?php if($min_pieces != $max_pieces):?>
+								<p><?php if($min_pieces != false and $max_pieces!=false):?>
+									<?php echo $min_pieces.' - '.$max_pieces?> pieces 
+								<?php endif;?>
+								<?php if(($min_cal == $max_cal)):?>
+									<?php if($min_cal != false and $max_cal != false):?>
+										| <?php echo $min_cal.' Cal '.$cal_unit?>
+									<?php endif;?>
+								<?php else:?>
+									<?php if($min_cal != false and $max_cal != false):?>
+										| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+									<?php endif;?>
+								<?php endif;?>
+							</p>
+						<?php else:?>
+							<p><?php if($min_pieces != false and $max_pieces!=false):?>
+								<?php if($min_pieces != false and $max_pieces!=false):?>
+									<?php echo $min_pieces?> pieces 
+								<?php endif;?>
+							<?php endif;?><?php if(($min_cal == $max_cal)):?>
+							<?php if($min_cal != false and $max_cal != false):?>
+								| <?php echo $min_cal.' Cal '.$cal_unit?>
+							<?php endif;?>
+						<?php else:?>
+							<?php if($min_cal != false and $max_cal != false):?>
+								| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+							<?php endif;?>
+						<?php endif;?></p>
+					<?php endif;?>
+				</div>
+				<div class="productPricing">
+									<?php if($role != 'customer'):?>
+						<?php $price = $productModel->getProductAttributeByCode($product_id,'price');?>
+						<?php if($price):?>
+							<?php echo $price;?>
+						<?php endif;?>
+ 					<?php endif;?>
+
+				</div>
+				</div>
+				</div>
+				<?php if($caption):?>
+					<div class="caption">
+						<?php echo $caption;?>
+					</div>
+				<?php endif;?>
+	</li>
+			<?php else:?>
+				<li>
+				<div class="clearfix pricing-slider">
+						<div class="product">
+					<img src="<?php echo URL.'timthumb.php?src='.$base.'&h=300&w=500&a=t'.$zc?>"/>
+				</div>
+				<div class="product-info">
+				<div class="productTitle">
+					<p class="product-name"><?php echo $product['pname']?></p>
+				</div>
+				
+				<?php $variations = $productModel->getVariations($product_id);?>
+				<?php
+								$dog_size = $productModel->getProductAttributeByCode($variations[0],'dog_size');?>
+							<?php if($dog_size):?>
+								<?php if($dog_size == 'All'):?>
+									<p>For all dog size</p>
+								<?php else:?>
+									<p>For dogs under <?php echo $dog_size?></p>
+								<?php endif;?>
+							<?php endif;?>
+	
+				<?php foreach($variations as $variation_id):?>
+					<div class="desc">
+					<?php $caption = $productModel->getProductAttributeByCode($variation_id,'caption_text');?>
+					<?php $variation = getModel('products')->getProduct($variation_id);?>
+					<?php $box_size_crunch = $productModel->getProductAttributeByCode($variation_id, 'box_size_crunch');?>
+					<?php $min_pieces = $productModel->getProductAttributeByCode($variation_id,'min_pieces');
+					$max_pieces = $productModel->getProductAttributeByCode($variation_id, 'max_pieces');
+					$min_cal = $productModel->getProductAttributeByCode($variation_id, 'min_cal'); $max_cal = $productModel->getProductAttributeByCode($variation_id, 'max_cal'); $cal_unit = $productModel->getProductAttributeByCode($variation_id,'calorie_type');
+					if($cal_unit == 'None') $cal_unit = null;
+					?>
+					<?php $box_size_yam = $productModel->getProductAttributeByCode($variation_id, 'box_size_yam');?>
+					<?php $length = $productModel->getProductAttributeByCode($variation_id, 'length');?>
+					<?php $pieces_per_box = $productModel->getProductAttributeByCode($variation_id, 'pieces_per_box');?>
+					<p>
+						<?php if($box_size_crunch):?>
+							<?php echo $box_size_crunch.' box : ';?>
+						<?php elseif($box_size_yam):?>
+							<?php echo $box_size_yam.' box : '?>
+						<?php elseif($pieces_per_box):?>
+							<?php echo 'box of '.$pieces_per_box.' pieces '?>						
+						<?php endif;?>
+
+						<?php if($min_pieces != $max_pieces):?>
+							<?php if($min_pieces != false and $max_pieces!=false):?>
+								<?php echo $min_pieces.' - '.$max_pieces?> pieces 
+							<?php endif;?>
+							<?php if(($min_cal == $max_cal)):?>
+								<?php if($min_cal != false and $max_cal != false):?>
+									| <?php echo $min_cal.' Cal '.$cal_unit?>
+								<?php endif;?>
+							<?php else:?>
+								<?php if($min_cal != false and $max_cal != false):?>
+									| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+								<?php endif;?>
+							<?php endif;?>
+
+						<?php else:?>
+							<?php if($min_pieces != false and $max_pieces!=false):?>
+								<?php echo $min_pieces?> pieces 
+							<?php endif;?>
+							<?php if(($min_cal == $max_cal)):?>
+								<?php if($min_cal != false and $max_cal != false):?>
+									| <?php echo $min_cal.' Cal '.$cal_unit?>
+								<?php endif;?>
+							<?php else:?>
+								<?php if($min_cal != false and $max_cal != false):?>
+									| <?php echo $min_cal.' - '.$max_cal.' Cal '.$cal_unit?>
+								<?php endif;?>
+							<?php endif;?>
+						<?php endif;?>
+					</p>
+				</div>
+				<div class="productPricing">
+				<?php if($role != 'customer'):?>
+						<?php $price = $productModel->getProductAttributeByCode($variation_id,'price');?>
+						<?php if($price):?>
+							<?php echo $price;?>
+						<?php endif;?>
+					<?php endif;?>
+				</div>
+					
+				<?php endforeach;?>
+				</div>
+				</div>
+				<?php if($caption):?>
+					<div class="caption">
+						<?php echo $caption;?>
+					</div>
+				<?php endif;?>
+				</li>
+			<?php endif;?>
+		<?php else:?>
+			<li>
+			<?php $variations = $productModel->getVariations($product['pid']);?>
+				<?php $caption = null;?>
+				<div class= "clearfix pricing-slider">
+				<div class="product">
+				<img src="<?php echo URL.'timthumb.php?src='.$base.'&h=300&w=500&a=t'.$zc?>"/>
+				</div>
+				<div class="product-info stick-info">
+					<?php foreach($variations as $variation_id):?>
+						<?php $variation = $productModel->getProduct($variation_id);?>
+						<div class="productTitle">
+							<p class="product-name"><?php echo $variation['pname']?></p>
+						</div>
+						<div class="desc">
+						<?php $caption = $productModel->getProductAttributeByCode($variation_id,'caption_text');?>
+						<?php
+							$dog_size = $productModel->getProductAttributeByCode($variation_id,'dog_size');?>
+							<?php if($dog_size):?>
+								<?php if($dog_size == 'All'):?>
+									<p>For all dog size</p>
+								<?php else:?>
+									<p>For dogs under <?php echo $dog_size?></p>
+								<?php endif;?>
+							<?php endif;?>
+							<?php $pieces_per_box = $productModel->getProductAttributeByCode($variation_id,'pieces_per_box');?>
+							<?php $calories = $productModel->getProductAttributeByCode($variation_id, 'min_cal');?>
+							<?php if($pieces_per_box):?>
+								<?php echo 'box of '.$pieces_per_box.' pieces : '.$calories.' cal per stick'?>
+							<?php endif;?>
+							<?php $price = $productModel->getProductAttributeByCode($variation_id, 'price');?>
+							<?php if($price):?>
+								<?php echo $price;?>
+							<?php endif;?>
+							</div>
+
+					<?php endforeach;?>					
+				</div>
+				</div>
+				<?php if($caption):?>
+					<div class="caption">
+					<?php echo $caption;?>
+					</div>
+				<?php endif;?>
+			</li>
+		<?php endif;?>
+		
+<?php endforeach;?>
+<!-- <li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/bag_blue.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">HDC Blue</p>
+	<div class="desc">
+	<p>For Dogs Under 15lbs</p>
+	<p>3 - 4 pieces | 359 cal</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale price: <span>$5.15</span></p>
+	<p>Discounted price: <span>$5.00</span></p>
+	<p>MSRP price: <span>$9.99</span></p>
+<?php endif;?>
+
+	</div>
+	</div>
+</li>
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/bag_gray.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">HDC Gray</p>
+	<div class="desc">
+	<p>For Dogs under 70 pounds</p>
+	<p>1 Piece | 614 Cal</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price : $8.80</p>
+	<p>Discounted Price :$8.60</p>
+	<p>MSRP :$17.99</p>
+<?php endif;?>
+
+	</div>
+	</div>
+</li>
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/bag_green.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">HDC Green</p>
+	<div class="desc">
+	<p>For Dogs under 35 pounds</p>
+	<p>1 Piece | 256 Cal</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :$4.15</p>
+	<p>Discounted Price :	$4.00</p>
+	<p>MSRP :	$7.99</p>
+<?php endif;?>
+
+	</div>
+	</div>
+</li>
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/bag_red.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">HDC Red</p>
+	<div class="desc">
+	<p>For Dogs under 55 pounds</p>
+	<p>1 Piece | 359 Cal</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$5.15</p>
+	<p>Discounted Price :	$5.00</p>
+	<p>MSRP :	$9.99</p>
+<?php endif;?>
+
+	</div>
+	</div>
+</li>
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/bag_yellow.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">HDC Yellow</p>
+	<div class="desc">
+	<p>For Dogs under 65 pounds</p>
+	<p>3 Pieces | 1,179 Cal</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$16.75</p>
+	<p>Discounted Price :	$16.30</p>
+	<p>MSRP :	$27.99</p>
+<?php endif;?>
+
+	</div>
+	</div>
+</li>
+
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/seasoning.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">HDC Seasoning</p>
+	<div class="desc">
+	<p>For all dog sizes</p>
+	<p>2 oz bottle : 204 cal per bottle</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$1.85</p>
+	<p>Discounted Price :	$1.75</p>
+	<p>MSRP :	$3.99</p>
+<?php endif;?>
+
+	</div>
+	</div>
+</li>
+
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/yaky_crunch.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">Yaky Crunch</p>
+	<div class="desc">
+	<p>For all dog sizes</p>
+	<p>1.25 Oz box: 75 - 80 Pieces | 1.5 - 2 Cal per treat</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$2.65</p>
+	<p>Discounted Price :	$2.50</p>
+	<p>MSRP :	$4.99</p>
+<?php endif;?>
+
+	<p>3 Oz box: 200 - 220 Pieces | 1.5 - 2 Cal per treat</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$5.95</p>
+	<p>Discounted Price :	$5.65</p>
+	<p>MSRP :	$11.99</p>
+<?php endif;?>
+
+	</div>
+	</div>
+</li>
+
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/yaky_nuggets.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">Yaky Nugget</p>
+	<div class="desc">
+	<p>For all dog sizes</p>
+	<p>21 - 24 Pieces | 17 - 20 Cal per treat</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$2.65</p>
+	<p>Discounted Price :	$2.50</p>
+	<p>MSRP :	$4.99</p>
+<?php endif;?>
+	</div>
+	</div>
+</li>
+
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/yPuff2.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">Yaky Nugget</p>
+	<div class="desc">
+	<p>For all dog sizes</p>
+	<p>12 - 13 Pieces | 16 - 18 Cal per treat</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$2.65</p>
+	<p>Discounted Price :	$2.50</p>
+	<p>MSRP :	$4.99</p>
+<?php endif;?>
+	</div>
+	</div>
+</li>
+
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/yaky_stick_12_box.jpg'?>"/>
+	<img src="<?php echo ASSET_URL.'images/yaky_stick_6_box.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">Yaky Sticks - 12"</p>
+	<div class="desc">
+	<p>For Dogs under 50 pounds</p>
+	<p>Box of 12 Pieces | 152 Cal</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$71.40/cs; $5.95/pc</p>
+	<p>Discounted Price :	$69.00/cs; $5.75/pc</p>
+	<p>MSRP :	$11.99/pc</p>
+<?php endif;?>
+	</div>
+
+	<p class="product-name">Yaky Sticks - 6"</p>
+	<div class="desc">
+	<p>For Dogs under 25 pounds</p>
+	<p>Box of 12 Pieces | 152 Cal</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$42.00/cs; $3.50/pc</p>
+	<p>Discounted Price :	$40.50/cs; $3.35/pc</p>
+	<p>MSRP :	$7.49/pc</p>
+<?php endif;?>
+	</div>
+	</div>
+</li>
+
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/fruity_fruit_box.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">Yaky Yam Fruity Fruit</p>
+	<div class="desc">
+	<p>For all dog sizes</p>
+	<p>4.0 Oz box: 40 - 43 Pieces | 8 - 11 Cal per treat</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$1.85</p>
+	<p>Discounted Price :	$1.75</p>
+	<p>MSRP :	$3.99</p>
+<?php endif;?>
+
+	<p>14.0 Oz box: 140 - 146 Pieces | 8 - 11 Cal per treat</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$4.85</p>
+	<p>Discounted Price :	$4.60</p>
+	<p>MSRP :	$9.99</p>
+<?php endif;?>
+
+	</div>
+	</div>
+</li>
+
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/lotsa_chicken_box.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">Yaky Yam Lotsa Chicken</p>
+	<div class="desc">
+	<p>For all dog sizes</p>
+	<p>4.0 Oz box: 40 - 43 Pieces | 8 - 11 Cal per treat</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$1.85</p>
+	<p>Discounted Price :	$1.75</p>
+	<p>MSRP :	$3.99</p>
+<?php endif;?>
+
+	<p>14.0 Oz box: 140 - 146 Pieces | 8 - 11 Cal per treat</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$4.85</p>
+	<p>Discounted Price :	$4.60</p>
+	<p>MSRP :	$9.99</p>
+<?php endif;?>
+
+	</div>
+	</div>
+</li>
+
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/very_veggie_box.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">Yaky Yam Very Veggie</p>
+	<div class="desc">
+	<p>For all dog sizes</p>
+	<p>4.0 Oz box: 40 - 43 Pieces | 8 - 11 Cal per treat</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$1.85</p>
+	<p>Discounted Price :	$1.75</p>
+	<p>MSRP :	$3.99</p>
+<?php endif;?>
+
+	<p>14.0 Oz box: 140 - 146 Pieces | 8 - 11 Cal per treat</p>
+
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$4.85</p>
+	<p>Discounted Price :	$4.60</p>
+	<p>MSRP :	$9.99</p>
+<?php endif;?>
+
+	</div>
+	</div>
+</li>
+
+<li>
+	<div class="product">
+	<img src="<?php echo ASSET_URL.'images/POP_web_l.jpg'?>"/>
+	</div>
+	<div class="product-info">
+	<p class="product-name">Himalayan POP Display</p>
+	<div class="desc">
+	<p>Collection of all Himalayan Products</p>
+<?php if($role != 'customer'):?>
+	<p>Wholesale Price :	$545.50</p>
+<?php endif;?>
+	</div>
+	</div>
+</li> -->
+
+
+</ul>
+</div>
+
+<div class="products-thumbs">
+	<ul class="slides">
+		<?php foreach($image_array as $image):?>
+			<li>
+				<img src="<?php echo URL.'timthumb.php?src='.$image.'&h=85&w=120'?>"/>
+			</li>
+		<?php endforeach;?>
+</ul>
+</div>
+
+</div>
+
+<script>
+	$(document).ready(function(){
+	$('.products-thumbs').flexslider({
+		animation: "slide",
+		controlNav: false,
+		directionNav: true,
+		animationLoop: false,
+		slideshow: false,
+		itemWidth: 79,
+		itemHeight:48,
+		itemMargin: 7,
+		move:3,
+		asNavFor: '.pricing-products'
+	});
+
+	$('.pricing-products').flexslider({
+		animation: "slide",
+		controlNav: false,
+		directionNav: false,
+		animationLoop: false,
+		slideshow: false,
+		itemWidth: 1024,
+		itemHeight:200,
+		sync: ".products-thumbs",
+	});
+});
+</script>

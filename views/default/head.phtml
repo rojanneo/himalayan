@@ -20,7 +20,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="<?php echo ASSET_URL.'images/favicon.ico'?>">
         <!-- CSS CALLS -->
-        <?php addCss('reset.css');?>
+        <?php //addCss('reset.css');?>
         <?php addCss('normalize.css');?> 
         <?php addCss('normalize.min.css');?> 
         <?php addCss('flexslider.css');?> 
@@ -28,17 +28,18 @@
         <?php addCss('style.css');?> 
 
         <!-- JS CALLS -->
-        <?php addJS('rating/jquery.min.js');?>
-        <?php addJS('jquery-1.11.1.js');?>
-        <?php addJS('jquery-1.11.1.js');?>
+        <?php //addJS('rating/jquery.min.js');?>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <?php //addJS('jquery-1.11.1.js');?>
+        <?php //addJS('jquery-1.11.1.js');?>
         <?php addJS('modernizr-2.6.2.min.js');?>
         <?php addJS('plugins.js');?>
-        <?php addJS('jquery.flexslider.js');?>
+        <?php addJS('jquery.flexslider-min.js');?>
         <?php addJS('validation.js');?>
         <?php addJS('jquery.tinyscrollbar.js');?>
         <?php addJS('main.js');?>
         <?php addJS('himalayan.js');?>
-
+<script type="text/javascript" src="//1388.meteora.us/pixel?id=1388" async="true"></script>
 <script>
         var JS_BASE_URL = "<?php echo URL?>";
         </script>

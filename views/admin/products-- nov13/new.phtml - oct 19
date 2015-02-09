@@ -1,0 +1,909 @@
+<?php loadHelper('view');?>
+
+<style>
+
+#cropContainerHeader {
+	width: 500px;
+	height: 300px;
+	position:relative; /* or fixed or absolute */
+}
+#cropContainerModal0, #cropContainerModal1, .croppic { width:500px; height:300px; position: relative; border:1px solid #ccc;}
+
+</style>
+
+<!-- SIMPLE PRODUCT START-->
+
+<?php if($view_type == 1):?>
+	<div class="page-wrapper">
+		<div class="page-form">
+			<div class="page-head">
+				<?php if(!isset($view_product)):?>
+				<h3>Add New Product</h3>
+			<?php else:?>
+			<h3>Edit Product</h3>
+		<?php endif;?>
+	</div>
+	<div class="actions">
+		<div class="tabs">
+			<a href="#" class="tab" id="general">General</a>
+			<a href="#" class="tab" id="attributes">Attributes</a>
+			<a href="#" class="tab" id="categories">Categories</a>
+			<a href="#" class="tab" id="images-tab">Images</a>
+		</div>
+	</div>
+
+	<!--SIMPLE PRODUCT ADD -->
+	<?php if(!isset($view_product)):?>
+	<div class="form">
+		<form method="post" enctype="multipart/form-data" action="<?php echo ADMIN_URL.'products/addPost'?>">
+			<input type="hidden" name="attribute_set" value="<?php echo $view_set?>"/>
+			<input type="hidden" name="product_type" value="<?php echo $view_type?>"/>
+			<ul>
+				<li class="field">
+					<div class="input">
+						<input class="button" type="submit" value="save"/>
+					</div></li>
+					<div class="general tab-content">
+						<li class="field">
+							<div class="input-title">
+								<label for = "name">Name</label>
+							</div>
+							<div class="input">
+								<input type="text" class="input-box required text-validation" name="name"/>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "name">Sku</label>
+							</div>
+							<div class="input">
+								<input type="text" class="input-box required text-validation" name="sku"/>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "quantity">Quantity Available</label>
+							</div>
+							<div class="input">
+								<input type="text" class="input-box required text-validation" name="quantity"/>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "in_stock">Product in Stock</label>
+							</div>
+							<div class="input">
+								<select name="in_stock">
+									<option value="0"><?php echo convertStockIdToText(0);?></option>
+									<option value="1"><?php echo convertStockIdToText(1);?></option>
+								</select>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "status">Product Status</label>
+							</div>
+							<div class="input">
+								<select name="status">
+									<option value="0"><?php echo convertStatusIdToText(0);?></option>
+									<option value="1"><?php echo convertStatusIdToText(1);?></option>
+								</select>
+							</div>
+						</li>
+					</div>
+					<div class="attributes tab-content" style="display:none">
+						<?php if(isset($view_attributes)):?>
+						<?php foreach ($view_attributes as $attribute):?>
+						<?php if($attribute['is_required'] == 0) $required = null; else $required = 'input-box required';?>
+						<li class="field">
+							<div class="input-title">
+								<label for = <?php echo $attribute['acode']?>><?php echo $attribute['aname']?></label>
+							</div>
+							<div class="input">
+								<?php switch($attribute['atype']): 
+								case 'int':?>
+								<input class="<?php echo $required?>" type="text" name="attributes[<?php echo $attribute['acode']?>]"/>
+								<?php break;?>
+								<?php case 'varchar':?>
+								<input class="<?php echo $required?>" type="text" name="attributes[<?php echo $attribute['acode']?>]"/>
+								<?php break;?>
+								<?php case 'text':?>
+								<textarea class="editor <?php echo $required?>" name="attributes[<?php echo $attribute['acode']?>]" style="width: 400px"></textarea>
+								<?php break;?>
+								<?php case 'select':?>
+								<select class="<?php echo $required?>"  name="attributes[<?php echo $attribute['acode']?>]">
+									<?php $options = getModel('attribute')->getAttributeOptions($attribute['aid'])?>
+									<?php foreach($options as $option):?>
+									<option value=<?php echo $option['vid']?>><?php echo $option['value']?></option>
+								<?php endforeach;?>
+							</select>
+							<?php break;?>
+							<?php endswitch;?>
+						</div>
+					</li>
+				<?php endforeach;?>
+			<?php endif;?>
+		</div>
+		<div class="categories tab-content" style="display:none">
+			<?php if(isset($view_catlist)){ $i=1;?>
+
+			<h3>Category </h3>
+
+			<ul>
+				<?php foreach ($view_catlist as $view_catlist) { ?>	
+				<li>
+					<input type="checkbox" id="pc<?php echo $i; ?>" name="pccheck_list[<?php echo $i; ?>]" value="<?php echo $view_catlist['category_id']; ?>" />
+					<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_name']; ?></label>
+					<?php $i++;}?>
+				</li>
+				<?php } ?>
+
+			</ul>
+		</div>
+<!-- 		<a href="javascript:void(0)" class="add-image">Add Image</a>
+		<table>
+			<thead>
+				<th>Image</th>
+			</thead>
+			<?php $base_count = 0; $thumb_count =0; ?>
+			<tbody class="gallery-table">
+				<tr>
+					<td><input type="file" name="gallery[]"/></td>
+				</tr>
+			</tbody>
+		</table>
+	-->
+<div class="images-tab tab-content" style="display:none">
+<table>
+											<thead>
+												<th>Image</th>
+			<!-- <th>Base Image</th>
+			<th>Thumbnail</th> -->
+		</thead>
+		<tbody class="gallery-table">
+		</tbody>
+		</table>
+	<div id="mulitplefileuploader">Upload</div>
+	<input type="hidden" name="gallery_images" id="image_names"/>
+<script>
+	var settings = {
+	url: "<?php echo ADMIN_URL.'products/ajaxImageUpload'?>",
+	method: "POST",
+	allowedTypes:"jpg,png,gif",
+	fileName: "myfile",
+	multiple: true,
+	onSuccess:function(files,data,xhr)
+	{
+		var val = $('#image_names').val();
+		$('#image_names').val(data+','+val);
+		var str = '<tr><td>';
+		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
+		str += '<img src="'+url+data+'&h=300&w=500"/></br><input type="radio" name="radiobasval" value="'+data+'"/>base</br><input type="radio" name="radiothumval" value="'+data+'"/>Thumnail Image</br><input type="radio" name="radiosmallval" value="'+data+'"/>Small Image</br></td></tr>';
+		$('tbody.gallery-table').last().append(str);
+		
+	},
+	onError: function(files,status,errMsg)
+	{		
+		$("#status").html("<font color='red'>Upload is Failed</font>");
+	}
+}
+$("#mulitplefileuploader").uploadFile(settings);
+</script>
+	</div>
+<!--	
+		<li class="field">
+			<div class="input">
+				<a class = "button add" href="javascript:void(0)" style="width:147px;margin-top:10px;padding:1px"id='0'>Add Another Image</a>
+			</div></li>
+			<div class="images">
+				<li class="field">
+					<div class="input">
+						<div class="croppic" id="cropContainerModal-0"></div>
+					</div></li>
+					<input type="hidden" name="gallery_images[]" id='input-0'/>
+				</div>
+		-->
+			<script>
+
+			// var croppicContainerModalOptions = {
+			// 	uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
+			// 	cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
+			// 	modal:true,
+			// 	imgEyecandyOpacity:0.4,
+			// 	loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+			// 	onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+			// }
+
+			// var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+
+			$('a.add').click(function(){
+				var id = parseInt($(this).attr('id')) + 1;
+				croppicContainerModalOptions.outputUrlId = 'outputUrlId'+id;
+				$('.images').append('<li class="field"><div class="input"><div id="cropContainerModal-'+id+'" class="croppic"></div></div></li><input type="hidden" name="gallery_images[]" id="input-'+id+'"/></div>');
+
+				var script   = document.createElement("script");
+				script.type  = "text/javascript";
+				script.text  = "var cropContainerModal = new Croppic('cropContainerModal-"+id+"', croppicContainerModalOptions);";               // use this for inline script
+				document.body.appendChild(script);
+				$(this).attr('id',id);
+			});
+			</script>
+			<li class="field">
+				<div class="input">
+					<input class="button" type="submit" value="save"/>
+				</div></li>
+
+			</form>
+		</div>
+
+		<script>
+		$(document).ready(function()
+		{
+			// $('a.add-image').click(function(){
+			// 	$('tbody.gallery-table').append('<tr class="option"><td><input type="file" name="gallery[]"/></td><td><a href="javascript:void(0)" class="remove-image">Remove Image</a></td></tr>');
+			// 	var script   = document.createElement("script");
+			// 	script.type  = "text/javascript";
+			// 	script.text  = "$('a.remove-image').click(function(){$(this).parent().parent().remove()});";               // use this for inline script
+			// 	document.body.appendChild(script);
+			// });
+
+		$('.tabs a').click(function(){
+			var id = $(this).attr('id');
+			$('.tab-content').hide();
+			$('.'+id).show();
+
+		});
+
+
+	});
+
+		$('.form form').submit(function(){
+	return $(this).validate('input-box');
+});
+		</script>
+		
+	</div>
+
+	<!-- SIMPLE PRODUCT EDIT -->
+<?php else:?>
+	<div class="form edit-form">
+		<form method="post" enctype="multipart/form-data" action="<?php echo ADMIN_URL.'products/editPost'?>">
+			<input type="hidden" name="product_id" value="<?php echo $view_product['pid']?>"/>
+			<input type="hidden" name="attribute_set" value="<?php echo $view_product['product_asid']?>"/>
+			<input type="hidden" name="product_type" value="<?php echo $view_product['ptype']?>"/>
+			<ul>
+				<li class="field">
+					<div class="input">
+						<input class="button" type="submit" value="save"/>
+					</div></li>
+					<div class="general tab-content">
+						<li class="field">
+							<div class="input-title">
+								<label for = "name">Name</label>
+							</div>
+							<div class="input">
+								<input type="text" class="input-box required text-validation" name="name" value="<?php echo $view_product['pname']?>"/>
+							</div></li>
+							<li class="field">
+								<div class="input-title">
+									<label for = "name">Sku</label>
+								</div>
+								<div class="input">
+									<input type="text" class="input-box required text-validation" name="sku" value="<?php echo $view_product['psku']?>"/>
+								</div></li>
+								<li class="field">
+									<div class="input-title">
+										<label for = "quantity">Quantity Available</label>
+									</div>
+									<div class="input">
+										<input type="text" class="input-box required text-validation" name="quantity" value="<?php echo $view_product['quantity']?>"/>
+									</div></li>
+									<li class="field">
+										<div class="input-title">
+											<label for = "in_stock">Product in Stock</label>
+										</div>
+										<div class="input">
+											<select name="in_stock">
+												<option value="0" <?php echo ($view_product['in_stock'] == 0)?'selected':null?>><?php echo convertStockIdToText(0);?></option>
+												<option value="1" <?php echo ($view_product['in_stock'] == 1)?'selected':null?>><?php echo convertStockIdToText(1);?></option>
+											</select>
+										</div></li>
+										<li class="field">
+											<div class="input-title">
+												<label for = "status">Product Status</label>
+											</div>
+											<div class="input">
+												<select name="status">
+													<option value="0" <?php echo ($view_product['status'] == 0)?'selected':null?>><?php echo convertStatusIdToText(0);?></option>
+													<option value="1" <?php echo ($view_product['status'] == 1)?'selected':null?>><?php echo convertStatusIdToText(1);?></option>
+												</select>
+											</div></li>
+										</div>
+										<?php if(isset($view_attributes)):?>
+										
+										<div class="attributes tab-content" style="display:none">
+											<?php foreach ($view_attributes as $attribute):?>
+											<?php if($attribute['is_required'] == 0) $required = null; else $required = 'input-box required';?>
+											<li class="field">
+												<div class="input-title">
+													<label for = <?php echo $attribute['acode']?>><?php echo $attribute['aname']?></label>
+												</div>
+												<div class="input">
+													<?php switch($attribute['atype']): 
+													case 'int':?>
+													<input class="<?php echo $required?>" type="text" name="attributes[<?php echo $attribute['acode']?>]" value="<?php echo getModel('products')->getProductAttributeById($view_product['pid'], $attribute['aid'])?>"/>
+													<?php break;?>
+													<?php case 'varchar':?>
+													<input class="<?php echo $required?>" type=<"text" name="attributes[<?php echo $attribute['acode']?>]" value="<?php echo getModel('products')->getProductAttributeById($view_product['pid'], $attribute['aid'])?>"/>
+													<?php break;?>
+													<?php case 'text':?>
+													<textarea class = "input-box editor <?php echo $required?>" name="attributes[<?php echo $attribute['acode']?>]"><?php echo getModel('products')->getProductAttributeById($view_product['pid'], $attribute['aid'])?></textarea>
+													<?php break;?>
+													<?php case 'select':?>
+													<select class="<?php echo $required?>" name="attributes[<?php echo $attribute['acode']?>]">
+														<?php $options = getModel('attribute')->getAttributeOptions($attribute['aid'])?>
+														<?php foreach($options as $option):?>
+														<option value=<?php echo $option['vid']?>  <?php echo (getModel('products')->getProductAttributeById($view_product['pid'], $attribute['aid']) == $option['vid'])?'selected':null?>><?php echo $option['value']?></option>
+													<?php endforeach;?>
+												</select>
+												<?php break;?>
+												<?php endswitch;?>
+											</div></li>
+										<?php endforeach;?>
+									</div>
+								<?php endif;?>
+
+								<?php if(isset($view_catlist)){ $i=1;?>
+								<div class="categories tab-content" style="display:none">
+									<h3>Category </h3>
+									<ul>
+										<?php foreach ($view_catlist as $view_catlist) { ?>	
+										<li>
+											<input type="checkbox" id="pc<?php echo $i; ?>" name="pccheck_list[<?php echo $i; ?>]" value="<?php echo $view_catlist['category_id']; ?>" 
+											<?php if(is_array($view_CatInList) and in_array($view_catlist['category_id'], $view_CatInList)) { echo'checked'; }?> />
+											<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_name']; ?></label></li>
+											<?php $i++;}?>
+										</ul>
+									</div>
+									<?php } ?>
+									<div class="images-tab tab-content" style="display:none">
+										<!-- <a href="javascript:void(0)" class="add-image">Add Image</a> -->
+										<table>
+											<thead>
+												<th>Image</th>
+			<!-- <th>Base Image</th>
+			<th>Thumbnail</th> -->
+		</thead>
+		<tbody class="gallery-table">
+			<?php if(($view_gallery)):?>
+			<?php foreach($view_gallery as $image):?>
+			<tr>
+				<td><img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image['value'].'&h=300&w=500&a=t'?>"/></td>
+					<!-- <td><input type="radio" name="base_image" <?php echo ($image['is_base_image'])?'class="checked"':null?>/></td>
+					<td><input type="radio" name="thumbnail" <?php echo ($image['is_thumbnail_image'])?'class="checked"':null?>/></td> -->
+					<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="<?php echo $image['gid']?>">Remove Image</a>
+					<input type="radio" name="radiobasval"  value="<?php echo $image['value']; ?>"<?php if($image['is_base_image']==1){?> checked<?php }?> />base</br>
+					<input type="radio" name="radiothumval" value="<?php echo $image['value']; ?>"<?php if($image['is_thumbnail_image']==1){?> checked<?php }?>/>Thumnail Image</br>
+					<input type="radio" name="radiosmallval" value="<?php echo $image['value']; ?>"<?php if($image['is_small_image']==1){?> checked<?php }?>/>Small Image</br>
+					</td>
+					</td>
+			</tr>
+				<?php endforeach;?>
+			<?php endif;?>
+			<?php $base_count = 0; $thumb_count =0; ?>
+<!-- 				<tr class="option">
+					<td><input type="file" name="gallery[]"/></td>
+					<td><input type="radio" name="base_image" id="default-base" value="<?php echo $base_count++?>" /></td>
+					<td><input type="radio" value="<?php echo $thumbnail?>" id ="default-thumbnail" name="thumbnail"/></td>
+					<td><a href="javascript:void(0)" class="remove-image-default">Remove Image</a></td>
+				</tr>
+			-->			</tbody>
+		</table>
+
+	<div id="mulitplefileuploader">Upload</div>
+	<input type="hidden" name="gallery_images" id="image_names"/>
+<script>
+	var settings = {
+	url: "<?php echo ADMIN_URL.'products/ajaxImageUpload'?>",
+	method: "POST",
+	allowedTypes:"jpg,png,gif",
+	fileName: "myfile",
+	multiple: true,
+	onSuccess:function(files,data,xhr)
+	{
+		var val = $('#image_names').val();
+		$('#image_names').val(data+','+val);
+		var str = '<tr><td>';
+		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
+		str += '<img src="'+url+data+'&h=300&w=500"/></br><input type="radio" name="radiobasval" value="'+data+'"/>base</br><input type="radio" name="radiothumval" value="'+data+'"/>Thumnail Image</br><input type="radio" name="radiosmallval" value="'+data+'"/>Small Image</br></td></tr>';
+		$('tbody.gallery-table').last().append(str);		
+		
+	},
+	onError: function(files,status,errMsg)
+	{		
+		$("#status").html("<font color='red'>Upload is Failed</font>");
+	}
+}
+$("#mulitplefileuploader").uploadFile(settings);
+</script>
+	</div>
+		<li class="field">
+			<div class="input">
+				<input class="button" type="submit" value="save"/>
+			</div></li>
+
+		</form>
+		<script>
+		$(document).ready(function()
+		{
+
+			$('.remove-uploaded-image').click(function(){
+				var answer = confirm('Are you sure you want to delete this image?');
+				$image = $(this);
+				if(answer)
+				{
+					var gid = $(this).attr('rel');
+
+					$.ajax({url:"<?php echo ADMIN_URL?>"+"products/deleteImage/"+gid,success:function(result){
+						if(result == 'success')
+						{
+							$image.parent().parent().remove();
+							alert('Image has been Deleted');
+						}
+						else
+						{
+							alert("Image Could Not Be Deleted");
+						}
+					}});
+				}
+				else
+				{
+					return false;
+				}
+			});
+
+
+			$('.tabs a').click(function(){
+				var id = $(this).attr('id');
+				$('.tab-content').hide();
+				$('.'+id).show();
+
+			});
+
+			//$('.checked').attr('checked','checked');
+			$('a.remove-image-default').click(function(){
+				$(this).parent().parent().remove();
+			})
+			// $('a.add-image').click(function(){
+			// 	$('tbody.gallery-table').append('<tr class="option"><td><input type="file" name="gallery[]"/></td><td><a href="javascript:void(0)" class="remove-image">Remove Image</a></td></tr>');
+			// 	var script   = document.createElement("script");
+			// 	script.type  = "text/javascript";
+			// 	script.text  = "$('a.remove-image').click(function(){$(this).parent().parent().remove()});";               // use this for inline script
+			// 	document.body.appendChild(script);
+			// });
+
+
+});
+</script>
+<script>
+
+
+$('.edit-form form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>
+</div>
+<?php endif;?>
+
+</div>
+</div>
+<!-- SIMPLE PRODUCT END -->
+
+<!-- CONFIGURABLE PRODUCT -->
+<?php elseif($view_type == 2):?>
+
+	<div class="page-wrapper">
+		<div class="page-form">
+			<div class="page-head">
+				<?php if(!isset($view_product)):?>
+				<h3>Add New Product</h3>
+			<?php else:?>
+			<h3>Edit Product</h3>
+		<?php endif;?>
+	</div>
+	<div class="actions">
+		<div class="tabs">
+			<a href="#" class="tab" id="general">General</a>
+			<a href="#" class="tab" id="variations">Variations</a>
+			<a href="#" class="tab" id="categories">Categories</a>
+			<a href="#" class="tab" id="images-tab">Images</a>
+		</div>
+	</div>
+
+	<!-- CONFIGURABLE PRODUCT ADD -->
+	<?php if(!isset($view_product)):?>
+	<div class="form">
+		<form method="post" enctype="multipart/form-data" action="<?php echo ADMIN_URL.'products/addpost'?>" class="add-conf-product-form">
+			<input type="hidden" name="attribute_set" value="<?php echo $view_set?>"/>
+			<input type="hidden" name="product_type" value="<?php echo $view_type?>"/>
+			<ul>
+				<li class="field">
+					<div class="input">
+						<input class="button" type="submit" value="save"/>
+					</div></li>
+					<div class="general tab-content">
+						<li class="field">
+							<div class="input-title">
+								<label for = "name">Name</label>
+							</div>
+							<div class="input">
+								<input type="text" class="input-box required text-validation" name="name"/>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "name">Sku</label>
+							</div>
+							<div class="input">
+								<input type="text" class="input-box required text-validation" name="sku"/>
+							</div>
+						</li>
+						<li class="field">
+							<div class="input-title">
+								<label for = "status">Product Status</label>
+							</div>
+							<div class="input">
+								<select name="status">
+									<option value="0"><?php echo convertStatusIdToText(0);?></option>
+									<option value="1"><?php echo convertStatusIdToText(1);?></option>
+								</select>
+							</div></li>
+						</div>
+						<div class="variations tab-content" style="display:none">
+							<h3>Variations</h3>
+							<div id="variation-list">
+							</div>
+							<a class='iframe' href="<?php echo ADMIN_URL?>products/showVariationForm?set=<?php echo $view_set?>">Add Variation</a>
+						</div>
+						<div class="categories tab-content" style="display:none">
+							<?php if(isset($view_catlist)){ $i=1;?>
+
+							<h3>Category </h3>
+
+							<ul>
+								<?php foreach ($view_catlist as $view_catlist) { ?>	
+								<li>
+									<input type="checkbox" id="pc<?php echo $i; ?>" name="pccheck_list[<?php echo $i; ?>]" value="<?php echo $view_catlist['category_id']; ?>" />
+									<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_name']; ?></label>
+									<?php $i++;}?>
+								</li>
+								<?php } ?>
+
+							</ul>
+						</div>
+						<script type="text/javascript">
+						function loadVariations()
+						{
+							$.get( "<?php echo ADMIN_URL?>products/loadVariationList", function( data ) {
+								$( "#variation-list" ).html( data );
+							});
+						}
+						loadVariations();
+						</script>
+						<!-- <a href="javascript:void(0)" class="add-variation-form">Add Variation></a> -->
+
+						<script type="text/javascript">
+						$(".iframe").colorbox({iframe:true, width:"80%", height:"100%", onClosed:function(){ loadVariations() }});
+						</script>
+						<div class="images-tab tab-content" style="display:none">
+							<div class="images-tab tab-content" style="display:none">
+<table>
+											<thead>
+												<th>Image</th>
+			<!-- <th>Base Image</th>
+			<th>Thumbnail</th> -->
+		</thead>
+		<tbody class="gallery-table">
+		</tbody>
+		</table>
+	<div id="mulitplefileuploader">Upload</div>
+	<input type="hidden" name="gallery_images" id="image_names"/>
+<script>
+	var settings = {
+	url: "<?php echo ADMIN_URL.'products/ajaxImageUpload'?>",
+	method: "POST",
+	allowedTypes:"jpg,png,gif",
+	fileName: "myfile",
+	multiple: true,
+	onSuccess:function(files,data,xhr)
+	{
+		var val = $('#image_names').val();
+		$('#image_names').val(data+','+val);
+		var str = '<tr><td>';
+		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
+		str += '<img src="'+url+data+'&h=300&w=500"/><input type="radio" name="radiobasval" value="'+data+'"/>Base</br><input type="radio" name="radiothumval" value="'+data+'"/>Thumnail Image</br><input type="radio" name="radiosmallval" value="'+data+'"/>Small Image</br></td></tr>';
+		$('tbody.gallery-table').last().append(str);
+		
+	},
+	onError: function(files,status,errMsg)
+	{		
+		$("#status").html("<font color='red'>Upload is Failed</font>");
+	}
+}
+$("#mulitplefileuploader").uploadFile(settings);
+</script>
+
+	
+</div>
+								</div>
+								<li class="field">
+									<div class="input">
+										<input class="button" type="submit" value="save"/>
+									</div></li>
+								</ul>
+							</form>
+						</div>
+						<script>
+			// 			var croppicContainerModalOptions = {
+			// 				uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
+			// 				cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
+			// 				modal:true,
+			// 				imgEyecandyOpacity:0.4,
+			// 				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+			// 				onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+			// 			}
+
+			// 			var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+
+			// 			$('a.add').click(function(){
+			// 				var id = parseInt($(this).attr('id')) + 1;
+			// 				croppicContainerModalOptions.outputUrlId = 'outputUrlId'+id;
+			// 				$('.images').append('<div id="cropContainerModal-'+id+'" class="croppic"></div><input type="hidden" name="gallery_images[]" id="input-'+id+'"/></div>');
+
+			// 				var script   = document.createElement("script");
+			// 				script.type  = "text/javascript";
+			// 	script.text  = "var cropContainerModal = new Croppic('cropContainerModal-"+id+"', croppicContainerModalOptions);";               // use this for inline script
+			// 	document.body.appendChild(script);
+			// 	$(this).attr('id',id);
+			// });
+						</script>
+						<script>
+						$(document).ready(function()
+						{
+							$('a.add-image').click(function(){
+								$('tbody.gallery-table').append('<tr class="option"><td><input type="file" name="gallery[]"/></td><td><a href="javascript:void(0)" class="remove-image">Remove Image</a></td></tr>');
+								var script   = document.createElement("script");
+								script.type  = "text/javascript";
+				script.text  = "$('a.remove-image').click(function(){$(this).parent().parent().remove()});";               // use this for inline script
+				document.body.appendChild(script);
+			});
+
+
+							$('.tabs a').click(function(){
+								var id = $(this).attr('id');
+								$('.tab-content').hide();
+								$('.'+id).show();
+
+							});
+
+
+						});
+						</script>
+					<?php else:?>
+					<div class="form">
+					<form method="post" enctype="multipart/form-data" action="<?php echo ADMIN_URL.'products/editpost'?>" class="edit-conf-product-form">
+						<input type="hidden" name="product_id" value="<?php echo $view_product['pid']?>"/>
+						<input type="hidden" name="attribute_set" value="<?php echo $view_product['product_asid']?>"/>
+						<input type="hidden" name="product_type" value="<?php echo $view_product['ptype']?>"/>		
+						<ul>
+				<li class="field">
+					<div class="input">
+						<input class="button" type="submit" value="save"/>
+					</div></li>
+					<div class="general tab-content">
+						<li class="field">
+							<div class="input-title">
+						<label for = "name">Name</label>
+					</div>
+					<div class="input">
+						<input type="text" class="input-box required text-validation" name="name" value="<?php echo $view_product['pname']?>"/>
+					</div>
+				</li>
+				<li class="field">
+							<div class="input-title">
+						<label for = "name">Sku</label>
+					</div>
+					<div class="input">
+						<input type="text" class="input-box required text-validation" name="sku" value="<?php echo $view_product['psku']?>"/>
+						</div></li>
+						<li class="field">
+							<div class="input-title">
+						<label for = "status">Product Status</label>
+					</div>
+					<div class="input">
+						<select name="status">
+							<option value="0" <?php echo ($view_product['status'] == 0)?'selected':null?>><?php echo convertStatusIdToText(0);?></option>
+							<option value="1" <?php echo ($view_product['status'] == 1)?'selected':null?>><?php echo convertStatusIdToText(1);?></option>
+						</select>
+					</div></li>
+					</div>
+					<div class="variations tab-content" style="display:none">
+						<h3>Variations</h3>
+						<div id="variation-list">
+						</div>
+						<a class='iframe' href="<?php echo ADMIN_URL?>products/showVariationForm?set=<?php echo $view_product['product_asid']?>">Add Variation</a>
+					</div>
+
+						<?php if(isset($view_catlist)){ $i=1;?>
+								<div class="categories tab-content" style="display:none">
+									<h3>Category </h3>
+									<ul>
+										<?php foreach ($view_catlist as $view_catlist) { ?>	
+										<li>
+											<input type="checkbox" id="pc<?php echo $i; ?>" name="pccheck_list[<?php echo $i; ?>]" value="<?php echo $view_catlist['category_id']; ?>" 
+											<?php if(is_array($view_CatInList) and in_array($view_catlist['category_id'], $view_CatInList)) { echo'checked'; }?> />
+											<label for="pc<?php echo $i; ?>"><span></span><?php echo $view_catlist['category_name']; ?></label></li>
+											<?php $i++;}?>
+										</ul>
+									</div>
+									<?php } ?>
+					<script type="text/javascript">
+					function loadVariations()
+					{
+						$.get( "<?php echo ADMIN_URL?>products/loadVariationList?pid=<?php echo $view_product['pid']?>", function( data ) {
+							$( "#variation-list" ).html( data );
+						});
+					}
+					loadVariations();
+					</script>
+					<!-- <a href="javascript:void(0)" class="add-variation-form">Add Variation></a> -->
+					
+					<script type="text/javascript">
+					$(".iframe").colorbox({iframe:true, width:"80%", height:"100%", onClosed:function(){ loadVariations() }});
+					</script>
+
+					<div class="images-tab tab-content" style="display:none">
+										<!-- <a href="javascript:void(0)" class="add-image">Add Image</a> -->
+										<table>
+											<thead>
+												<th>Image</th>
+			<!-- <th>Base Image</th>
+			<th>Thumbnail</th> -->
+		</thead>
+		<tbody class="gallery-table">
+			<?php if(isset($view_gallery)):?>
+			<?php foreach($view_gallery as $image):?>
+			<tr>
+				<td><img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$image['value'].'&h=300&w=500&a=t'?>"/></td>
+					<!-- <td><input type="radio" name="base_image" <?php echo ($image['is_base_image'])?'class="checked"':null?>/></td>
+					<td><input type="radio" name="thumbnail" <?php echo ($image['is_thumbnail_image'])?'class="checked"':null?>/></td> -->
+					<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="<?php echo $image['gid']?>">Remove Image</a>
+					<input type="radio" name="radiobasval"  value="<?php echo $image['value']; ?>"<?php if($image['is_base_image']==1){?> checked<?php }?> />base</br>
+					<input type="radio" name="radiothumval" value="<?php echo $image['value']; ?>"<?php if($image['is_thumbnail_image']==1){?> checked<?php }?>/>Thumnail Image</br>
+					<input type="radio" name="radiosmallval" value="<?php echo $image['value']; ?>"<?php if($image['is_small_image']==1){?> checked<?php }?>/>Small Image</br>
+					</tr>
+				<?php endforeach;?>
+			<?php endif;?>
+			<?php $base_count = 0; $thumb_count =0; ?>
+<!-- 				<tr class="option">
+					<td><input type="file" name="gallery[]"/></td>
+					<td><input type="radio" name="base_image" id="default-base" value="<?php echo $base_count++?>" /></td>
+					<td><input type="radio" value="<?php echo $thumbnail?>" id ="default-thumbnail" name="thumbnail"/></td>
+					<td><a href="javascript:void(0)" class="remove-image-default">Remove Image</a></td>
+				</tr>
+			-->			</tbody>
+		</table>
+
+
+		<div class="images-tab tab-content" style="display:none">
+
+	<div id="mulitplefileuploader">Upload</div>
+	<input type="hidden" name="gallery_images" id="image_names"/>
+<script>
+	var settings = {
+	url: "<?php echo ADMIN_URL.'products/ajaxImageUpload'?>",
+	method: "POST",
+	allowedTypes:"jpg,png,gif",
+	fileName: "myfile",
+	multiple: true,
+	onSuccess:function(files,data,xhr)
+	{
+		var val = $('#image_names').val();
+		$('#image_names').val(data+','+val);
+		var rel =<?php echo $image['gid']?>;
+		var str = '</tr><tr><td>';
+		var url = "<?php echo URL.'timthumb.php?src='.UPLOAD_URL?>";
+		str += '<img src="'+url+data+'&h=300&w=500"/></br><input type="radio" name="radiobasval" value="'+data+'"/>base</br><input type="radio" name="radiothumval" value="'+data+'"/>Thumnail Image</br><input type="radio" name="radiosmallval" value="'+data+'"/>Small Image</br></td>';
+		str += '<td style="vertical-align:middle"><a style="margin-left:20px;width:147px" href="javascript:void(0)" class="remove-uploaded-image button" rel="'+rel+'">Remove Image</a></td></tr>';
+		$('tbody.gallery-table').last().append(str);		
+		
+	},
+	onError: function(files,status,errMsg)
+	{		
+		$("#status").html("<font color='red'>Upload is Failed</font>");
+	}
+}
+$("#mulitplefileuploader").uploadFile(settings);
+</script>
+	
+</div>
+</div>
+<li class="field">
+					<div class="input">
+						<input class="button" type="submit" value="save"/>
+					</div></li>
+</form>
+</div>
+<script>
+// var croppicContainerModalOptions = {
+// 	uploadUrl:'<?php echo ADMIN_URL?>products/uploadImage',
+// 	cropUrl:'<?php echo ADMIN_URL?>products/cropImage',
+// 	modal:true,
+// 	imgEyecandyOpacity:0.4,
+// 	loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+// 	onAfterImgCrop:		function(){var classs = $(this).attr('id'); var id = classs.split('-')[1];$('#input-'+id).val(response.file);}
+// }
+
+// var cropContainerModal = new Croppic('cropContainerModal-0', croppicContainerModalOptions);
+
+// $('a.add').click(function(){
+// 	var id = parseInt($(this).attr('id')) + 1;
+// 	croppicContainerModalOptions.outputUrlId = 'outputUrlId'+id;
+// 	$('.images').append('<div id="cropContainerModal-'+id+'" class="croppic"></div><input type="hidden" name="gallery_images[]" id="input-'+id+'"/></div>');
+
+// 	var script   = document.createElement("script");
+// 	script.type  = "text/javascript";
+// 				script.text  = "var cropContainerModal = new Croppic('cropContainerModal-"+id+"', croppicContainerModalOptions);";               // use this for inline script
+// 				document.body.appendChild(script);
+// 				$(this).attr('id',id);
+// 			});
+</script>
+<script>
+$(document).ready(function()
+{
+	$('a.add-image').click(function(){
+		$('tbody.gallery-table').append('<tr class="option"><td><input type="file" name="gallery[]"/></td><td><a href="javascript:void(0)" class="remove-image">Remove Image</a></td></tr>');
+		var script   = document.createElement("script");
+		script.type  = "text/javascript";
+				script.text  = "$('a.remove-image').click(function(){$(this).parent().parent().remove()});";               // use this for inline script
+				document.body.appendChild(script);
+			});
+
+	$('.remove-uploaded-image').click(function(){
+				var answer = confirm('Are you sure you want to delete this image?');
+				$image = $(this);
+				if(answer)
+				{
+					var gid = $(this).attr('rel');
+
+					$.ajax({url:"<?php echo ADMIN_URL?>"+"products/deleteImage/"+gid,success:function(result){
+						if(result == 'success')
+						{
+							$image.parent().parent().remove();
+							alert('Image has been Deleted');
+						}
+						else
+						{
+							alert("Image Could Not Be Deleted");
+						}
+					}});
+				}
+				else
+				{
+					return false;
+				}
+			});
+$('.tabs a').click(function(){
+								var id = $(this).attr('id');
+								$('.tab-content').hide();
+								$('.'+id).show();
+
+							});
+
+});
+</script>
+<?php endif;?>
+<?php endif;?>
+</div>
+</div>
+

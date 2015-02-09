@@ -57,7 +57,7 @@ class AccountController extends Controller
 
 			if(getModel('customer')->editInformation($post_data))
 			{
-				Session::addSuccessMessage('Your Information has been updated.');
+				Session::addSuccessMessage('Thank you! Your information has been updated.');
 				redirect('account/cpanel');
 			}
 			else
@@ -198,7 +198,7 @@ class AccountController extends Controller
 		$post_data = getPost();
 		if(getModel('store')->updateStoreInfo($post_data))
 		{
-			Session::addSuccessMessage("Store Information Successfully Updated");
+			Session::addSuccessMessage("Thank you! Your store information has been successfully updated.");
 			redirect('account/stores');
 		}
 		else
@@ -245,6 +245,7 @@ class AccountController extends Controller
 		if(!getModel('login')->emailExists($post_data['memail'], ''))
 		{
 			$model->registerContact($post_data);
+			Session::addSuccessMessage('Thank you! Your store contact has been successfully updated.');
 			redirect('account/retailercontacts');
 		}
 		else
@@ -270,6 +271,7 @@ class AccountController extends Controller
 		$post_data = getPost();
 		if(getModel('retailercontact')->updateContact($post_data))
 		{
+			Session::addSuccessMessage('Thank you! Your store contact has been successfully updated.');
 			redirect('account/retailercontacts');
 		}
 		else

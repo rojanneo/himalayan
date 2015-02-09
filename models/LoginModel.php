@@ -83,6 +83,103 @@ class LoginModel extends Model
 		}
 		return false;
 	}
+	
+	public function existemail($email)
+	{
+		$sql = 'SELECT * FROM members where memail="'.$email.'";';
+		$query=$this->connection->Query($sql);
+		if($query)
+		{			
+		$code=rand(1000000,99999);
+		$to      = $email;
+		$subject = 'Reset Your Password';
+		$message = 'Hi '.$email.'
+			    We got  request to reset your password
+			    please click this link '.URL.'/login/resetpassword/?email='.$email.'&key='.$code.'
+					';
+		$headers = 'From: '.URL.'';
+		if(@mail($to, $subject, $message, $headers))
+		{
+			$sqlinsert='UPDATE `members` SET `activation_code`='.$code.' WHERE `memail`="'.$email.'";';
+			$this->connection->UpdateQuery($sqlinsert);			
+			return true;
+		}
+		else
+		{
+  			return false;
+		}
+		return true;	
+		} 
+		else return false;
+	}
+
+	public function resetpassword()
+	{
+		$sql='SELECT `mid` FROM `members` WHERE `memail`="'.$_GET['email'].'" and `activation_code`='.$_GET['key'].'';
+		$query=$this->connection->Query($sql);
+		if($query)
+		{
+			$pasword=$this->generateStrongPassword(); 
+			$sqlreset="UPDATE `members` SET `mpass`='".mysql_real_escape_string(md5($pasword))."',`activation_code`= NULL WHERE `memail`='".$_GET['email']."'";
+			$this->connection->UpdateQuery($sqlreset);	
+
+			$to      = $_GET['email'];
+			$subject = 'Password Reset';
+			$message = 'Hi '.$_GET['email'].'
+				    You haD requested for password reset.
+				    Your password for Himalayan Dog Chew has been reset to '.$pasword.'.</br>
+			            This password is set by us you can change it to your own after login. </br>.
+				    Thankyou.';
+			$headers = 'From: '.URL.'';
+			mail($to, $subject, $message, $headers);
+			return true;
+		}
+		else { return false; }
+	}
+
+
+	public function generateStrongPassword($length = 9, $add_dashes = false, $available_sets = 'luds')
+{
+	$sets = array();
+	if(strpos($available_sets, 'l') !== false)
+		$sets[] = 'abcdefghjkmnpqrstuvwxyz';
+	if(strpos($available_sets, 'u') !== false)
+		$sets[] = 'ABCDEFGHJKMNPQRSTUVWXYZ';
+	if(strpos($available_sets, 'd') !== false)
+		$sets[] = '23456789';
+	if(strpos($available_sets, 's') !== false)
+		$sets[] = '!@#$%&*?';
+
+	$all = '';
+	$password = '';
+	foreach($sets as $set)
+	{
+		$password .= $set[array_rand(str_split($set))];
+		$all .= $set;
+	}
+
+	$all = str_split($all);
+	for($i = 0; $i < $length - count($sets); $i++)
+		$password .= $all[array_rand($all)];
+
+	$password = str_shuffle($password);
+
+	if(!$add_dashes)
+		return $password;
+
+	$dash_len = floor(sqrt($length));
+	$dash_str = '';
+	while(strlen($password) > $dash_len)
+	{
+		$dash_str .= substr($password, 0, $dash_len) . '-';
+		$password = substr($password, $dash_len);
+	}
+	$dash_str .= $password;
+	return $dash_str;
+}
+
+
+
 
 	public function register($post_data)
 	{

@@ -1,0 +1,76 @@
+<script type="text/javascript">
+    $('.nav ul li.contact').attr('id','contact-active');
+</script>
+<div class="wrapper">
+    <div class="faq">
+      
+<!-- <div class="scroll">
+<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+<div class="viewport" style="height:350px;">
+    <div class="overview" style="height:350px">
+ -->        <?php if(isset($view_search_results)) {?>
+        <div class="search-results">
+        <h1>Frequently asked questions</h1>
+            <?php if($view_search_results):?>
+            <ul>
+                <?php foreach($view_search_results as $result):?>
+                    <li><a href="<?php echo URL.'faq/view/'.$result['faq_id']?>"><?php echo $result['faq_question']?></a></li>
+                <?php endforeach;?>
+            </ul>
+            <?php else:?>
+            <ul>
+                    <li><a href="javascript:void(0)">No Results Found</a></li>
+            </ul>
+            <?php endif;?>
+        </div>
+        <?php } else{?>
+   
+
+
+    <?php  ?>
+        <div class="search-results">
+        <h1>Frequently asked questions</h1>
+            <ul>
+            <?php foreach($view_faqs as $faq):?>
+				<li><a href="<?php echo URL.'faq/view/'.$faq['faq_id']?>"><?php echo $faq['faq_question'];?></a></li>
+			<?php endforeach;?>
+            </ul>
+        </div>
+    <?php } ?>
+<!--         </div>
+        </div>
+        </div>
+ -->
+        <!-- TODO MAKE THIS DYNAMIC -->
+        <div class="faqInformation">
+            <div class="faq-search">
+                <form method="get" action = "<?php echo URL.'faq/search'?>">
+                    <fieldset>
+                    <input type = "text" class="input-box" name="faq-search-query" <?php if(isset($_GET['faq-search-query'])){ ?> value="<?php echo $_GET['faq-search-query']; ?>"<?php }?>/>
+                    </fieldset>
+                    <fieldset>
+                    <input type ="submit" value = "Search" class="btn btn-blue" /> 
+                    </fieldset>
+                </form>
+       
+            </div>
+            <div class="extra"></div>
+            <?php echo Widget::render('caution_warning');?>
+            <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'contacts'; ?>" class="btn btn-blue">back</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+     <!-- TODO MAKE THIS DYNAMIC -->
+    
+</div>
+
+<script>
+$('.faq-search form').submit(function(){
+	return $(this).validate('input-box');
+});
+$(document).ready(function(){
+     $('.scroll').tinyscrollbar();
+})
+</script>
+
+            

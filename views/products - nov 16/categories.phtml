@@ -1,0 +1,47 @@
+<div class="wrapper creation">
+<div class="rightBody"><img src="<?php echo ASSET_URL.'/images/creation-main.png'?>">
+</div>
+<div class="leftBody">
+<ul class="category-list">
+	<?php $level1 = getModel('category')->getChildrenCategories($view_category['category_id']);?>
+<?php $ourCreation = getModel('category')->getCategoryBySlug('our-creations');?>
+<?php $ourCreationName = ($ourCreation['category_display_name'] != null)?$ourCreation['category_display_name']:$ourCreation['category_name'];?>
+		<li>
+			<p><?php echo $ourCreationName?></p>
+		</li>
+	<?php foreach($level1 as $category):?>
+	<?php $name = $category['category_display_name'];?>
+	<?php if(!$name) $name = $category['category_name'];?>
+	<?php if(getModel('category')->hasChildren($category['category_id'])):?>
+		<li class="<?php echo $category['cat_slug']?>"><a href="javascript:void(0)" id="<?php echo $category['category_id']?>" class="sub-cat"><?php echo $name?></a>
+			<ul style="display:none" class="sub-cat-<?php echo $category['category_id']?> hidden-cat">
+				<?php $level2 = getModel('category')->getChildrenCategories($category['category_id']);?>
+				<div class="menu-category">
+				<?php foreach($level2 as $level2_cat):?>
+					<?php $name1 = $level2_cat['category_display_name'];?>
+					<?php if(!$name1) $name1 = $level2_cat['category_name'];?>
+					<li><a href="<?php echo URL.'products/list/'.$level2_cat['category_id']?>"><?php echo $name1?></a></li>
+				<?php endforeach;?>
+				</div>
+			</ul>
+		</li>
+	<?php else:?>
+		<li class="<?php echo $category['cat_slug']?>"><a href="<?php echo URL.'products/list/'.$category['category_id']?>"><?php echo $name?></a></li>
+	<?php endif;?>	
+	<?php endforeach;?>
+</ul>
+</div>
+</div>
+<script>
+$('a.sub-cat').click(function(){
+	$(this).parent().parent().parent().css('width','213px');
+	$(this).parent().parent().css('margin-right', '40px');
+	$('a.active').removeClass('active');
+	$(this).addClass('active');
+	var id = $(this).attr('id');
+	$('.creation .leftBody').css('position', 'absolute');
+	$('.creation .leftBody').css('right', '213px');
+	$('ul.hidden-cat').hide();
+	$('ul.sub-cat-'+id).show();
+});
+</script>

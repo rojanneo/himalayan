@@ -1,0 +1,52 @@
+<script>
+ $('li.photogallery').addClass('active');
+</script>
+<div class="wrapper">
+<div class="photos">
+<ul class="slides">
+<?php foreach($view_photos as $photo):?>
+    <li class="gallery-slide <?php echo $photo['photo_id']?>" ><img src="<?php echo UPLOAD_URL.$photo['photo_image_resized']?>" />
+    <div class="caption"><?php echo $photo['photo_caption']?></div>
+    </li>
+<?php endforeach;?>
+</ul>
+
+</div>
+
+<div class="photos-thumbs">
+    <ul class="slides">
+    <?php foreach($view_photos as $photo):?>
+    <li class="thumb-slide"><img id = "<?php echo $photo['photo_id']?>" src="<?php echo UPLOAD_URL.$photo['photo_image_resized']?>" width="50" height="50"/></li>
+<?php endforeach;?>
+    </ul>
+</div>
+
+</div>
+</div>
+<script>
+$(document).ready(function(){
+
+      $('.photos-thumbs').flexslider({
+        animation: "slide",
+        controlNav: false,
+        directionNav: true,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 150,
+        itemHeight:200,
+        itemMargin: 5,
+        asNavFor: '.photos'
+      });
+
+      $('.photos').flexslider({
+        animation: "slide",
+        controlNav: false,
+        directionNav: false,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 1920,
+        itemHeight:200,
+        sync: ".photos-thumbs",
+      });
+});
+</script>

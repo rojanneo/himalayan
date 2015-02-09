@@ -1,55 +1,115 @@
 <script>
+
  $('li.photogallery').addClass('active');
+
 </script>
+
 <div class="wrapper">
+
 <div class="photos">
+
 <ul class="slides">
+
+<?php loadHelper('flickr_image');?>
+
 <?php foreach($view_photos as $photo):?>
-    <li class="gallery-slide <?php echo $photo['photo_id']?>" ><img src="<?php echo UPLOAD_URL.$photo['photo_image_resized']?>" />
+
+    <?php $flickr_url = getFlickrCategoryImage($photo['photo_image_resized']);?>
+
+    <li class="gallery-slide <?php echo $photo['photo_id']?>" ><img src="<?php echo $flickr_url?>" />
+
     <div class="caption"><?php echo $photo['photo_caption']?></div>
+
     </li>
+
 <?php endforeach;?>
+
 </ul>
 
+
+
 </div>
+
+
 
 <div class="photos-thumbs">
+
     <ul class="slides">
+
     <?php foreach($view_photos as $photo):?>
-    <li class="thumb-slide"><img id = "<?php echo $photo['photo_id']?>" src="<?php echo UPLOAD_URL.$photo['photo_image_resized']?>" width="50" height="50"/></li>
+
+    <?php $flickr_url = getFlickrCategoryImage($photo['photo_image_resized']);?>
+
+    <li class="thumb-slide"><img id = "<?php echo $photo['photo_id']?>" src="<?php echo $flickr_url?>" width="50" height="50"/></li>
+
 <?php endforeach;?>
+
     </ul>
+
+</div>
+
+
+
 </div>
 
 </div>
-</div>
+
 <script>
+
 $(document).ready(function(){
 
+
+
       $('.photos-thumbs').flexslider({
+
        animation: "slide",
+
         controlNav: false,
+
         directionNav: true,
+
         animationLoop: false,
+
         slideshow: false,
+
         itemWidth: 79,
+
         itemHeight:48,
+
         itemMargin: 7,
+
         minItems:10,
+
         maxItems:10,
+
         move:3,
+
         asNavFor: '.photos'
+
       });
 
+
+
       $('.photos').flexslider({
+
         animation: "slide",
+
         controlNav: false,
+
         directionNav: false,
+
         animationLoop: false,
+
         slideshow: false,
+
         itemWidth: 1024,
+
         itemHeight:200,
+
         sync: ".photos-thumbs",
+
       });
+
 });
+
 </script>

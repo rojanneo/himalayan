@@ -3,7 +3,7 @@
 	<div class="dog-chews microwave">
 		<div class="leftBody">
 			<div class="description">
-			<?php if($view_url != 'nuggets'):?>
+			<?php if($view_url == '15'):?>
 				<h1><?php echo Widget::getTitle('microwave');?></h1>
 				<?php Widget::render('microwave');?>
 			<?php else:?>
@@ -22,7 +22,8 @@
 				<ul class="slides">
 					<li>
 						<div class="product">
-							<iframe width="627" height="368" src="<?php echo getModel('configuration')->getConfigValue('end-pieces-video')?>" frameborder="0"></iframe>		
+							<!-- <iframe width="681" height="368" src="<?php echo getModel('configuration')->getConfigValue('end-pieces-video')?>" frameborder="0"></iframe>	 -->	
+							<iframe width="681" height="383" src="<?php echo getModel('configuration')->getConfigValue('end-pieces-video')?>" frameborder="0" allowfullscreen></iframe>
 							<div class="category-detail clearfix">
 								<p class="test"></p>
 							</div>

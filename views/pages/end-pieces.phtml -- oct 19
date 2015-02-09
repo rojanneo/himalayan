@@ -1,0 +1,33 @@
+<div class="wrapper creationDetail">
+	<div class="dog-chews microwave">
+		<div class="leftBody">
+			<div class="description">
+				<h1>MICROWAVE ‘EM!</h1>
+				<p>When a small piece is left over after they have enjoyed the treat, place the dry piece in the center 
+				of the microwave. On High Power, microwave 
+				for about 45 seconds. If the piece does not Puff, microwave for another 30 seconds. Cool the Puff down for at least 2 minutes before feeding.
+				</p>
+			</div>
+			<a class="btn btn-blue" href="<?php echo URL.'products/list/3'?>"> &lt; back to Yaky Nugget</a>
+		</div>
+		<div class="rightBody">
+			<div class="product-list-header clearfix">
+				<span class="left">what to do with end pieces</span>
+				<span class="right"><a href="<?php echo URL.'products/categories'?>">&lt;back to creations</a></span>
+			</div>
+
+			<div class="products">
+				<ul class="slides">
+					<li>
+						<div class="product">
+							<iframe width="627" height="368" src="<?php echo getModel('configuration')->getConfigValue('end-pieces-video')?>" frameborder="0"></iframe>		
+							<div class="category-detail clearfix">
+								<p class="test"></p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

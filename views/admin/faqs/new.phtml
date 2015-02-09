@@ -1,78 +1,155 @@
 <div class="page-wrapper">
+
 	<div class="page-form">
+
 		<div class="page-head">
+
 			<?php if(!isset($view_faq)):?>
+
 			<h3>Add New FAQ</h3>
+
 		<?php else:?>
+
 		<h3>Edit FAQ</h3>
+
 	<?php endif;?>
+
 </div>
 
+
+
 	<?php if(!isset($view_faq)):?>
+
 	<div class="form">
+
 	<form method="post" action="<?php echo ADMIN_URL.'faq/addpost'?>">
+
 		<ul>
+
 		<li class="field">
+
 			<div class="input">
+
 				<input class="button" type="submit" value="save"/>
+
 			</div></li>
+
 			<li class="field">
+
 				<div class="input-title">
+
 					<label for = "faq_question">FAQ Question</label>
+
 				</div>
+
 				<div class="input">
+
 					<textarea id='add_question' name="faq_question" ></textarea>
+
 				</div></li>
+
 				<li class="field">
+
 					<div class="input-title">
+
 						<label for = "faq_answer">FAQ Answer</label>
+
 					</div>
+
 					<div class="input">
-						<textarea id='add_answer' name="faq_answer" ></textarea>
+
+						<textarea id='add_answer' name="faq_answer" class="editor" ></textarea>
+
 					</div></li>
+
 					<li class="field">
+
 						<div class="input">
+
 							<input class="button" type="submit" value="save"/>
+
 						</div></li>
+
 					</li>
+
 					</form>
+
 				</div>
+
 			<?php else: ?>
+
 			<div class="form">
+
 			<form method="post" action="<?php echo ADMIN_URL.'faq/editpost'?>">
+
 				<input type="hidden" name="faq_id" value="<?php echo $view_faq['faq_id']?>"/>
+
 				<ul>
+
 				<li class="field">
+
 					<div class="input">
+
 						<input class="button" type="submit" value="save"/>
+
 					</div></li>
+
 					<li class="field">
+
 						<div class="input-title">
+
 							<label for = "faq_question">FAQ Question</label>
+
 						</div>
+
 						<div class="input">
+
 							<textarea id='add_question' name="faq_question" class="input-box required" ><?php echo $view_faq['faq_question']?></textarea>
+
 						</div></li>
+
 						<li class="field">
+
 							<div class="input-title">
+
 								<label for = "faq_answer">FAQ Answer</label>
+
 							</div>
+
 							<div class="input">
-								<textarea id='add_answer' name="faq_answer" class="input-box required"><?php echo $view_faq['faq_answer']?></textarea>
+
+								<textarea id='add_answer' name="faq_answer" class="input-box required editor"><?php echo $view_faq['faq_answer']?></textarea>
+
 							</div></li>
+
 							<li class="field">
+
 								<div class="input">
+
 									<input class="button" type="submit" value="save"/>
+
 								</div></li>
+
 							</li>
+
 							</form>
+
 						</div>
+
 					<?php endif;?>
+
 				</div>
+
 			</div>
 
+
+
 					<script>
+
 					$('form').submit(function(){
+
 						return $(this).validate('input-box');
+
 					});
+
 					</script>

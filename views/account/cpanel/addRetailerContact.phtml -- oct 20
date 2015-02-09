@@ -1,0 +1,68 @@
+<?php //loadView('account/account-menu.phtml');?>
+<div class="wrapper addRetailerContact">
+	<h1> Add Retailer Contact</h1>
+	<?php $session = Session::getCurrentSession();?>
+	<form method = "post" action = "<?php echo (isset($view_contact))?URL.'account/editRetailerContactPost':URL.'account/addRetailerContactPost'?>">
+			<input type="hidden" name="rid" value="<?php echo $session['user_id']?>"/>
+		<?php if(isset($view_contact)):?>
+			<input type="hidden" name="mid" value="<?php echo $view_contact['mid']?>"/>
+			<input type="hidden" name="retailer_contact_id" value="<?php echo $view_contact['retailer_contact_id']?>"/>
+		<?php endif;?>
+		<fieldset>
+			<label for ="name">Post</label>
+			<input type="text" class="input-box required text-validation" name="mpost" value="<?php echo (isset($view_contact))?$view_contact['retailer_designation']:null?>"/>
+		</fieldset>
+		<fieldset>
+			<label for ="name">Name</label>
+			<input type="text" class="input-box required text-validation" name="mname" value="<?php echo (isset($view_member))?$view_member['mname']:null?>"/>
+		</fieldset>
+		<fieldset>
+			<label for ="name">Email</label>
+			<input type="text" class="input-box required email-validation" name="memail" value="<?php echo (isset($view_member))?$view_member['memail']:null?>"/>
+		</fieldset>
+	<!-- <label for ="name">Password</label>
+	<input type="password" class="input-box required text-validation" name="mpass"/>
+-->
+<fieldset>
+	<label for ="name">Address</label>
+	<input type="text" class="input-box required text-validation" name="madd" value="<?php echo (isset($view_member))?$view_member['madd']:null?>"/>
+</fieldset>
+<fieldset>
+	<label for ="name">Apt/Ste</label>
+	<input type="text" class="input-box text-validation" name="madd2" value="<?php echo (isset($view_member))?$view_member['madd2']:null?>"/>
+</fieldset>
+<fieldset>
+	<label for ="name">City</label>
+	<input type="text" class="input-box required text-validation" name="mcity" value="<?php echo (isset($view_member))?$view_member['mcity']:null?>"/>
+</fieldset>
+<fieldset>
+	<label for ="name">State</label>
+	<input type="text" class="input-box required text-validation" name="mstate" value="<?php echo (isset($view_member))?$view_member['mstate']:null?>"/>
+</fieldset>
+<fieldset>
+	<label for ="name">Zip</label>
+	<input type="text" class="input-box required text-validation" name="mzip" value="<?php echo (isset($view_member))?$view_member['mzip']:null?>"/>
+</fieldset>
+<fieldset>
+	<label for ="name">Phone</label>
+	<input type="text" class="input-box required text-validation" name="mtel" value="<?php echo (isset($view_member))?$view_member['mtel']:null?>"/>
+</fieldset>
+<fieldset>
+	<label for ="name">Fax</label>
+	<input type="text" class="input-box required text-validation" name="mfax" value="<?php echo (isset($view_member))?$view_member['mfax']:null?>"/>
+</fieldset>
+	<!-- <label for ="name">Company/store</label>
+	<input type="text" class="input-box required text-validation" name="mcompany"/>
+	 --><!-- <label for ="name">Website</label>
+	<input type="text" class="input-box required text-validation" name="mein"/>
+-->
+	<!-- <label for ="name">EIN(tax ID)</label>
+	<input type="text" class="input-box required text-validation" name="mein"/>
+-->
+<fieldset>
+	<label></label>
+	<input type="hidden" value="customer" name="mtype"/>
+	<input type="submit" value="Submit" class="btn btn-blue" />
+</fieldset>
+</form>
+</div>

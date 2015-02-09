@@ -1,0 +1,127 @@
+<?php //loadView('account/account-menu.phtml');?>
+<?php echo Session::showErrorMessages();
+echo Session::showSuccessMessages();?>
+<?php $session = Session::getCurrentSession();
+$customer = getModel('customer')->getCustomer($session['user_id']);
+if($customer)
+extract($customer);
+$retailer = getModel('customer')->getRetailer($session['user_id']);
+if($retailer)
+extract($retailer);
+?>
+<?php $states = getModel('customer')->getAllStates();?>
+<div class="wrapper account-edit clearfix">
+	<div class="edit-retailer-form">
+	<form method = "post" action = "<?php echo URL.'account/editPost'?>">
+	<input type="hidden" value="<?php echo $mid?>" name="mid"/>
+	<div class="half">
+		<fieldset>
+		<label for ="name">name</label>
+		<input type="text" class="input-box required text-validation" name="mname" value="<?php echo $mname?>"/>
+		</fieldset>
+		<fieldset>
+		<label for ="name">email</label>
+		<input type="text" class="input-box required email-validation" name="memail" value="<?php echo $memail?>"/>
+		</fieldset>
+		<fieldset>
+		<label for ="name">co./store</label>
+		<input type="text" class="input-box required text-validation" name="mcompany" value="<?php echo $mcompany?>"/>
+		</fieldset>
+		<fieldset>
+		<label for ="name">address</label>
+		<input type="text" class="input-box required text-validation" name="madd" value="<?php echo $madd?>"/>
+		</fieldset>
+		<fieldset>
+		<label for ="name">apt/ste</label>
+		<input type="text" class="input-box text-validation" name="madd2" value="<?php echo $madd2?>"/>
+		</fieldset>
+		<fieldset>
+		<label for ="name">city</label>
+		<input type="text" class="input-box required text-validation" name="mcity" value="<?php echo $mcity?>"/>
+		</fieldset>
+		<fieldset>
+		<label for ="name">state</label>
+		<select name="mstate" class="input-box" style="width:280px;height: 46px;border: none;border-radius: 10px; background: rgba(255,255,255,0.8); padding: 0 20px;">
+							<?php foreach($states as $state):?>
+								<option <?php echo (isset($mstate) and $mstate == $state['abb'])?'selected':null?> value="<?php echo $state['abb']?>"><?php echo $state['stt_nm']?></option>
+							<?php endforeach;?>
+						</select>
+		<!-- <input type="text" class="input-box required text-validation" name="mstate" value="<?php echo $mstate?>"/> -->
+		</fieldset>
+		<fieldset>
+		<label for ="name">zip</label>
+		<input type="text" class="input-box required text-validation" name="mzip" value="<?php echo $mzip?>" style=" width:240px;"/>
+		</fieldset>												
+	</div>
+	<div class="half">
+		<fieldset>
+		<label for ="name">phone</label>
+		<input type="text" class="input-box required text-validation" name="mtel" value="<?php echo $mtel?>"/>
+		</fieldset>
+		<fieldset>
+		<label for ="name">fax</label>
+		<input type="text" class="input-box required text-validation" name="mfax" value="<?php echo $mfax?>"/>
+		</fieldset>
+		<label for ="name">website</label>
+		<input type="text" class="input-box required text-validation" name="mwebsite" value="<?php echo $rwebsite?>"/>	
+		<fieldset>
+		<label for ="name">EIN (tax ID)</label>
+		<input type="text" class="input-box required text-validation" name="mein" value="<?php echo $mein?>"/>
+		</fieldset>
+		<input type="hidden" value="<?php echo $mid?>" name="mid"/>
+		<fieldset>
+		<label for = "oldpassword">old password</label>
+		<input type="password" name="oldpassword" class="input-box"/>
+		</fieldset>
+		<fieldset>
+		<label for = "newpassword">new password</label>
+		<input type="password" name="newpassword" class="input-box"/>
+		</fieldset>
+		<fieldset style="margin-left: -52px;">
+		<label for = "newpassword1" style="width:200px">retype new password</label>
+		<input type="password" name="newpassword1" class="input-box"/>
+		</fieldset>
+		<fieldset style=" text-align: center;">
+		<label></label>
+		<input type="submit" value="save" class="btn btn-blue" style="margin:0px;" />
+		</fieldset>
+	</div>
+
+		</form>
+
+	</div>
+
+
+<!-- 	<div class="password-form">
+	<form method="post" action ="<?php echo URL.'account/editPassword'?>">
+	<input type="hidden" value="<?php echo $mid?>" name="mid"/>
+	<fieldset>
+	<label for = "oldpassword">Old Password</label>
+	<input type="password" name="oldpassword" class="input-box required equal"/>
+	</fieldset>
+	<fieldset>
+	<label for = "newpassword">New Password</label>
+	<input type="password" name="newpassword" class="input-box required password"/>
+	</fieldset>
+	<fieldset>
+	<label for = "newpassword1">New Password Again</label>
+	<input type="password" name="newpassword1" class="input-box required confirm-password"/>
+	</fieldset>
+	<fieldset>
+	<label></label>
+	<input type="submit" value="Save" class="btn btn-blue"/>
+	</fieldset>
+	</form>
+	</div>
+ --></div>
+<script>
+$(document).ready(function(){
+	$('.edit-retailer-form form').submit(function(){
+	return $(this).validate('input-box');
+});
+$('.password-form form').submit(function(){
+	return $(this).validate('input-box');
+});
+
+})
+</script>

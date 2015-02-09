@@ -1,5 +1,10 @@
 <?php //loadView('account/account-menu.phtml');?>
 <?php $states = getModel('customer')->getAllStates();?>
+<script type="text/javascript">
+
+	$('.account-menu ul li a.cpanel').addClass('active');	
+
+</script>
 <div class="wrapper clearfix">
 	<div class="add-store-form">
 	<h1>Add/Manage Your Store(s)</h1>
@@ -34,17 +39,25 @@
 			</fieldset>
 			<fieldset>
 			<label for = "rszip">zip:</label>
-			<input type="text" name="rszip" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rszip']:null) ?>"/>
+			<input type="text" name="rszip" class="input-box required zip-validation" value="<?php echo (isset($view_store)?$view_store['rszip']:null) ?>"/>
 			</fieldset>
 			</div>
 			<div class="half right-half">
 			<fieldset>
+			<label for = "rstel">Private No:</label>
+			<input type="text" name="rstelprivate" class="input-box phone-validation" value="<?php echo (isset($view_store)?$view_store['rstelprivate']:null) ?>"/>
+			</fieldset>
+			<fieldset>
 			<label for = "rstel">phone:</label>
-			<input type="text" name="rstel" class="input-box required text-validation" value="<?php echo (isset($view_store)?$view_store['rstel']:null) ?>"/>
+			<input type="text" name="rstel" class="input-box required phone-validation" value="<?php echo (isset($view_store)?$view_store['rstel']:null) ?>"/>
 			</fieldset>
 			<fieldset>
 			<label for = "rsfax">fax:</label>
-			<input type="text" name="rsfax" class="input-box text-validation" value="<?php echo (isset($view_store)?$view_store['rsfax']:null) ?>"/>
+			<input type="text" name="rsfax" class="input-box fax-validation" value="<?php echo (isset($view_store)?$view_store['rsfax']:null) ?>"/>
+			</fieldset>
+			<fieldset>
+			<label for = "rsemail">Private email:</label>
+			<input type="text" name="rsemailprivate" class="input-box email-validation" value="<?php echo (isset($view_store)?$view_store['rsemailprivate']:null) ?>"/>
 			</fieldset>
 			<fieldset>
 			<label for = "rsemail">email:</label>
@@ -55,7 +68,7 @@
 			<input type="text" name="rswebsite" class="input-box text-validation" value="<?php echo (isset($view_store)?$view_store['rswebsite']:null) ?>"/>
 			</fieldset>
 			<fieldset>
-		<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG1"/><label for="checkboxG1" class="css-label radGroup1">I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">privacy policy</a> and <a href="<?php echo URL.'pages/webusage'?>">Web Usage Agreement</a></label>
+		<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG1"/><label for="checkboxG1" class="css-label radGroup1">I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">Privacy Policy</a> and <a href="<?php echo URL.'pages/webusage'?>">Web Usage Agreement</a></label>
 		</fieldset>
 		<fieldset>
 			<label></label>

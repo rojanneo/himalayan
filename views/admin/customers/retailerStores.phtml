@@ -18,6 +18,17 @@ if(!$retailer_filter) $retailer_filter = 'all';
 		</select>
 		<input type="submit" value="Filter"/>
 	</form>
+	<form method="post">
+		<label for "retailer">Store Name </label>
+		<input type="text" name="storename" value="<?php if(isset($_POST['storename'])){ echo $_POST['storename']; } else {?>Search By Store Name<?php } ?>" 
+         style="background-color:white; 
+              font-size:12px;color:#bbb" 
+              onfocus="if(this.value == 'Search By Store Name') {
+              this.value = '';
+              this.style.color='#000';
+                 }" />
+		<input type="submit" value="Search"/>
+		</form>
 	</div>
 		<!-- <label for = "city">City</label>
 		<select name="city">
@@ -73,13 +84,13 @@ if(!$retailer_filter) $retailer_filter = 'all';
 	</tbody>
 </table>
 <div class="pagination-bottom">
-<?php
-if($retailer_filter == 'all')
+<?php 
+if($retailer_filter == 'all' || isset($_POST['storename']) || isset($_GET['store']))
 {
 	$page = getParam('p');
 	if(!$page) $page = 1;
 	loadHelper('pagination');
-	showPagination($page, $view_pagination_num, $view_pagination_url);
+	showPaginationWithGet($page, $view_pagination_num, $view_pagination_url);
 }
 ?>
 </div>

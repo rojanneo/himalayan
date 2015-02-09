@@ -35,62 +35,6 @@ $lines = ceil($word_count/$word_in_a_line);
 
                                 <!--- for comment div action and helpful-content---------------------->
 
-                                <div class="actions">
-                                  <?php if(isset($role)):?> <!--role open---->
-                                    <a href="javascript:void(0)" class="reply-comment-link">reply with quote</a>
-                                    <a href="javascript:;"> | </a>
-                                    <a href="javascript:void(0)" class="comment-link">comment</a>
-                                <?php endif; ?>
-                                    <div class="helpfulornot">
-                                       <input type="hidden" name="faq_id_actions" value="<?php echo $view_faq['faq_id']?>"/>
-                                       <p>Was this helpful?</p>
-                                       <a href="javascript:void(0)" class="helpful action"><span>yes!</span></a>
-                                       <a href="javascript:void(0)" class="not-helpful action"><span>no</span></a>
-                                   </div>
-                               </div>
-                               <div class="helpful-count">
-                                <p>This post has helped <?php echo $view_faq['faq_helpful_count']?> people so far!</p>
-                                </div>
-                            </div>
-                            <div class="comment-form-bubble" style="display:none">
-                                <!-- <form method="post" action="<?php echo URL.'faq/addComment'?>">--> 
-                                <input type="hidden" class="t_id" name="comment_faq_id" value="<?php echo $view_faq['faq_id']?>"/>
-                                <input type="hidden" name="comment_from" value="<?php echo $session['user_id']; ?>"/>
-                                <textarea name="comment_message" id="comment-message" class="input-box required" placeholder="Write a comment..."></textarea>
-                                <!-- <input type="text" name="comment_message" class="input-box required editor"/>--> 
-                                <input type="button" value="Add Comment" class="add-comment"/>
-                                <!-- /form>  -->
-                            </div>
-                             <div class="comment-form-quote-bubble" style="display:none">
-                                <!-- <form method="post" action="<?php echo URL.'faq/addComment'?>">--> 
-                                <input type="hidden" class="t_id" name="comment_faq_id" value="<?php echo $view_faq['faq_id']?>"/>
-                                <input type="hidden" name="comment_from" value="<?php echo $session['user_id']; ?>"/>
-                                <textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "<h2><?php echo $view_faq['faq_question'];?></h2>
-                            <p><?php echo $view_faq['faq_answer'];?></p>"</textarea>
-                                <textarea name="comment_message-quote" id="comment-message" class="input-box" placeholder="Write a comment..."></textarea>
-                                <!-- <input type="text" name="comment_message" class="input-box required editor"/>--> 
-                                <input type="button" value="Add Comment" class="add-comment"/>
-                                <!-- /form>  -->
-                            </div>
-                            <?php $comments = getModel('faq')->getfaqComments($view_faq['faq_id']);?>                                
-                            <div class="comments">
-                                <?php echo($comments); ?>
-                                   <!--<?php if($comments):?>                                     
-                                        <?php foreach($comments as $comment):?>
-                                            <?php if($comment['user_id'] == $session['user_id']):?>
-                                            <div class="comment_hdc">
-                                                 <?php echo $comment['comment_content']?>
-                                            </div>
-                                            <?php else:?>
-                                            <div class="comment_user">
-                                                <?php echo $comment['comment_content']?>
-                                            </div>
-                                            <?php endif;?>
-                                        <?php endforeach;?>
-                        
-                                    <?php endif;?>
-                                -->
-
                             </div>
 
 

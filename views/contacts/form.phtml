@@ -31,7 +31,7 @@
 
                             <?php if(getParam('from')):?>
                                 <fieldset>
-                                    <label for ="from_url">Related To:</label>
+                                    <label for ="from_url">related To:</label>
                                     <input type="text" name="from_url" value="<?php echo getParam('from')?>" readonly/>
                                 </fieldset>
                             <?php endif;?>
@@ -39,7 +39,7 @@
                     </div>
 	                <!-- TODO MAKE THIS DYNAMIC -->
                     <div class="contactDetail">
-                        <a href="<?php echo URL.'faq'?>" class="btn btn-blue btn-large">our FAQs</a>
+                        <a href="<?php echo URL.'faq'?>" class="btn btn-blue btn-large" style="font-size:20px">our FAQs</a>
                         <h1><?php echo getModel('configuration')->getConfigValue('company_name');?></h1>
                         <div class="middlepart">
                         <p><?php echo getModel('configuration')->getConfigValue('address_1');?></p>

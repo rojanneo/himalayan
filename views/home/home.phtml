@@ -36,23 +36,26 @@
 				<?php $events = getModel('events')->getAllEvents();?>
 				<?php foreach($events as $event):?>
 					<div class="event">
+					<p class="event-name"><?php echo $event['eventName'];?></p>
 					<?php if($event['eventDateBegin'] != '0000-00-00' and $event['eventDateEnd'] != '0000-00-00'):?>
 						<?php $startDate = $event['eventDateBegin']; $endDate = $event['eventDateEnd'];?>
 						<?php $startDate = explode('-',$startDate); $endDate = explode('-',$endDate);?>
 						<?php $startMonth = date('F', mktime(0, 0, 0, $startDate[1], 1)); $endMonth = date('F', mktime(0, 0, 0, $endDate[1], 1));?>
 						<?php $startDay = $startDate[2]; $endDay = $endDate[2];?>
-						<p class="event-date"><?php echo $startMonth.' '.$startDay.' - '.$endMonth.' '.$endDay;?>
+						<?php $startYear = $startDate[0]; $endYear = $endDate[0];?>
+						<p class="event-date"><?php echo $startMonth.' '.$startDay.', '.$startYear.' - '.$endMonth.' '.$endDay.', '.$endYear;?>
 					<?php else :?>
 						<?php if($event['eventDateBegin'] != '0000-00-00'):?>
 							<?php $startDate = $event['eventDateBegin'];?>
 							<?php $startDate = explode('-',$startDate);?>
 							<?php $startMonth = date('F', mktime(0, 0, 0, $startDate[1], 1));?>
 							<?php $startDay = $startDate[2];?>
-							<p class="event-date"><?php echo $startMonth.' '.$startDay;?>
+							<?php $startYear = $startDate[0];?>
+							<p class="event-date"><?php echo $startMonth.' '.$startDay.', '.$startYear;?>
 						<?php endif;?>
 					<?php endif;?>
 <!-- 					<p class="event-date"><?php echo $event['eventDateBegin'];?></p>
- -->					<p class="event-name"><?php echo $event['eventName'];?></p>
+ -->					
 					<p class="event-address"><?php echo $event['eventAddress'];?></p>
 					</div>
 				<?php endforeach;?>
@@ -77,9 +80,14 @@
 </div>
 <div class="home-slider">
 <ul class="slides">
+<?php loadHelper('flickr_image');?>
 <?php foreach (glob("assets/uploads/cms/home/*.*") as $image):?>
-<li>
+<!--<li>
 	<img src="<?php echo URL.$image?>"/>
+</li>-->
+<?php $img = getFlickrCategoryImage($image);?>
+<li>
+	<img src="<?php echo $img?>"/>
 </li>
 <?php endforeach;?>
 </ul>

@@ -43,12 +43,13 @@
 										<p><?php echo $testimonial['testimonial']?></p>
 
 										<!--- for comment div action and helpful-content---------------------->
-										<div class="actions">
 										<?php if(isset($role)): ?><!-- role if open-->
+										<div class="actions">
+										
 											<a href="javascript:void(0)" class="reply-comment-link">reply with quote</a>
 											<a href="javascript:;"> | </a>
 											<a href="javascript:void(0)" class="comment-link">comment</a>
-										<?php endif; ?> <!-- roleif close-->
+										
 											<div class="helpfulornot">
 												<input type="hidden" name="testimonial_id_actions" value="<?php echo $testimonial['testimonial_id']?>"/>
 												<p>Was this helpful?</p>
@@ -59,6 +60,7 @@
 										<div class="helpful-count">
 											<p>This post has helped <?php echo $testimonial['testimonial_helpful_count']?> people so far!</p>
 										</div>
+										<?php endif; ?> <!-- roleif close-->
 									</div>
 									<?php if(isset($role)): ?><!--roleif open-->
 									<div class="comment-form-bubble" style="display:none">
@@ -154,6 +156,12 @@
 	<?php endforeach?>
 </ul>
 </div>
+<?php if (!isset($role)): ?><!-- roleif open-->
+<script>
+$('.comment_user .actions').remove();
+</script>
+<?php endif;?>
+
 <?php if(isset($role)): ?><!--ifrole open-->
 <script>
 	var jjj="<script id='testScript' type='text/javascript' src='"+JS_BASE_URL+"assets/js/test.js'/>";

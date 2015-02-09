@@ -49,7 +49,7 @@ class LoginController extends Controller
 			$model = getModel('login');
 			$loginchecks = $model->login_check($username,$password);
 			if($loginchecks)
-				redirect('account');
+				redirect('account/pricing');
 			else redirect('login');
 
 		}
@@ -87,7 +87,10 @@ class LoginController extends Controller
 			{
 				if(getModel('login')->register($post_data))
 				{
-					Session::addSuccessMessage('Your Request has been successfully submitted. We will verify and approve your request shortly.');
+					if($post_data['mtype'] == 'retailer')
+						Session::addSuccessMessage('Your Request has been successfully submitted. We will verify and approve your request shortly.');
+					else
+						Session::addSuccessMessage('Thank you! Your Information has been successfully recorded.');
 					redirect('login/registerSuccess');
 				}
 				else
@@ -101,6 +104,41 @@ class LoginController extends Controller
 			redirect('login/register');
 		}
 		
+	}
+	
+	
+	public function forgotpasswordAction()
+	{
+		$this->view->render('login/forgetpassword.phtml');
+	}
+
+	public function forgetpasswordprocessAction()
+	{
+		$conform=getModel('login')->existemail($_POST['email']);
+		if($conform)
+		{
+			$data['verified']="Thankyou . We have send you confirmation link. Please Check your mail for confirmation.";
+			$this->view->render('login/forgetpassword.phtml',$data);
+		}
+		else
+		{
+			$data['notverified']="Sorry the email address doesnot exsist. please Enter the verified Email Address.";
+			$this->view->render('login/forgetpassword.phtml',$data);		
+		}
+	}
+
+	public function resetpasswordAction()
+	{		 
+		$restprocess=getModel('login')->resetpassword();
+		if($restprocess)
+		{
+		$this->view->render('login/resetpassword.phtml');
+		}
+		else
+		{
+			$data['notconfirm']="Sorry, Please check your email again.";
+			$this->view->render('login/resetpassword.phtml',$data);
+		}
 	}
 
 }

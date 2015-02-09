@@ -1,0 +1,14 @@
+<?php loadView('account/account-menu.phtml');?>
+<script type="text/javascript">
+	$('.account-menu ul li a.forms').addClass('active');
+</script>
+<div class="forms clearfix">
+<h1>Feel free to download any of the following:</h1>
+<ul class="clearfix">
+<?php foreach($view_forms as $form):?>
+	<li><a href="<?php echo UPLOAD_URL.$form['form_file']?>"><?php echo $form['form_name']?></a></li>
+<?php endforeach;?>
+</ul>
+<p>Can’t find what you’re looking for?  Please email <a href="mailto:Sales@HimalayanDogChew.com" target="_top">Sales@HimalayanDogChew.com</a></p>
+</div>
+</div>

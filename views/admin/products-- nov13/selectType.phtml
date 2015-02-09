@@ -1,0 +1,42 @@
+<div class="page-wrapper">
+	<div class="page-form">
+		<div class="page-head">
+			<h3>Select Product Type</h3>
+		</div>
+<div class="form">
+	<form method="get" action = "<?php echo ADMIN_URL.'products/add'?>">
+		<ul>
+			<li class="field">
+				<div class="input-title">
+	<label for="type">Product Type</label>
+</div>
+<div class="input">
+	<select name="type" style="width:200px">
+		<?php foreach($view_types as $type):?>
+			<option value="<?php echo $type['ptid']?>"><?php echo $type['type_name']?></option>
+		<?php endforeach?>
+	</select>
+</div></li>
+<li class="field">
+	<div class="input-title">
+	<label for="type">Attribute Set</label>
+	</div>
+	<div class="input">
+	<select name="set" style="width:200px">
+		<?php foreach($view_sets as $set):?>
+			<option value="<?php echo $set['asid']?>"><?php echo $set['asname']?></option>
+		<?php endforeach?>
+	</select>
+</div>
+</li>
+<li class="field">
+				<div class="input">
+					<input class="button" type="submit" value="Continue"/>
+				</div></li>
+
+			</form>
+</ul>
+	</form>
+</div>
+</div>
+</div>

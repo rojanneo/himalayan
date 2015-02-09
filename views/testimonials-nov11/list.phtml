@@ -1,0 +1,399 @@
+<script>
+	$('li.testimonials-nav').addClass('active');
+</script>
+<!-- <div class="wrapper">
+	<div class="testimonials">
+	<ul>
+	<?php foreach($view_testimonials as $testimonial):?>
+	<li>
+		<div class="testimonial">
+		<p class="title"><span><?php echo $testimonial['t_name']?></span> from <span><?php echo $testimonial['t_add']?></span> on <span><?php echo date("M d, Y", strtotime($testimonial['t_dt']))?></span></p>
+		<p><?php echo $testimonial['t_comment']?></p>
+		</div>
+	</li>
+	<?php endforeach;?>
+	</ul>
+	<div class="pagination">
+	<?php 
+	$page = getParam('p');
+	loadHelper('pagination');
+	showPagination($page, $view_pagination_num, 'testimonialforum/show');
+	?>
+	</div>
+	</div>
+	<div class="add-testimonials">
+	<a href="<?php echo URL.'testimonialforum/'?>" class="btn btn-blue">Add a Testimonial of your own</a>
+	</div>
+</div> -->
+
+<?php $session = Session::getCurrentSession();  $role = getModel('customer')->getCustomerRole($session['user_id']); ?>
+<div class="wrapper clearfix">
+	<div class="new-testimonial-left">
+		<div class="testimonials">
+			<ul class="slides">
+				<?php $count = 0;?>
+				<?php foreach($view_testimonials as $testimonial):?>
+					<li>
+						<div class="scroll scroll-<?php echo $count?>">
+							<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+							<div class="viewport" style="min-height:415px">
+								<div class="overview">
+									<div class="testimonial">
+										<p class="title"><span><?php echo $testimonial['testimonial_name']?></span> from <span><?php echo $testimonial['testimonial_address']?></span> on <span><?php echo date("M d, Y", strtotime($testimonial['testimonial_date']))?></span></p>
+										<p><?php echo $testimonial['testimonial']?></p>
+
+										<!--- for comment div action and helpful-content---------------------->
+										<div class="actions">
+										<?php if(isset($role)): ?><!-- role if open-->
+											<a href="javascript:void(0)" class="reply-comment-link">reply with quote</a>
+											<a href="javascript:;"> | </a>
+											<a href="javascript:void(0)" class="comment-link">comment</a>
+										<?php endif; ?> <!-- roleif close-->
+											<div class="helpfulornot">
+												<input type="hidden" name="testimonial_id_actions" value="<?php echo $testimonial['testimonial_id']?>"/>
+												<p>Was this helpful?</p>
+												<a href="javascript:void(0)" class="helpful action"><span>yes!</span></a>
+												<a href="javascript:void(0)" class="not-helpful action"><span>no</span></a>
+											</div>
+										</div>
+										<div class="helpful-count">
+											<p>This post has helped <?php echo $testimonial['testimonial_helpful_count']?> people so far!</p>
+										</div>
+									</div>
+									<?php if(isset($role)): ?><!--roleif open-->
+									<div class="comment-form-bubble" style="display:none">
+										<input type="hidden" class="t_id" name="comment_testimonial_id" value="<?php echo $testimonial['testimonial_id']?>"/>
+		<input type="hidden" name="comment_from" value="user"/>
+
+<textarea name="comment_message" id="comment-message" class="input-box required"></textarea>
+						<input type="button" value="Add Comment" class="add-comment"/>
+					</div>
+<div class="comment-form-quote-bubble" style="display:none">
+	<!-- <form method="post" action="<?php echo URL.'testimonialforum/addComment'?>">--> 
+	<input type="hidden" class="t_id" name="comment_testimonial_id" value="<?php echo $testimonial['testimonial_id']?>"/>
+	<input type="hidden" name="comment_from" value="<?php echo $session['user_id']; ?>"/>
+
+	<textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "<?php echo $testimonial['testimonial']?>"</textarea>
+	<textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea>
+	<!-- <input type="text" name="comment_message" class="input-box required editor"/>--> 
+	<input type="button" value="Add Comment" class="add-comment"/>
+	<!-- /form>  -->
+</div>
+<?php endif; ?><!-- role if close-->
+<?php //$comments = getModel('testimonials')->getTestimonialComments($testimonial['testimonial_id']);?>
+<?php $comments =getModel('testimonials')->getTestimonialCommentsnew($testimonial['testimonial_id'],'0'); 
+					//comments=getModel('testimonials')->gettesComments($testimonial['testimonial_id']); 
+?>
+<?php //echo($comments); ?>
+<div class="comments">
+	<?php if($comments):?>
+
+		<?php foreach($comments as $comment):?>
+
+							<!--<?php if($comment['comment_from'] == 'hdc'):?>
+								<div class="comment_hdc">
+									<?php echo $comment['comment_content']?>
+								</div>-->
+								<!--<?php else:?>-->
+								<ul class="clearfix">
+									<div class="comment_user">
+									<?php $newDate = date('m/d/y', strtotime($comment['comment_date'])); $usersqlval=getModel('testimonials')->findusertes($comment['user_id']);  ?>
+										<div class="innercomment"><p class="2"><span><?php echo $comment['comment_content']?></span> -<?php echo $usersqlval[0]['mname']; ?> from <?php echo $usersqlval[0]['mcity']; ?> <?php echo $usersqlval[0]['mstate']; ?>  | <?php echo $newDate; ?></p></div>
+										<div class="actions">
+										<?php if (isset($role)): ?><!-- roleif open-->
+											<a href="javascript:void(0)" class="reply-comment-link1">reply with quote</a>
+											<a href="javascript:;"> | </a>
+											<a href="javascript:void(0)" class="comment-link1">comment</a>
+										<?php endif; ?><!-- role if close-->
+											<div class="helpfulornot">
+												<input type="hidden" name="tes_id_actions" value="<?php echo $comment['comment_post_ID']; ?>"/> <!------------------ testimonial ko baki cha ------>
+												<input type="hidden" name="tes_id_actions_parent" value="<?php echo $comment['comment_ID']; ?>"/> <!---------------- testimonial ko bako cha ------>                                     
+											</div>
+										</div>
+									</div>
+
+									<?php $commentsinner =getModel('testimonials')->getTestimonialCommentsnew($comment['comment_post_ID'],$comment['comment_ID']);  ?>
+									<?php 
+									if($commentsinner)
+									{
+										//var_dump( $commentsinner);
+										echo'<ul>';
+										foreach ($commentsinner as $commentsinner) 
+										{	
+										 if(isset($role)){
+										 	$comments_html=getModel('testimonials')->commentloop($commentsinner['comment_post_ID'],'tes',$commentsinner['comment_ID'],$commentsinner['comment_content'],$commentsinner['user_id'],$commentsinner['comment_date']);
+										 }
+										 else{				
+											$comments_html=getModel('testimonials')->commentloop($commentsinner['comment_post_ID'],'tes',$commentsinner['comment_ID'],$commentsinner['comment_content'],$commentsinner['user_id'],$commentsinner['comment_date']);
+										}
+											if(!empty($comments_html))
+											{
+												echo $comments_html;
+											}
+										}
+										echo'</ul>';
+									}
+
+									?>
+								</ul>
+									<div class="testimonial-border"></div>
+								<!--<?php endif;?>-->
+							<?php endforeach;?>
+
+						<?php endif;?>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function(){
+					$('.scroll-<?php echo $count?>').tinyscrollbar();
+				});
+			</script>
+			<?php $count++?>
+		</li>
+	<?php endforeach?>
+</ul>
+</div>
+<?php if(isset($role)): ?><!--ifrole open-->
+<script>
+	var jjj="<script id='testScript' type='text/javascript' src='"+JS_BASE_URL+"assets/js/test.js'/>";
+
+</script>
+
+<script type="text/javascript">
+
+	$('.comment-link1').on("click",function(){          
+
+		var commenter="<?php echo $session['user_id']; ?>";
+		var parentID=$(this).parent().find('input[name=tes_id_actions_parent]').val();              
+		var tes_id=$(this).parent().find('input[name=tes_id_actions]').val();
+
+
+		if($(this).parent().parent().find('.comment-form-quote').is(":visible"))
+		{
+			$(this).parent().parent().find('.comment-form-quote').toggle();
+		}
+		$(this).parent().parent().find('.comment-form').toggle();$(window).resize();
+		if($(this).parent().parent().find('.comment-form').length == 0)
+		{
+			$(this).parent().after('<div class="comment-form"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><textarea name="comment_message" id="comment-message" class="input-box required"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
+
+			$(window).resize();  
+			$('body').append(jjj);
+		}
+	});
+
+
+$('.reply-comment-link1').on("click",function(){          
+
+	var commenter="<?php echo $session['user_id']; ?>";
+	var parentID=$(this).parent().find('input[name=tes_id_actions_parent]').val(); 
+	var quoteval=$(this).parent().prev('div.innercomment').html();     
+
+	var tes_id=$(this).parent().find('input[name=tes_id_actions]').val();      
+
+
+
+	console.log($(this));
+
+	if($(this).parent().parent().find('.comment-form').is(":visible"))
+	{
+		$(this).parent().parent().find('.comment-form').toggle();
+	}
+
+	$(this).parent().parent().find('.comment-form-quote').toggle();$(window).resize();
+
+	if($(this).parent().parent().find('.comment-form-quote').length == 0)
+	{
+		$(this).parent().after('<div class="comment-form-quote"><input type="hidden" class="t_id" name="comment_tes_id" value="'+tes_id+'"><input type="hidden" name="comment_from" value="'+commenter+'"><input type="hidden" name="comment_parent" value="'+parentID+'"><textarea value="1" name="comment_message" id="comment_message-quote1" readonly="readonly" > "'+quoteval+'"</textarea><textarea name="comment_message-quote" id="comment-message" class="input-box"></textarea><input type="button" value="Add Comment" class="add-comment2"></textarea></div>');
+
+		$(window).resize();  
+		$('body').append(jjj);
+	}
+});
+
+
+
+
+
+		//$('.comment-link').click(function(){$(this).parent().parent().parent().find('.comment-form').show(); $(window).resize()});
+		$('.comment-link').click(function(){
+			if( $(this).parent().parent().parent().find('.comment-form-quote-bubble').is(":visible"))
+			{
+				$(this).parent().parent().parent().find('.comment-form-quote-bubble').toggle();
+			}
+			$(this).parent().parent().parent().find('.comment-form-bubble').toggle(); $(window).resize();
+		});
+
+
+		$('.reply-comment-link').click(function(){
+			if( $(this).parent().parent().parent().find('.comment-form-bubble').is(":visible"))
+			{
+				$(this).parent().parent().parent().find('.comment-form-bubble').toggle();
+			}
+			$(this).parent().parent().parent().find('.comment-form-quote-bubble').toggle(); $(window).resize();
+		});		
+
+
+		$cf = null;
+
+		$('.add-comment').click(function(){
+			if($(this).parent().find('#comment-message').val())
+			{
+				$resetmessage=$(this).parent().find('#comment-message');
+				$cf = $(this).parent().parent().parent().find('.comments');
+				console.log($(this).parent().find('.comments'));
+				var id = $(this).parent().find('input[name=comment_testimonial_id]').val();
+				var replywithquote = $(this).parent().find('#comment_message-quote1').val();
+				var users="<?php echo $session['user_id']; ?>";
+
+				if($(this).parent().find('#comment_message-quote1').val())
+				{
+					var datas = {
+						'comment_testimonial_id': $(this).parent().find('input[name=comment_testimonial_id]').val(),
+						'comment_from': $(this).parent().find('input[name=comment_from]').val(),
+						'user_id': users,
+						'comment_message': $(this).parent().find('#comment_message-quote1').val()+'</br>'+$(this).parent().find('#comment-message').val(),
+					};
+					
+					var urls = "<?php echo URL.'testimonialforum/addComment'?>";
+					$.ajax({
+						type:"POST",
+						url:urls,
+						data:datas,
+						success:function(result){
+							$.get('<?php echo URL?>testimonialforum/loadComments/'+id, function(data){
+								$cf.html(data);
+								$(window).resize();
+								$resetmessage.val('');
+								$('.comment-form-quote-bubble').toggle("slow");
+
+							});
+						}
+
+					});
+
+				}	
+				else
+				{
+					var datas = {
+						'comment_testimonial_id': $(this).parent().find('input[name=comment_testimonial_id]').val(),
+						'user_id': users,
+						'comment_from': $(this).parent().find('input[name=comment_from]').val(),
+						'comment_message': $(this).parent().find('#comment-message').val(),
+					};					
+					var urls = "<?php echo URL.'testimonialforum/addComment'?>";
+					$.ajax({
+						type:"POST",
+						url:urls,
+						data:datas,
+						success:function(result){							
+							$.get('<?php echo URL?>testimonialforum/loadComments/'+id, function(data){
+								$cf.html(data);
+								$(window).resize();	
+								$resetmessage.val('');						
+								$('.comment-form-bubble').toggle();
+
+							});
+						}
+
+					});
+
+				}
+
+				$(window).resize();
+
+				$(this).parent().find('.error').remove();
+			}
+			else
+			{
+				$(this).parent().append('<p class="error">Comment cannot be empty</p>');
+			}
+			
+		});
+</script>
+<?php endif; ?><!--roleif close-->
+
+<?php if(count($view_testimonials)>1):?>
+	<div class="previous-next clearfix">
+		<a href="javascript:void(0)" id="next" onclick="$('.flex-next').trigger('click')">next</a>
+		<a href="javascript:void(0)" id="prev" onclick="$('.flex-prev').trigger('click')">previous</a>
+	</div>
+<?php endif;?>
+</div>
+<div class="new-testimonial">
+	<div class="search-testimonial">
+		<form method="get" action="<?php echo URL.'testimonialforum/search'?>">
+			<fieldset>
+				<input type = "text" class="required input-box" name="testimonial_search_query" <?php if(isset($_GET['testimonial_search_query'])){ ?> value="<?php echo $_GET['testimonial_search_query']; ?>"<?php }?>/>
+			</fieldset>
+			<fieldset>
+				<input type="submit" value="search" class="btn btn-blue"/>
+			</fieldset>
+		</form>
+	</div>
+	<div class="message">
+		<?php Widget::render('caution_warning');?>
+		<a href="<?php echo URL.'testimonialforum'?>" class="btn btn-blue">add your testimonial</a>
+	</div>
+</div>
+</div>
+
+<script type="text/javascript">
+	$('.testimonials').flexslider({
+		animation: "slide",
+		controlNav: false,
+		directionNav: true,
+		animationLoop: false,
+		slideshow: false,
+		prevText: "Previous",
+		nextText: "Next",
+		itemWidth:600,
+	});
+</script>
+<script>
+	$('a.helpful').click(function(){
+		var id = $(this).parent().find('input[name=testimonial_id_actions]').val();
+		$a = $(this);
+		console.log($a);
+		$.ajax({
+			url: '<?php echo URL?>testimonialforum/makehelpful/'+id,
+			success:function(result)
+			{
+				if(result == 'true')
+				{
+					$('a.action').removeClass('active');
+					$a.addClass('active');
+				}
+			}
+		});
+	});
+
+	$('a.not-helpful').click(function(){
+		var id = $(this).parent().find('input[name=testimonial_id_actions]').val();
+		$a = $(this);
+		console.log($a);
+		$.ajax({
+			url: '<?php echo URL?>testimonialforum/nothelpful/'+id,
+			success:function(result)
+			{
+				if(result == 'true')
+				{
+					$('a.action').removeClass('active');
+					$a.addClass('active');
+				}
+			}
+		});
+	});
+	$('.flex-next').click(function(){
+		$(window).resize();
+	});
+</script>
+
+<script>
+	$(document).ready(function(){
+
+
+	});
+</script>
+

@@ -1,0 +1,814 @@
+
+<!-- FOR CATEGORY DOG CHEWS -->
+<script type="text/javascript">
+	$('.nav ul li.creation').attr('id','creation-active');
+</script>
+<?php if(count($view_products)>0):?>
+<?php if($view_category['cat_slug'] != 'yaky-sticks'):?>
+	<div class="wrapper creationDetail">
+		<div class="dog-chews">
+			<div class="leftBody">
+				<div class="description">
+					<?php if(isset($view_category)):?>
+						<h1><?php echo $view_category['category_name']?></h1>
+						<div class="category-description-new">
+							<?php echo $view_category['category_description'];?>
+						</div>
+					<?php endif;?>
+
+				</div>
+				<div class="actions">
+				<?php if($view_category['cat_slug'] == 'dog-chews'):?>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue" style="padding:15px 0px; margin-top:-2px">what to do<br>with end pieces</a>
+				<?php elseif($view_category['cat_slug'] == 'yaky-nugget'):?>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">microwaving<br>tutorial</a>
+				<?php endif;?>
+				<?php $session = Session::getCurrentSession();?>
+				<?php if($session):?>
+				<?php $retailer = getModel('customer')->getRetailer($session['user_id']);?>
+				<?php if($retailer):?>
+					<a href="<?php echo URL.'account'?>" class="btn btn-blue retailer-menu">&lt; back to retailer menu</a>
+				<?php endif;?>
+			<?php endif;?>
+				</div>
+			</div>
+
+			<?php if(isset($view_products)):?>
+				<div class="rightBody">
+					<div class="product-list-header">
+					<?php $dog_size = getModel('products')->getProductAttributeByCode($view_products[0]['pid'], 'dog_size'); 
+					if($view_category['cat_slug'] == 'dog-chews'):?>
+						<span class="left" >FOR DOGS<br> UNDER</span>
+					<?php else:?>
+						<span class="left" >FOR ALL<br>DOG SIZES</span>
+					<?php endif;?>
+					<span class="right"><a href="<?php echo URL.'products/categories'?>">&lt; back to creations</a></span>
+					</div>
+					<?php if(count($view_products) > 1):?>
+						<div class="categoryContainer <?php echo (strtolower($view_category['cat_slug']) == 'yaky-yams')?'yakyyam':null?>">
+							<div class="product-list">
+								<ul class="list">
+								<?php $display_name_array = array()?>
+								<?php $product_sku_array = array()?>
+									<?php foreach($view_products as $product):?>
+										<?php $product_id = $product['pid'];?>
+										<?php $productModel = getModel('products');?>
+										<?php $displayName =  $productModel->getProductAttributeByCode($product_id,'display_name');?>
+										<?php if($displayName == false) $displayName = $product['pname'];?>
+										<?php
+										$class = null;
+										array_push($display_name_array, $displayName);
+										array_push($product_sku_array, $product['psku']);
+										?>
+									<?php endforeach;?>
+									<?php if($view_category['cat_slug'] != 'yaky-yams'):?>
+										<?php sort($display_name_array, SORT_STRING);?>
+										<?php $count = 0;?>
+										<?php foreach ($display_name_array as $displayName):?>
+											<?php
+												if($displayName == '15 lbs') $class = 'blue';
+												if($displayName == '70 lbs') $class="grey";
+												if($displayName == '35 lbs') $class = "green";
+												if($displayName == '55 lbs') $class = "red";
+												if($displayName == '65 lbs') $class = "yellow";
+												if(strtolower($product_sku_array[$count]) == 'yaky_yam_lotsa_chicken') $class="lotsa-chicken";
+												else if(strtolower($product_sku_array[$count]) == 'yaky_yam_very_veggie') $class="very-veggy";
+												else if(strtolower($product_sku_array[$count]) == 'yaky_yam_fruity_fruit') $class="fruity-fruit";
+												$count++;
+											?>										
+											<li class="<?php echo $class?>"><a href="javascript:;"><?php echo $displayName?></a></li>
+										<?php endforeach;?>
+									<?php else:?>
+										<?php $yaky_yam_array = array();?>
+										<?php $yaky_sku_array = array();?>
+										<?php $count = 0;?>
+										<?php $yam_count = 3;?>
+										<?php foreach($display_name_array as $displayName):?>
+											<?php if(strtolower($product_sku_array[$count] == 'yaky_yam_lotsa_chicken')) 
+											{
+												$yaky_yam_array[0] = $displayName;
+												$yaky_sku_array[0] = 'lotsa-chicken';
+											}
+											else if(strtolower($product_sku_array[$count] == 'yaky_yam_very_veggie')) 
+												{
+													$yaky_yam_array[1] = $displayName;
+													$yaky_sku_array[1] = 'very-veggy';
+												}
+											else if(strtolower($product_sku_array[$count] == 'yaky_yam_fruity_fruit')) 
+												{
+												$yaky_yam_array[2] = $displayName;
+												$yaky_sku_array[2] = 'fruity-fruit';
+												}
+											else $yaky_yam_array[$yam_count++] = $displayName;
+											$count++;
+											?>
+										<?php endforeach;?>
+										<?php $count = 0;?>
+										<?php for($i = 0; $i<count($yaky_yam_array); $i++):?>
+											<li class="<?php echo $yaky_sku_array[$i]?>"><a href="javascript:;"><?php echo $yaky_yam_array[$i]?></a></li>
+										<?php endfor;?>
+									<?php endif;?>
+								</ul>
+								
+								<?php if($view_category['cat_slug'] == 'yaky-yams'):?>
+									<ul class="list small-list" style="display:none">
+										<?php $yaky_yam_array = array();?>
+										<?php $yaky_sku_array = array();?>
+										<?php $count = 0;?>
+										<?php $yam_count = 3;?>
+										<?php foreach($display_name_array as $displayName):?>
+											<?php if(strtolower($product_sku_array[$count] == 'yaky_yam_lotsa_chicken')) 
+											{
+												$yaky_yam_array[0] = $displayName;
+												$yaky_sku_array[0] = 'lotsa-chicken';
+											}
+											else if(strtolower($product_sku_array[$count] == 'yaky_yam_very_veggie')) 
+												{
+													$yaky_yam_array[1] = $displayName;
+													$yaky_sku_array[1] = 'very-veggy';
+												}
+											else if(strtolower($product_sku_array[$count] == 'yaky_yam_fruity_fruit')) 
+												{
+												$yaky_yam_array[2] = $displayName;
+												$yaky_sku_array[2] = 'fruity-fruit';
+												}
+											else $yaky_yam_array[$yam_count++] = $displayName;
+											$count++;
+											?>
+										<?php endforeach;?>
+										<?php $count = 0;?>
+										<?php for($i = 0; $i<count($yaky_yam_array); $i++):?>
+											<li class="<?php echo $yaky_sku_array[$i]?>"><a href="javascript:;"><?php echo $yaky_yam_array[$i]?></a></li>
+										<?php endfor;?>
+									</ul>
+									<script>
+									$('ul.list li').click(function(){
+										$('ul.list').hide();
+										$('ul.small-list').show();
+									});
+								</script>
+								<?php endif;?>
+
+							</div>
+						<?php endif;?>
+						<div class="products">
+							<ul class="slides">
+								<?php if(strtolower($view_category['cat_slug']) == 'yaky-yams'):?>
+									<li class="no-color">
+										<div class="product">
+											<?php $cat_image = getModel('category')->getCategoryBySlug('yaky-yams')['category_image'];?>
+											<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=681&h=358'?>"/>
+											<div class="category-detail clearfix">
+											<p class="test"></p>
+											</div>
+										</div>
+									</li>
+								<?php endif;?>
+								<?php foreach($view_products as $product):?>
+									<?php $product_id = $product['pid'];?>
+									<?php $productModel = getModel('products');?>
+									<?php $displayName =  $productModel->getProductAttributeByCode($product_id,'display_name');?>
+									<?php if($displayName == false) $displayName = $product['pname'];?>
+									<?php
+									$class = null;
+									if($displayName == '15 lbs') $class = 'blue';
+									if($displayName == '70 lbs') $class="grey";
+									if($displayName == '35 lbs') $class = "green";
+									if($displayName == '55 lbs') $class = "red";
+									if($displayName == '65 lbs') $class = "yellow";
+
+									if(strtolower($product['pname']) == 'lotsa chicken') $class="lotsa-chicken";
+									if(strtolower($product['pname']) == 'very veggie') $class="very-veggy";
+									if(strtolower($product['pname']) == 'fruity fruit') $class="fruity-fruit";
+									?>
+									<?php if(count($view_products)>1):?>
+											<li class="no-color" style="display: list-item;">
+										<div class="product">
+										<?php $cat_image = $view_category['category_image'];?>
+											<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=681&h=358'?>">
+											<div class="category-detail clearfix">
+											<?php $ing = $productModel->getProductAttributeByCode($view_products[0]['pid'],'ingredients');?>
+													<?php if($ing):?>
+														<p class="test">Ingredients :<span><?php echo $ing?></span></p>
+													<?php endif;?>
+													<?php $gua = $productModel->getProductAttributeByCode($view_products[0]['pid'],'guarantee');?>
+													<?php if($gua):?>
+														<p class="test">Guaranteed Analysis :<span><?php echo $gua?></span></p>
+													<?php endif;?>
+											</div>
+										</div>
+									</li>
+										<?php endif;?>
+									<li class="<?php echo $class?>">
+										<div class="product">
+											<?php $thumb = getModel('products')->getThumbnailImage($product_id);?>
+											<img src = "<?php echo URL.'timthumb.php?src='.$thumb.'&w=681&h=358'?>"/>
+											<div class="category-detail clearfix">
+												<?php if(!$productModel->isConfigurable($product_id)):?>
+													<?php $ing = $productModel->getProductAttributeByCode($product_id,'ingredients');?>
+													<?php if($ing):?>
+														<p class="test">Ingredients :<span><?php echo $ing?></span></p>
+													<?php endif;?>
+													<?php $gua = $productModel->getProductAttributeByCode($product_id,'guarantee');?>
+													<?php if($gua):?>
+														<p class="test">Guaranteed Analysis :<span><?php echo $gua?></span></p>
+													<?php endif;?>
+												<?php else:?>
+													<?php $variations = $productModel->getVariations($product_id);?>
+													<?php $ing = $productModel->getProductAttributeByCode($variations[0],'ingredients');?>
+													<?php if($ing):?>
+														<p class="test">Ingredients :<span><?php echo $ing?></span></p>
+													<?php endif;?>
+													<?php $gua = $productModel->getProductAttributeByCode($variations[0],'guarantee');?>
+													<?php if($gua):?>
+														<p class="test">Guaranteed Analysis :<span><?php echo $gua?></span></p>
+													<?php endif;?>
+												<?php endif;?>
+											</div>
+										</div>
+										<?php if(!$productModel->isConfigurable($product_id)):?>
+											<?php $desc = $productModel->getProductAttributeByCode($product_id, 'short_description');?>
+											<?php if($desc):?>
+												<!-- PRODUCT DETAIL COMMENT-->
+												<!-- <div class="product-detail">
+													<?php echo $desc;?>
+												</div> -->
+											<?php endif;?>
+										<?php else:?>
+											<?php $variations = $productModel->getVariations($product_id);?>
+											<?php $desc = $productModel->getProductAttributeByCode($variations[0], 'short_description');?>
+											<?php if($desc):?>
+												<!-- PRODUCT DETAIL COMMENT-->
+<!-- 												<div class="product-detail">
+													<?php echo $desc;?>
+												</div>
+ -->											<?php endif;?>
+										<?php endif;?>
+
+									</li>
+								<?php endforeach;?>
+							</ul>
+						</div>
+						<script>
+							$('.products .slides > li').hide();
+							$('.products .slides > li').first().show();
+							$('ul.list li a').click(function(){
+								$('ul.list li a').removeClass('active');
+								$(this).addClass('active');
+								var class_name = ($(this).parent().attr('class'));
+								$('.products .slides > li').hide();
+								$('.products .slides .'+class_name).show();
+							});
+						</script>
+
+						<?php if(count($view_products) > 1):?>
+						</div>
+					<?php endif;?>
+				</div>
+			<?php endif;?>
+
+<?php else:?>
+	<div class="wrapper creationDetail">
+		<div class="dog-chews">
+			<div class="leftBody">
+				<div class="description">
+					<h1><?php echo $view_category['category_name']?></h1>
+					<?php echo $view_category['category_description'];?>
+				</div>
+				<div class="actions">
+				<?php if($view_category['cat_slug'] == 'dog-chews'):?>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue" style="padding:15px 0px">what to do<br>with end pieces</a>
+				<?php elseif($view_category['cat_slug'] == 'yaky-nugget'):?>
+						<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue">microwaving<br>tutorial</a>
+				<?php endif;?>
+				<style>
+				.dog-chews .leftBody .actions a.retailer-menu{width: 242px;
+vertical-align: bottom;
+position: absolute;
+bottom: 50px;
+right: 708px;
+background: #00B400;
+/* padding-top: 10px; */
+height: 20px;}
+				</style>
+				<a href="<?php echo URL.'pages/endpieces'?>" class="btn btn-blue retailer-menu">&lt; back to retailer menu</a>
+				</div>
+			</div>
+			<?php if(isset($view_products)):?>
+				<div class="rightBody">
+					<div class="product-list-header">
+						<span class="left">FOR DOGS<br> UNDER</span><span class="right"><a href="<?php echo URL.'products/categories'?>">&lt; back to creations</a></span>
+					</div>
+
+					<?php if(count($view_products) > 0):?>
+						<div class="categoryContainer yakystick">
+							<div class="product-list">
+								<ul class="list">
+									<?php foreach($view_products as $product):?>
+										<?php $product_id = $product['pid'];?>
+										<?php $productModel = getModel('products');?>
+										<?php $variations = $productModel->getVariations($product_id);?>
+										<?php foreach($variations as $variation):?>
+											<?php $variation = $productModel->getProduct($variation);?>
+											<?php $class = $variation['psku']?>
+											<?php $displayName = $productModel->getProductAttributeByCode($variation['pid'],'display_name'); ?>
+											<li class="<?php echo $class?>"><a href="javascript:;"><?php echo $displayName?></a></li>
+										<?php endforeach;?>
+									<?php endforeach;?>
+								</ul>
+							</div>
+						<?php endif;?>
+						<div class="products">
+							<ul class="slides">
+							<li class="no-color">
+								<div class="product">
+								<?php $cat_image = getModel('category')->getCategoryBySlug('yaky-sticks')['category_image'];?>
+								<img src="<?php echo URL.'timthumb.php?src='.UPLOAD_URL.$cat_image.'&w=681&h=358'?>"/>
+								<div class="category-detail clearfix">
+								<?php $variation = false;?>
+								<?php foreach($view_products as $product):?>
+									<?php $variation = getModel('products')->getVariations($product['pid'])[0]?>
+								<?php endforeach;?>
+								<?php if($variation):?>
+									<?php $ing = $productModel->getProductAttributeByCode($variation,'ingredients');?>
+									<?php if($ing):?>
+										<p class="test">Ingredients:<span><?php echo $ing?></span></p>
+									<?php endif;?>
+									<?php $gua = $productModel->getProductAttributeByCode($variation,'guarantee');?>
+									<?php if($gua):?>
+										<p class="test">Guaranteed Analysis::<span><?php echo $gua?></span></p>
+									<?php endif;?>
+								<?php endif;?>
+								</div>
+								</div>
+							</li>
+								<?php foreach($view_products as $product):?>
+									<?php $product_id = $product['pid'];?>
+									<?php $productModel = getModel('products');?>
+									<?php $variations = $productModel->getVariations($product_id);?>
+									<?php foreach($variations as $variation):?>
+										<?php $variation = $productModel->getProduct($variation);?>
+										<?php $class = $variation['psku']?>
+										<?php $thumb = getModel('products')->getThumbnailImage($variation['pid']);?>
+
+										<li class = "<?php echo $class?>">
+											<div class="product">
+												<img src = "<?php echo URL.'timthumb.php?src='.$thumb.'&w=681&h=358'?>"/>
+												<div class="category-detail clearfix">
+													<?php $ing = $productModel->getProductAttributeByCode($variation['pid'],'ingredients');?>
+													<?php if($ing):?>
+														<p class="test">Ingredients:<span><?php echo $ing?></span></p>
+													<?php endif;?>
+													<?php $gua = $productModel->getProductAttributeByCode($variation['pid'],'guarantee');?>
+													<?php if($gua):?>
+														<p class="test">Guaranteed Analysis:<span><?php echo $gua?></span></p>
+													<?php endif;?>
+												</div>
+											</div>
+											<?php $desc = $productModel->getProductAttributeByCode($variation['pid'], 'short_description');?>
+											<?php if($desc):?>
+												<!-- PRODUCT DETAIL COMMENT-->
+												<!-- <div class="product-detail">
+													<?php echo $desc;?>
+												</div> -->
+											<?php endif;?>
+										</li>
+
+									<?php endforeach;?>
+								<?php endforeach;?>
+							</ul>
+						</div>
+						<?php if(count($view_products) > 1):?>
+						</div>
+					<?php endif;?>
+				</div>
+				<script>
+					$('.products .slides > li').hide();
+					$('.products .slides > li').first().show();
+					$('ul.list li a').click(function(){
+						$('ul.list li a').removeClass('active');
+						var class_name = ($(this).parent().attr('class'));
+						$(this).addClass('active');
+						$('.products .slides > li').hide();
+						$('.products .slides .'+class_name).show();
+					});
+				</script>
+			<?php endif;?>
+		</div>
+
+<?php endif;?>
+<?php else:?>
+	<div class="wrapper">
+		<div class="noproduct">
+			<h3>No Products in this category</h3>
+		</div>
+	</div>
+<?php endif;?>
+
+
+
+<?php if($view_category_id == 1):?>
+	<!-- <div class="wrapper creationDetail">
+		<div class="dog-chews">
+		
+
+			<div class="leftBody">
+				<div class="description ">
+					<h1>Himalayan Dog Chew</h1>
+					<div class="desc-test">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla justo velit, luctus non odio eget, pulvinar tempor neque. Donec porta, dolor sed tincidunt aliquam, lacus massa faucibus libero, vel tempor elit risus ac leo. Integer lacinia metus eu enim tincidunt tincidunt. Suspendisse imperdiet aliquam metus a porttitor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque at quam augue. Praesent purus urna, sagittis rutrum dolor ut, malesuada interdum risus. Praesent ornare neque velit, quis luctus nunc viverra non. Vivamus viverra eleifend ipsum ut malesuada.</p>
+
+					<p>In at ornare nisi, sed feugiat velit. Donec id molestie mauris. Praesent at iaculis erat, non adipiscing tortor. Cras sed justo venenatis, ullamcorper elit a, adipiscing metus. Integer ullamcorper, nunc vitae aliquam bibendum, leo neque vestibulum leo, non pellentesque augue urna congue mi. Aenean ac pellentesque augue. Nunc id justo ipsum. Cras tortor erat, posuere tincidunt tellus at, pharetra euismod diam. Cras nisl leo, volutpat vitae libero vel, feugiat dapibus purus.</p>
+					</div>
+				</div>
+			</div>
+			<div class="rightBody">
+				<div class="product-list-header">
+					<span class="left" >For Dogs Under</span><span class="right"><a href="#">back to creations</a></span>
+				</div>
+				<div class="categoryContainer">
+					<div class="product-list">
+						<ul class="list">
+							<li class="blue"><a href="javascript:;">15 lbs</a></li>
+							<li class="green"><a href="javascript:;">35 lbs</a></li>
+							<li class="red"><a href="javascript:;">55 lbs</a></li>
+							<li class="yellow"><a href="javascript:;">65 lbs</a></li>
+							<li class="grey"><a href="javascript:;">75 lbs</a></li>
+						</ul>
+					</div>
+					<div class="products">
+						<ul class="slides">
+							<li class="no-color">
+								<div class="product">
+
+									<img src="<?php echo URL.'timthumb.php?src='.ASSET_URL.'images/chews.png&w=627&h=368'?>"/>
+								</div>
+								<div class="category-detail clearfix">
+									<p class="test">Ingredients:<span class="inside">Yak and Cow milk, Salt, and Lime Juice</span></p>
+									<p class="test">Guaranteed Analysis:<span class="inside">Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+								</div> 
+							</li>
+							<li class="red" style="display:none">
+								<div class="product">
+									<img src="<?php echo URL.'timthumb.php?src='.ASSET_URL.'images/bag_red.jpg&w=627&h=368'?>"/>
+								</div>
+								<div class="category-detail clearfix">
+									<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+									<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+								</div>
+								<div class="product-detail">
+								<p>TWhat is Yaky Yam? Yaky Yam is a baked gluten-free treat made of the same ingredients as Himalayan Dog Chews (100% yak and cow milk, salt, and lime juice) mixed with sweet potato and other healthy nourishing ingredients. Now with more rewarding flavor and nutrition! Key Features Completely Digestible A highly nutritious treat Lasts 5 to 7 times longer than Bully Sticks Lactose-free & gluten-free Yaky Yam Very Veggie and Yaky Yam Fruity Fruit are grain-free Made with 100% natural ingredients Available in 4 Oz and 14 Oz Boxes Why is it so Special? Olfaction is primary special </p>
+								<p>What is Yaky Yam? Yaky Yam is a baked gluten-free treat made of the same ingredients as Himalayan Dog Chews (100% yak and cow milk, salt, and lime juice) mixed with sweet potato and other healthy nourishing ingredients. Now with more rewarding flavor and nutrition! Key Features Completely Digestible A highly nutritious treat Lasts 5 to 7 times longer than Bully Sticks Lactose-free & gluten-free Yaky Yam Very Veggie and Yaky Yam Fruity Fruit are grain-free Made with 100% natural ingredients Available in 4 Oz and 14 Oz Boxes Why is it so Special? Olfaction is primary special </p>
+								</div>
+							</li>
+							<li class="green" style="display:none">
+								<div class="product">
+									<img src="<?php echo ASSET_URL.'images/bag_green.jpg'?>"/>
+								</div>
+								<div class="category-detail clearfix">
+									<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+									<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+								</div>
+							</li>
+							<li class="blue" style="display:none">
+								<div class="product">
+									<img src="<?php echo ASSET_URL.'images/bag_blue.jpg'?>"/>
+								</div>
+								<div class="category-detail clearfix">
+									<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+									<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+								</div>
+							</li>
+							<li class="yellow" style="display:none">
+								<div class="product">
+									<img src="<?php echo ASSET_URL.'images/bag_yellow.jpg'?>"/>
+								</div>
+								<div class="category-detail clearfix">
+									<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+									<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+								</div>
+							</li>
+							<li class="grey" style="display:none">
+								<div class="product">
+									<img src="<?php echo ASSET_URL.'images/bag_gray.jpg'?>"/>
+								</div>
+								<div class="category-detail clearfix">
+									<p>Ingredients:<span>Yak and Cow milk, Salt, and Lime Juice</span></p>
+									<p>Guaranteed Analysis:<span>Crude Protien Min 52.8%, Crude Fat Min 0.9%, Moisture Max 10.2%, Ash Max  6.0%</span></p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<script>
+		// $('ul.list li a').click(function(){
+		// 	var class_name = ($(this).parent().attr('class'));
+		// 	$('.products .slides li').hide();
+		// 	$('.products .slides .'+class_name).show();
+		// });
+</script>
+<!-- DOG CHEW CATEGORY ENDS HERE -->
+
+<!-- DOG SEASONING CATEGORY STARTS HERE -->
+<?php elseif($view_category_id == 2):?>
+	<!-- <div class="wrapper creationDetail">
+		<div class="dog-chews">
+			<div class="leftBody">
+				<div class="description">
+					<h1>HDC Seasoning</h1>
+					<p>
+						Our Seasoning is made from the grainy powder of Himalayan Dog Chews which you can sprinkle onto any dog or cat food for pets who just cannot seem to get enough of it. Add a little taste of the Himalayas to all of their food! 
+					</p>
+				</div>
+			</div>
+			<div class="rightBody">
+				<div class="product-list-header">
+					<span class="left">For Dogs Under</span><span class="right"><a href="<?php echo URL.'products/categories'?>">back to creations</a></span>
+				</div>
+				<div class="products">
+					<ul class="slides">
+						<li class="seasoning">
+							<div class="product">
+								<img src="<?php echo ASSET_URL.'images/seasoning.jpg'?>"/>
+							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>100% Yak and Cow Milk, Salt and Lime Juice. </span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 52.6%. Crude Fat Min 0.9%. Ash Max 6.0%. Moisture Max 10.2% </span></p>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!-- DOG SEASONING CATEGORY ENDS HERE -->
+
+	<!-- HDC NUGGETS CATEGORY ENDS HERE -->
+<?php elseif($view_category_id == 3):?>
+<!-- 	<div class="wrapper creationDetail">
+		<div class="dog-chews">
+			<div class="leftBody">
+				<div class="description">
+					<h3>HDC Seasoning</h3>
+					<p>
+						What is Yaky Nugget?
+
+						Yaky Nuggets are little bite sized Himalayan Dog Chews that can be popped/puffed in a microwave and given to dogs to enjoy the cheesy flavor. These can also be boiled for ten to fifteen minutes in water to make them soft and easy to chop into smaller bits that can be served with regular dog food. 
+
+						They are also cut to size for uniformity and are carefully tested for quality before being packaged. 
+
+						Key Features
+
+						Does not stain or stink
+						Completely Digestible
+						A highly nutritious treat
+						Made with 100% natural ingredients
+						Lactose-free, gluten-free & grain-free
+
+
+						Why is it so Special?
+
+						Cheese contains enzymes that help remove plaques from their teeth which eventually discourages tooth decay, gingivitis and bacterial growth. Yaky Puff are easier to chew and dissolves in the dogs mouth, that speeds up the effect of the cheese that Himalayan Dog Chew provide. Moreover, because of the strong smoked flavor, our research have shown that this is by far the best rewarding treats for dogs. 
+
+					</p>
+				</div>
+			</div>
+			<div class="rightBody">
+				<div class="product-list-header">
+					<span class="left">For Dogs Under</span><span class="right"><a href="<?php echo URL.'products/categories'?>">back to creations</a></span>
+				</div>
+				<div class="products">
+					<ul class="slides">
+						<li class="seasoning">
+							<div class="product">
+
+								<img src="<?php echo ASSET_URL.'images/yaky_nuggets.jpg'?>"/>
+							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>100% Yak and Cow Milk, Salt and Lime Juice. </span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 52.6%. Crude Fat Min 0.9%. Ash Max 6.0%. Moisture Max 10.2% </span></p>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!-- DOG NUGGETS CATEGORY ENDS HERE -->
+
+	<!-- HDC PUFF CATEGORY STARTS HERE -->
+<?php elseif($view_category_id == 4):?>
+	<!-- <div class="wrapper creationDetail">
+		<div class="dog-chews">
+			
+			<div class="leftBody">
+				<div class="description">
+					<h3>HDC Seasoning</h3>
+					<p>
+						What is Yaky Puff?
+
+						From the beginning, we have tried numerous ways to utilize leftover Himalayan Dog Chews. After extensive research and hundreds of attempts later, we discovered that when Yaky Nuggets are microwaved, they puff up to about five times their original size. The result is a dog treat that is not too soft and not too hard, while maintaining the same cheesy flavor dogs love! 
+
+						Key Features
+
+						Does not stain or stink
+						Completely Digestible
+						A highly nutritious treat
+						Made with 100% natural ingredients
+						Lactose-free, gluten-free & grain-free
+						Give 'em the pleasure of Cheese!
+
+
+
+						Why is it so Special?
+
+						Cheese contains enzymes that help remove plaques from their teeth which eventually discourages tooth decay, gingivitis and bacterial growth. Yaky Puff are easier to chew and dissolves in the dogs mouth, that speeds up the effect of the cheese that Himalayan Dog Chew provide. Moreover, because of the strong smoked flavor, our research have shown that this is by far the best rewarding treats for dogs. 
+
+					</p>
+				</div>
+			</div>
+			<div class="rightBody">
+				<div class="product-list-header">
+					<span class="left">For Dogs Under</span><span class="right"><a href="<?php echo URL.'products/categories'?>">back to creations</a></span>
+				</div>
+				<div class="products">
+					<ul class="slides">
+						<li class="seasoning">
+							<div class="product">
+							
+
+								<img src="<?php echo ASSET_URL.'images/yPuff2.jpg'?>"/>
+							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>100% Yak and Cow Milk, Salt and Lime Juice. </span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 52.6%. Crude Fat Min 0.9%. Ash Max 6.0%. Moisture Max 10.2% </span></p>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!-- DOG PUFF CATEGORY ENDS HERE -->
+
+	<!-- HDC CRUNCH CATEGORY STARTS HERE -->
+<?php elseif($view_category_id == 5):?>
+	<!-- <div class="wrapper creationDetail">
+		<div class="dog-chews">
+			
+			<div class="leftBody">
+				<div class="description">
+					<h3>Yaky Crunch</h3>
+					<p>
+						Yaky Crunch is made up of bite-sized Yaky Puffs which are made from the same ingredients as Himalayan Dog Chews (yak and/or cow milk, and all natural products). The result is a dog treat that is not too soft and not too hard, while maintaining the same cheesy flavor dogs love! 
+					</p>
+				</div>
+			</div>
+			<div class="rightBody">
+				<div class="product-list-header">
+					<span class="left">For Dogs Under</span><span class="right"><a href="<?php echo URL.'products/categories'?>">back to creations</a></span>
+				</div>
+				<div class="products">
+					<ul class="slides">
+						<li class="seasoning">
+							<div class="product">
+							
+
+								<img src="<?php echo ASSET_URL.'images/yaky_crunch.jpg'?>"/>
+							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>100% Yak and Cow Milk, Salt and Lime Juice. </span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 52.6%. Crude Fat Min 0.9%. Ash Max 6.0%. Moisture Max 10.2% </span></p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!-- DOG PUFF CATEGORY ENDS HERE -->
+
+	<!-- YAKY YAMS CATEGORY STARTS HERE -->
+<?php elseif($view_category_id == 6):?>
+	<!-- <div class="wrapper creationDetail">
+		<div class="dog-chews">
+			<div class="leftBody">
+				<div class="description">
+					<h3>Yaky Yam</h3>
+					<p>
+						What is Yaky Yam?
+
+						Yaky Yam is a baked gluten-free treat made of the same ingredients as Himalayan Dog Chews (100% yak and cow milk, salt, and lime juice) mixed with sweet potato and other healthy nourishing ingredients. Now with more rewarding flavor and nutrition! 
+
+
+						Key Features
+
+						Completely Digestible
+						A highly nutritious treat
+						Lasts 5 to 7 times longer than Bully Sticks
+						Lactose-free & gluten-free
+						Yaky Yam Very Veggie and Yaky Yam Fruity Fruit are grain-free
+						Made with 100% natural ingredients
+						Available in 4 Oz and 14 Oz Boxes
+
+						Why is it so Special?
+
+						Olfaction is primary special sense among dogs. They have over 220 million olfactory nerves compared to 5 million in that of human. Their superior smelling ability comes from their ability to collect air in a special chamber where the scent molecules accumulates until sufficient concentration is availbale for the dog to identify an odor. Anything that have a strong odor is what they consider great to eat. It is for the same reasons why they go after shoes and shocks. » More on Dog's Sense of Smell
+
+						According to Dr. Stanley Coren, dogs appear to like sweet flavor responded in their taste buds by a chemical called furaneol. This is an evolved physiology becuase in a natural environment dogs frequently supplement their diet of small animals with whatever fruits happen to be available, as they are not really strictly carnivores. Dogs do not have a developed taste bud for salty and sour, and they absolutely dislike the bitter taste. This is the reason why they really enjoy and beg for ice-cream etc. » More on Dog's Sense of Taste
+
+						Yaky Yam has the best of the both senses for the dogs. The strong smell of the smoked cheese and the sweet taste of the sweet potator not only ensure their complete enjoyment, but also gives them the best nutrition available
+					</p>
+				</div>
+			</div>
+			<div class="rightBody">
+				<div class="product-list-header">
+					<span class="left">For Dogs Under</span><span class="right"><a href="#">back to creations</a></span>
+				</div>
+				<div class="categoryContainer yakyyam">
+					<div class="product-list">
+						<ul class="list">
+							<li class="lotsa-chicken"><a href="javascript:;">Lotsa Chicken</a></li>
+							<li class="very-veggy"><a href="javascript:;">Very Veggy</a></li>
+							<li class="fruity-fruit"><a href="javascript:;">Fruity Fruit</a></li>
+						</ul>
+					</div>
+					<div class="products">
+						<ul class="slides">
+						<li class="no-color">
+							<div class="product">
+								<img src="<?php echo ASSET_URL.'images/very_veggie_box.jpg'?>"/>
+							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Carrot, Garbanzo Flour, Cabbage, Broccoli, Celery, Green Bean, Flax Seed, Salt and Lime Juice</span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 35.10%.
+									Crude Fat Min 15.90%.
+									Dietary fiber max 5.80%.
+									Moisture Max 7.90%.
+									Ash Max 3.60% </span></p>
+							</div>
+						</li>
+						<li class="lotsa-chicken"  style="display:none">
+							<div class="product">
+
+								<img src="<?php echo ASSET_URL.'images/lotsa_chicken_box.jpg'?>"/>
+							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Chicken Powder, Brown Rice flour, Chicken Broth, Salt and Lime Juice</span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 35.10%.
+									Crude Fat Min 15.90%.
+									Dietary fiber max 5.80%.
+									Moisture Max 7.90%.
+									Ash Max 3.60%</span></p>
+							</div>
+						</li>
+						<li class="very-veggy" style="display:none">
+							<div class="product">
+							<img src="<?php echo ASSET_URL.'images/very_veggie_box.jpg'?>"/>
+							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Carrot, Garbanzo Flour, Cabbage, Broccoli, Celery, Green Bean, Flax Seed, Salt and Lime Juice</span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 35.10%.
+									Crude Fat Min 15.90%.
+									Dietary fiber max 5.80%.
+									Moisture Max 7.90%.
+									Ash Max 3.60% </span></p>
+							</div>
+						</li>
+						<li class="fruity-fruit" style="display:none">
+							<div class="product">
+								<img src="<?php echo ASSET_URL.'images/fruity_fruit_box.jpg'?>"/>
+							</div>
+							<div class="category-detail clearfix">
+								<p>Ingredients:<span>Yak & Cow Milk, Sweet Potato, Banana, Garbanzo Flour, Apple, Pear, Blueberries, Flax Seed, Salt and Lime Juice</span></p>
+								<p>Guaranteed Analysis:<span>Crude Protein Min 30.1%.
+									Crude Fat Min 5.8%.
+									Dietary fiber max 1.3%.
+									Moisture Max 16.7%.
+									Ash Max 3.80% 
+								</span></p>
+							</div>
+						</li>
+						</ul>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div> -->
+
+		<!-- YAKY YAMS CATEGORY ENDS HERE -->
+
+		<!-- YAKY STICKS CATEGORY STARTS HERE -->
+	<?php elseif($view_category_id == 7):?>
+
+		<!-- YAKY YAMS CATEGORY ENDS HERE -->
+
+
+	<?php else:?>
+	<?php endif;?>

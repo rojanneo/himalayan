@@ -127,7 +127,20 @@ class ProductsModel extends Model
 		$thumbnail = $this->connection->Query($sql);
 		if($thumbnail)
 		{
-			return UPLOAD_URL.$thumbnail[0]['value'];
+			$image = null;
+			$file = fopen("flickr.csv","r");
+			$hdc_name = $thumbnail[0]['value'];
+			while(! feof($file))
+			  {
+			  $row = (fgetcsv($file));
+				  if($row[0] == $hdc_name)
+				  {
+				  	$image =  $row[1];
+				  }
+			  }
+
+			fclose($file);
+			return $image;
 		}
 		else
 		return false;

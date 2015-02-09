@@ -1,0 +1,112 @@
+<?php require_once('system/recaptchalib.php');
+$error = null;
+?>
+
+<script>
+ $('li.testimonials-nav').addClass('active');
+</script>
+<div class="wrapper">
+<?php echo Session::showErrorMessages();
+echo Session::showSuccessMessages();?>
+<form method = "post" action ="<?php echo URL.'testimonialforum/testimonialPost'?>">
+<div class="testimonials-form contactForm">
+		<input type="hidden" value="<?php echo date('Y-m-d H:i:s');?>" name="t_dt"/>
+		<fieldset>
+			<label for = "t_name">Name</label>
+			<input type="text" name="t_name" class="input-box required"/>
+		</fieldset>
+		<fieldset>
+			<label for = "t_email">Email</label>
+			<input type="text" name="t_email" class="input-box required email-validation"/>
+		</fieldset>
+		<fieldset>
+			<label for = "t_add">city & state</label>
+			<input type="text" name="t_add" class="input-box required"/>
+		</fieldset>
+		<fieldset>
+		 <?php $post_id = '0'; ?>
+		 <label for = "t_rate" style="margin-top:10px;">rate us!</label>
+		    <div class="tuto-cnt">
+
+		        <div class="rate-ex1-cnt">
+		            <div id="1" class="rate-btn-1 rate-btn"><span>timeout</span></div>
+		            <div id="2" class="rate-btn-2 rate-btn"><span>meh</span></div>
+		            <div id="3" class="rate-btn-3 rate-btn"><span>good</span></div>
+		            <div id="4" class="rate-btn-4 rate-btn"><span>4 paws up!</span></div>
+		            <div id="5" class="rate-btn-5 rate-btn"><span>pawsome!</span></div>
+		             
+		        </div>
+		        <div class="rate-number"><span>0</span>/5</div>
+		    </div>
+		    <div class="lina" id="lina"> <input type="text" name="rate_val" class="input-box required" id="hideme" /></div>
+		</fieldset> 
+		<fieldset>
+			<label for = "t_comment" style="margin-top:10px;">testimonial</label>
+			<textarea name="t_comment" class="input-box required"></textarea>
+		</fieldset>
+
+
+		
+</div>
+<div class="testimonial-otherhalf">
+	<a href="<?php echo URL.'testimonialforum/show'?>" class="btn btn-blue">See what people are saying about our creations</a>
+	<div class="testimonial-message"><?php Widget::render('testimonial_sidebar_text');?></div>
+	<div class="captcha">
+	<?php echo recaptcha_get_html(CAPTCHA_PUBLIC_KEY, $error);?>
+	</div>
+	<fieldset>
+	<button class="btn btn-blue" onclick="$('.testimonials-form form').submit();">Submit</button>
+	</fieldset>
+</div>
+</form>
+ <script>
+        // rating script
+        $(function(){ 
+           		/*$('.rate-btn').hover(function(){
+                $('.rate-btn').removeClass('rate-btn-hover');
+                var therate = $(this).attr('id');
+                for (var i = therate; i >= 0; i--)
+                {
+                    $('.rate-btn-'+i).addClass('rate-btn-hover');
+                };
+           		 });*/
+                            
+            	$('.rate-btn').click(function(){
+            	 $('.rate-btn').removeClass('rate-btn-hover');
+                var therate = $(this).attr('id');
+                for (var i = therate; i >= 0; i--)
+                {
+                    $('.rate-btn-'+i).addClass('rate-btn-hover');
+                };
+            	$("input").remove("#hideme");
+            	var addDiv = $('#lina');
+            	 var therate = $(this).attr('id');
+            	 $('.rate-number > span').text(therate);
+            	$('<input type="text" id="hideme"  name="rate_val" value="' + therate +'"/>').appendTo(addDiv);
+            	 var therate = $(this).attr('id');
+                $('.rate-btn').removeClass('rate-btn-active');
+                for (var i = therate; i >= 0; i--) {
+                    $('.rate-btn-'+i).addClass('rate-btn-active');
+                };
+
+                
+            });
+        });
+    </script>
+<script>
+$('form').submit(function(){
+	return $(this).validate('input-box');
+});
+</script>
+</div>
+
+
+    <style type="text/css">
+    #hideme
+{
+    display:none;
+    visibility:hidden;
+}
+.clear{clear: both;}
+
+    </style>

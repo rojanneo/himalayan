@@ -125,7 +125,7 @@ class SearchnewModel extends Model
 		{
 		foreach ($sql as $sql) 
 		{
-				 if(isset($vall)){ $vall.=','.$sql['stt_nm']; } else{$vall=$sql['stt_nm'];} 
+				 if(isset($vall)){ $vall.=', '.$sql['stt_nm']; } else{$vall=$sql['stt_nm'];} 
 		}	
 		return $vall;
 		}
@@ -134,6 +134,8 @@ class SearchnewModel extends Model
 
 	public function searchbycountystatecitystore($gcity,$gstate,$gstore)
 	{
+		// /die($_GET['q']);
+		$getdata=$_GET['q'];
 		//for gstate
 		$araystate = explode(",", $gstate);
 		$array1 = array();
@@ -166,7 +168,8 @@ class SearchnewModel extends Model
 		
 		$sqlsyn="SELECT * FROM members, retstores, retailers WHERE members.mid = retstores.rid AND (retstores.rscity IN($city) OR retstores.rsstate IN($state) OR retstores.rsnm IN($store))";
 		$sqlsyn.=" AND members.mid = retailers.rid  AND retstores.rshdc = '1' ";
-		$sqlsyn.="Group By members.mid ORDER BY retstores.rsnm ASC";
+		//$sqlsyn.="Group By members.mid ORDER BY retstores.rsnm ASC";
+		$sqlsyn.="Group By members.mid order by FIELD(mcity,'".$getdata."') DESC"; 
 		$sql=$this->connection->Query($sqlsyn);
 
 		return $sql;
@@ -174,7 +177,7 @@ class SearchnewModel extends Model
 
 	public function searchbycountystatecity($gcity,$gstate)
 	{
-		//for gstate
+		//for gstate		
 		$araystate = explode(",", $gstate);
 		$array1 = array();
 		foreach ($araystate as $val) 

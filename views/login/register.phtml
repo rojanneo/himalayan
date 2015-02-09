@@ -3,11 +3,12 @@
 	<div class="wrapper signup clearfix">
 		<div class="register-choice">
 		<label></label>
-		<input type="radio" class="registration css-checkbox" name="registration-type" checked id="registration-retailer"/><label  for = "registration-retailer" class="css-label radGroup1 radGroup2">retailer</label>
-		<input type="radio" class="registration css-checkbox" name="registration-type" id="registration-consumer"/><label  for = "registration-consumer" class="css-label radGroup1 radGroup2">consumer</label>
+		<input type="radio" class="registration css-checkbox" name="registration-type" checked id="registration-consumer"/><label  for = "registration-consumer" class="css-label radGroup1 radGroup2">consumer</label>
+		<input type="radio" class="registration css-checkbox" name="registration-type" id="registration-retailer"/><label  for = "registration-retailer" class="css-label radGroup1 radGroup2">retailer</label>
+		
 
 		</div>
-		<div class="register-retailer-form">
+		<div class="register-retailer-form" style="display:none">
 			<form method = "post" action = "<?php echo URL.'login/registerPost'?>">
 				<div class="half">
 					<fieldset>
@@ -45,17 +46,17 @@
 					</fieldset>
 					<fieldset>
 					<label for ="name">zip</label>
-					<input type="text" class="input-box required text-validation" name="mzip"/>
+					<input type="text" class="input-box required zip-validation" name="mzip"/>
 					</fieldset>
 				</div>
 				<div class="half">
 					<fieldset>
 					<label for ="name">phone</label>
-					<input type="text" class="input-box required text-validation" name="mtel"/>
+					<input type="text" class="input-box required phone-validation" name="mtel"/>
 					</fieldset>
 					<fieldset>
 					<label for ="name">fax</label>
-					<input type="text" class="input-box required text-validation" name="mfax"/>
+					<input type="text" class="input-box required fax-validation" name="mfax"/>
 					</fieldset>
 					<fieldset>
 					<label for ="name">company/store</label>
@@ -70,12 +71,12 @@
 					 -->
 					 <fieldset>
 					<label for ="name">EIN(tax ID)</label>
-					<input type="text" class="input-box required text-validation" name="mein"/>
+					<input type="text" class="input-box required ein-validation" name="mein"/>
 					</fieldset>
 					<fieldset>
 					<label></label>
 					<input type="hidden" value="retailer" name="mtype"/>
-					<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG1"/><label for="checkboxG1" class="css-label radGroup1">I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">privacy policy</a> and <a href="<?php echo URL.'pages/webusage'?>">Web Usage Agreement</a></label>
+					<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG1"/><label for="checkboxG1" class="css-label radGroup1">I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">Privacy Policy</a> and <a href="<?php echo URL.'pages/webusage'?>">Web Usage Agreement</a></label>
 					</fieldset>
 					<fieldset>
 					<label></label>
@@ -89,7 +90,7 @@
 		</div>
 
 
-	<div class="register-consumer-form" style="display:none">
+	<div class="register-consumer-form">
 		<form method = "post" action = "<?php echo URL.'login/registerPost'?>">
 			<div class="half">
 				<fieldset>
@@ -129,15 +130,15 @@
 				</fieldset>
 				<fieldset>
 				<label for ="name">zip</label>
-				<input type="text" class="input-box required text-validation" name="mzip"/>
+				<input type="text" class="input-box required zip-validation" name="mzip"/>
 				</fieldset>
 				<fieldset>
 				<label for ="name">phone</label>
-				<input type="text" class="input-box required text-validation" name="mtel"/>
+				<input type="text" class="input-box required phone-validation" name="mtel"/>
 				</fieldset>
 				<fieldset>
 				<label for ="name">fax</label>
-				<input type="text" class="input-box required text-validation" name="mfax"/>
+				<input type="text" class="input-box fax-validation" name="mfax"/>
 				</fieldset>
 				<!-- <fieldset>
 				<label for ="name">Company/store</label>
@@ -153,7 +154,7 @@
 				<fieldset>
 				<label></label>
 				<input type="hidden" value="customer" name="mtype"/>
-				<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG2"/><label for="checkboxG2" class="css-label radGroup1">I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">privacy policy</a> and <a href="<?php echo URL.'pages/webusage'?>">Web Usage Agreement</a></label>
+				<input type="checkbox" class="input-box required css-checkbox" checkboxname="privacy-policy" id="checkboxG2"/><label for="checkboxG2" class="css-label radGroup1">I have read the <a href="<?php echo URL.'pages/privacypolicy'?>">Privacy Policy</a> and <a href="<?php echo URL.'pages/webusage'?>">Web Usage Agreement</a></label>
 				</fieldset>
 				<fieldset>
 				<label></label>

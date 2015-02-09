@@ -1,0 +1,6 @@
+<h1>Categories</h1>
+<ul class="category-list">
+<?php foreach($view_categories as $category):?>
+	<li><a href="<?php echo URL.'products/list/'.$category['category_id']?>"><?php echo $category['category_name']?></a></li>
+<?php endforeach;?>
+</ul>

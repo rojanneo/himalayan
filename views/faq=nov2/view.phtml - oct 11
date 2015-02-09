@@ -1,0 +1,42 @@
+<?php loadHelper('url');?>
+<?php $word_count = str_word_count($view_faq['faq_answer']);
+$word_in_a_line = 12;
+
+$lines = ceil($word_count/$word_in_a_line);
+?>
+<script type="text/javascript">
+    $('.nav ul li.contact').attr('id','contact-active');
+</script>
+<div class="wrapper">
+                <div class="faq">
+                    <div class="faqLeft">
+                        
+                            
+                                <div class="scroll">
+                                <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                                <div class="viewport" style="height:<?php echo $lines * 255?>px">
+                                <div class="overview">
+                                <h1>Frequently asked questions</h1>
+                                <h2><?php echo $view_faq['faq_question'];?></h2>
+                                <p><?php echo $view_faq['faq_answer'];?></p>
+                                <a href="<?php echo isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:URL.'faq'; ?>" class="faqback">&lt;back to FAQs</a>
+                                </div>
+                                </div>
+
+
+                            <script type="text/javascript">
+                                $(document).ready(function(){
+                                    $('.scroll').tinyscrollbar();
+                                });
+                            </script>
+                        </div>
+                    
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="faqRight">
+                <a href="<?php echo URL.'contacts?from='.CurrentURL()?>" class="btn btn-blue">Contact Us Regarding This Issue</a>
+            </div>
+
+
+   
